@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Servicios
+namespace Servicios.clases
 {
     public class Jugador
     {
