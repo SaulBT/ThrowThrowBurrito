@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ModeloDB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Amigo">
+          <Key>
+            <PropertyRef Name="idAmigo" />
+          </Key>
+          <Property Name="claveUsuarioAmigo" Type="varchar" MaxLength="10" />
+          <Property Name="idAmigo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DatosJugadorPartida">
+          <Key>
+            <PropertyRef Name="idDatosJugadorPartida" />
+          </Key>
+          <Property Name="puntaje" Type="int" />
+          <Property Name="idAspecto" Type="int" />
+          <Property Name="explusado" Type="bit" />
+          <Property Name="idDatosJugadorPartida" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Jugador">
+          <Key>
+            <PropertyRef Name="idJugador" />
+          </Key>
+          <Property Name="descripcion" Type="varchar" MaxLength="100" />
+          <Property Name="fotoPerfil" Type="varbinary(max)" />
+          <Property Name="correoElectronico" Type="varchar" MaxLength="200" />
+          <Property Name="claveUsuario" Type="nchar" MaxLength="10" />
+          <Property Name="contrasenia" Type="varchar" MaxLength="100" />
+          <Property Name="estado" Type="varchar" MaxLength="12" />
+          <Property Name="nombreUsuario" Type="varchar" MaxLength="20" />
+          <Property Name="esInvitado" Type="bit" />
+          <Property Name="idJugador" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Partida">
+          <Key>
+            <PropertyRef Name="idPartida" />
+          </Key>
+          <Property Name="estado" Type="varchar" MaxLength="10" />
+          <Property Name="fecha" Type="date" />
+          <Property Name="duracion" Type="int" />
+          <Property Name="codigoPartida" Type="varchar" MaxLength="10" />
+          <Property Name="tiempoGuerra" Type="int" />
+          <Property Name="puntajeVictoria" Type="int" />
+          <Property Name="nombreGanador" Type="varbinary" MaxLength="20" />
+          <Property Name="idPartida" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SolicitudAmigo">
+          <Key>
+            <PropertyRef Name="idSolicitudAmigo" />
+          </Key>
+          <Property Name="fecha" Type="date" />
+          <Property Name="estado" Type="varchar" MaxLength="8" />
+          <Property Name="idSolicitudAmigo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="ModeloDBStoreContainer">
+          <EntitySet Name="Amigo" EntityType="Self.Amigo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DatosJugadorPartida" EntityType="Self.DatosJugadorPartida" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Jugador" EntityType="Self.Jugador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Partida" EntityType="Self.Partida" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SolicitudAmigo" EntityType="Self.SolicitudAmigo" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ModeloDB" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModeloDBContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Amigo" EntityType="ModeloDB.Amigo" />
+          <EntitySet Name="DatosJugadorPartida" EntityType="ModeloDB.DatosJugadorPartida" />
+          <EntitySet Name="Jugador" EntityType="ModeloDB.Jugador" />
+          <EntitySet Name="Partida" EntityType="ModeloDB.Partida" />
+          <EntitySet Name="SolicitudAmigo" EntityType="ModeloDB.SolicitudAmigo" />
+        </EntityContainer>
+        <EntityType Name="Amigo">
+          <Key>
+            <PropertyRef Name="idAmigo" />
+          </Key>
+          <Property Name="claveUsuarioAmigo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="idAmigo" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DatosJugadorPartida">
+          <Key>
+            <PropertyRef Name="idDatosJugadorPartida" />
+          </Key>
+          <Property Name="puntaje" Type="Int32" />
+          <Property Name="idAspecto" Type="Int32" />
+          <Property Name="explusado" Type="Boolean" />
+          <Property Name="idDatosJugadorPartida" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Jugador">
+          <Key>
+            <PropertyRef Name="idJugador" />
+          </Key>
+          <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="fotoPerfil" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="correoElectronico" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="claveUsuario" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="contrasenia" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="nombreUsuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="esInvitado" Type="Boolean" />
+          <Property Name="idJugador" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Partida">
+          <Key>
+            <PropertyRef Name="idPartida" />
+          </Key>
+          <Property Name="estado" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="fecha" Type="DateTime" Precision="0" />
+          <Property Name="duracion" Type="Int32" />
+          <Property Name="codigoPartida" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="tiempoGuerra" Type="Int32" />
+          <Property Name="puntajeVictoria" Type="Int32" />
+          <Property Name="nombreGanador" Type="Binary" MaxLength="20" FixedLength="false" />
+          <Property Name="idPartida" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SolicitudAmigo">
+          <Key>
+            <PropertyRef Name="idSolicitudAmigo" />
+          </Key>
+          <Property Name="fecha" Type="DateTime" Precision="0" />
+          <Property Name="estado" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="idSolicitudAmigo" Type="Int32" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
+        <Alias Key="Model" Value="ModeloDB" />
+        <Alias Key="Target" Value="ModeloDB.Store" />
+        <EntityContainerMapping CdmEntityContainer="ModeloDBContainer" StorageEntityContainer="ModeloDBStoreContainer">
+          <EntitySetMapping Name="Amigo">
+            <EntityTypeMapping TypeName="ModeloDB.Amigo">
+              <MappingFragment StoreEntitySet="Amigo">
+                <ScalarProperty Name="idAmigo" ColumnName="idAmigo" />
+                <ScalarProperty Name="claveUsuarioAmigo" ColumnName="claveUsuarioAmigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DatosJugadorPartida">
+            <EntityTypeMapping TypeName="ModeloDB.DatosJugadorPartida">
+              <MappingFragment StoreEntitySet="DatosJugadorPartida">
+                <ScalarProperty Name="idDatosJugadorPartida" ColumnName="idDatosJugadorPartida" />
+                <ScalarProperty Name="explusado" ColumnName="explusado" />
+                <ScalarProperty Name="idAspecto" ColumnName="idAspecto" />
+                <ScalarProperty Name="puntaje" ColumnName="puntaje" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Jugador">
+            <EntityTypeMapping TypeName="ModeloDB.Jugador">
+              <MappingFragment StoreEntitySet="Jugador">
+                <ScalarProperty Name="idJugador" ColumnName="idJugador" />
+                <ScalarProperty Name="esInvitado" ColumnName="esInvitado" />
+                <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="contrasenia" ColumnName="contrasenia" />
+                <ScalarProperty Name="claveUsuario" ColumnName="claveUsuario" />
+                <ScalarProperty Name="correoElectronico" ColumnName="correoElectronico" />
+                <ScalarProperty Name="fotoPerfil" ColumnName="fotoPerfil" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Partida">
+            <EntityTypeMapping TypeName="ModeloDB.Partida">
+              <MappingFragment StoreEntitySet="Partida">
+                <ScalarProperty Name="idPartida" ColumnName="idPartida" />
+                <ScalarProperty Name="nombreGanador" ColumnName="nombreGanador" />
+                <ScalarProperty Name="puntajeVictoria" ColumnName="puntajeVictoria" />
+                <ScalarProperty Name="tiempoGuerra" ColumnName="tiempoGuerra" />
+                <ScalarProperty Name="codigoPartida" ColumnName="codigoPartida" />
+                <ScalarProperty Name="duracion" ColumnName="duracion" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SolicitudAmigo">
+            <EntityTypeMapping TypeName="ModeloDB.SolicitudAmigo">
+              <MappingFragment StoreEntitySet="SolicitudAmigo">
+                <ScalarProperty Name="idSolicitudAmigo" ColumnName="idSolicitudAmigo" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
