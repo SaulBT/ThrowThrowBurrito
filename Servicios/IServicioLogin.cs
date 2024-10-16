@@ -1,7 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using AccesoDatos;
+using System;
+using System.Data.Entity.Core;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,9 +10,27 @@ using System.Threading.Tasks;
 namespace Servicios
 {
     [ServiceContract]
-    internal interface IServicioLogin
+    public interface IServicioLogin
     {
         [OperationContract]
-        Dictionary<bool,object> Login(string nombreUsuario, string contrasenia);
+        [FaultContract(typeof(ExcepcionServicioLogin))]
+        Jugador Login(string nombreUsuario, string contrasenia);
+
+    }
+
+    [DataContract]
+    public class ExcepcionServicioLogin
+    {
+        private string mensaje;
+
+        public ExcepcionServicioLogin()
+        {
+        }
+
+        public string Mensaje
+        {
+            get { return mensaje; }
+            set { mensaje = value; }
+        }
     }
 }
