@@ -42,9 +42,18 @@
     <Compile Include="Clases\Amigo.cs" />
     <Compile Include="Clases\Partida.cs" />
     <Compile Include="Clases\SolicitudAmigo.cs" />
+    <Compile Include="ImplementacionLogin.cs" />
+    <Compile Include="IServicioLogin.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AccesoDatos\AccesoDatos.csproj">
+      <Project>{94E2B5FA-3F8E-4A54-9695-2F2E4FA4663D}</Project>
+      <Name>AccesoDatos</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
