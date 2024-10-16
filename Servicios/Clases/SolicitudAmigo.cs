@@ -10,7 +10,7 @@ namespace Servicios.Clases
     public class SolicitudAmigo
     {
         private DateTime fecha;
-        private string estado;
+        private String estado;
         private int idSolicitudAmigo;
 
         public SolicitudAmigo()
@@ -32,7 +32,7 @@ namespace Servicios.Clases
         }
 
         [DataMember]
-        public string Estado
+        public String Estado
         {
             get { return estado; }
             set { estado = value; }

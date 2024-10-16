@@ -18,7 +18,7 @@
           </Key>
           <Property Name="puntaje" Type="int" />
           <Property Name="idAspecto" Type="int" />
-          <Property Name="explusado" Type="bit" />
+          <Property Name="expulsado" Type="bit" />
           <Property Name="idDatosJugadorPartida" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Jugador">
@@ -45,7 +45,7 @@
           <Property Name="codigoPartida" Type="varchar" MaxLength="10" />
           <Property Name="tiempoGuerra" Type="int" />
           <Property Name="puntajeVictoria" Type="int" />
-          <Property Name="nombreGanador" Type="varbinary" MaxLength="20" />
+          <Property Name="nombreGanador" Type="varchar" MaxLength="20" />
           <Property Name="idPartida" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SolicitudAmigo">
@@ -89,6 +89,7 @@
           <Property Name="idAspecto" Type="Int32" />
           <Property Name="explusado" Type="Boolean" />
           <Property Name="idDatosJugadorPartida" Type="Int32" Nullable="false" />
+          <Property Name="expulsado" Type="Boolean" />
         </EntityType>
         <EntityType Name="Jugador">
           <Key>
@@ -144,8 +145,8 @@
           <EntitySetMapping Name="DatosJugadorPartida">
             <EntityTypeMapping TypeName="ModeloDB.DatosJugadorPartida">
               <MappingFragment StoreEntitySet="DatosJugadorPartida">
+                <ScalarProperty Name="expulsado" ColumnName="expulsado" />
                 <ScalarProperty Name="idDatosJugadorPartida" ColumnName="idDatosJugadorPartida" />
-                <ScalarProperty Name="explusado" ColumnName="explusado" />
                 <ScalarProperty Name="idAspecto" ColumnName="idAspecto" />
                 <ScalarProperty Name="puntaje" ColumnName="puntaje" />
               </MappingFragment>

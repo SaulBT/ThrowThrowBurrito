@@ -8,7 +8,7 @@
         <EntityTypeShape EntityType="ModeloDB.Amigo" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="ModeloDB.DatosJugadorPartida" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="ModeloDB.Jugador" Width="1.5" PointX="0.75" PointY="3.75" />
-        <EntityTypeShape EntityType="ModeloDB.Partida" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="ModeloDB.Partida" Width="1.5" PointX="3.375" PointY="3.75" />
         <EntityTypeShape EntityType="ModeloDB.SolicitudAmigo" Width="1.5" PointX="4.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
