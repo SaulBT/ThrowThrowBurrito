@@ -87,9 +87,8 @@
           </Key>
           <Property Name="puntaje" Type="Int32" />
           <Property Name="idAspecto" Type="Int32" />
-          <Property Name="explusado" Type="Boolean" />
-          <Property Name="idDatosJugadorPartida" Type="Int32" Nullable="false" />
           <Property Name="expulsado" Type="Boolean" />
+          <Property Name="idDatosJugadorPartida" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Jugador">
           <Key>
@@ -115,7 +114,7 @@
           <Property Name="codigoPartida" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="tiempoGuerra" Type="Int32" />
           <Property Name="puntajeVictoria" Type="Int32" />
-          <Property Name="nombreGanador" Type="Binary" MaxLength="20" FixedLength="false" />
+          <Property Name="nombreGanador" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="idPartida" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="SolicitudAmigo">
@@ -145,8 +144,8 @@
           <EntitySetMapping Name="DatosJugadorPartida">
             <EntityTypeMapping TypeName="ModeloDB.DatosJugadorPartida">
               <MappingFragment StoreEntitySet="DatosJugadorPartida">
-                <ScalarProperty Name="expulsado" ColumnName="expulsado" />
                 <ScalarProperty Name="idDatosJugadorPartida" ColumnName="idDatosJugadorPartida" />
+                <ScalarProperty Name="expulsado" ColumnName="expulsado" />
                 <ScalarProperty Name="idAspecto" ColumnName="idAspecto" />
                 <ScalarProperty Name="puntaje" ColumnName="puntaje" />
               </MappingFragment>
@@ -205,7 +204,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
