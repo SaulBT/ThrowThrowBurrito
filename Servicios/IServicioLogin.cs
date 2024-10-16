@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -11,6 +12,6 @@ namespace Servicios
     internal interface IServicioLogin
     {
         [OperationContract]
-        bool Login(string nombreUsuario, string contrasenia);
+        Dictionary<bool,object> Login(string nombreUsuario, string contrasenia);
     }
 }
