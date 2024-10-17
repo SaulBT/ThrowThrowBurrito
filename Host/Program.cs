@@ -11,10 +11,13 @@ namespace Host
     {
         static void Main(string[] args)
         {
-            using (ServiceHost hostBurrito = new ServiceHost(typeof(Servicios.ImplementacionLogin)))
+            using (ServiceHost hostBurrito = new ServiceHost(typeof(Servicios.Implementaciones.ImplementacionLogin)))
+            using (ServiceHost hostChat = new ServiceHost(typeof(Servicios.Implementaciones.ImplementacionChat)))
             {
                 hostBurrito.Open();
-                Console.WriteLine("El servidor se est[a ejecutando.");
+                hostChat.Open();
+
+                Console.WriteLine("El servidor se está ejecutando.");
                 Console.ReadLine();
             }
         }

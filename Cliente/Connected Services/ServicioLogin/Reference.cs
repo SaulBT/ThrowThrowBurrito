@@ -188,7 +188,7 @@ namespace Cliente.ServicioLogin {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="ExcepcionServicioLogin", Namespace="http://schemas.datacontract.org/2004/07/Servicios")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ExcepcionServicioLogin", Namespace="http://schemas.datacontract.org/2004/07/Servicios.Interfaces")]
     [System.SerializableAttribute()]
     public partial class ExcepcionServicioLogin : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
@@ -220,7 +220,7 @@ namespace Cliente.ServicioLogin {
     public interface IServicioLogin {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioLogin/Login", ReplyAction="http://tempuri.org/IServicioLogin/LoginResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(Cliente.ServicioLogin.ExcepcionServicioLogin), Action="http://tempuri.org/IServicioLogin/LoginExcepcionServicioLoginFault", Name="ExcepcionServicioLogin", Namespace="http://schemas.datacontract.org/2004/07/Servicios")]
+        [System.ServiceModel.FaultContractAttribute(typeof(Cliente.ServicioLogin.ExcepcionServicioLogin), Action="http://tempuri.org/IServicioLogin/LoginExcepcionServicioLoginFault", Name="ExcepcionServicioLogin", Namespace="http://schemas.datacontract.org/2004/07/Servicios.Interfaces")]
         Cliente.ServicioLogin.Jugador Login(string nombreUsuario, string contrasenia);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioLogin/Login", ReplyAction="http://tempuri.org/IServicioLogin/LoginResponse")]

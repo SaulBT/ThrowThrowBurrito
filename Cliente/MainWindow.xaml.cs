@@ -1,4 +1,5 @@
-﻿using Cliente.ServicioLogin;
+﻿using Cliente.Logica;
+using Cliente.ServicioLogin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +23,13 @@ namespace Cliente
     /// </summary>
     public partial class MainWindow : Window
     {
+        private LogicaLogin logicaLogin = new LogicaLogin();
+        private LogicaChat logicaChat;
+        private Jugador jugador;
         public MainWindow()
         {
             InitializeComponent();
+            logicaChat = new LogicaChat(this);
         }
 
         private void tbUsuario_TextChanged(object sender, TextChangedEventArgs e)
@@ -39,27 +44,54 @@ namespace Cliente
 
         private void btnIniciarSesion_Click(object sender, RoutedEventArgs e)
         {
-
-            ServicioLogin.ServicioLoginClient clienteLogin = new ServicioLogin.ServicioLoginClient();
             string nombreUsuario = tbUsuario.Text;
             string contrasenia = tbContrasenia.Text;
 
             try
             {
-                Jugador jugador = clienteLogin.Login(nombreUsuario, contrasenia);
-                if (jugador != null)
+                bool exitoLogeo = logicaLogin.IniciarSesion(nombreUsuario, contrasenia);
+                if (exitoLogeo)
                 {
-                    tbPrueba.Content = "Exito!";
-                }
-                else
+                    jugador = logicaLogin.Jugador;
+                    activarChat();
+                    lbPrueba.Content = String.Concat("¡Bienvenido ", nombreUsuario, " !");
+                    btnConectarse.IsEnabled = true;
+                } else
                 {
-                    tbPrueba.Content = "No hay jugador.";
+                    lbPrueba.Content = "No se encontró al usuario.";
                 }
             }
             catch (FaultException ex)
             {
-                tbPrueba.Content += ex.Message;
+                
             }
+        }
+
+        private void activarChat()
+        {
+            tbMensaje.IsEnabled = true;
+            btnEnviar.IsEnabled = true;
+        }
+
+        private void btnConectarse_Click(object sender, RoutedEventArgs e)
+        {
+            logicaChat.Unirse(jugador.nombreUsuario);
+        }
+
+        private void tbMensaje_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void btnEnviar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        public void actualizarChat(string mensaje)
+        {
+            string textoActual = tbcChat.Text;
+            tbcChat.Text = String.Concat(textoActual, "/n", mensaje);
         }
     }
 }

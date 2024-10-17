@@ -7,7 +7,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Servicios
+namespace Servicios.Interfaces
 {
     [ServiceContract]
     public interface IServicioLogin

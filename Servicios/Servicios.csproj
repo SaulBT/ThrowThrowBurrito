@@ -46,8 +46,10 @@
     <Compile Include="Clases\Amigo.cs" />
     <Compile Include="Clases\Partida.cs" />
     <Compile Include="Clases\SolicitudAmigo.cs" />
-    <Compile Include="ImplementacionLogin.cs" />
-    <Compile Include="IServicioLogin.cs" />
+    <Compile Include="Implementaciones\ImplementacionChat.cs" />
+    <Compile Include="Implementaciones\ImplementacionLogin.cs" />
+    <Compile Include="Interfaces\IServicioChat.cs" />
+    <Compile Include="Interfaces\IServicioLogin.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">

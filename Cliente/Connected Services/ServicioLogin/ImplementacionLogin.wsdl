@@ -32,7 +32,7 @@
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Servicios" />
+      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Servicios.Interfaces" />
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/AccesoDatos" />
     </xsd:schema>
@@ -44,7 +44,7 @@
     <wsdl:part name="parameters" element="tns:LoginResponse" />
   </wsdl:message>
   <wsdl:message name="IServicioLogin_Login_ExcepcionServicioLoginFault_FaultMessage">
-    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/Servicios" name="detail" element="q1:ExcepcionServicioLogin" />
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/Servicios.Interfaces" name="detail" element="q1:ExcepcionServicioLogin" />
   </wsdl:message>
   <wsdl:portType name="IServicioLogin">
     <wsdl:operation name="Login">
@@ -71,11 +71,11 @@
   </wsdl:binding>
   <wsdl:service name="ImplementacionLogin">
     <wsdl:port name="NetTcpBinding_IServicioLogin" binding="tns:NetTcpBinding_IServicioLogin">
-      <soap12:address location="net.tcp://localhost:8081/Servicios" />
+      <soap12:address location="net.tcp://localhost:8081/Servicios.Interfaces" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/Servicios</wsa10:Address>
+        <wsa10:Address>net.tcp://localhost:8081/Servicios.Interfaces</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2CEP8E3\Saúl</Upn>
+          <Upn>DESKTOP-DTC15CT\Usuario</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
