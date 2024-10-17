@@ -26,6 +26,7 @@ namespace Cliente
         private LogicaLogin logicaLogin = new LogicaLogin();
         private LogicaChat logicaChat;
         private Jugador jugador;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -49,12 +50,10 @@ namespace Cliente
 
             try
             {
-                bool exitoLogeo = logicaLogin.IniciarSesion(nombreUsuario, contrasenia);
-                if (exitoLogeo)
+                jugador = logicaLogin.IniciarSesion(nombreUsuario, contrasenia);
+                if (jugador != null)
                 {
-                    jugador = logicaLogin.Jugador;
-                    activarChat();
-                    lbPrueba.Content = String.Concat("¡Bienvenido ", nombreUsuario, " !");
+                    lbPrueba.Content = String.Concat("¡Bienvenido ", jugador.nombreUsuario, " !");
                     btnConectarse.IsEnabled = true;
                 } else
                 {
@@ -76,6 +75,7 @@ namespace Cliente
         private void btnConectarse_Click(object sender, RoutedEventArgs e)
         {
             logicaChat.Unirse(jugador.nombreUsuario);
+            activarChat();
         }
 
         private void tbMensaje_TextChanged(object sender, TextChangedEventArgs e)
@@ -85,13 +85,22 @@ namespace Cliente
 
         private void btnEnviar_Click(object sender, RoutedEventArgs e)
         {
-
+            string mensaje = tbMensaje.Text;
+            logicaChat.EnviarMensaje(jugador.nombreUsuario, mensaje);
         }
 
         public void actualizarChat(string mensaje)
         {
             string textoActual = tbcChat.Text;
-            tbcChat.Text = String.Concat(textoActual, "/n", mensaje);
+            if (!textoActual.Equals(""))
+            {
+                tbcChat.Text = String.Concat(textoActual, "\n", mensaje);
+            }
+            else
+            {
+                tbcChat.Text = mensaje;
+            }
+            
         }
     }
 }

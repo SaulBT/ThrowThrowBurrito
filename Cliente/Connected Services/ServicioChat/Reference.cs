@@ -15,23 +15,23 @@ namespace Cliente.ServicioChat {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicioChat.IServicioChat", CallbackContract=typeof(Cliente.ServicioChat.IServicioChatCallback))]
     public interface IServicioChat {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioChat/Unirse", ReplyAction="http://tempuri.org/IServicioChat/UnirseResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServicioChat/Unirse")]
         void Unirse(string nombreUsuario);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioChat/Unirse", ReplyAction="http://tempuri.org/IServicioChat/UnirseResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServicioChat/Unirse")]
         System.Threading.Tasks.Task UnirseAsync(string nombreUsuario);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioChat/enviarMensaje", ReplyAction="http://tempuri.org/IServicioChat/enviarMensajeResponse")]
-        void enviarMensaje(string nombreUsuario, string mensaje);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServicioChat/EnviarMensaje")]
+        void EnviarMensaje(string nombreUsuario, string mensaje);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioChat/enviarMensaje", ReplyAction="http://tempuri.org/IServicioChat/enviarMensajeResponse")]
-        System.Threading.Tasks.Task enviarMensajeAsync(string nombreUsuario, string mensaje);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServicioChat/EnviarMensaje")]
+        System.Threading.Tasks.Task EnviarMensajeAsync(string nombreUsuario, string mensaje);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IServicioChatCallback {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioChat/RecibirMensaje", ReplyAction="http://tempuri.org/IServicioChat/RecibirMensajeResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServicioChat/RecibirMensaje")]
         void RecibirMensaje(string mensajeCompleto);
     }
     
@@ -71,12 +71,12 @@ namespace Cliente.ServicioChat {
             return base.Channel.UnirseAsync(nombreUsuario);
         }
         
-        public void enviarMensaje(string nombreUsuario, string mensaje) {
-            base.Channel.enviarMensaje(nombreUsuario, mensaje);
+        public void EnviarMensaje(string nombreUsuario, string mensaje) {
+            base.Channel.EnviarMensaje(nombreUsuario, mensaje);
         }
         
-        public System.Threading.Tasks.Task enviarMensajeAsync(string nombreUsuario, string mensaje) {
-            return base.Channel.enviarMensajeAsync(nombreUsuario, mensaje);
+        public System.Threading.Tasks.Task EnviarMensajeAsync(string nombreUsuario, string mensaje) {
+            return base.Channel.EnviarMensajeAsync(nombreUsuario, mensaje);
         }
     }
 }

@@ -10,7 +10,6 @@ namespace Cliente.Logica
 {
     public class LogicaLogin
     {
-        private Jugador jugador;
         private ServicioLogin.ServicioLoginClient servicio;
 
         public LogicaLogin()
@@ -18,24 +17,11 @@ namespace Cliente.Logica
             servicio = new ServicioLoginClient();
         }
 
-        public Jugador Jugador
+        public Jugador IniciarSesion(string nombreUsuario, string contrasenia)
         {
-            get { return jugador; }
-            set { jugador = value; }
-        }
+            Jugador jugador = servicio.Login(nombreUsuario, contrasenia);
 
-
-        public bool IniciarSesion(string nombreUsuario, string contrasenia)
-        {
-            jugador = servicio.Login(nombreUsuario, contrasenia);
-
-            if (jugador != null)
-            {
-                return true;
-            } else
-            {
-                return false;
-            }
+            return jugador;
         }
     }
 }

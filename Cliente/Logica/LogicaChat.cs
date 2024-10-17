@@ -35,5 +35,10 @@ namespace Cliente.Logica
         {
             servicio.Unirse(nombreUsuario);
         }
+
+        public void EnviarMensaje(string nombreUsuario, string mensaje)
+        {
+            servicio.EnviarMensaje(nombreUsuario, mensaje);
+        }
     }
 }

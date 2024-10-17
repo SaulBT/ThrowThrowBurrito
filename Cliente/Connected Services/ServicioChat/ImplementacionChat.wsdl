@@ -38,33 +38,21 @@
   <wsdl:message name="IServicioChat_Unirse_InputMessage">
     <wsdl:part name="parameters" element="tns:Unirse" />
   </wsdl:message>
-  <wsdl:message name="IServicioChat_Unirse_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UnirseResponse" />
-  </wsdl:message>
-  <wsdl:message name="IServicioChat_enviarMensaje_InputMessage">
-    <wsdl:part name="parameters" element="tns:enviarMensaje" />
-  </wsdl:message>
-  <wsdl:message name="IServicioChat_enviarMensaje_OutputMessage">
-    <wsdl:part name="parameters" element="tns:enviarMensajeResponse" />
+  <wsdl:message name="IServicioChat_EnviarMensaje_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarMensaje" />
   </wsdl:message>
   <wsdl:message name="IServicioChat_RecibirMensaje_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:RecibirMensaje" />
   </wsdl:message>
-  <wsdl:message name="IServicioChat_RecibirMensaje_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:RecibirMensajeResponse" />
-  </wsdl:message>
   <wsdl:portType name="IServicioChat">
     <wsdl:operation name="Unirse">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioChat/Unirse" message="tns:IServicioChat_Unirse_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IServicioChat/UnirseResponse" message="tns:IServicioChat_Unirse_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="enviarMensaje">
-      <wsdl:input wsaw:Action="http://tempuri.org/IServicioChat/enviarMensaje" message="tns:IServicioChat_enviarMensaje_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IServicioChat/enviarMensajeResponse" message="tns:IServicioChat_enviarMensaje_OutputMessage" />
+    <wsdl:operation name="EnviarMensaje">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioChat/EnviarMensaje" message="tns:IServicioChat_EnviarMensaje_InputMessage" />
     </wsdl:operation>
     <wsdl:operation name="RecibirMensaje">
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioChat/RecibirMensaje" message="tns:IServicioChat_RecibirMensaje_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IServicioChat/RecibirMensajeResponse" message="tns:IServicioChat_RecibirMensaje_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IServicioChat" type="tns:IServicioChat">
@@ -75,24 +63,15 @@
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="enviarMensaje">
-      <soap12:operation soapAction="http://tempuri.org/IServicioChat/enviarMensaje" style="document" />
+    <wsdl:operation name="EnviarMensaje">
+      <soap12:operation soapAction="http://tempuri.org/IServicioChat/EnviarMensaje" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="RecibirMensaje">
       <soap12:operation soapAction="http://tempuri.org/IServicioChat/RecibirMensaje" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
@@ -104,7 +83,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8083/Servicios.Interfaces</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-DTC15CT\Usuario</Upn>
+          <Upn>DESKTOP-2CEP8E3\Saúl</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

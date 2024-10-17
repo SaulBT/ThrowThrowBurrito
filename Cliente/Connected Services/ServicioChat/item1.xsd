@@ -7,12 +7,7 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="UnirseResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="enviarMensaje">
+  <xs:element name="EnviarMensaje">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="nombreUsuario" nillable="true" type="xs:string" />
@@ -20,21 +15,11 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="enviarMensajeResponse">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
   <xs:element name="RecibirMensaje">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="mensajeCompleto" nillable="true" type="xs:string" />
       </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="RecibirMensajeResponse">
-    <xs:complexType>
-      <xs:sequence />
     </xs:complexType>
   </xs:element>
 </xs:schema>

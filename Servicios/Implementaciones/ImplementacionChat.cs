@@ -12,9 +12,9 @@ namespace Servicios.Implementaciones
     public class ImplementacionChat : IServicioChat
     {
         private static List<IServicioChatCallback> _clientes = new List<IServicioChatCallback>();
-        public void enviarMensaje(string nombreUsuario, string mensaje)
+        public void EnviarMensaje(string nombreUsuario, string mensaje)
         {
-            string mensajeCompleto = nombreUsuario + " " + "mensaje";
+            string mensajeCompleto = "<" + nombreUsuario + ">: " + mensaje;
             TransmitirMensaje(mensajeCompleto);
         }
 

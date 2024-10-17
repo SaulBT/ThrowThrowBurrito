@@ -10,17 +10,17 @@ namespace Servicios.Interfaces
     [ServiceContract(CallbackContract = typeof(IServicioChatCallback))]
     public interface IServicioChat
     {
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void Unirse(string nombreUsuario);
 
-        [OperationContract]
-        void enviarMensaje(string nombreUsuario, string mensaje);
+        [OperationContract(IsOneWay = true)]
+        void EnviarMensaje(string nombreUsuario, string mensaje);
     }
 
     [ServiceContract]
     public interface IServicioChatCallback
     {
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void RecibirMensaje(string mensajeCompleto);
     }
 }
