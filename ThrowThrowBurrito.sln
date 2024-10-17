@@ -4,10 +4,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.11.35312.102
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Host", "Host\Host.csproj", "{1FEE8641-5609-48BF-8589-DB38B18ABEF5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{84A7E02B-92DD-4CF6-9B7A-CD29EC9AC150} = {84A7E02B-92DD-4CF6-9B7A-CD29EC9AC150}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccesoDatos", "AccesoDatos\AccesoDatos.csproj", "{94E2B5FA-3F8E-4A54-9695-2F2E4FA4663D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servicios", "Servicios\Servicios.csproj", "{84A7E02B-92DD-4CF6-9B7A-CD29EC9AC150}"
+	ProjectSection(ProjectDependencies) = postProject
+		{94E2B5FA-3F8E-4A54-9695-2F2E4FA4663D} = {94E2B5FA-3F8E-4A54-9695-2F2E4FA4663D}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

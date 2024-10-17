@@ -4,10 +4,12 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Threading;
+using AccesoDatos;
 
 namespace Servicios
 {
-    public class ServicioRegistrarUsuario : IServicioRegistrarUsuario
+    public class ImplementacionRegistrarUsuario : IServicioRegistrarUsuario
     {
         public bool EnviarCodigoCorreo(string correo)
         {
@@ -15,7 +17,7 @@ namespace Servicios
              * Función que envía el código al correo ingresado
              * debería hacer una validación para que no se haga spam
              */
-            Console.WriteLine("Se envía el código al correo: ", correo);
+            Console.WriteLine("Se envía el código al correo: " + correo);
 
             return true;
         }
@@ -25,7 +27,7 @@ namespace Servicios
             /*
              * Función que guarda el usuario en la base de datos
              */
-            Console.WriteLine("añadiendo al usuario con nombre: ", usuario.NombreUsuario, " y contraseña: ", usuario.Contrasenia, "...");
+            Console.WriteLine("añadiendo al usuario con nombre: " + usuario.NombreUsuario + " y contraseña: " + usuario.Contrasenia + "...");
             
 
             return true;

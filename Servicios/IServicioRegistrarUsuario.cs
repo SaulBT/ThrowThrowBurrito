@@ -4,15 +4,20 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using AccesoDatos;
 
 namespace Servicios
 {
     [ServiceContract]
     public interface IServicioRegistrarUsuario
     {
+        [OperationContract]
         bool ValidarDatos(Usuario usuario);
+        [OperationContract]
         bool ValidarCorreo(string codigoCorreo);
+        [OperationContract]
         bool EnviarCodigoCorreo(string correo);
+        [OperationContract]
         bool RegistrarUsuario(Usuario usuario);
     }
 
