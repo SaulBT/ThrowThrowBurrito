@@ -37,18 +37,12 @@ namespace Cliente
                 Correo = tbCorreo.Text,
             };
 
-            //TODO: HACER LA MADRE DEL CALLBACK PQ SINO RESPONDE EL SERVER EL CLIENTE MUERE
+            //TODO: HACER LO DEL CALLBACK PQ SINO RESPONDE EL SERVER EL CLIENTE MUERE
 
             if (Proxy.ValidarDatos(usuario))
             {
-                Proxy.EnviarCodigoCorreo(usuario.Correo);
-                if (Proxy.ValidarCorreo("Aca va el texto del textbox del codigo"))
-                {
-                    Proxy.RegistrarUsuario(usuario);
-                } else
-                {
-                    //EN CASO DE NO SER EL MISMO CODIGO
-                }
+                VentanaValidarCorreo ventanaValidarCorreo = new VentanaValidarCorreo(Proxy.EnviarCodigoCorreo(usuario.Correo), usuario);
+                ventanaValidarCorreo.Show();
             } else
             {
                 //en caso de datos con formato incorrecto

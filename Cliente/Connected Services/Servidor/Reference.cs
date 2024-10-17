@@ -107,10 +107,10 @@ namespace Cliente.Servidor {
         System.Threading.Tasks.Task<bool> ValidarCorreoAsync(string codigoCorreo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRegistrarUsuario/EnviarCodigoCorreo", ReplyAction="http://tempuri.org/IServicioRegistrarUsuario/EnviarCodigoCorreoResponse")]
-        bool EnviarCodigoCorreo(string correo);
+        string EnviarCodigoCorreo(string correo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRegistrarUsuario/EnviarCodigoCorreo", ReplyAction="http://tempuri.org/IServicioRegistrarUsuario/EnviarCodigoCorreoResponse")]
-        System.Threading.Tasks.Task<bool> EnviarCodigoCorreoAsync(string correo);
+        System.Threading.Tasks.Task<string> EnviarCodigoCorreoAsync(string correo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRegistrarUsuario/RegistrarUsuario", ReplyAction="http://tempuri.org/IServicioRegistrarUsuario/RegistrarUsuarioResponse")]
         bool RegistrarUsuario(Cliente.Servidor.Usuario usuario);
@@ -162,11 +162,11 @@ namespace Cliente.Servidor {
             return base.Channel.ValidarCorreoAsync(codigoCorreo);
         }
         
-        public bool EnviarCodigoCorreo(string correo) {
+        public string EnviarCodigoCorreo(string correo) {
             return base.Channel.EnviarCodigoCorreo(correo);
         }
         
-        public System.Threading.Tasks.Task<bool> EnviarCodigoCorreoAsync(string correo) {
+        public System.Threading.Tasks.Task<string> EnviarCodigoCorreoAsync(string correo) {
             return base.Channel.EnviarCodigoCorreoAsync(correo);
         }
         

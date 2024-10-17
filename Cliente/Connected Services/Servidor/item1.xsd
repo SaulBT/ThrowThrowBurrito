@@ -39,7 +39,7 @@
   <xs:element name="EnviarCodigoCorreoResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="EnviarCodigoCorreoResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="EnviarCodigoCorreoResult" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

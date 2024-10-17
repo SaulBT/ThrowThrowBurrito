@@ -65,6 +65,9 @@
     <Compile Include="VentanaRegistroUsuario.xaml.cs">
       <DependentUpon>VentanaRegistroUsuario.xaml</DependentUpon>
     </Compile>
+    <Compile Include="VentanaValidarCorreo.xaml.cs">
+      <DependentUpon>VentanaValidarCorreo.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -78,6 +81,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="VentanaRegistroUsuario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="VentanaValidarCorreo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -14,9 +14,7 @@ namespace Servicios
         [OperationContract]
         bool ValidarDatos(Usuario usuario);
         [OperationContract]
-        bool ValidarCorreo(string codigoCorreo);
-        [OperationContract]
-        bool EnviarCodigoCorreo(string correo);
+        string EnviarCodigoCorreo(string correo);
         [OperationContract]
         bool RegistrarUsuario(Usuario usuario);
     }
