@@ -1,4 +1,4 @@
-﻿using Cliente.Servidor;
+﻿using Cliente.ServicioRegistrarUsuario;
 using System;
 using System.Collections.Generic;
 using System.Linq;

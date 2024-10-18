@@ -12,9 +12,12 @@ namespace Host
         static void Main(string[] args)
         {
 
-            using (ServiceHost host = new ServiceHost(typeof(Servicios.ImplementacionRegistrarUsuario)))
+            using (ServiceHost hostRegistrarUsuario = new ServiceHost(typeof(Servicios.ImplementacionRegistrarUsuario)))
+            using (ServiceHost hostPersonalizarPerfil = new ServiceHost(typeof(Servicios.ImplementacionPersonalizarPerfil)))
             {
-                host.Open();
+                hostRegistrarUsuario.Open();
+                hostPersonalizarPerfil.Open();
+
                 Console.WriteLine("Servidor en ejecución...");
                 Console.ReadLine();
             }

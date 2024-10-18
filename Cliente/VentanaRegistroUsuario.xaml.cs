@@ -26,12 +26,12 @@ namespace Cliente
 
         private void btnSiguiente_Click(object sender, RoutedEventArgs e)
         {
-            Servidor.ServicioRegistrarUsuarioClient Proxy = new Servidor.ServicioRegistrarUsuarioClient();
+            ServicioRegistrarUsuario.ServicioRegistrarUsuarioClient Proxy = new ServicioRegistrarUsuario.ServicioRegistrarUsuarioClient();
 
             //TODO: HACER VALIDACION DE QUE NO SEAN NULL
             if (!string.IsNullOrEmpty(tbNombreUsuario.Text) && !string.IsNullOrEmpty(tbContrasenia.Text) && !string.IsNullOrEmpty(tbCorreo.Text))
             {
-                Servidor.Usuario usuario = new Servidor.Usuario()
+                ServicioRegistrarUsuario.Usuario usuario = new ServicioRegistrarUsuario.Usuario()
                 {
                     NombreUsuario = tbNombreUsuario.Text,
                     Contrasenia = tbContrasenia.Text,

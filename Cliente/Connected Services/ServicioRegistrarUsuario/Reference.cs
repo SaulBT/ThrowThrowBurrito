@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Cliente.Servidor {
+namespace Cliente.ServicioRegistrarUsuario {
     using System.Runtime.Serialization;
     using System;
     
@@ -91,20 +91,14 @@ namespace Cliente.Servidor {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Servidor.IServicioRegistrarUsuario")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicioRegistrarUsuario.IServicioRegistrarUsuario")]
     public interface IServicioRegistrarUsuario {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarDatos", ReplyAction="http://tempuri.org/IServicioRegistrarUsuario/ValidarDatosResponse")]
-        bool ValidarDatos(Cliente.Servidor.Usuario usuario);
+        bool ValidarDatos(Cliente.ServicioRegistrarUsuario.Usuario usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarDatos", ReplyAction="http://tempuri.org/IServicioRegistrarUsuario/ValidarDatosResponse")]
-        System.Threading.Tasks.Task<bool> ValidarDatosAsync(Cliente.Servidor.Usuario usuario);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarCorreo", ReplyAction="http://tempuri.org/IServicioRegistrarUsuario/ValidarCorreoResponse")]
-        bool ValidarCorreo(string codigoCorreo);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarCorreo", ReplyAction="http://tempuri.org/IServicioRegistrarUsuario/ValidarCorreoResponse")]
-        System.Threading.Tasks.Task<bool> ValidarCorreoAsync(string codigoCorreo);
+        System.Threading.Tasks.Task<bool> ValidarDatosAsync(Cliente.ServicioRegistrarUsuario.Usuario usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRegistrarUsuario/EnviarCodigoCorreo", ReplyAction="http://tempuri.org/IServicioRegistrarUsuario/EnviarCodigoCorreoResponse")]
         string EnviarCodigoCorreo(string correo);
@@ -113,19 +107,19 @@ namespace Cliente.Servidor {
         System.Threading.Tasks.Task<string> EnviarCodigoCorreoAsync(string correo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRegistrarUsuario/RegistrarUsuario", ReplyAction="http://tempuri.org/IServicioRegistrarUsuario/RegistrarUsuarioResponse")]
-        bool RegistrarUsuario(Cliente.Servidor.Usuario usuario);
+        bool RegistrarUsuario(Cliente.ServicioRegistrarUsuario.Usuario usuario);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRegistrarUsuario/RegistrarUsuario", ReplyAction="http://tempuri.org/IServicioRegistrarUsuario/RegistrarUsuarioResponse")]
-        System.Threading.Tasks.Task<bool> RegistrarUsuarioAsync(Cliente.Servidor.Usuario usuario);
+        System.Threading.Tasks.Task<bool> RegistrarUsuarioAsync(Cliente.ServicioRegistrarUsuario.Usuario usuario);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IServicioRegistrarUsuarioChannel : Cliente.Servidor.IServicioRegistrarUsuario, System.ServiceModel.IClientChannel {
+    public interface IServicioRegistrarUsuarioChannel : Cliente.ServicioRegistrarUsuario.IServicioRegistrarUsuario, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ServicioRegistrarUsuarioClient : System.ServiceModel.ClientBase<Cliente.Servidor.IServicioRegistrarUsuario>, Cliente.Servidor.IServicioRegistrarUsuario {
+    public partial class ServicioRegistrarUsuarioClient : System.ServiceModel.ClientBase<Cliente.ServicioRegistrarUsuario.IServicioRegistrarUsuario>, Cliente.ServicioRegistrarUsuario.IServicioRegistrarUsuario {
         
         public ServicioRegistrarUsuarioClient() {
         }
@@ -146,20 +140,12 @@ namespace Cliente.Servidor {
                 base(binding, remoteAddress) {
         }
         
-        public bool ValidarDatos(Cliente.Servidor.Usuario usuario) {
+        public bool ValidarDatos(Cliente.ServicioRegistrarUsuario.Usuario usuario) {
             return base.Channel.ValidarDatos(usuario);
         }
         
-        public System.Threading.Tasks.Task<bool> ValidarDatosAsync(Cliente.Servidor.Usuario usuario) {
+        public System.Threading.Tasks.Task<bool> ValidarDatosAsync(Cliente.ServicioRegistrarUsuario.Usuario usuario) {
             return base.Channel.ValidarDatosAsync(usuario);
-        }
-        
-        public bool ValidarCorreo(string codigoCorreo) {
-            return base.Channel.ValidarCorreo(codigoCorreo);
-        }
-        
-        public System.Threading.Tasks.Task<bool> ValidarCorreoAsync(string codigoCorreo) {
-            return base.Channel.ValidarCorreoAsync(codigoCorreo);
         }
         
         public string EnviarCodigoCorreo(string correo) {
@@ -170,11 +156,11 @@ namespace Cliente.Servidor {
             return base.Channel.EnviarCodigoCorreoAsync(correo);
         }
         
-        public bool RegistrarUsuario(Cliente.Servidor.Usuario usuario) {
+        public bool RegistrarUsuario(Cliente.ServicioRegistrarUsuario.Usuario usuario) {
             return base.Channel.RegistrarUsuario(usuario);
         }
         
-        public System.Threading.Tasks.Task<bool> RegistrarUsuarioAsync(Cliente.Servidor.Usuario usuario) {
+        public System.Threading.Tasks.Task<bool> RegistrarUsuarioAsync(Cliente.ServicioRegistrarUsuario.Usuario usuario) {
             return base.Channel.RegistrarUsuarioAsync(usuario);
         }
     }

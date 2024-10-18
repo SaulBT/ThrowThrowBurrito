@@ -57,7 +57,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Connected Services\Servidor\Reference.cs">
+    <Compile Include="Connected Services\ServicioPersonalizarPerfil\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\ServicioRegistrarUsuario\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -114,14 +119,24 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Connected Services\Servidor\ImplementacionRegistrarUsuario.wsdl" />
-    <None Include="Connected Services\Servidor\item.xsd">
+    <None Include="Connected Services\ServicioPersonalizarPerfil\ImplementacionPersonalizarPerfil.wsdl" />
+    <None Include="Connected Services\ServicioPersonalizarPerfil\item.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\Servidor\item1.xsd">
+    <None Include="Connected Services\ServicioPersonalizarPerfil\item1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\Servidor\item2.xsd">
+    <None Include="Connected Services\ServicioPersonalizarPerfil\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServicioRegistrarUsuario\ImplementacionRegistrarUsuario.wsdl" />
+    <None Include="Connected Services\ServicioRegistrarUsuario\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServicioRegistrarUsuario\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServicioRegistrarUsuario\item2.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">
@@ -136,19 +151,35 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\Servidor\" />
+    <WCFMetadataStorage Include="Connected Services\ServicioPersonalizarPerfil\" />
+    <WCFMetadataStorage Include="Connected Services\ServicioRegistrarUsuario\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\Servidor\item.disco" />
+    <None Include="Connected Services\ServicioRegistrarUsuario\item.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\Servidor\configuration91.svcinfo" />
+    <None Include="Connected Services\ServicioRegistrarUsuario\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\Servidor\configuration.svcinfo" />
+    <None Include="Connected Services\ServicioRegistrarUsuario\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\Servidor\Reference.svcmap">
+    <None Include="Connected Services\ServicioRegistrarUsuario\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServicioPersonalizarPerfil\item.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServicioPersonalizarPerfil\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServicioPersonalizarPerfil\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\ServicioPersonalizarPerfil\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

@@ -120,7 +120,7 @@ namespace Servicios
              * Función que valida si los datos nombre de usuario, contrasenia
              * correo cumplen el formato y si el correo existe
              */
-            if (NombreCumpleFormato(usuario.NombreUsuario) && ContraseniaCumpleFormato(usuario.Contrasenia) && CorreoExiste(usuario.Correo)) {
+            if (NombreEsValido(usuario.NombreUsuario) && ContraseniaEsValida(usuario.Contrasenia) && CorreoEsValido(usuario.Correo)) {
                 Console.WriteLine("Todos los datos son validos");
                 return true;
             } else
@@ -132,7 +132,7 @@ namespace Servicios
 
         //Métodos no pertenecientes a la interfaz:
 
-        public bool CorreoExiste(string correo)
+        public bool CorreoEsValido(string correo)
         {
             try
             {
@@ -155,7 +155,7 @@ namespace Servicios
             }
         }
 
-        public bool NombreCumpleFormato(string nombre)
+        public bool NombreEsValido(string nombre)
         {
             if ((nombre.Length >= 3) && (nombre.Length <= 20))
             {
@@ -177,7 +177,7 @@ namespace Servicios
             }
         }
 
-        public bool ContraseniaCumpleFormato(string contrasenia)
+        public bool ContraseniaEsValida(string contrasenia)
         {
             if ((contrasenia.Length >= 8) && (contrasenia.Length <= 100))
             {

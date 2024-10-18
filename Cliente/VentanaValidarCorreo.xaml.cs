@@ -1,4 +1,4 @@
-﻿using Cliente.Servidor;
+﻿using Cliente.ServicioRegistrarUsuario;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,14 +34,14 @@ namespace Cliente
 
         private void btnReenviar_Click(object sender, RoutedEventArgs e)
         {
-            Servidor.IServicioRegistrarUsuario Proxy = new ServicioRegistrarUsuarioClient();
+            ServicioRegistrarUsuario.IServicioRegistrarUsuario Proxy = new ServicioRegistrarUsuarioClient();
 
             this.codigo = Proxy.EnviarCodigoCorreo(usuario.Correo);
         }
 
         private void btnConfirmar_Click(object sender, RoutedEventArgs e)
         {
-            Servidor.IServicioRegistrarUsuario Proxy = new ServicioRegistrarUsuarioClient();
+            ServicioRegistrarUsuario.IServicioRegistrarUsuario Proxy = new ServicioRegistrarUsuarioClient();
             if (tbCodigo.Text.Equals(this.codigo))
             {
                 Proxy.RegistrarUsuario(this.usuario);

@@ -33,7 +33,11 @@ namespace Cliente
 
         private void btnConfirmar_Click(object sender, RoutedEventArgs e)
         {
-
+            
+            /*
+            Servidor.ServicioRegistrarUsuarioClient
+            Servidor.ServicioRegistrarUsuarioClient Proxy = new Servidor.ServicioRegistrarUsuarioClient();
+            */
         }
 
         private void btnSubirFoto_Click(object sender, RoutedEventArgs e)
