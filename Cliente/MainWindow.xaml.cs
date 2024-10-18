@@ -1,4 +1,5 @@
-﻿using Cliente.ServicioRegistrarUsuario;
+﻿using Cliente.ServicioPersonalizarPerfil;
+using Cliente.ServicioRegistrarUsuario;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,8 @@ namespace Cliente
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        const string claveUsuario = "FJ7PV3RHTO";
         public MainWindow()
         {
             InitializeComponent();
@@ -35,7 +38,9 @@ namespace Cliente
 
         private void btnPersonalizarPerfil_Click(object sender, RoutedEventArgs e)
         {
-            VentanaPersonalizarPerfil ventanaPersonalizarPerfil = new VentanaPersonalizarPerfil();
+            
+
+            VentanaPersonalizarPerfil ventanaPersonalizarPerfil = new VentanaPersonalizarPerfil(claveUsuario);
             ventanaPersonalizarPerfil.Show();
             this.Close();
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cliente.ServicioPersonalizarPerfil;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,8 +20,14 @@ namespace Cliente
     /// </summary>
     public partial class VentanaPersonalizarPerfil : Window
     {
-        public VentanaPersonalizarPerfil()
+        private string claveUsuario = null;
+        public VentanaPersonalizarPerfil(string claveUsuario)
         {
+            ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient Proxy = new ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient();
+            Perfil perfil = Proxy.ObtenerPerfil(claveUsuario);
+            tbDescripcion.Text = perfil.Descripcion;
+            tbNombreUsuario.Text = perfil.NombreUsuario;
+            this.claveUsuario = claveUsuario;
             InitializeComponent();
         }
 
@@ -33,7 +40,19 @@ namespace Cliente
 
         private void btnConfirmar_Click(object sender, RoutedEventArgs e)
         {
-            
+            ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient Proxy = new ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient();
+            if (!string.IsNullOrEmpty(tbNombreUsuario.Text))
+            {
+                if (Proxy.GuardarCambios(Proxy.ObtenerPerfil(claveUsuario), claveUsuario))
+                {
+                    Console.WriteLine("Cambios guardados con éxito");
+                } else
+                {
+                    Console.WriteLine("no se puedo guardar el cambio");
+
+                }
+
+            }
             /*
             Servidor.ServicioRegistrarUsuarioClient
             Servidor.ServicioRegistrarUsuarioClient Proxy = new Servidor.ServicioRegistrarUsuarioClient();

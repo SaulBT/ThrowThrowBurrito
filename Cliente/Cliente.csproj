@@ -119,6 +119,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Connected Services\ServicioPersonalizarPerfil\Cliente.ServicioPersonalizarPerfil.Perfil.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\ServicioPersonalizarPerfil\ImplementacionPersonalizarPerfil.wsdl" />
     <None Include="Connected Services\ServicioPersonalizarPerfil\item.xsd">
       <SubType>Designer</SubType>

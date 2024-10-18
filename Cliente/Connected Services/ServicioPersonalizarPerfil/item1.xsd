@@ -16,4 +16,18 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ObtenerPerfil">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="claveUsuario" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerPerfilResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Servicios" minOccurs="0" name="ObtenerPerfilResult" nillable="true" type="q2:Perfil" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

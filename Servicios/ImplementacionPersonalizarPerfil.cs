@@ -34,8 +34,28 @@ namespace Servicios
             {
                 return false;
             }
-            
+        }
 
+        public Perfil ObtenerPerfil(string claveUsuario)
+        {
+            using (var contexto = new ModeloDBContainer())
+            {
+                var jugador = contexto.Jugador
+                    .Where(j => j.claveUsuario == claveUsuario)
+                    .Select(j => new { j.nombreUsuario, j.descripcion, j.fotoPerfil })
+                    .FirstOrDefault();
+                if (jugador != null)
+                {
+                    Perfil perfil = new Perfil()
+                    {
+                        NombreUsuario = jugador.nombreUsuario,
+                        Foto = jugador.fotoPerfil,
+                        Descripcion = jugador.descripcion
+                    };
+                    return perfil;
+                }
+            }
+            return null;
         }
 
         //Métodos no pertenecientes a la interfaz
@@ -86,5 +106,6 @@ namespace Servicios
             }
             
         }
+
     }
 }
