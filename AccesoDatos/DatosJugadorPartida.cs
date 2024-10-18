@@ -16,7 +16,6 @@ namespace AccesoDatos
     {
         public Nullable<int> puntaje { get; set; }
         public Nullable<int> idAspecto { get; set; }
-        public Nullable<bool> explusado { get; set; }
         public int idDatosJugadorPartida { get; set; }
         public Nullable<bool> expulsado { get; set; }
     }

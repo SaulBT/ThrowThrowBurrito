@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.Entity.Core.EntityClient;
+using System.Data.Entity.Core.Objects.DataClasses;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -13,6 +17,7 @@ namespace Servicios
     public class ImplementacionRegistrarUsuario : IServicioRegistrarUsuario
     {
         const int longitudCodigo = 6;
+        const int longitudClaveJugador = 10;
         public string EnviarCodigoCorreo(string correo)
         {
             /*
@@ -29,11 +34,38 @@ namespace Servicios
 
         public bool RegistrarUsuario(Usuario usuario)
         {
-            /*
-             * Función que guarda el usuario en la base de datos
-             */
             Console.WriteLine("añadiendo al usuario con nombre: " + usuario.NombreUsuario + " y contraseña: " + usuario.Contrasenia + "...");
-            
+            try
+            {
+                Console.WriteLine("\nCheckPoint 1\n");
+                
+                using (var contexto = new ModeloDBContainer())
+                {
+                    Console.WriteLine("\nCheckPoint 2\n");
+                    contexto.Database.Log = Console.WriteLine;
+                    Console.WriteLine("\nCheckPoint 3\n");
+                    var jugador = new Jugador
+                    {
+                        nombreUsuario = usuario.NombreUsuario,
+                        contrasenia = usuario.Contrasenia,
+                        correoElectronico = usuario.Correo,
+                        claveUsuario = GenerarCodigo(longitudClaveJugador),
+                        descripcion = null,
+                        fotoPerfil = null,
+                        estado = null,
+                        esInvitado = false
+                    };
+                    Console.WriteLine("\nCheckPoint 4\n");
+
+                    contexto.Jugador.Add(jugador);
+                    Console.WriteLine("\nCheckPoint 5\n");
+                    contexto.SaveChanges();
+                }
+            }
+            catch (SqlException ex)
+            {
+                Console.WriteLine("Error de sql: " + ex.ToString());
+            }
 
             return true;
 
@@ -80,6 +112,7 @@ namespace Servicios
                 return false;
             }
         }
+
         public bool NombreCumpleFormato(string nombre)
         {
             if ((nombre.Length >= 3) && (nombre.Length <= 20))

@@ -29,26 +29,30 @@ namespace Cliente
             Servidor.ServicioRegistrarUsuarioClient Proxy = new Servidor.ServicioRegistrarUsuarioClient();
 
             //TODO: HACER VALIDACION DE QUE NO SEAN NULL
-
-            Servidor.Usuario usuario = new Servidor.Usuario()
+            if (!string.IsNullOrEmpty(tbNombreUsuario.Text) && !string.IsNullOrEmpty(tbContrasenia.Text) && !string.IsNullOrEmpty(tbCorreo.Text))
             {
-                NombreUsuario = tbNombreUsuario.Text,
-                Contrasenia = tbContrasenia.Text,
-                Correo = tbCorreo.Text,
-            };
-
-            //TODO: HACER LO DEL CALLBACK PQ SINO RESPONDE EL SERVER EL CLIENTE MUERE
-
-            if (Proxy.ValidarDatos(usuario))
-            {
-                VentanaValidarCorreo ventanaValidarCorreo = new VentanaValidarCorreo(Proxy.EnviarCodigoCorreo(usuario.Correo), usuario);
-                ventanaValidarCorreo.Show();
+                Servidor.Usuario usuario = new Servidor.Usuario()
+                {
+                    NombreUsuario = tbNombreUsuario.Text,
+                    Contrasenia = tbContrasenia.Text,
+                    Correo = tbCorreo.Text,
+                };
+                if (Proxy.ValidarDatos(usuario))
+                {
+                    VentanaValidarCorreo ventanaValidarCorreo = new VentanaValidarCorreo(Proxy.EnviarCodigoCorreo(usuario.Correo), usuario);
+                    ventanaValidarCorreo.Show();
+                    this.Close();
+                }
+                else
+                {
+                    Console.WriteLine("Formato incorrecto de datos");
+                    return;
+                }
             } else
             {
-                //en caso de datos con formato incorrecto
+                Console.WriteLine("Campos vacíos");
+                return;
             }
-
-
         }
 
         private void btnCancelar_Click(object sender, RoutedEventArgs e)

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Proxies;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -33,22 +34,31 @@ namespace Cliente
 
         private void btnReenviar_Click(object sender, RoutedEventArgs e)
         {
-            Servidor.ServicioRegistrarUsuarioClient Proxy = new Servidor.ServicioRegistrarUsuarioClient();
+            Servidor.IServicioRegistrarUsuario Proxy = new ServicioRegistrarUsuarioClient();
 
             this.codigo = Proxy.EnviarCodigoCorreo(usuario.Correo);
         }
 
         private void btnConfirmar_Click(object sender, RoutedEventArgs e)
         {
-            Servidor.ServicioRegistrarUsuarioClient Proxy = new Servidor.ServicioRegistrarUsuarioClient();
+            Servidor.IServicioRegistrarUsuario Proxy = new ServicioRegistrarUsuarioClient();
             if (tbCodigo.Text.Equals(this.codigo))
             {
                 Proxy.RegistrarUsuario(this.usuario);
                 Console.WriteLine("EL CODIGO SÍ CONINCIDEEE");
+                
             } else
             {
                 Console.WriteLine("El codigo ingresado no coincide con el enviado al correo");
             }
+        }
+
+        private void btnVolver_Click(object sender, RoutedEventArgs e)
+        {
+            Servidor.ServicioRegistrarUsuarioClient Proxy = new Servidor.ServicioRegistrarUsuarioClient();
+            VentanaRegistroUsuario ventanaRegistroUsuario = new VentanaRegistroUsuario();
+            ventanaRegistroUsuario.Show();
+            this.Close();
         }
     }
 }

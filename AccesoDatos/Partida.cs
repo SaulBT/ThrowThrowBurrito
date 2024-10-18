@@ -20,7 +20,7 @@ namespace AccesoDatos
         public string codigoPartida { get; set; }
         public Nullable<int> tiempoGuerra { get; set; }
         public Nullable<int> puntajeVictoria { get; set; }
-        public byte[] nombreGanador { get; set; }
+        public string nombreGanador { get; set; }
         public int idPartida { get; set; }
     }
 }
