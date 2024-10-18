@@ -28,9 +28,12 @@ namespace Servicios.Implementaciones
             }
             catch (EntityException ex)
             {
-                ExcepcionServicioLogin excepcionLogin = new ExcepcionServicioLogin();
-                excepcionLogin.Mensaje = "Error: \n" + ex.Message;
-                throw new FaultException<ExcepcionServicioLogin>(excepcionLogin);
+                ExcepcionServicioLogin excepcionLogin = new ExcepcionServicioLogin
+                {
+                    Mensaje = "Error: " + ex.Message
+                };
+
+                throw new FaultException<ExcepcionServicioLogin>(excepcionLogin, new FaultReason(excepcionLogin.Mensaje));
             }
 
             return jugador;
