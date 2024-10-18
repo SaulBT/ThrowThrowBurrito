@@ -192,5 +192,6 @@
   <ItemGroup>
     <Resource Include="Imagenes\ventanaEmergente.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cliente.ServicioLogin;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,55 @@ namespace Cliente.Ventanas
     /// </summary>
     public partial class MenuPrincipal : Page
     {
+        private Jugador jugador;
+
         public MenuPrincipal()
         {
             InitializeComponent();
+            this.Loaded += MenuPrincipal_Loaded;
+        }
+
+        private void MenuPrincipal_Loaded(object sender, RoutedEventArgs e)
+        {
+            NavigationService navigationService = NavigationService.GetNavigationService(this);
+            if (navigationService != null)
+            {
+                navigationService.LoadCompleted += NavigationService_LoadCompleted;
+
+            }
+        }
+
+        private void NavigationService_LoadCompleted(object sender, NavigationEventArgs e)
+        {
+            if (e.ExtraData is Jugador jugador)
+            {
+                this.jugador = e.ExtraData as Jugador;
+            }
+        }
+
+        private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("Ventanas/Login.xaml", UriKind.Relative));
+        }
+
+        private void btnCrearPartida_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void btnUnirsePartida_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnConfiguraciones_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnVerPerfil_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

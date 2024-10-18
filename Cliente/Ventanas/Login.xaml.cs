@@ -80,9 +80,7 @@ namespace Cliente.Ventanas
 
         private void irAMenu(Jugador jugador)
         {
-            //mostrarAlerta("Jugador encontrado: " + jugador.nombreUsuario);
-
-            NavigationService.Navigate(new Uri("Ventanas/MenuPrincipal.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("Ventanas/MenuPrincipal.xaml", UriKind.Relative), jugador);
         }
 
         private void mostrarAlerta(string mensaje)
@@ -112,6 +110,7 @@ namespace Cliente.Ventanas
         private void btnCrearCuenta_Click(object sender, RoutedEventArgs e)
         {
             mostrarAlerta("¡Vaya! Parece que esta página aún no está terminada.");
+            //Aqui va lo de Pablo
         }
 
         private void btnSalir_Click(object sender, RoutedEventArgs e)
