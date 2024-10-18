@@ -12,6 +12,9 @@
         <Button x:Name="btnConfirmar" Content="Confirmar" HorizontalAlignment="Left" Margin="189,371,0,0" VerticalAlignment="Top" Click="btnConfirmar_Click"/>
         <Button x:Name="btnCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="575,371,0,0" VerticalAlignment="Top" Click="btnCancelar_Click"/>
         <Button x:Name="btnSubirFoto" Content="Subir Foto de Perfil" HorizontalAlignment="Left" Margin="165,267,0,0" VerticalAlignment="Top" Click="btnSubirFoto_Click"/>
+        <Rectangle HorizontalAlignment="Left" Height="150" Margin="142,97,0,0" Stroke="Black" VerticalAlignment="Top" Width="150" Fill="Gray"/>
+        <Image x:Name="imgFotoPerfil" HorizontalAlignment="Left" Height="150" Margin="142,97,0,0" VerticalAlignment="Top" Width="150"
+               Stretch="Fill" StretchDirection="Both"/>
 
     </Grid>
 </Window>

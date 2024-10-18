@@ -79,13 +79,9 @@ namespace Servicios
             Console.WriteLine("añadiendo al usuario con nombre: " + usuario.NombreUsuario + " y contraseña: " + usuario.Contrasenia + "...");
             try
             {
-                Console.WriteLine("\nCheckPoint 1\n");
-                
                 using (var contexto = new ModeloDBContainer())
                 {
-                    Console.WriteLine("\nCheckPoint 2\n");
                     contexto.Database.Log = Console.WriteLine;
-                    Console.WriteLine("\nCheckPoint 3\n");
                     var jugador = new Jugador
                     {
                         nombreUsuario = usuario.NombreUsuario,
@@ -97,10 +93,7 @@ namespace Servicios
                         estado = null,
                         esInvitado = false
                     };
-                    Console.WriteLine("\nCheckPoint 4\n");
-
                     contexto.Jugador.Add(jugador);
-                    Console.WriteLine("\nCheckPoint 5\n");
                     contexto.SaveChanges();
                 }
             }

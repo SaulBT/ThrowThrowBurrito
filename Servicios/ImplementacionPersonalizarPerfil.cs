@@ -2,6 +2,7 @@
 using Servicios.clases;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,12 +18,15 @@ namespace Servicios
             {
                 using (var contexto = new ModeloDBContainer())
                 {
+                    contexto.Database.Log = Console.WriteLine;
                     var jugador = contexto.Jugador.FirstOrDefault(c => c.claveUsuario == claveUsuario);
                     if (jugador != null)
                     {
                         jugador.nombreUsuario = perfil.NombreUsuario;
                         jugador.descripcion = perfil.Descripcion;
                         jugador.fotoPerfil = perfil.Foto;
+
+                        contexto.Entry(jugador).State = EntityState.Modified;
                         contexto.SaveChanges();
                         return true;
                     } else
@@ -52,6 +56,7 @@ namespace Servicios
                         Foto = jugador.fotoPerfil,
                         Descripcion = jugador.descripcion
                     };
+                    Console.WriteLine("Datos del perfil creado: " + perfil.NombreUsuario + " y " + perfil.Descripcion);
                     return perfil;
                 }
             }
@@ -85,6 +90,11 @@ namespace Servicios
         public bool FotoEsValida(byte[] foto)
         {
             const int mb = 1024 * 1024;
+            if (foto == null)
+            {
+                return true;
+            }
+
             if (foto.Length < 5 * mb)
             {
                 return true;
@@ -97,6 +107,11 @@ namespace Servicios
 
         public bool DescripcionEsValida(string descripcion)
         {
+            if (descripcion == null)
+            {
+                return true;
+            }
+
             if (descripcion.Length < 200)
             {
                 return true;
