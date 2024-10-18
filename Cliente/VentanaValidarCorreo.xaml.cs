@@ -55,7 +55,6 @@ namespace Cliente
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
-            Servidor.ServicioRegistrarUsuarioClient Proxy = new Servidor.ServicioRegistrarUsuarioClient();
             VentanaRegistroUsuario ventanaRegistroUsuario = new VentanaRegistroUsuario();
             ventanaRegistroUsuario.Show();
             this.Close();

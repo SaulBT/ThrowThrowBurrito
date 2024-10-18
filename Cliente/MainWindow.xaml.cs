@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cliente.Servidor;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,20 @@ namespace Cliente
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void btnRegistrarse_Click(object sender, RoutedEventArgs e)
+        {
+            VentanaRegistroUsuario ventanaRegistroUsuario = new VentanaRegistroUsuario();
+            ventanaRegistroUsuario.Show();
+            this.Close();
+        }
+
+        private void btnPersonalizarPerfil_Click(object sender, RoutedEventArgs e)
+        {
+            VentanaPersonalizarPerfil ventanaPersonalizarPerfil = new VentanaPersonalizarPerfil();
+            ventanaPersonalizarPerfil.Show();
+            this.Close();
         }
     }
 }
