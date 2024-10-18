@@ -5,7 +5,11 @@ using System.Data.Entity.Core.EntityClient;
 using System.Data.Entity.Core.Objects.DataClasses;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Net.Security;
 using System.Runtime.Serialization;
+using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
 using System.Text;
 using System.Threading;
@@ -18,6 +22,15 @@ namespace Servicios
     {
         const int longitudCodigo = 6;
         const int longitudClaveJugador = 10;
+        const string emailJuego = "Luispablolagunesnoriega@gmail.com";
+        const string contraseniaEmail = "sfad yvzo rpwn ubyd";
+        const string aliasJuego = "Throw Throw Burrito Game";
+        const string asuntoCorreo = "Código de verificación - Registro de usuario";
+        const string cuerpoCorreo = "Se ha solicitado el registro de un usuario bajo esta dirección de correo.\n" +
+            "Si usted no lo has solicitado, por favor ignore este mensaje\n\n" +
+            "\tCódigo de verificación: ";
+
+
         public string EnviarCodigoCorreo(string correo)
         {
             /*
@@ -27,8 +40,37 @@ namespace Servicios
              */
 
             string codigo = GenerarCodigo(longitudCodigo);
-            Console.WriteLine("Se envía el código " + codigo + " al correo: " + correo);
-            
+
+            //Creando el correo
+            MailMessage correoCodigo = new MailMessage();
+            correoCodigo.From = new MailAddress(emailJuego, aliasJuego, System.Text.Encoding.UTF8);
+            correoCodigo.To.Add(correo);
+            correoCodigo.Subject = asuntoCorreo;
+            correoCodigo.Body = cuerpoCorreo + codigo;
+            correoCodigo.Priority = MailPriority.Normal;
+
+            //enviando el correo
+            try
+            {
+                SmtpClient smtpClient = new SmtpClient();
+                smtpClient.UseDefaultCredentials = false;
+                smtpClient.Port = 25;
+                smtpClient.Host = "smtp.gmail.com";
+                smtpClient.Credentials = new System.Net.NetworkCredential(emailJuego, contraseniaEmail);
+                ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
+                {
+                    return true;
+                };
+                smtpClient.EnableSsl = true;
+                smtpClient.Send(correoCodigo);
+                Console.WriteLine("Se envía el código " + codigo + " al correo: " + correo);
+                //MessageBox.Show("Enviado");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
             return codigo;
         }
 
