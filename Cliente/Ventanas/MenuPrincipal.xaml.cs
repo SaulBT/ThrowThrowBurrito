@@ -22,7 +22,7 @@ namespace Cliente.Ventanas
     /// </summary>
     public partial class MenuPrincipal : Page
     {
-        private String claveUsuario = "CMCBTM2YE9";
+        private String claveUsuario = "FJ7PV3RHTO";//"CMCBTM2YE9";
         //TODO: saul maneja clase Jugador, hay que estandarizar
 
         public MenuPrincipal()

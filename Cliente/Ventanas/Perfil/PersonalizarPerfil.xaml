@@ -17,8 +17,8 @@
         <Button x:Name="btnConfirmar" Content="Confirmar" HorizontalAlignment="Left" Margin="405,569,0,0" VerticalAlignment="Top" Click="btnConfirmar_Click"/>
         <Button x:Name="btnCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="791,574,0,0" VerticalAlignment="Top" Click="btnCancelar_Click"/>
         <Button x:Name="btnSubirFoto" Content="Subir Foto de Perfil" HorizontalAlignment="Left" Margin="381,448,0,0" VerticalAlignment="Top" Click="btnSubirFoto_Click"/>
-        <Border Background="#FFD6D6D6" Width="250" Height="250" Margin="308,167,722,303">
-            <Image x:Name="imgFotoPerfil" HorizontalAlignment="Left" Height="150" Margin="433,136,0,0" VerticalAlignment="Top" Width="150" Stretch="Fill" StretchDirection="Both" />
+        <Border  Background="#FFD6D6D6" Width="250" Height="250" Margin="308,167,722,303">
+            <Image x:Name="imgFotoPerfil" HorizontalAlignment="Left" Height="250" Margin="0,0,0,0" VerticalAlignment="Top" Width="250" Stretch="Fill" StretchDirection="Both" />
         </Border>
         <Label Content="Foto de Perfil" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,267,0,0" Height="50" Width="157" Background="{x:Null}" FontFamily="Arial" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" FontStyle="Italic"/>
         <Label Content="Personalizar Perfil" FontSize="50" HorizontalAlignment="Center" Margin="0,38,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" Width="886" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
