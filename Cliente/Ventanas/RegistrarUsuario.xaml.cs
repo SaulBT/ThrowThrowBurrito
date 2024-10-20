@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cliente.ServicioRegistrarUsuario;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,18 +11,28 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Cliente
+namespace Cliente.Ventanas
 {
     /// <summary>
-    /// Lógica de interacción para VentanaRegistroUsuario.xaml
+    /// Lógica de interacción para RegistrarUsuario.xaml
     /// </summary>
-    public partial class VentanaRegistroUsuario : Window
+    public partial class RegistrarUsuario : Page
     {
-        public VentanaRegistroUsuario()
+        public RegistrarUsuario()
         {
             InitializeComponent();
+            Console.WriteLine("constructor vacio");
+        }
+
+        public RegistrarUsuario(Usuario usuario)
+        {
+            InitializeComponent();
+            tbNombreUsuario.Text = usuario.NombreUsuario;
+            tbContrasenia.Text = usuario.Contrasenia;
+            tbCorreo.Text = usuario.Correo;
         }
 
         private void btnSiguiente_Click(object sender, RoutedEventArgs e)
@@ -39,16 +50,17 @@ namespace Cliente
                 };
                 if (Proxy.ValidarDatos(usuario))
                 {
-                    VentanaValidarCorreo ventanaValidarCorreo = new VentanaValidarCorreo(Proxy.EnviarCodigoCorreo(usuario.Correo), usuario);
-                    ventanaValidarCorreo.Show();
-                    this.Close();
+                    ParametrosNavegacion parametros = new ParametrosNavegacion(Proxy.EnviarCodigoCorreo(usuario.Correo), usuario);
+                    ValidarCorreo validarCorreo = new ValidarCorreo(parametros);
+                    NavigationService.Navigate(validarCorreo);
                 }
                 else
                 {
                     Console.WriteLine("Formato incorrecto de datos");
                     return;
                 }
-            } else
+            }
+            else
             {
                 Console.WriteLine("Campos vacíos");
                 return;
@@ -57,9 +69,22 @@ namespace Cliente
 
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-            this.Close();
+            NavigationService.Navigate(new Uri("Ventanas/MenuPrincipal.xaml", UriKind.Relative));
         }
+
+        public class ParametrosNavegacion
+        {
+            public string Codigo { get; set; }
+            public Usuario Usuario { get; set; }
+
+            public ParametrosNavegacion(string codigo, Usuario usuario)
+            {
+                Codigo = codigo;
+                Usuario = usuario;
+            }
+        }
+
+
+
     }
 }

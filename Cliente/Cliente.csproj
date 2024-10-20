@@ -68,36 +68,49 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="VentanaPersonalizarPerfil.xaml.cs">
-      <DependentUpon>VentanaPersonalizarPerfil.xaml</DependentUpon>
+    <Compile Include="Ventanas\MenuPrincipal.xaml.cs">
+      <DependentUpon>MenuPrincipal.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VentanaRegistroUsuario.xaml.cs">
-      <DependentUpon>VentanaRegistroUsuario.xaml</DependentUpon>
+    <Compile Include="VentanaGeneral.xaml.cs">
+      <DependentUpon>VentanaGeneral.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VentanaValidarCorreo.xaml.cs">
-      <DependentUpon>VentanaValidarCorreo.xaml</DependentUpon>
+    <Compile Include="Ventanas\Perfil\VerPerfil.xaml.cs">
+      <DependentUpon>VerPerfil.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="Ventanas\Perfil\PersonalizarPerfil.xaml.cs">
+      <DependentUpon>PersonalizarPerfil.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\RegistrarUsuario.xaml.cs">
+      <DependentUpon>RegistrarUsuario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\ValidarCorreo.xaml.cs">
+      <DependentUpon>ValidarCorreo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="VentanaPersonalizarPerfil.xaml">
+    <Page Include="Ventanas\MenuPrincipal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="VentanaRegistroUsuario.xaml">
+    <Page Include="VentanaGeneral.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="VentanaValidarCorreo.xaml">
+    <Page Include="Ventanas\Perfil\VerPerfil.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Perfil\PersonalizarPerfil.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\RegistrarUsuario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\ValidarCorreo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -187,6 +200,12 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Imagenes\fondo.png" />
+    <Resource Include="Imagenes\titulo.png" />
+    <Resource Include="Imagenes\ventanaEmergente.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

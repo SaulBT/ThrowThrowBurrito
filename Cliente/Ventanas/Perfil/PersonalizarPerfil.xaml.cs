@@ -1,5 +1,4 @@
 ﻿using Cliente.ServicioPersonalizarPerfil;
-using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,40 +9,41 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Cliente
+namespace Cliente.Ventanas.Perfil
 {
     /// <summary>
-    /// Lógica de interacción para VentanaPersonalizarPerfil.xaml
+    /// Lógica de interacción para PersonalizarPerfil.xaml
     /// </summary>
-    public partial class VentanaPersonalizarPerfil : Window
+    public partial class PersonalizarPerfil : Page
     {
         private string claveUsuario = null;
-        private Perfil perfil = null;
-        public VentanaPersonalizarPerfil(string claveUsuario)
+        private ServicioPersonalizarPerfil.Perfil perfil = null;
+
+        public PersonalizarPerfil(string claveUsuario)
         {
             this.claveUsuario = claveUsuario;
             ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient Proxy = new ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient();
             perfil = Proxy.ObtenerPerfil(claveUsuario);
-            
-            
+
+
             InitializeComponent();
             tbDescripcion.Text = perfil.Descripcion;
             tbNombreUsuario.Text = perfil.NombreUsuario;
-            if (perfil.Foto!=null)
+            if (perfil.Foto != null)
                 imgFotoPerfil.Source = ConvertirByteAImagen(perfil.Foto);
         }
 
+        // Implementación de botones
+
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-            this.Close();
+            NavigationService.GoBack();
         }
 
         private void btnConfirmar_Click(object sender, RoutedEventArgs e)
@@ -53,27 +53,46 @@ namespace Cliente
             {
                 perfil.Descripcion = tbDescripcion.Text;
                 perfil.NombreUsuario = tbNombreUsuario.Text;
-                
+
                 if (FotoEsValida(perfil.Foto))
                 {
                     if (Proxy.GuardarCambios(perfil, claveUsuario))
                     {
                         Console.WriteLine("Cambios guardados con éxito");
+                        VerPerfil verPerfil = new VerPerfil(claveUsuario);
+                        NavigationService.Navigate(verPerfil);
                     }
                     else
                     {
                         Console.WriteLine("no se puedo guardar el cambio");
                     }
-                } else
+                }
+                else
                 {
                     Console.WriteLine("la foto no es valida, es muy grande");
                 }
 
-            } else
+            }
+            else
             {
                 Console.WriteLine("Nombre de usuario vacío");
             }
         }
+
+        private void btnSubirFoto_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+            openFileDialog.Filter = "Image files (*.jpg, *.png) | *.jpg; *.png";
+            if (openFileDialog.ShowDialog() == true)
+            {
+                BitmapImage bitmap = new BitmapImage(new Uri(openFileDialog.FileName));
+                imgFotoPerfil.Source = bitmap;
+
+                perfil.Foto = convertirImagenAByte(bitmap);
+            }
+        }
+
+        // Funciones locales
 
         public bool FotoEsValida(byte[] foto)
         {
@@ -94,19 +113,6 @@ namespace Cliente
 
         }
 
-        private void btnSubirFoto_Click(object sender, RoutedEventArgs e)
-        {
-            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
-            openFileDialog.Filter = "Image files (*.jpg, *.png) | *.jpg; *.png";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                BitmapImage bitmap = new BitmapImage(new Uri(openFileDialog.FileName));
-                imgFotoPerfil.Source = bitmap;
-
-                perfil.Foto = convertirImagenAByte(bitmap);
-            }
-        }
-
         private byte[] convertirImagenAByte(BitmapSource bitmapSource)
         {
             byte[] data;
@@ -122,6 +128,7 @@ namespace Cliente
 
             return data;
         }
+
         private BitmapImage ConvertirByteAImagen(byte[] imageData)
         {
             BitmapImage bitmap = new BitmapImage();

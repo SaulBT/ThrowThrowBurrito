@@ -1,0 +1,68 @@
+﻿<Page x:Class="Cliente.Ventanas.MenuPrincipal"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Cliente.Ventanas"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="MenuPrincipal">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Imagenes/fondo.png"/>
+        </Grid.Background>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Image Source="/Imagenes/titulo.png" Stretch="None"/>
+            <Button x:Name="btnCrearPartida" Width="150" Height="40" Margin="0,25,0,0" Click="btnCrearPartida_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="#0E6987" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                            <ContentPresenter Content="Crear partida" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="btnUnirsePartida" Width="150" Height="40" Margin="0,10,0,0" Click="btnUnirsePartida_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="#D09330" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                            <ContentPresenter Content="Unirse a una partida" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="btnConfiguraciones" Width="150" Height="40" Margin="0,10,0,0" Click="btnConfiguraciones_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                            <ContentPresenter Content="Ajustes" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="btnCerrarSesion" Width="150" Height="40" Margin="0,60,0,0" Click="btnCerrarSesion_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="#C7785F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                            <ContentPresenter Content="Cerrar Sesión" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10">
+            <Button x:Name="btnVerPerfil" Width="120" Height="30" Margin="0,60,0,0" Click="btnVerPerfil_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                            <ContentPresenter Content="Ver perfil" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+        <Button x:Name="btnRegistrarse" Content="Registrarse" HorizontalAlignment="Left" Margin="893,0,0,0" VerticalAlignment="Center" Click="btnRegistrarse_Click"/>
+        
+    </Grid>
+</Page>

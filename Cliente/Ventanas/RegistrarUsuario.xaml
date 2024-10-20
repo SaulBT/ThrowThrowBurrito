@@ -1,0 +1,23 @@
+﻿<Page x:Class="Cliente.Ventanas.RegistrarUsuario"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Cliente.Ventanas"
+      mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="RegistrarUsuario">
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/Imagenes/Fondo.png"/>
+        </Grid.Background>
+        <Label Content="Registrar usuario" FontSize="50" HorizontalAlignment="Center" Margin="0,38,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" Width="886" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <TextBox x:Name="tbNombreUsuario" HorizontalAlignment="Center" Margin="0,262,0,0" TextWrapping="Wrap" Text="Nombre de usuario" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbCorreo" HorizontalAlignment="Center" Margin="0,349,0,0" TextWrapping="Wrap" Text="Correo electrónico" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="tbContrasenia" HorizontalAlignment="Center" Margin="0,307,0,0" TextWrapping="Wrap" Text="Contraseña" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="btnSiguiente" Content="Siguiente" HorizontalAlignment="Center" Margin="0,413,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.168,0.603" Click="btnSiguiente_Click"/>
+        <Button x:Name="btnCancelar" Content="Cancelar" HorizontalAlignment="Center" Margin="0,459,0,0" VerticalAlignment="Top" Click="btnCancelar_Click"/>
+
+    </Grid>
+</Page>

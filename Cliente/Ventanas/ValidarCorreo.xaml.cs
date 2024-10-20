@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Proxies;
-using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,41 +11,42 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static Cliente.Ventanas.RegistrarUsuario;
 
-namespace Cliente
+namespace Cliente.Ventanas
 {
     /// <summary>
-    /// Lógica de interacción para VentanaValidarCorreo.xaml
+    /// Lógica de interacción para ValidarCorreo.xaml
     /// </summary>
-    public partial class VentanaValidarCorreo : Window
+    public partial class ValidarCorreo : Page
     {
-        string codigo = null;
-        Usuario usuario = null;
-
-        public VentanaValidarCorreo(string codigo, Usuario usuario)
+        private string codigo;
+        private Usuario usuario;
+        public ValidarCorreo(ParametrosNavegacion parametros)
         {
-            this.usuario = usuario;
-            this.codigo = codigo;
             InitializeComponent();
-        }
-
-        private void btnReenviar_Click(object sender, RoutedEventArgs e)
-        {
-            ServicioRegistrarUsuario.IServicioRegistrarUsuario Proxy = new ServicioRegistrarUsuarioClient();
-
-            this.codigo = Proxy.EnviarCodigoCorreo(usuario.Correo);
+            this.usuario = parametros.Usuario;
+            this.codigo = parametros.Codigo;
         }
 
         private void btnConfirmar_Click(object sender, RoutedEventArgs e)
+        {
+            ServicioRegistrarUsuario.IServicioRegistrarUsuario Proxy = new ServicioRegistrarUsuarioClient();
+            this.codigo = Proxy.EnviarCodigoCorreo(usuario.Correo);
+        }
+
+        private void btnReenviar_Click(object sender, RoutedEventArgs e)
         {
             ServicioRegistrarUsuario.IServicioRegistrarUsuario Proxy = new ServicioRegistrarUsuarioClient();
             if (tbCodigo.Text.Equals(this.codigo))
             {
                 Proxy.RegistrarUsuario(this.usuario);
                 Console.WriteLine("EL CODIGO SÍ CONINCIDEEE");
-                
-            } else
+                //TODO IMPLEMENTAR FUNCION DE INGRESAR AL MENU PRINCIPAL YA LOGEADO
+            }
+            else
             {
                 Console.WriteLine("El codigo ingresado no coincide con el enviado al correo");
             }
@@ -55,9 +54,8 @@ namespace Cliente
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
-            VentanaRegistroUsuario ventanaRegistroUsuario = new VentanaRegistroUsuario();
-            ventanaRegistroUsuario.Show();
-            this.Close();
+            //NavigationService.Navigate(new Uri("Ventanas/RegistrarUsuario.xaml", UriKind.Relative), usuario);
+            NavigationService.GoBack();
         }
     }
 }
