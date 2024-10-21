@@ -27,6 +27,7 @@ namespace Servicios.Interfaces
         {
         }
 
+        [DataMember]
         public string Mensaje
         {
             get { return mensaje; }

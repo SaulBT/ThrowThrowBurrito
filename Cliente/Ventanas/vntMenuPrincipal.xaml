@@ -1,4 +1,4 @@
-﻿<Page x:Class="Cliente.Ventanas.MenuPrincipal"
+﻿<Page x:Class="Cliente.Ventanas.vntMenuPrincipal"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,14 +6,14 @@
       xmlns:local="clr-namespace:Cliente.Ventanas"
       mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="1280"
-      Title="MenuPrincipal">
+      Title="Throw Throw Burrito - Menú">
 
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Imagenes/fondo.png"/>
+            <ImageBrush ImageSource="/Imagenes/imgFondo.png"/>
         </Grid.Background>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Image Source="/Imagenes/titulo.png" Stretch="None"/>
+            <Image Source="/Imagenes/imgTitulo.png" Stretch="None"/>
             <Button x:Name="btnCrearPartida" Width="150" Height="40" Margin="0,25,0,0" Click="btnCrearPartida_Click">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">

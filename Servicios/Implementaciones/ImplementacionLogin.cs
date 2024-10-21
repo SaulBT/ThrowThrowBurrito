@@ -20,20 +20,22 @@ namespace Servicios.Implementaciones
                 using (var contexto = new ModeloDBContainer())
                 {
                     contexto.Database.Log = Console.WriteLine;
-
-                    jugador = ((Jugador)(from j in contexto.Jugador
+                    jugador = (from j in contexto.Jugador
                                where j.nombreUsuario == nombreUsuario && j.contrasenia == contrasenia
-                               select j).FirstOrDefault());
+                               select j).FirstOrDefault();
                 }
             }
-            catch (EntityException ex)
+            catch (FaultException<ExcepcionServicioLogin>)
+            {
+                throw;
+            }
+            catch (Exception ex)
             {
                 ExcepcionServicioLogin excepcionLogin = new ExcepcionServicioLogin
                 {
-                    Mensaje = "Error: " + ex.Message
+                    Mensaje = "Ocurrió un error inesperado: " + ex.Message
                 };
-
-                throw new FaultException<ExcepcionServicioLogin>(excepcionLogin, new FaultReason(excepcionLogin.Mensaje));
+                throw new FaultException<ExcepcionServicioLogin>(excepcionLogin, new FaultReason("Error inesperado"));
             }
 
             return jugador;

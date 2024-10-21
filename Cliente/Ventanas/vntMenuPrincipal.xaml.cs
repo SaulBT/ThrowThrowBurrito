@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,42 +20,36 @@ namespace Cliente.Ventanas
     /// <summary>
     /// Interaction logic for MenuPrincipal.xaml
     /// </summary>
-    public partial class MenuPrincipal : Page
+    public partial class vntMenuPrincipal : Page
     {
+        private SoundPlayer reproductor;
         private Jugador jugador;
 
-        public MenuPrincipal()
+        public vntMenuPrincipal(Jugador jugador)
         {
             InitializeComponent();
+            this.reproductor = new SoundPlayer("Musica/mscMenu.wav");
             this.Loaded += MenuPrincipal_Loaded;
+            this.jugador = jugador;
         }
 
+        
         private void MenuPrincipal_Loaded(object sender, RoutedEventArgs e)
         {
-            NavigationService navigationService = NavigationService.GetNavigationService(this);
-            if (navigationService != null)
-            {
-                navigationService.LoadCompleted += NavigationService_LoadCompleted;
-
-            }
-        }
-
-        private void NavigationService_LoadCompleted(object sender, NavigationEventArgs e)
-        {
-            if (e.ExtraData is Jugador jugador)
-            {
-                this.jugador = e.ExtraData as Jugador;
-            }
+            this.reproductor.PlayLooping();
         }
 
         private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("Ventanas/Login.xaml", UriKind.Relative));
+            this.reproductor.Stop();
+            vntLogin vntLogin = new vntLogin();
+            NavigationService.Navigate(vntLogin);
         }
 
         private void btnCrearPartida_Click(object sender, RoutedEventArgs e)
         {
-            
+            vntLobby vntLobby = new vntLobby(this.jugador);
+            NavigationService.Navigate(vntLobby);
         }
 
         private void btnUnirsePartida_Click(object sender, RoutedEventArgs e)

@@ -60,16 +60,15 @@
     <Compile Include="Ventanas\General.xaml.cs">
       <DependentUpon>General.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\Login.xaml.cs">
-      <DependentUpon>Login.xaml</DependentUpon>
+    <Compile Include="Ventanas\vntLobby.xaml.cs">
+      <DependentUpon>vntLobby.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\MenuPrincipal.xaml.cs">
-      <DependentUpon>MenuPrincipal.xaml</DependentUpon>
+    <Compile Include="Ventanas\vntLogin.xaml.cs">
+      <DependentUpon>vntLogin.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="Ventanas\vntMenuPrincipal.xaml.cs">
+      <DependentUpon>vntMenuPrincipal.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -86,19 +85,19 @@
     </Compile>
     <Compile Include="Logica\LogicaChat.cs" />
     <Compile Include="Logica\LogicaLogin.cs" />
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Page Include="Ventanas\General.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\Login.xaml">
+    <Page Include="Ventanas\vntLobby.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\MenuPrincipal.xaml">
+    <Page Include="Ventanas\vntLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\vntMenuPrincipal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -184,14 +183,21 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\fondo.png" />
+    <Resource Include="Imagenes\imgFondo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\titulo.png" />
+    <Resource Include="Imagenes\imgTitulo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Imagenes\ventanaEmergente.png" />
+    <Resource Include="Imagenes\imgVentanaEmergente.png" />
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Imagenes\imgAgregarAmigo.png" />
+    <Resource Include="Imagenes\imgFondoLobby.png" />
+    <Content Include="Musica\mscMenu.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
