@@ -20,17 +20,17 @@ namespace Cliente.Ventanas
     /// <summary>
     /// Lógica de interacción para MenuPrincipal.xaml
     /// </summary>
-    public partial class MenuPrincipal : Page
+    public partial class VntMenuPrincipal : Page
     {
         private String claveUsuario = "FJ7PV3RHTO";//"CMCBTM2YE9";
         //TODO: saul maneja clase Jugador, hay que estandarizar
 
-        public MenuPrincipal()
+        public VntMenuPrincipal()
         {
             InitializeComponent();
         }
 
-        public MenuPrincipal(String claveUsuario)
+        public VntMenuPrincipal(String claveUsuario)
         {
             this.claveUsuario = claveUsuario;
             InitializeComponent();
@@ -38,12 +38,12 @@ namespace Cliente.Ventanas
 
         private void btnRegistrarse_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("Ventanas/RegistrarUsuario.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("Ventanas/VntRegistrarUsuario.xaml", UriKind.Relative));
         }
 
         private void btnVerPerfil_Click(object sender, RoutedEventArgs e)
         {
-            VerPerfil verPerfil = new VerPerfil(claveUsuario);
+            VntPerfil verPerfil = new VntPerfil(claveUsuario);
             NavigationService.Navigate(verPerfil);
         }
 

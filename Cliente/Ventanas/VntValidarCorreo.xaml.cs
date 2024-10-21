@@ -13,18 +13,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using static Cliente.Ventanas.RegistrarUsuario;
+using static Cliente.Ventanas.VntRegistrarUsuario;
 
 namespace Cliente.Ventanas
 {
     /// <summary>
     /// Lógica de interacción para ValidarCorreo.xaml
     /// </summary>
-    public partial class ValidarCorreo : Page
+    public partial class VntValidarCorreo : Page
     {
         private string codigo;
         private Usuario usuario;
-        public ValidarCorreo(ParametrosNavegacion parametros)
+        public VntValidarCorreo(ParametrosNavegacion parametros)
         {
             InitializeComponent();
             this.usuario = parametros.Usuario;
@@ -40,7 +40,7 @@ namespace Cliente.Ventanas
         private void btnReenviar_Click(object sender, RoutedEventArgs e)
         {
             ServicioRegistrarUsuario.IServicioRegistrarUsuario Proxy = new ServicioRegistrarUsuarioClient();
-            if (tbCodigo.Text.Equals(this.codigo))
+            if (txbCodigo.Text.Equals(this.codigo))
             {
                 Proxy.RegistrarUsuario(this.usuario);
                 Console.WriteLine("EL CODIGO SÍ CONINCIDEEE");
@@ -54,7 +54,6 @@ namespace Cliente.Ventanas
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
-            //NavigationService.Navigate(new Uri("Ventanas/RegistrarUsuario.xaml", UriKind.Relative), usuario);
             NavigationService.GoBack();
         }
     }

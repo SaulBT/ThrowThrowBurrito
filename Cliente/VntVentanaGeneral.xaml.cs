@@ -18,9 +18,9 @@ namespace Cliente
     /// <summary>
     /// Interaction logic for Login.xaml
     /// </summary>
-    public partial class VentanaGeneral : NavigationWindow
+    public partial class VntVentanaGeneral : NavigationWindow
     {
-        public VentanaGeneral()
+        public VntVentanaGeneral()
         {
             InitializeComponent();
         }

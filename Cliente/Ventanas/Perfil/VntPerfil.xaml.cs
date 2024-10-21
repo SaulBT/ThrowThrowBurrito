@@ -19,11 +19,11 @@ namespace Cliente.Ventanas.Perfil
     /// <summary>
     /// Lógica de interacción para VerPerfil.xaml
     /// </summary>
-    public partial class VerPerfil : Page
+    public partial class VntPerfil : Page
     {
         private string claveUsuario;
 
-        public VerPerfil(String claveUsuario)
+        public VntPerfil(String claveUsuario)
         {
             this.claveUsuario = claveUsuario;
             InitializeComponent();
@@ -32,13 +32,13 @@ namespace Cliente.Ventanas.Perfil
 
         private void btnPersonalizarPerfil_Click(object sender, RoutedEventArgs e)
         {
-            PersonalizarPerfil personalizarPerfil = new PersonalizarPerfil(claveUsuario);
+            VntPersonalizarPerfil personalizarPerfil = new VntPersonalizarPerfil(claveUsuario);
             NavigationService.Navigate(personalizarPerfil);
         }
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("Ventanas/MenuPrincipal.xaml", UriKind.Relative), claveUsuario);
+            NavigationService.Navigate(new Uri("Ventanas/VntMenuPrincipal.xaml", UriKind.Relative), claveUsuario);
         }
     }
 }

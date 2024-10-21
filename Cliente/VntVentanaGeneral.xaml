@@ -1,9 +1,9 @@
-﻿<NavigationWindow x:Class="Cliente.VentanaGeneral"
+﻿<NavigationWindow x:Class="Cliente.VntVentanaGeneral"
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                   ShowsNavigationUI="False"
                   Title="Throw Throw Burrito"
                   Height="720"
                   Width="1280"
-                  Source="Ventanas/MenuPrincipal.xaml">
+                  Source="Ventanas/VntMenuPrincipal.xaml">
 </NavigationWindow>

@@ -68,49 +68,49 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\MenuPrincipal.xaml.cs">
-      <DependentUpon>MenuPrincipal.xaml</DependentUpon>
+    <Compile Include="Ventanas\VntMenuPrincipal.xaml.cs">
+      <DependentUpon>VntMenuPrincipal.xaml</DependentUpon>
     </Compile>
-    <Compile Include="VentanaGeneral.xaml.cs">
-      <DependentUpon>VentanaGeneral.xaml</DependentUpon>
+    <Compile Include="VntVentanaGeneral.xaml.cs">
+      <DependentUpon>VntVentanaGeneral.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\Perfil\VerPerfil.xaml.cs">
-      <DependentUpon>VerPerfil.xaml</DependentUpon>
+    <Compile Include="Ventanas\Perfil\VntPerfil.xaml.cs">
+      <DependentUpon>VntPerfil.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\Perfil\PersonalizarPerfil.xaml.cs">
-      <DependentUpon>PersonalizarPerfil.xaml</DependentUpon>
+    <Compile Include="Ventanas\Perfil\VntPersonalizarPerfil.xaml.cs">
+      <DependentUpon>VntPersonalizarPerfil.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\RegistrarUsuario.xaml.cs">
-      <DependentUpon>RegistrarUsuario.xaml</DependentUpon>
+    <Compile Include="Ventanas\VntRegistrarUsuario.xaml.cs">
+      <DependentUpon>VntRegistrarUsuario.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\ValidarCorreo.xaml.cs">
-      <DependentUpon>ValidarCorreo.xaml</DependentUpon>
+    <Compile Include="Ventanas\VntValidarCorreo.xaml.cs">
+      <DependentUpon>VntValidarCorreo.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Ventanas\MenuPrincipal.xaml">
+    <Page Include="Ventanas\VntMenuPrincipal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="VentanaGeneral.xaml">
+    <Page Include="VntVentanaGeneral.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\Perfil\VerPerfil.xaml">
+    <Page Include="Ventanas\Perfil\VntPerfil.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\Perfil\PersonalizarPerfil.xaml">
+    <Page Include="Ventanas\Perfil\VntPersonalizarPerfil.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\RegistrarUsuario.xaml">
+    <Page Include="Ventanas\VntRegistrarUsuario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\ValidarCorreo.xaml">
+    <Page Include="Ventanas\VntValidarCorreo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

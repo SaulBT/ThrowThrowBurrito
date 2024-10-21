@@ -19,20 +19,20 @@ namespace Cliente.Ventanas
     /// <summary>
     /// Lógica de interacción para RegistrarUsuario.xaml
     /// </summary>
-    public partial class RegistrarUsuario : Page
+    public partial class VntRegistrarUsuario : Page
     {
-        public RegistrarUsuario()
+        public VntRegistrarUsuario()
         {
             InitializeComponent();
             Console.WriteLine("constructor vacio");
         }
 
-        public RegistrarUsuario(Usuario usuario)
+        public VntRegistrarUsuario(Usuario usuario)
         {
             InitializeComponent();
-            tbNombreUsuario.Text = usuario.NombreUsuario;
-            tbContrasenia.Text = usuario.Contrasenia;
-            tbCorreo.Text = usuario.Correo;
+            txbNombreUsuario.Text = usuario.NombreUsuario;
+            txbContrasenia.Text = usuario.Contrasenia;
+            txbCorreo.Text = usuario.Correo;
         }
 
         private void btnSiguiente_Click(object sender, RoutedEventArgs e)
@@ -40,18 +40,18 @@ namespace Cliente.Ventanas
             ServicioRegistrarUsuario.ServicioRegistrarUsuarioClient Proxy = new ServicioRegistrarUsuario.ServicioRegistrarUsuarioClient();
 
             //TODO: HACER VALIDACION DE QUE NO SEAN NULL
-            if (!string.IsNullOrEmpty(tbNombreUsuario.Text) && !string.IsNullOrEmpty(tbContrasenia.Text) && !string.IsNullOrEmpty(tbCorreo.Text))
+            if (!string.IsNullOrEmpty(txbNombreUsuario.Text) && !string.IsNullOrEmpty(txbContrasenia.Text) && !string.IsNullOrEmpty(txbCorreo.Text))
             {
                 ServicioRegistrarUsuario.Usuario usuario = new ServicioRegistrarUsuario.Usuario()
                 {
-                    NombreUsuario = tbNombreUsuario.Text,
-                    Contrasenia = tbContrasenia.Text,
-                    Correo = tbCorreo.Text,
+                    NombreUsuario = txbNombreUsuario.Text,
+                    Contrasenia = txbContrasenia.Text,
+                    Correo = txbCorreo.Text,
                 };
                 if (Proxy.ValidarDatos(usuario))
                 {
                     ParametrosNavegacion parametros = new ParametrosNavegacion(Proxy.EnviarCodigoCorreo(usuario.Correo), usuario);
-                    ValidarCorreo validarCorreo = new ValidarCorreo(parametros);
+                    VntValidarCorreo validarCorreo = new VntValidarCorreo(parametros);
                     NavigationService.Navigate(validarCorreo);
                 }
                 else

@@ -20,12 +20,12 @@ namespace Cliente.Ventanas.Perfil
     /// <summary>
     /// Lógica de interacción para PersonalizarPerfil.xaml
     /// </summary>
-    public partial class PersonalizarPerfil : Page
+    public partial class VntPersonalizarPerfil : Page
     {
         private string claveUsuario = null;
         private ServicioPersonalizarPerfil.Perfil perfil = null;
 
-        public PersonalizarPerfil(string claveUsuario)
+        public VntPersonalizarPerfil(string claveUsuario)
         {
             this.claveUsuario = claveUsuario;
             ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient Proxy = new ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient();
@@ -33,8 +33,8 @@ namespace Cliente.Ventanas.Perfil
 
 
             InitializeComponent();
-            tbDescripcion.Text = perfil.Descripcion;
-            tbNombreUsuario.Text = perfil.NombreUsuario;
+            txbDescripcion.Text = perfil.Descripcion;
+            txbNombreUsuario.Text = perfil.NombreUsuario;
             if (perfil.Foto != null)
                 imgFotoPerfil.Source = ConvertirByteAImagen(perfil.Foto);
         }
@@ -49,17 +49,17 @@ namespace Cliente.Ventanas.Perfil
         private void btnConfirmar_Click(object sender, RoutedEventArgs e)
         {
             ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient Proxy = new ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient();
-            if (!string.IsNullOrEmpty(tbNombreUsuario.Text))
+            if (!string.IsNullOrEmpty(txbNombreUsuario.Text))
             {
-                perfil.Descripcion = tbDescripcion.Text;
-                perfil.NombreUsuario = tbNombreUsuario.Text;
+                perfil.Descripcion = txbDescripcion.Text;
+                perfil.NombreUsuario = txbNombreUsuario.Text;
 
                 if (FotoEsValida(perfil.Foto))
                 {
                     if (Proxy.GuardarCambios(perfil, claveUsuario))
                     {
                         Console.WriteLine("Cambios guardados con éxito");
-                        VerPerfil verPerfil = new VerPerfil(claveUsuario);
+                        VntPerfil verPerfil = new VntPerfil(claveUsuario);
                         NavigationService.Navigate(verPerfil);
                     }
                     else
