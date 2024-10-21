@@ -56,6 +56,7 @@
     <Compile Include="Amigo.cs">
       <DependentUpon>ModeloDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAOJugador.cs" />
     <Compile Include="DatosJugadorPartida.cs">
       <DependentUpon>ModeloDB.tt</DependentUpon>
     </Compile>

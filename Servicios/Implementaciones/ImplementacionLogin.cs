@@ -17,13 +17,7 @@ namespace Servicios.Implementaciones
             Jugador jugador = null;
             try
             {
-                using (var contexto = new ModeloDBContainer())
-                {
-                    contexto.Database.Log = Console.WriteLine;
-                    jugador = (from j in contexto.Jugador
-                               where j.nombreUsuario == nombreUsuario && j.contrasenia == contrasenia
-                               select j).FirstOrDefault();
-                }
+                jugador = AccesoDatos.DAOJugador.buscarJugador(nombreUsuario, contrasenia);
             }
             catch (FaultException<ExcepcionServicioLogin>)
             {
