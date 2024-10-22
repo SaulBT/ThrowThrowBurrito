@@ -11,7 +11,7 @@ namespace Servicios.Implementaciones
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
     public class ImplementacionChat : IServicioChat
     {
-        private static List<IServicioChatCallback> _clientes = new List<IServicioChatCallback>();
+        private static List<IServicioChatCallback> clientes = new List<IServicioChatCallback>();
         public void EnviarMensaje(string nombreUsuario, string mensaje)
         {
             string mensajeCompleto = "<" + nombreUsuario + ">: " + mensaje;
@@ -21,19 +21,31 @@ namespace Servicios.Implementaciones
         public void Unirse(string nombreUsuario)
         {
             var callback = OperationContext.Current.GetCallbackChannel<IServicioChatCallback>();
-            if (!_clientes.Contains(callback))
+            if (!clientes.Contains(callback))
             {
-                _clientes.Add(callback);
+                clientes.Add(callback);
+                string mensajeCompleto = nombreUsuario + " se ha unido!";
+                TransmitirMensaje(mensajeCompleto);
             }
+        }
 
-            string mensajeCompleto = nombreUsuario + " se ha unido!";
+        public void Salir(string nombreUsuario)
+        {
+            var callback = OperationContext.Current.GetCallbackChannel<IServicioChatCallback>();
+            clientes.Remove(callback);
+            string mensajeCompleto = nombreUsuario + " se ha ido!";
             TransmitirMensaje(mensajeCompleto);
+        }
+
+        public bool ProbarConexion()
+        {
+            return true;
         }
 
         [OperationBehavior]
         public void TransmitirMensaje(string mensajeCompleto)
         {
-            foreach (var cliente in _clientes)
+            foreach (var cliente in clientes)
             {
                 cliente.RecibirMensaje(mensajeCompleto);
             }

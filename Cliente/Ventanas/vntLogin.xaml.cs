@@ -3,6 +3,7 @@ using Cliente.ServicioLogin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,10 +21,10 @@ namespace Cliente.Ventanas
     /// <summary>
     /// Interaction logic for Login.xaml
     /// </summary>
-    public partial class Login : Page
+    public partial class vntLogin : Page
     {
         private LogicaLogin logica;
-        public Login()
+        public vntLogin()
         {
             InitializeComponent();
             logica = new LogicaLogin();
@@ -36,14 +37,37 @@ namespace Cliente.Ventanas
             {
                 string nombreUsuario = tbxNombreUsuario.Text;
                 string contrasenia = tbxContrasenia.Text;
-                Jugador jugador = logica.IniciarSesion(nombreUsuario, contrasenia);
-                if (verificarJugador(jugador))
+                try
                 {
-                    irAMenu(jugador);
-                } else
-                {
-                    mostrarAlerta("No se encontró al usuario, por favor revisa tu Nombre de Usuario o tu Contraseña");
+                    Jugador jugador = logica.IniciarSesion(nombreUsuario, contrasenia);
+                    if (jugador != null)
+                    {
+                        vntMenuPrincipal vntMenuPrincipal = new vntMenuPrincipal(jugador);
+                        NavigationService.Navigate(vntMenuPrincipal);
+                    }
+                    else
+                    {
+                        mostrarAlerta("No se encontró al usuario, por favor revisa tu Nombre de Usuario o tu Contraseña");
+                    }
                 }
+                catch (FaultException ex)
+                {
+                    mostrarAlerta(ex.Message);
+                }
+                catch (EndpointNotFoundException ex)
+                {
+                    mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
+                }
+                catch (CommunicationException ex)
+                {
+                    mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
+                    
+                }
+                catch (Exception ex)
+                {
+                    mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
+                }
+
             }
         }
 
@@ -67,22 +91,6 @@ namespace Cliente.Ventanas
             return resultado;
         }
 
-        private bool verificarJugador(Jugador jugador)
-        {
-            if (jugador != null)
-            {
-                return true;
-            } else
-            {
-                return false;
-            }
-        }
-
-        private void irAMenu(Jugador jugador)
-        {
-            NavigationService.Navigate(new Uri("Ventanas/MenuPrincipal.xaml", UriKind.Relative), jugador);
-        }
-
         private void mostrarAlerta(string mensaje)
         {
             gFondoNegro.Visibility = Visibility.Visible;
@@ -91,11 +99,6 @@ namespace Cliente.Ventanas
         }
 
         private void btnAceptarEmergente_Click(object sender, RoutedEventArgs e)
-        {
-            esconderAlerta();
-        }
-
-        private void esconderAlerta()
         {
             gFondoNegro.Visibility = Visibility.Hidden;
             gVentanaEmergente.Visibility = Visibility.Hidden;

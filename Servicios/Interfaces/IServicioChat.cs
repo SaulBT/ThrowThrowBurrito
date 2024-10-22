@@ -15,6 +15,12 @@ namespace Servicios.Interfaces
 
         [OperationContract(IsOneWay = true)]
         void EnviarMensaje(string nombreUsuario, string mensaje);
+
+        [OperationContract]
+        bool ProbarConexion();
+
+        [OperationContract(IsOneWay = true)]
+        void Salir(string nombreUsuario);
     }
 
     [ServiceContract]

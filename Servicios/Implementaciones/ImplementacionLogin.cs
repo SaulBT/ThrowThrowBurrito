@@ -14,29 +14,18 @@ namespace Servicios.Implementaciones
     {
         public Jugador Login(string nombreUsuario, string contrasenia)
         {
-            Jugador jugador = null;
             try
             {
-                using (var contexto = new ModeloDBContainer())
-                {
-                    contexto.Database.Log = Console.WriteLine;
+                Jugador jugador = null;
+                jugador = AccesoDatos.DAOJugador.buscarJugador(nombreUsuario, contrasenia);
 
-                    jugador = ((Jugador)(from j in contexto.Jugador
-                               where j.nombreUsuario == nombreUsuario && j.contrasenia == contrasenia
-                               select j).FirstOrDefault());
-                }
+                return jugador;
             }
+            
             catch (EntityException ex)
             {
-                ExcepcionServicioLogin excepcionLogin = new ExcepcionServicioLogin
-                {
-                    Mensaje = "Error: " + ex.Message
-                };
-
-                throw new FaultException<ExcepcionServicioLogin>(excepcionLogin, new FaultReason(excepcionLogin.Mensaje));
+                throw new FaultException("Error de la base de datos: " + ex.Message);
             }
-
-            return jugador;
         }
     }
 }

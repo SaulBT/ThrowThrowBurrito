@@ -41,6 +41,15 @@
   <wsdl:message name="IServicioChat_EnviarMensaje_InputMessage">
     <wsdl:part name="parameters" element="tns:EnviarMensaje" />
   </wsdl:message>
+  <wsdl:message name="IServicioChat_ProbarConexion_InputMessage">
+    <wsdl:part name="parameters" element="tns:ProbarConexion" />
+  </wsdl:message>
+  <wsdl:message name="IServicioChat_ProbarConexion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ProbarConexionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioChat_Salir_InputMessage">
+    <wsdl:part name="parameters" element="tns:Salir" />
+  </wsdl:message>
   <wsdl:message name="IServicioChat_RecibirMensaje_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:RecibirMensaje" />
   </wsdl:message>
@@ -50,6 +59,13 @@
     </wsdl:operation>
     <wsdl:operation name="EnviarMensaje">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioChat/EnviarMensaje" message="tns:IServicioChat_EnviarMensaje_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ProbarConexion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioChat/ProbarConexion" message="tns:IServicioChat_ProbarConexion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioChat/ProbarConexionResponse" message="tns:IServicioChat_ProbarConexion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Salir">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioChat/Salir" message="tns:IServicioChat_Salir_InputMessage" />
     </wsdl:operation>
     <wsdl:operation name="RecibirMensaje">
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioChat/RecibirMensaje" message="tns:IServicioChat_RecibirMensaje_OutputCallbackMessage" />
@@ -66,6 +82,21 @@
     </wsdl:operation>
     <wsdl:operation name="EnviarMensaje">
       <soap12:operation soapAction="http://tempuri.org/IServicioChat/EnviarMensaje" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="ProbarConexion">
+      <soap12:operation soapAction="http://tempuri.org/IServicioChat/ProbarConexion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Salir">
+      <soap12:operation soapAction="http://tempuri.org/IServicioChat/Salir" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -14,13 +14,22 @@ namespace Cliente.Logica
 
         public LogicaLogin()
         {
+            crearServicio();
+        }
+
+        private void crearServicio()
+        {
             servicio = new ServicioLoginClient();
         }
 
         public Jugador IniciarSesion(string nombreUsuario, string contrasenia)
         {
-            Jugador jugador = servicio.Login(nombreUsuario, contrasenia);
+            if (servicio.State == CommunicationState.Faulted)
+            {
+                crearServicio();
+            }
 
+            Jugador jugador = servicio.Login(nombreUsuario, contrasenia);
             return jugador;
         }
     }
