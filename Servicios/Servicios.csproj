@@ -51,6 +51,10 @@
     <Compile Include="Clases\Amigo.cs" />
     <Compile Include="Clases\Partida.cs" />
     <Compile Include="Clases\SolicitudAmigo.cs" />
+    <Compile Include="Implementaciones\ImplementacionChat.cs" />
+    <Compile Include="Implementaciones\ImplementacionLogin.cs" />
+    <Compile Include="Interfaces\IServicioChat.cs" />
+    <Compile Include="Interfaces\IServicioLogin.cs" />
     <Compile Include="ImplementacionPersonalizarPerfil.cs" />
     <Compile Include="IServicioPersonalizarPerfil.cs" />
     <Compile Include="IServicioRegistrarUsuario.cs" />

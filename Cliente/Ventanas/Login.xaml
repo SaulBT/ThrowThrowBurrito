@@ -1,0 +1,83 @@
+﻿<Page x:Class="Cliente.Ventanas.Login"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Cliente.Ventanas"
+    mc:Ignorable="d" 
+      d:DesignHeight="720" d:DesignWidth="1280"
+      Title="Throw Throw Burrito - Login">
+
+    <Grid Margin="0,0,0,0">
+        <Image Source="/Imagenes/fondo.png" Stretch="Fill"/>
+        <!--Menú central-->
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="300">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,20" Source="/Imagenes/titulo.png"/>
+            
+            <TextBlock TextWrapping="Wrap" Text="Nombre de usuario:" HorizontalAlignment="Center" FontSize="16"/>
+            <TextBox x:Name="tbxNombreUsuario" TextWrapping="Wrap" Text="" Width="200" Margin="0,5,0,0"/>
+            <TextBlock x:Name="tbcErrorNombreUsuario" TextWrapping="Wrap" Text="" HorizontalAlignment="Center" FontSize="14" Foreground="Crimson"/>
+            
+            <TextBlock TextWrapping="Wrap" Text="Contraseña:" HorizontalAlignment="Center" FontSize="16"/>
+            <TextBox x:Name="tbxContrasenia" TextWrapping="Wrap" Text="" Width="200" Margin="0,5,0,0"/>
+            <TextBlock x:Name="tbcErrorContrasenia" TextWrapping="Wrap" Text="" HorizontalAlignment="Center" FontSize="14" Foreground="Crimson" Margin="0,0,0,10"/>
+            
+            <Button x:Name="btnIniciarSesion" Width="150" Height="40" Margin="0,0,0,10" Click="btnIniciarSesion_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                            <ContentPresenter Content="Iniciar Sesión" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="btnEntrarInvitado" Width="150" Height="40" Margin="0,0,0,10" Click="btnEntrarInvitado_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                            <ContentPresenter Content="Entrar como invitado" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="btnCrearCuenta" Width="150" Height="40" Margin="0,0,0,10" Click="btnCrearCuenta_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                            <ContentPresenter Content="Crear cuenta" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="btnSalir" Width="150" Height="40" Margin="0,40,0,10" Click="btnSalir_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="#C7785F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                            <ContentPresenter Content="Salir" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
+        
+        <!--Ventana emergente-->
+        <Grid x:Name="gFondoNegro" Background="Black" Opacity="0.5" Visibility="Hidden"/>
+        <Grid x:Name="gVentanaEmergente" Visibility="Hidden">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Imagenes/ventanaEmergente.png" Stretch="None"/>
+            </Grid.Background>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock x:Name="tbcMensajeEmergente" Text="" Width="300" TextWrapping="Wrap" TextAlignment="Center" FontSize="18"/>
+                <Button x:Name="btnAceptarEmergente" Width="120" Height="30" Margin="0,20,0,0" Click="btnAceptarEmergente_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                                <ContentPresenter Content="Aceptar" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

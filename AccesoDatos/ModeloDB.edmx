@@ -89,6 +89,7 @@
           <Property Name="idAspecto" Type="Int32" />
           <Property Name="idDatosJugadorPartida" Type="Int32" Nullable="false" />
           <Property Name="expulsado" Type="Boolean" />
+          <Property Name="idDatosJugadorPartida" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Jugador">
           <Key>
@@ -144,8 +145,8 @@
           <EntitySetMapping Name="DatosJugadorPartida">
             <EntityTypeMapping TypeName="ModeloDB.DatosJugadorPartida">
               <MappingFragment StoreEntitySet="DatosJugadorPartida">
-                <ScalarProperty Name="expulsado" ColumnName="expulsado" />
                 <ScalarProperty Name="idDatosJugadorPartida" ColumnName="idDatosJugadorPartida" />
+                <ScalarProperty Name="expulsado" ColumnName="expulsado" />
                 <ScalarProperty Name="idAspecto" ColumnName="idAspecto" />
                 <ScalarProperty Name="puntaje" ColumnName="puntaje" />
               </MappingFragment>
@@ -204,7 +205,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>

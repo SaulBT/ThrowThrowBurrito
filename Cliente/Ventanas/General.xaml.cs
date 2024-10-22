@@ -1,9 +1,6 @@
-﻿using Cliente.Logica;
-using Cliente.ServicioLogin;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Cliente
+namespace Cliente.Ventanas
 {
     /// <summary>
     /// Interaction logic for Login.xaml
     /// </summary>
-    public partial class VntVentanaGeneral : NavigationWindow
+    public partial class General : NavigationWindow
     {
-        public VntVentanaGeneral()
+        public General()
         {
             InitializeComponent();
         }

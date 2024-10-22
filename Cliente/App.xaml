@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:Cliente"
              StartupUri="VntVentanaGeneral.xaml">
     <Application.Resources>
-         
+        
     </Application.Resources>
 </Application>
