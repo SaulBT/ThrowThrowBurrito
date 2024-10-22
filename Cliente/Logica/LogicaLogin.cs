@@ -29,16 +29,8 @@ namespace Cliente.Logica
                 crearServicio();
             }
 
-            try
-            {
-                Jugador jugador = servicio.Login(nombreUsuario, contrasenia);
-                return jugador;
-            }
-            catch (FaultException<ExcepcionServicioLogin>)
-            {
-                throw;
-            }
-           
+            Jugador jugador = servicio.Login(nombreUsuario, contrasenia);
+            return jugador;
         }
     }
 }

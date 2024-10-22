@@ -26,6 +26,18 @@ namespace Cliente.ServicioChat {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServicioChat/EnviarMensaje")]
         System.Threading.Tasks.Task EnviarMensajeAsync(string nombreUsuario, string mensaje);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioChat/ProbarConexion", ReplyAction="http://tempuri.org/IServicioChat/ProbarConexionResponse")]
+        bool ProbarConexion();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioChat/ProbarConexion", ReplyAction="http://tempuri.org/IServicioChat/ProbarConexionResponse")]
+        System.Threading.Tasks.Task<bool> ProbarConexionAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServicioChat/Salir")]
+        void Salir(string nombreUsuario);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServicioChat/Salir")]
+        System.Threading.Tasks.Task SalirAsync(string nombreUsuario);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -77,6 +89,22 @@ namespace Cliente.ServicioChat {
         
         public System.Threading.Tasks.Task EnviarMensajeAsync(string nombreUsuario, string mensaje) {
             return base.Channel.EnviarMensajeAsync(nombreUsuario, mensaje);
+        }
+        
+        public bool ProbarConexion() {
+            return base.Channel.ProbarConexion();
+        }
+        
+        public System.Threading.Tasks.Task<bool> ProbarConexionAsync() {
+            return base.Channel.ProbarConexionAsync();
+        }
+        
+        public void Salir(string nombreUsuario) {
+            base.Channel.Salir(nombreUsuario);
+        }
+        
+        public System.Threading.Tasks.Task SalirAsync(string nombreUsuario) {
+            return base.Channel.SalirAsync(nombreUsuario);
         }
     }
 }

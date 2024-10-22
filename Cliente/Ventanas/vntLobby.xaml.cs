@@ -4,6 +4,7 @@ using Cliente.ServicioLogin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,8 +32,26 @@ namespace Cliente.Ventanas
         {
             InitializeComponent();
             this.jugador = jugador;
-            logica = new LogicaChat(this);
+            logica = new LogicaChat(this, jugador.nombreUsuario);
+        }
+
+        public void Unirse()
+        {
             logica.Unirse(this.jugador.nombreUsuario);
+        }
+
+        public void mostrarAlerta(String mensaje)
+        {
+            gFondoNegro.Visibility = Visibility.Visible;
+            gVentanaEmergente.Visibility = Visibility.Visible;
+            tbcMensajeEmergente.Text = mensaje;
+        }
+
+        private void btnAceptarEmergente_Click(object sender, RoutedEventArgs e)
+        {
+            gFondoNegro.Visibility = Visibility.Hidden;
+            gVentanaEmergente.Visibility = Visibility.Hidden;
+            tbcMensajeEmergente.Text = "";
         }
 
         public void RecibirMensaje(string mensajeCompleto)
@@ -51,10 +70,25 @@ namespace Cliente.Ventanas
         {
             if (!tbcMensaje.Text.Equals(""))
             {
-                Console.WriteLine("Se envia el mensaje a la logica.");
-                string mensaje = tbcMensaje.Text;
-                logica.EnviarMensaje(jugador.nombreUsuario, mensaje);
-                tbcMensaje.Text = "";
+                try
+                {
+                    string mensaje = tbcMensaje.Text;
+                    logica.EnviarMensaje(mensaje);
+                    tbcMensaje.Text = "";
+                }
+                catch (EndpointNotFoundException ex)
+                {
+                    mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
+                }
+                catch (CommunicationException ex)
+                {
+                    mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
+
+                }
+                catch (Exception ex)
+                {
+                    mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
+                }
             }
         }
 
@@ -71,8 +105,6 @@ namespace Cliente.Ventanas
             {
                 txcChat.Text = mensaje;
             }
-
-            Console.WriteLine("Chat actualizado");
         }
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Media;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -39,6 +40,20 @@ namespace Cliente.Ventanas
             this.reproductor.PlayLooping();
         }
 
+        private void mostrarAlerta(String mensaje)
+        {
+            gFondoNegro.Visibility = Visibility.Visible;
+            gVentanaEmergente.Visibility = Visibility.Visible;
+            tbcMensajeEmergente.Text = mensaje;
+        }
+
+        private void btnAceptarEmergente_Click(object sender, RoutedEventArgs e)
+        {
+            gFondoNegro.Visibility = Visibility.Hidden;
+            gVentanaEmergente.Visibility = Visibility.Hidden;
+            tbcMensajeEmergente.Text = "";
+        }
+
         private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
             this.reproductor.Stop();
@@ -48,8 +63,30 @@ namespace Cliente.Ventanas
 
         private void btnCrearPartida_Click(object sender, RoutedEventArgs e)
         {
-            vntLobby vntLobby = new vntLobby(this.jugador);
-            NavigationService.Navigate(vntLobby);
+            try
+            {
+                vntLobby vntLobby = new vntLobby(this.jugador);
+                vntLobby.Unirse();
+                NavigationService.Navigate(vntLobby);
+            }
+            catch (FaultException ex)
+            {
+                mostrarAlerta(ex.Message);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
+            }
+            catch (CommunicationException ex)
+            {
+                mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
+
+            }
+            catch (Exception ex)
+            {
+                mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
+            }
+            
         }
 
         private void btnUnirsePartida_Click(object sender, RoutedEventArgs e)

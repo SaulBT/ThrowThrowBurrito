@@ -13,25 +13,7 @@ namespace Servicios.Interfaces
     public interface IServicioLogin
     {
         [OperationContract]
-        [FaultContract(typeof(ExcepcionServicioLogin))]
         Jugador Login(string nombreUsuario, string contrasenia);
 
-    }
-
-    [DataContract]
-    public class ExcepcionServicioLogin
-    {
-        private string mensaje;
-
-        public ExcepcionServicioLogin()
-        {
-        }
-
-        [DataMember]
-        public string Mensaje
-        {
-            get { return mensaje; }
-            set { mensaje = value; }
-        }
     }
 }

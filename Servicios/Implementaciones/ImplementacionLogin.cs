@@ -14,25 +14,18 @@ namespace Servicios.Implementaciones
     {
         public Jugador Login(string nombreUsuario, string contrasenia)
         {
-            Jugador jugador = null;
             try
             {
+                Jugador jugador = null;
                 jugador = AccesoDatos.DAOJugador.buscarJugador(nombreUsuario, contrasenia);
-            }
-            catch (FaultException<ExcepcionServicioLogin>)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                ExcepcionServicioLogin excepcionLogin = new ExcepcionServicioLogin
-                {
-                    Mensaje = "Ocurrió un error inesperado: " + ex.Message
-                };
-                throw new FaultException<ExcepcionServicioLogin>(excepcionLogin, new FaultReason("Error inesperado"));
-            }
 
-            return jugador;
+                return jugador;
+            }
+            
+            catch (EntityException ex)
+            {
+                throw new FaultException("Error de la base de datos: " + ex.Message);
+            }
         }
     }
 }

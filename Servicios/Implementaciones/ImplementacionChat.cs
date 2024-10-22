@@ -24,10 +24,22 @@ namespace Servicios.Implementaciones
             if (!clientes.Contains(callback))
             {
                 clientes.Add(callback);
+                string mensajeCompleto = nombreUsuario + " se ha unido!";
+                TransmitirMensaje(mensajeCompleto);
             }
+        }
 
-            string mensajeCompleto = nombreUsuario + " se ha unido!";
+        public void Salir(string nombreUsuario)
+        {
+            var callback = OperationContext.Current.GetCallbackChannel<IServicioChatCallback>();
+            clientes.Remove(callback);
+            string mensajeCompleto = nombreUsuario + " se ha ido!";
             TransmitirMensaje(mensajeCompleto);
+        }
+
+        public bool ProbarConexion()
+        {
+            return true;
         }
 
         [OperationBehavior]

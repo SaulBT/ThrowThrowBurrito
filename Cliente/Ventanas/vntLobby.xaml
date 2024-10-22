@@ -82,5 +82,25 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+
+        <!--Ventana emergente-->
+        <Grid x:Name="gFondoNegro" Background="Black" Opacity="0.5" Visibility="Hidden"/>
+        <Grid x:Name="gVentanaEmergente" Visibility="Hidden">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Imagenes/imgVentanaEmergente.png" Stretch="None"/>
+            </Grid.Background>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock x:Name="tbcMensajeEmergente" Text="" Width="300" TextWrapping="Wrap" TextAlignment="Center" FontSize="18"/>
+                <Button x:Name="btnAceptarEmergente" Width="120" Height="30" Margin="0,20,0,0" Click="btnAceptarEmergente_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                                <ContentPresenter Content="Aceptar" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Page>

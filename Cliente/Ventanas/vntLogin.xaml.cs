@@ -50,9 +50,9 @@ namespace Cliente.Ventanas
                         mostrarAlerta("No se encontró al usuario, por favor revisa tu Nombre de Usuario o tu Contraseña");
                     }
                 }
-                catch (FaultException<ExcepcionServicioLogin> ex)
+                catch (FaultException ex)
                 {
-                    mostrarAlerta($"Error con la base de datos: {ex.Detail.Mensaje}");
+                    mostrarAlerta(ex.Message);
                 }
                 catch (EndpointNotFoundException ex)
                 {
@@ -61,6 +61,7 @@ namespace Cliente.Ventanas
                 catch (CommunicationException ex)
                 {
                     mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
+                    
                 }
                 catch (Exception ex)
                 {
