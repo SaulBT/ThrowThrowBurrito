@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,55 +22,124 @@ namespace Cliente.Ventanas
     /// </summary>
     public partial class VntRegistrarUsuario : Page
     {
+        private ServicioRegistrarUsuario.ServicioRegistrarUsuarioClient proxy;
         public VntRegistrarUsuario()
         {
-            InitializeComponent();
-            Console.WriteLine("constructor vacio");
+            try
+            {
+                InitializeComponent();
+                proxy = new ServicioRegistrarUsuario.ServicioRegistrarUsuarioClient();
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
+            }
+            catch (CommunicationException ex)
+            {
+                mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
+            }
+            catch (Exception ex)
+            {
+                mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
+            }
         }
 
         public VntRegistrarUsuario(Usuario usuario)
         {
-            InitializeComponent();
-            txbNombreUsuario.Text = usuario.NombreUsuario;
-            txbContrasenia.Text = usuario.Contrasenia;
-            txbCorreo.Text = usuario.Correo;
+            try
+            {
+                InitializeComponent();
+                proxy = new ServicioRegistrarUsuario.ServicioRegistrarUsuarioClient();
+                txbNombreUsuario.Text = usuario.NombreUsuario;
+                txbContrasenia.Text = usuario.Contrasenia;
+                txbCorreo.Text = usuario.Correo;
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
+            }
+            catch (CommunicationException ex)
+            {
+                mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
+            }
+            catch (Exception ex)
+            {
+                mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
+            }
         }
 
         private void btnSiguiente_Click(object sender, RoutedEventArgs e)
-        {
-            ServicioRegistrarUsuario.ServicioRegistrarUsuarioClient Proxy = new ServicioRegistrarUsuario.ServicioRegistrarUsuarioClient();
-
-            //TODO: HACER VALIDACION DE QUE NO SEAN NULL
-            if (!string.IsNullOrEmpty(txbNombreUsuario.Text) && !string.IsNullOrEmpty(txbContrasenia.Text) && !string.IsNullOrEmpty(txbCorreo.Text))
+        {            
+            try
             {
-                ServicioRegistrarUsuario.Usuario usuario = new ServicioRegistrarUsuario.Usuario()
+                //TODO: HACER VALIDACION DE QUE NO SEAN NULL
+                if (!string.IsNullOrEmpty(txbNombreUsuario.Text) && !string.IsNullOrEmpty(txbContrasenia.Text) && !string.IsNullOrEmpty(txbCorreo.Text))
                 {
-                    NombreUsuario = txbNombreUsuario.Text,
-                    Contrasenia = txbContrasenia.Text,
-                    Correo = txbCorreo.Text,
-                };
-                if (Proxy.ValidarDatos(usuario))
-                {
-                    ParametrosNavegacion parametros = new ParametrosNavegacion(Proxy.EnviarCodigoCorreo(usuario.Correo), usuario);
-                    VntValidarCorreo validarCorreo = new VntValidarCorreo(parametros);
-                    NavigationService.Navigate(validarCorreo);
+                    ServicioRegistrarUsuario.Usuario usuario = new ServicioRegistrarUsuario.Usuario()
+                    {
+                        NombreUsuario = txbNombreUsuario.Text,
+                        Contrasenia = txbContrasenia.Text,
+                        Correo = txbCorreo.Text,
+                    };
+                    if (proxy.ValidarDatos(usuario))
+                    {
+                        ParametrosNavegacion parametros = new ParametrosNavegacion(proxy.EnviarCodigoCorreo(usuario.Correo), usuario);
+                        VntValidarCorreo validarCorreo = new VntValidarCorreo(parametros);
+                        NavigationService.Navigate(validarCorreo);
+                    }
+                    else
+                    {
+                        mostrarAlerta("Formato incorrecto de datos, corríjalos e intente de nuevo.");
+                        return;
+                        /*
+                         * TODO pasar las verificaciones del servidor al cliente 
+                         * para poder especificar cuál campo tiene formato incorrecto
+                         */
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Formato incorrecto de datos");
+                    mostrarAlerta("Los campos están vacíos, por favor llénelos todos.");
                     return;
                 }
             }
-            else
+            catch (EndpointNotFoundException ex)
             {
-                Console.WriteLine("Campos vacíos");
-                return;
+                mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
             }
+            catch (CommunicationException ex)
+            {
+                mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
+            }
+            catch (Exception ex)
+            {
+                mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
+            }
+            
         }
 
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("Ventanas/MenuPrincipal.xaml", UriKind.Relative));
+            NavigationService.Navigate(new Uri("Ventanas/VntMenuPrincipal.xaml", UriKind.Relative));
+            proxy.Close();
         }
 
         public class ParametrosNavegacion
@@ -84,7 +154,23 @@ namespace Cliente.Ventanas
             }
         }
 
+        private void btnAceptarEmergente_Click(object sender, RoutedEventArgs e)
+        {
+            gFondoNegro.Visibility = Visibility.Hidden;
+            gVentanaEmergente.Visibility = Visibility.Hidden;
+            tbcMensajeEmergente.Text = "";
+            Console.WriteLine(proxy.State.ToString());
+            if (proxy.State == CommunicationState.Closed)
+            {
+                NavigationService.GoBack();
+            }
+        }
 
-
+        private void mostrarAlerta(string mensaje)
+        {
+            gFondoNegro.Visibility = Visibility.Visible;
+            gVentanaEmergente.Visibility = Visibility.Visible;
+            tbcMensajeEmergente.Text = mensaje;
+        }
     }
 }

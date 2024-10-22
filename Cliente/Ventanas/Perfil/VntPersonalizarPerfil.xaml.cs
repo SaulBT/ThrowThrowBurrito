@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,19 +25,40 @@ namespace Cliente.Ventanas.Perfil
     {
         private string claveUsuario = null;
         private ServicioPersonalizarPerfil.Perfil perfil = null;
+        private ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient proxy; //ew ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient();
 
         public VntPersonalizarPerfil(string claveUsuario)
         {
-            this.claveUsuario = claveUsuario;
-            ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient Proxy = new ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient();
-            perfil = Proxy.ObtenerPerfil(claveUsuario);
+            try
+            {
+                InitializeComponent();
+                this.claveUsuario = claveUsuario;
+                proxy = new ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient();
+                perfil = proxy.ObtenerPerfil(claveUsuario);
+                txbDescripcion.Text = perfil.Descripcion;
+                txbNombreUsuario.Text = perfil.NombreUsuario;
+                if (perfil.Foto != null)
+                    imgFotoPerfil.Source = ConvertirByteAImagen(perfil.Foto);
 
+            } catch(EndpointNotFoundException ex)
+            {
+                mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
+            }
+                catch (CommunicationException ex)
+            {
+                mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
+            }
+                catch (Exception ex)
+            {
+                mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
+            }
 
-            InitializeComponent();
-            txbDescripcion.Text = perfil.Descripcion;
-            txbNombreUsuario.Text = perfil.NombreUsuario;
-            if (perfil.Foto != null)
-                imgFotoPerfil.Source = ConvertirByteAImagen(perfil.Foto);
         }
 
         // Implementación de botones
@@ -44,39 +66,59 @@ namespace Cliente.Ventanas.Perfil
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+            proxy.Close();
         }
 
         private void btnConfirmar_Click(object sender, RoutedEventArgs e)
         {
-            ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient Proxy = new ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient();
-            if (!string.IsNullOrEmpty(txbNombreUsuario.Text))
+            try
             {
-                perfil.Descripcion = txbDescripcion.Text;
-                perfil.NombreUsuario = txbNombreUsuario.Text;
-
-                if (FotoEsValida(perfil.Foto))
+                if (!string.IsNullOrEmpty(txbNombreUsuario.Text))
                 {
-                    if (Proxy.GuardarCambios(perfil, claveUsuario))
+                    perfil.Descripcion = txbDescripcion.Text;
+                    perfil.NombreUsuario = txbNombreUsuario.Text;
+
+                    if (FotoEsValida(perfil.Foto))
                     {
-                        Console.WriteLine("Cambios guardados con éxito");
-                        VntPerfil verPerfil = new VntPerfil(claveUsuario);
-                        NavigationService.Navigate(verPerfil);
+                        if (proxy.GuardarCambios(perfil, claveUsuario))
+                        {
+                            mostrarAlerta("Cambios guardados con éxito");
+                            VntPerfil verPerfil = new VntPerfil(claveUsuario);
+                            NavigationService.Navigate(verPerfil);
+                        }
+                        else
+                        {
+                            mostrarAlerta("no se puedo guardar el cambio");
+                        }
                     }
                     else
                     {
-                        Console.WriteLine("no se puedo guardar el cambio");
-                    }
+                        mostrarAlerta("la foto no es valida, es muy grande");
+                    } 
                 }
                 else
                 {
-                    Console.WriteLine("la foto no es valida, es muy grande");
+                    mostrarAlerta("Nombre de usuario vacío");
                 }
-
             }
-            else
+            catch (EndpointNotFoundException ex)
             {
-                Console.WriteLine("Nombre de usuario vacío");
+                mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
             }
+            catch (CommunicationException ex)
+            {
+                mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
+            }
+            catch (Exception ex)
+            {
+                mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
+            } 
         }
 
         private void btnSubirFoto_Click(object sender, RoutedEventArgs e)
@@ -87,8 +129,19 @@ namespace Cliente.Ventanas.Perfil
             {
                 BitmapImage bitmap = new BitmapImage(new Uri(openFileDialog.FileName));
                 imgFotoPerfil.Source = bitmap;
-
                 perfil.Foto = convertirImagenAByte(bitmap);
+            }
+        }
+
+        private void btnAceptarEmergente_Click(object sender, RoutedEventArgs e)
+        {
+            gFondoNegro.Visibility = Visibility.Hidden;
+            gVentanaEmergente.Visibility = Visibility.Hidden;
+            tbcMensajeEmergente.Text = "";
+            Console.WriteLine(proxy.State.ToString());
+            if (proxy.State == CommunicationState.Closed)
+            {
+                NavigationService.GoBack();
             }
         }
 
@@ -140,6 +193,13 @@ namespace Cliente.Ventanas.Perfil
                 bitmap.EndInit();
             }
             return bitmap;
+        }
+
+        private void mostrarAlerta(string mensaje)
+        {
+            gFondoNegro.Visibility = Visibility.Visible;
+            gVentanaEmergente.Visibility = Visibility.Visible;
+            tbcMensajeEmergente.Text = mensaje;
         }
     }
 }

@@ -40,5 +40,10 @@ namespace Cliente.Ventanas.Perfil
         {
             NavigationService.Navigate(new Uri("Ventanas/VntMenuPrincipal.xaml", UriKind.Relative), claveUsuario);
         }
+
+        private void btnAceptarEmergente_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

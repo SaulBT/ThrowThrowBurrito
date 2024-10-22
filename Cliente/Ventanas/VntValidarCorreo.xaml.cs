@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,37 +25,125 @@ namespace Cliente.Ventanas
     {
         private string codigo;
         private Usuario usuario;
+        private ServicioRegistrarUsuarioClient proxy;
         public VntValidarCorreo(ParametrosNavegacion parametros)
         {
-            InitializeComponent();
-            this.usuario = parametros.Usuario;
-            this.codigo = parametros.Codigo;
+            try
+            {
+                InitializeComponent();
+                proxy = new ServicioRegistrarUsuarioClient();
+                this.usuario = parametros.Usuario;
+                this.codigo = parametros.Codigo;
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
+            }
+            catch (CommunicationException ex)
+            {
+                mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
+            }
+            catch (Exception ex)
+            {
+                mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
+            }
         }
 
         private void btnConfirmar_Click(object sender, RoutedEventArgs e)
         {
-            ServicioRegistrarUsuario.IServicioRegistrarUsuario Proxy = new ServicioRegistrarUsuarioClient();
-            this.codigo = Proxy.EnviarCodigoCorreo(usuario.Correo);
+            try
+            {
+                this.codigo = proxy.EnviarCodigoCorreo(usuario.Correo);
+                mostrarAlerta("Se ha enviado un nuevo código al correo proporcionado.");
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
+            }
+            catch (CommunicationException ex)
+            {
+                mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
+            }
+            catch (Exception ex)
+            {
+                mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
+            } 
         }
 
         private void btnReenviar_Click(object sender, RoutedEventArgs e)
         {
-            ServicioRegistrarUsuario.IServicioRegistrarUsuario Proxy = new ServicioRegistrarUsuarioClient();
-            if (txbCodigo.Text.Equals(this.codigo))
+            try
             {
-                Proxy.RegistrarUsuario(this.usuario);
-                Console.WriteLine("EL CODIGO SÍ CONINCIDEEE");
-                //TODO IMPLEMENTAR FUNCION DE INGRESAR AL MENU PRINCIPAL YA LOGEADO
+                if (txbCodigo.Text.Equals(this.codigo))
+                {
+                    proxy.RegistrarUsuario(this.usuario);
+                    mostrarAlerta("Se ha registrado el usuario exitosamente.");
+                    /* 
+                     * TODO IMPLEMENTAR FUNCION DE INGRESAR AL MENU PRINCIPAL YA LOGEADO
+                     * También debería verificar excepciones con la base de datos desde el servidor
+                     */
+                }
+                else
+                {
+                    mostrarAlerta("El codigo ingresado no coincide con el enviado al correo.");
+                }
             }
-            else
+            catch (EndpointNotFoundException ex)
             {
-                Console.WriteLine("El codigo ingresado no coincide con el enviado al correo");
+                mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
             }
+            catch (CommunicationException ex)
+            {
+                mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
+            }
+            catch (Exception ex)
+            {
+                mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
+                Console.WriteLine(ex.Message);
+                proxy.Abort();
+            } 
         }
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
+            proxy.Close();
         }
+
+        private void btnAceptarEmergente_Click(object sender, RoutedEventArgs e)
+        {
+            gFondoNegro.Visibility = Visibility.Hidden;
+            gVentanaEmergente.Visibility = Visibility.Hidden;
+            tbcMensajeEmergente.Text = "";
+            Console.WriteLine(proxy.State.ToString());
+            if (proxy.State == CommunicationState.Closed)
+            {
+                NavigationService.GoBack();
+            }
+        }
+
+        private void mostrarAlerta(string mensaje)
+        {
+            gFondoNegro.Visibility = Visibility.Visible;
+            gVentanaEmergente.Visibility = Visibility.Visible;
+            tbcMensajeEmergente.Text = mensaje;
+        }
+
     }
 }

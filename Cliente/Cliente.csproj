@@ -203,9 +203,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Resource Include="Imagenes\fondo.png" />
-    <Resource Include="Imagenes\titulo.png" />
-    <Resource Include="Imagenes\ventanaEmergente.png" />
+    <Resource Include="Imagenes\imgFondo.png" />
+    <Resource Include="Imagenes\imgTitulo.png" />
+    <Resource Include="Imagenes\imgVentanaEmergente.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

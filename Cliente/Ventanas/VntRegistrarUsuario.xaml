@@ -10,7 +10,7 @@
 
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/Imagenes/Fondo.png"/>
+            <ImageBrush ImageSource="/Imagenes/imgFondo.png"/>
         </Grid.Background>
         <Label Content="Registrar usuario" FontSize="50" HorizontalAlignment="Center" Margin="0,38,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" Width="886" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
         <TextBox x:Name="txbNombreUsuario" HorizontalAlignment="Center" Margin="0,262,0,0" TextWrapping="Wrap" Text="Nombre de usuario" VerticalAlignment="Top" Width="120"/>
@@ -18,6 +18,27 @@
         <TextBox x:Name="txbContrasenia" HorizontalAlignment="Center" Margin="0,307,0,0" TextWrapping="Wrap" Text="Contraseña" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="btnSiguiente" Content="Siguiente" HorizontalAlignment="Center" Margin="0,413,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.168,0.603" Click="btnSiguiente_Click"/>
         <Button x:Name="btnCancelar" Content="Cancelar" HorizontalAlignment="Center" Margin="0,459,0,0" VerticalAlignment="Top" Click="btnCancelar_Click"/>
+
+
+        <!--Ventana emergente-->
+        <Grid x:Name="gFondoNegro" Background="Black" Opacity="0.5" Visibility="Hidden"/>
+        <Grid x:Name="gVentanaEmergente" Visibility="Hidden">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Imagenes/imgVentanaEmergente.png" Stretch="None"/>
+            </Grid.Background>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock x:Name="tbcMensajeEmergente" Text="" Width="300" TextWrapping="Wrap" TextAlignment="Center" FontSize="18"/>
+                <Button x:Name="btnAceptarEmergente" Width="120" Height="30" Margin="0,20,0,0" Click="btnAceptarEmergente_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                                <ContentPresenter Content="Aceptar" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Grid>
 
     </Grid>
 </Page>
