@@ -134,7 +134,7 @@ namespace Cliente.Ventanas
             Console.WriteLine(proxy.State.ToString());
             if (proxy.State == CommunicationState.Closed)
             {
-                NavigationService.GoBack();
+                //NavigationService.GoBack();
             }
         }
 

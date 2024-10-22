@@ -14,21 +14,15 @@ namespace Host
         {
             using (ServiceHost hostBurrito = new ServiceHost(typeof(Servicios.Implementaciones.ImplementacionLogin)))
             using (ServiceHost hostChat = new ServiceHost(typeof(Servicios.Implementaciones.ImplementacionChat)))
-            {
-                hostBurrito.Open();
-                hostChat.Open();
-
-                Console.WriteLine("El servidor se está ejecutando.");
-                Console.ReadLine();
-            }
-
             using (ServiceHost hostRegistrarUsuario = new ServiceHost(typeof(Servicios.ImplementacionRegistrarUsuario)))
             using (ServiceHost hostPersonalizarPerfil = new ServiceHost(typeof(Servicios.ImplementacionPersonalizarPerfil)))
             {
+                hostBurrito.Open();
+                hostChat.Open();
                 hostRegistrarUsuario.Open();
                 hostPersonalizarPerfil.Open();
 
-                Console.WriteLine("Servidor en ejecución...");
+                Console.WriteLine("El servidor se está ejecutando.");
                 Console.ReadLine();
             }
         }

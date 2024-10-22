@@ -5,5 +5,5 @@
                   Title="Throw Throw Burrito"
                   Height="720"
                   Width="1280"
-                  Source="Ventanas/VntMenuPrincipal.xaml">
+                  Source="Ventanas/vntLogin.xaml">
 </NavigationWindow>

@@ -60,8 +60,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Ventanas\General.xaml.cs">
-      <DependentUpon>General.xaml</DependentUpon>
+    <Compile Include="Connected Services\ServicioChat\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\ServicioPersonalizarPerfil\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\ServicioRegistrarUsuario\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\vntLobby.xaml.cs">
       <DependentUpon>vntLobby.xaml</DependentUpon>
@@ -72,18 +84,21 @@
     <Compile Include="Ventanas\vntMenuPrincipal.xaml.cs">
       <DependentUpon>vntMenuPrincipal.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
+    <Compile Include="Ventanas\Perfil\VntPerfil.xaml.cs">
+      <DependentUpon>VntPerfil.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Perfil\VntPersonalizarPerfil.xaml.cs">
+      <DependentUpon>VntPersonalizarPerfil.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\VntRegistrarUsuario.xaml.cs">
+      <DependentUpon>VntRegistrarUsuario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\VntValidarCorreo.xaml.cs">
+      <DependentUpon>VntValidarCorreo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Connected Services\ServicioChat\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Connected Services\ServicioLogin\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -92,10 +107,6 @@
     </Compile>
     <Compile Include="Logica\LogicaChat.cs" />
     <Compile Include="Logica\LogicaLogin.cs" />
-    <Page Include="Ventanas\General.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Ventanas\vntLobby.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -105,10 +116,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ventanas\vntMenuPrincipal.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Ventanas\VntMenuPrincipal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -171,9 +178,6 @@
     <None Include="Connected Services\ServicioLogin\item2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ServicioLogin\item3.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="Connected Services\ServicioPersonalizarPerfil\Cliente.ServicioPersonalizarPerfil.Perfil.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
@@ -211,6 +215,8 @@
   <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\ServicioChat\" />
     <WCFMetadataStorage Include="Connected Services\ServicioLogin\" />
+    <WCFMetadataStorage Include="Connected Services\ServicioPersonalizarPerfil\" />
+    <WCFMetadataStorage Include="Connected Services\ServicioRegistrarUsuario\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\ServicioLogin\configuration91.svcinfo" />
@@ -220,18 +226,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\ServicioLogin\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\ServicioChat\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\ServicioChat\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\ServicioChat\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
@@ -249,44 +243,30 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\ServicioPersonalizarPerfil\" />
-    <WCFMetadataStorage Include="Connected Services\ServicioRegistrarUsuario\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\ServicioRegistrarUsuario\item.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\ServicioRegistrarUsuario\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\ServicioRegistrarUsuario\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\ServicioRegistrarUsuario\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\ServicioPersonalizarPerfil\item.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\ServicioPersonalizarPerfil\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\ServicioPersonalizarPerfil\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\ServicioPersonalizarPerfil\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Resource Include="Imagenes\imgAgregarAmigo.png" />
     <Resource Include="Imagenes\imgFondoLobby.png" />
+    <None Include="Connected Services\ServicioChat\configuration91.svcinfo" />
+    <None Include="Connected Services\ServicioChat\configuration.svcinfo" />
+    <None Include="Connected Services\ServicioChat\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\ServicioRegistrarUsuario\item.disco" />
+    <None Include="Connected Services\ServicioRegistrarUsuario\configuration91.svcinfo" />
+    <None Include="Connected Services\ServicioRegistrarUsuario\configuration.svcinfo" />
+    <None Include="Connected Services\ServicioRegistrarUsuario\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\ServicioPersonalizarPerfil\item.disco" />
+    <None Include="Connected Services\ServicioPersonalizarPerfil\configuration91.svcinfo" />
+    <None Include="Connected Services\ServicioPersonalizarPerfil\configuration.svcinfo" />
+    <None Include="Connected Services\ServicioPersonalizarPerfil\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Musica\mscMenu.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

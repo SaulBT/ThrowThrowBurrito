@@ -138,7 +138,8 @@ namespace Cliente.Ventanas
 
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("Ventanas/VntMenuPrincipal.xaml", UriKind.Relative));
+            vntLogin vntLogin = new vntLogin();
+            NavigationService.Navigate(vntLogin);
             proxy.Close();
         }
 

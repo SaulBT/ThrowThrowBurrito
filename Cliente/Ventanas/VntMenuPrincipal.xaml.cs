@@ -1,8 +1,9 @@
-﻿using Cliente.ServicioPersonalizarPerfil;
-using Cliente.Ventanas.Perfil;
+﻿using Cliente.ServicioLogin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Media;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,38 +19,74 @@ using System.Windows.Shapes;
 namespace Cliente.Ventanas
 {
     /// <summary>
-    /// Lógica de interacción para MenuPrincipal.xaml
+    /// Interaction logic for MenuPrincipal.xaml
     /// </summary>
-    public partial class VntMenuPrincipal : Page
+    public partial class vntMenuPrincipal : Page
     {
-        private String claveUsuario = "FJ7PV3RHTO";//"CMCBTM2YE9";
-        //TODO: saul maneja clase Jugador, hay que estandarizar
+        private SoundPlayer reproductor;
+        private Jugador jugador;
 
-        public VntMenuPrincipal()
+        public vntMenuPrincipal(Jugador jugador)
         {
             InitializeComponent();
+            this.reproductor = new SoundPlayer("Musica/mscMenu.wav");
+            this.Loaded += MenuPrincipal_Loaded;
+            this.jugador = jugador;
         }
 
-        public VntMenuPrincipal(String claveUsuario)
+        
+        private void MenuPrincipal_Loaded(object sender, RoutedEventArgs e)
         {
-            this.claveUsuario = claveUsuario;
-            InitializeComponent();
+            this.reproductor.PlayLooping();
         }
 
-        private void btnRegistrarse_Click(object sender, RoutedEventArgs e)
+        private void mostrarAlerta(String mensaje)
         {
-            NavigationService.Navigate(new Uri("Ventanas/VntRegistrarUsuario.xaml", UriKind.Relative));
+            gFondoNegro.Visibility = Visibility.Visible;
+            gVentanaEmergente.Visibility = Visibility.Visible;
+            tbcMensajeEmergente.Text = mensaje;
         }
 
-        private void btnVerPerfil_Click(object sender, RoutedEventArgs e)
+        private void btnAceptarEmergente_Click(object sender, RoutedEventArgs e)
         {
-            VntPerfil verPerfil = new VntPerfil(claveUsuario);
-            NavigationService.Navigate(verPerfil);
+            gFondoNegro.Visibility = Visibility.Hidden;
+            gVentanaEmergente.Visibility = Visibility.Hidden;
+            tbcMensajeEmergente.Text = "";
+        }
+
+        private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
+        {
+            this.reproductor.Stop();
+            vntLogin vntLogin = new vntLogin();
+            NavigationService.Navigate(vntLogin);
         }
 
         private void btnCrearPartida_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                vntLobby vntLobby = new vntLobby(this.jugador);
+                vntLobby.Unirse();
+                NavigationService.Navigate(vntLobby);
+            }
+            catch (FaultException ex)
+            {
+                mostrarAlerta(ex.Message);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
+            }
+            catch (CommunicationException ex)
+            {
+                mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
 
+            }
+            catch (Exception ex)
+            {
+                mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
+            }
+            
         }
 
         private void btnUnirsePartida_Click(object sender, RoutedEventArgs e)
@@ -62,7 +99,7 @@ namespace Cliente.Ventanas
 
         }
 
-        private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
+        private void btnVerPerfil_Click(object sender, RoutedEventArgs e)
         {
 
         }

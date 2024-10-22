@@ -38,7 +38,7 @@ namespace Cliente.Ventanas.Perfil
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new Uri("Ventanas/VntMenuPrincipal.xaml", UriKind.Relative), claveUsuario);
+            //NavigationService.Navigate(new Uri("Ventanas/VntMenuPrincipal.xaml", UriKind.Relative), claveUsuario);
         }
 
         private void btnAceptarEmergente_Click(object sender, RoutedEventArgs e)

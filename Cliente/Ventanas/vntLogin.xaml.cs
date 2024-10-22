@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Cliente.Ventanas;
 
 namespace Cliente.Ventanas
 {
@@ -112,7 +113,8 @@ namespace Cliente.Ventanas
 
         private void btnCrearCuenta_Click(object sender, RoutedEventArgs e)
         {
-            mostrarAlerta("¡Vaya! Parece que esta página aún no está terminada.");
+            VntRegistrarUsuario vtnRegistrarUsuario = new VntRegistrarUsuario();
+            NavigationService.Navigate(vtnRegistrarUsuario);
             //Aqui va lo de Pablo
         }
 

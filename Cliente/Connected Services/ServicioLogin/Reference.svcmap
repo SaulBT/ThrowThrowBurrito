@@ -22,11 +22,10 @@
     <MetadataSource Address="http://localhost:8082/?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="5fd32dd5-dc2f-44e6-ba7a-848ee4149e41" SourceId="1" SourceUrl="http://localhost:8082/?xsd=xsd2" />
+    <MetadataFile FileName="ImplementacionLogin.wsdl" MetadataType="Wsdl" ID="8b159948-f03f-43bf-bd5b-c05b6464e7bb" SourceId="1" SourceUrl="http://localhost:8082/?wsdl" />
     <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="5697b352-2a3f-4e49-b197-292ccc179f35" SourceId="1" SourceUrl="http://localhost:8082/?xsd=xsd0" />
     <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="1cf1ab9b-46e2-4a25-83c8-2c4258eda7b3" SourceId="1" SourceUrl="http://localhost:8082/?xsd=xsd1" />
-    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="5fd32dd5-dc2f-44e6-ba7a-848ee4149e41" SourceId="1" SourceUrl="http://localhost:8082/?xsd=xsd2" />
-    <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="0e08b772-80e8-4e62-b4c4-2965ea97e90d" SourceId="1" SourceUrl="http://localhost:8082/?xsd=xsd3" />
-    <MetadataFile FileName="ImplementacionLogin.wsdl" MetadataType="Wsdl" ID="8b159948-f03f-43bf-bd5b-c05b6464e7bb" SourceId="1" SourceUrl="http://localhost:8082/?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

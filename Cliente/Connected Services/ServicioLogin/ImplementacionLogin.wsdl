@@ -32,7 +32,6 @@
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Servicios.Interfaces" />
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/AccesoDatos" />
     </xsd:schema>
@@ -43,14 +42,10 @@
   <wsdl:message name="IServicioLogin_Login_OutputMessage">
     <wsdl:part name="parameters" element="tns:LoginResponse" />
   </wsdl:message>
-  <wsdl:message name="IServicioLogin_Login_ExcepcionServicioLoginFault_FaultMessage">
-    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/Servicios.Interfaces" name="detail" element="q1:ExcepcionServicioLogin" />
-  </wsdl:message>
   <wsdl:portType name="IServicioLogin">
     <wsdl:operation name="Login">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioLogin/Login" message="tns:IServicioLogin_Login_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioLogin/LoginResponse" message="tns:IServicioLogin_Login_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IServicioLogin/LoginExcepcionServicioLoginFault" name="ExcepcionServicioLoginFault" message="tns:IServicioLogin_Login_ExcepcionServicioLoginFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="eLogin" type="tns:IServicioLogin">
@@ -64,9 +59,6 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="ExcepcionServicioLoginFault">
-        <soap12:fault use="literal" name="ExcepcionServicioLoginFault" namespace="" />
-      </wsdl:fault>
     </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="ImplementacionLogin">
@@ -75,7 +67,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/Servicios.Interfaces</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2CEP8E3\Saúl</Upn>
+          <Upn>TAKISZOMBI\luisp</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

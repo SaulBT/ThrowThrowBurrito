@@ -89,7 +89,6 @@
           <Property Name="idAspecto" Type="Int32" />
           <Property Name="idDatosJugadorPartida" Type="Int32" Nullable="false" />
           <Property Name="expulsado" Type="Boolean" />
-          <Property Name="idDatosJugadorPartida" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Jugador">
           <Key>
