@@ -1,4 +1,5 @@
 ﻿using Cliente.ServicioLogin;
+using Cliente.Ventanas.Perfil;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -101,7 +102,8 @@ namespace Cliente.Ventanas
 
         private void btnVerPerfil_Click(object sender, RoutedEventArgs e)
         {
-
+            VntPerfil vntPerfil = new VntPerfil(jugador);
+            NavigationService.Navigate(vntPerfil);
         }
     }
 }
