@@ -1,4 +1,5 @@
-﻿using Cliente.ServicioPersonalizarPerfil;
+﻿using Cliente.ServicioLogin;
+using Cliente.ServicioPersonalizarPerfil;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,24 +22,25 @@ namespace Cliente.Ventanas.Perfil
     /// </summary>
     public partial class VntPerfil : Page
     {
-        private string claveUsuario;
+        private Jugador jugador;
 
-        public VntPerfil(String claveUsuario)
+        public VntPerfil(Jugador jugador)
         {
-            this.claveUsuario = claveUsuario;
+            this.jugador = jugador;
             InitializeComponent();
 
         }
 
         private void btnPersonalizarPerfil_Click(object sender, RoutedEventArgs e)
         {
-            VntPersonalizarPerfil personalizarPerfil = new VntPersonalizarPerfil(claveUsuario);
+            VntPersonalizarPerfil personalizarPerfil = new VntPersonalizarPerfil(jugador);
             NavigationService.Navigate(personalizarPerfil);
         }
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
-            //NavigationService.Navigate(new Uri("Ventanas/VntMenuPrincipal.xaml", UriKind.Relative), claveUsuario);
+            vntMenuPrincipal vntMenuPrincipal = new vntMenuPrincipal(jugador);
+            NavigationService.Navigate(vntMenuPrincipal);
         }
 
         private void btnAceptarEmergente_Click(object sender, RoutedEventArgs e)

@@ -55,7 +55,7 @@ namespace Cliente.Ventanas
             }
         }
 
-        private void btnConfirmar_Click(object sender, RoutedEventArgs e)
+        private void btnReenviar_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -82,7 +82,7 @@ namespace Cliente.Ventanas
             } 
         }
 
-        private void btnReenviar_Click(object sender, RoutedEventArgs e)
+        private void btnConfirmar_Click(object sender, RoutedEventArgs e)
         {
             try
             {

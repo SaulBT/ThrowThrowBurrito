@@ -114,7 +114,7 @@
           <Property Name="codigoPartida" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="tiempoGuerra" Type="Int32" />
           <Property Name="puntajeVictoria" Type="Int32" />
-          <Property Name="nombreGanador" Type="String" />
+          <Property Name="nombreGanador" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
           <Property Name="idPartida" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="SolicitudAmigo">

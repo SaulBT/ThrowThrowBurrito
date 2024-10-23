@@ -1,4 +1,5 @@
-﻿using Cliente.ServicioPersonalizarPerfil;
+﻿using Cliente.ServicioLogin;
+using Cliente.ServicioPersonalizarPerfil;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -23,42 +24,33 @@ namespace Cliente.Ventanas.Perfil
     /// </summary>
     public partial class VntPersonalizarPerfil : Page
     {
-        private string claveUsuario = null;
-        private ServicioPersonalizarPerfil.Perfil perfil = null;
-        private ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient proxy; //ew ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient();
+        private Jugador jugador;
+        private ServicioPersonalizarPerfil.Perfil perfil;
+        private ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient proxy;
 
-        public VntPersonalizarPerfil(string claveUsuario)
+        public VntPersonalizarPerfil(Jugador jugador)
         {
-            try
-            {
-                InitializeComponent();
-                this.claveUsuario = claveUsuario;
-                proxy = new ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient();
-                perfil = proxy.ObtenerPerfil(claveUsuario);
-                txbDescripcion.Text = perfil.Descripcion;
-                txbNombreUsuario.Text = perfil.NombreUsuario;
-                if (perfil.Foto != null)
-                    imgFotoPerfil.Source = ConvertirByteAImagen(perfil.Foto);
+            InitializeComponent();
+            cambiarPefilJugador();
+            this.jugador = jugador;
+            txbDescripcion.Text = jugador.descripcion;
+            txbNombreUsuario.Text = jugador.nombreUsuario;
+            if (jugador.fotoPerfil != null)
+                imgFotoPerfil.Source = ConvertirByteAImagen(jugador.fotoPerfil);
 
-            } catch(EndpointNotFoundException ex)
-            {
-                mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
-                Console.WriteLine(ex.Message);
-                proxy.Abort();
-            }
-                catch (CommunicationException ex)
-            {
-                mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
-                Console.WriteLine(ex.Message);
-                proxy.Abort();
-            }
-                catch (Exception ex)
-            {
-                mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
-                Console.WriteLine(ex.Message);
-                proxy.Abort();
-            }
+        }
 
+        //POR LO MIENTRAS
+        private void cambiarPefilJugador()
+        {
+            perfil.Descripcion = jugador.descripcion;
+            perfil.NombreUsuario = jugador.nombreUsuario;
+        }
+
+        private void cambiarJugadorPerfil()
+        {
+            jugador.descripcion = perfil.Descripcion;
+            jugador.nombreUsuario = perfil.NombreUsuario;
         }
 
         // Implementación de botones
@@ -77,13 +69,15 @@ namespace Cliente.Ventanas.Perfil
                 {
                     perfil.Descripcion = txbDescripcion.Text;
                     perfil.NombreUsuario = txbNombreUsuario.Text;
+                    string claveUsuario = jugador.claveUsuario;
 
                     if (FotoEsValida(perfil.Foto))
                     {
                         if (proxy.GuardarCambios(perfil, claveUsuario))
                         {
+                            cambiarJugadorPerfil();
                             mostrarAlerta("Cambios guardados con éxito");
-                            VntPerfil verPerfil = new VntPerfil(claveUsuario);
+                            VntPerfil verPerfil = new VntPerfil(jugador);
                             NavigationService.Navigate(verPerfil);
                         }
                         else

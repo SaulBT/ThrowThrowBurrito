@@ -30,9 +30,9 @@ namespace Cliente.Ventanas
 
         public vntLobby(Jugador jugador)
         {
-            InitializeComponent();
             this.jugador = jugador;
             logica = new LogicaChat(this, jugador.nombreUsuario);
+            InitializeComponent();
         }
 
         public void Unirse()

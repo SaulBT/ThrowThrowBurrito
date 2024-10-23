@@ -115,7 +115,6 @@ namespace Cliente.Ventanas
         {
             VntRegistrarUsuario vtnRegistrarUsuario = new VntRegistrarUsuario();
             NavigationService.Navigate(vtnRegistrarUsuario);
-            //Aqui va lo de Pablo
         }
 
         private void btnSalir_Click(object sender, RoutedEventArgs e)
