@@ -25,14 +25,14 @@ namespace Cliente.Ventanas.Perfil
     public partial class VntPersonalizarPerfil : Page
     {
         private Jugador jugador;
-        private ServicioPersonalizarPerfil.Perfil perfil;
-        private ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient proxy;
+        private ServicioPersonalizarPerfil.Perfil perfil = new ServicioPersonalizarPerfil.Perfil();
+        private ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient proxy = new ServicioPersonalizarPerfilClient();
 
         public VntPersonalizarPerfil(Jugador jugador)
         {
             InitializeComponent();
-            cambiarPefilJugador();
             this.jugador = jugador;
+            cambiarPefilJugador();
             txbDescripcion.Text = jugador.descripcion;
             txbNombreUsuario.Text = jugador.nombreUsuario;
             if (jugador.fotoPerfil != null)
@@ -43,14 +43,16 @@ namespace Cliente.Ventanas.Perfil
         //POR LO MIENTRAS
         private void cambiarPefilJugador()
         {
-            perfil.Descripcion = jugador.descripcion;
             perfil.NombreUsuario = jugador.nombreUsuario;
+            if (jugador.descripcion != null)
+                perfil.Descripcion = "";
         }
 
         private void cambiarJugadorPerfil()
         {
             jugador.descripcion = perfil.Descripcion;
             jugador.nombreUsuario = perfil.NombreUsuario;
+            jugador.fotoPerfil = perfil.Foto;
         }
 
         // Implementación de botones

@@ -61,6 +61,7 @@ namespace Cliente.Ventanas
                 }
                 catch (CommunicationException ex)
                 {
+                    Console.WriteLine(ex.Message);
                     mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
                     
                 }
