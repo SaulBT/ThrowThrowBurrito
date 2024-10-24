@@ -24,7 +24,7 @@ namespace Servicios.Implementaciones
             
             catch (EntityException ex)
             {
-                throw new FaultException("Error de la base de datos: " + ex.Message);
+                throw new FaultException("Error de la base de datos");
             }
         }
     }

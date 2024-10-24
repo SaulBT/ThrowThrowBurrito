@@ -23,10 +23,9 @@ namespace Servicios.Implementaciones
             var callback = OperationContext.Current.GetCallbackChannel<IServicioChatCallback>();
             if (!clientes.Contains(callback))
             {
-                Console.WriteLine("Se ha añadido el cliente");
                 clientes.Add(callback);
             }
-
+            Console.WriteLine("Llego " + nombreUsuario);
             string mensajeCompleto = nombreUsuario + " se ha unido!";
             TransmitirMensaje(mensajeCompleto);
         }
@@ -49,6 +48,7 @@ namespace Servicios.Implementaciones
         {
             foreach (var cliente in clientes)
             {
+                Console.WriteLine("Se esta transmitiendo el mensaje");
                 cliente.RecibirMensaje(mensajeCompleto);
             }
         }

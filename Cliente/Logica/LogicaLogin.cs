@@ -11,7 +11,7 @@ namespace Cliente.Logica
 {
     public class LogicaLogin
     {
-        private ServicioLogin.ServicioLoginClient servicio;
+        public ServicioLogin.ServicioLoginClient servicio;
 
         public LogicaLogin()
         {

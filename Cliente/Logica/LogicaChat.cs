@@ -4,6 +4,7 @@ using Cliente.Ventanas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace Cliente.Logica
 {
     public class LogicaChat : IServicioChatCallback
     {
-        private ServicioChat.ServicioChatClient servicio;
+        public ServicioChat.ServicioChatClient servicio;
         private vntLobby vntLobby;
         private DispatcherTimer timer;
         bool conexion;
@@ -30,6 +31,16 @@ namespace Cliente.Logica
             this.activo = true;
             this.mensajesPendientes = new List<String>();
             this.nombreUsuario = nombreUsuaio;
+            configurarTimer();
+        }
+
+        public LogicaChat(string nombreUsuario, InstanceContext contexto)
+        {
+            this.servicio = new ServicioChatClient(contexto);
+            this.conexion = true;
+            this.activo = true;
+            this.mensajesPendientes = new List<String>();
+            this.nombreUsuario = nombreUsuario;
             configurarTimer();
         }
 
