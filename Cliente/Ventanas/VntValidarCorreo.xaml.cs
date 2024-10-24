@@ -89,6 +89,8 @@ namespace Cliente.Ventanas
             {
                 if (txbCodigo.Text.Equals(this.codigo))
                 {
+                    string contrasenia = encriptar(usuario.Contrasenia);
+                    usuario.Contrasenia = contrasenia;
                     proxy.RegistrarUsuario(this.usuario);
                     mostrarAlerta("Se ha registrado el usuario exitosamente.");
                     /* 
@@ -146,12 +148,19 @@ namespace Cliente.Ventanas
             tbcMensajeEmergente.Text = mensaje;
         }
 
-        /*
-        private void encriptar()
+        private string encriptar(string contrasenia)
         {
             SHA256Managed sHA256Managed = new SHA256Managed();
-            byte[] contraseniaBytes =SHA256Managed.Com
-        }*/
+            string contraHash = String.Empty;
+            byte[] contraByte = sHA256Managed.ComputeHash(Encoding.UTF8.GetBytes(contrasenia));
+
+            foreach (byte b in contraByte)
+            {
+                contraHash += b.ToString("x2");
+            }
+
+            return contraHash;
+        }
 
     }
 }

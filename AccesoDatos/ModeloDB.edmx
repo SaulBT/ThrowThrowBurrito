@@ -10,7 +10,7 @@
             <PropertyRef Name="idAmigo" />
           </Key>
           <Property Name="claveUsuarioAmigo" Type="varchar" MaxLength="10" />
-          <Property Name="idAmigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idAmigo" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DatosJugadorPartida">
           <Key>
@@ -19,7 +19,7 @@
           <Property Name="puntaje" Type="int" />
           <Property Name="idAspecto" Type="int" />
           <Property Name="expulsado" Type="bit" />
-          <Property Name="idDatosJugadorPartida" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idDatosJugadorPartida" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Jugador">
           <Key>
@@ -46,7 +46,7 @@
           <Property Name="tiempoGuerra" Type="int" />
           <Property Name="puntajeVictoria" Type="int" />
           <Property Name="nombreGanador" Type="varchar" MaxLength="20" />
-          <Property Name="idPartida" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPartida" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="SolicitudAmigo">
           <Key>
@@ -54,7 +54,7 @@
           </Key>
           <Property Name="fecha" Type="date" />
           <Property Name="estado" Type="varchar" MaxLength="8" />
-          <Property Name="idSolicitudAmigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idSolicitudAmigo" Type="int" Nullable="false" />
         </EntityType>
         <EntityContainer Name="ModeloDBStoreContainer">
           <EntitySet Name="Amigo" EntityType="Self.Amigo" Schema="dbo" store:Type="Tables" />

@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Cliente.Ventanas;
+using System.Security.Cryptography;
 
 namespace Cliente.Ventanas
 {
@@ -37,7 +38,7 @@ namespace Cliente.Ventanas
             if (verificacion)
             {
                 string nombreUsuario = tbxNombreUsuario.Text;
-                string contrasenia = tbxContrasenia.Text;
+                string contrasenia = encriptar(tbxContrasenia.Text);
                 try
                 {
                     Jugador jugador = logica.IniciarSesion(nombreUsuario, contrasenia);
@@ -121,6 +122,20 @@ namespace Cliente.Ventanas
         private void btnSalir_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private string encriptar(string contrasenia)
+        {
+            SHA256Managed sHA256Managed = new SHA256Managed();
+            string contraHash = String.Empty;
+            byte[] contraByte = sHA256Managed.ComputeHash(Encoding.UTF8.GetBytes(contrasenia));
+
+            foreach (byte b in contraByte)
+            {
+                contraHash += b.ToString("x2");
+            }
+
+            return contraHash;
         }
     }
 }
