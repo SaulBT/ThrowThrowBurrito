@@ -1,4 +1,5 @@
-﻿using Cliente.ServicioRegistrarUsuario;
+﻿using Cliente.Pruebas;
+using Cliente.ServicioRegistrarUsuario;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,11 +28,13 @@ namespace Cliente.Ventanas
         private string codigo;
         private Usuario usuario;
         private ServicioRegistrarUsuarioClient proxy;
+        private PruebasLogin logica;
         public VntValidarCorreo(ParametrosNavegacion parametros)
         {
             try
             {
                 InitializeComponent();
+                logica = new PruebasLogin();
                 proxy = new ServicioRegistrarUsuarioClient();
                 this.usuario = parametros.Usuario;
                 this.codigo = parametros.Codigo;
@@ -89,9 +92,7 @@ namespace Cliente.Ventanas
             {
                 if (txbCodigo.Text.Equals(this.codigo))
                 {
-                    string contrasenia = encriptar(usuario.Contrasenia);
-                    usuario.Contrasenia = contrasenia;
-                    proxy.RegistrarUsuario(this.usuario);
+                    
                     mostrarAlerta("Se ha registrado el usuario exitosamente.");
                     /* 
                      * TODO IMPLEMENTAR FUNCION DE INGRESAR AL MENU PRINCIPAL YA LOGEADO
@@ -147,20 +148,5 @@ namespace Cliente.Ventanas
             gVentanaEmergente.Visibility = Visibility.Visible;
             tbcMensajeEmergente.Text = mensaje;
         }
-
-        private string encriptar(string contrasenia)
-        {
-            SHA256Managed sHA256Managed = new SHA256Managed();
-            string contraHash = String.Empty;
-            byte[] contraByte = sHA256Managed.ComputeHash(Encoding.UTF8.GetBytes(contrasenia));
-
-            foreach (byte b in contraByte)
-            {
-                contraHash += b.ToString("x2");
-            }
-
-            return contraHash;
-        }
-
     }
 }
