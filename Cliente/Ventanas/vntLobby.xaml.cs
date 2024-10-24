@@ -30,14 +30,37 @@ namespace Cliente.Ventanas
 
         public vntLobby(Jugador jugador)
         {
+            InitializeComponent();
             this.jugador = jugador;
             logica = new LogicaChat(this, jugador.nombreUsuario);
-            InitializeComponent();
+            Unirse();
+            
         }
 
         public void Unirse()
         {
-            logica.Unirse(this.jugador.nombreUsuario);
+            try
+            {
+                logica.Unirse(this.jugador.nombreUsuario);
+            }
+            catch (FaultException ex)
+            {
+                mostrarAlerta(ex.Message);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
+            }
+            catch (CommunicationException ex)
+            {
+                mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
+
+            }
+            catch (Exception ex)
+            {
+                mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
+            }
+            
         }
 
         public void mostrarAlerta(String mensaje)

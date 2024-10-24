@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -144,6 +145,13 @@ namespace Cliente.Ventanas
             gVentanaEmergente.Visibility = Visibility.Visible;
             tbcMensajeEmergente.Text = mensaje;
         }
+
+        /*
+        private void encriptar()
+        {
+            SHA256Managed sHA256Managed = new SHA256Managed();
+            byte[] contraseniaBytes =SHA256Managed.Com
+        }*/
 
     }
 }

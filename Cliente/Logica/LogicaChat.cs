@@ -51,7 +51,6 @@ namespace Cliente.Logica
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            Console.WriteLine("Chequeo de conexion");
             try
             {
                 checarCanal();
@@ -94,7 +93,11 @@ namespace Cliente.Logica
 
         public void Unirse(String nombreUsuario)
         {
-            checarCanal();
+            if (servicio.State != CommunicationState.Opened)
+            {
+                servicio.Open();
+            }
+
             servicio.Unirse(nombreUsuario);
         }
 

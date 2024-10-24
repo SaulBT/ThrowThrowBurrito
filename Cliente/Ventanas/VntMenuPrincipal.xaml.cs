@@ -64,30 +64,7 @@ namespace Cliente.Ventanas
 
         private void btnCrearPartida_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                vntLobby vntLobby = new vntLobby(this.jugador);
-                vntLobby.Unirse();
-                NavigationService.Navigate(vntLobby);
-            }
-            catch (FaultException ex)
-            {
-                mostrarAlerta(ex.Message);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
-            }
-            catch (CommunicationException ex)
-            {
-                mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
-
-            }
-            catch (Exception ex)
-            {
-                mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
-            }
-            
+            NavigationService.Navigate(new vntLobby(this.jugador));
         }
 
         private void btnUnirsePartida_Click(object sender, RoutedEventArgs e)

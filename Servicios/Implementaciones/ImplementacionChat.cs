@@ -23,10 +23,12 @@ namespace Servicios.Implementaciones
             var callback = OperationContext.Current.GetCallbackChannel<IServicioChatCallback>();
             if (!clientes.Contains(callback))
             {
+                Console.WriteLine("Se ha añadido el cliente");
                 clientes.Add(callback);
-                string mensajeCompleto = nombreUsuario + " se ha unido!";
-                TransmitirMensaje(mensajeCompleto);
             }
+
+            string mensajeCompleto = nombreUsuario + " se ha unido!";
+            TransmitirMensaje(mensajeCompleto);
         }
 
         public void Salir(string nombreUsuario)
