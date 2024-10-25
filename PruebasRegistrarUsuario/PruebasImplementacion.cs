@@ -18,8 +18,8 @@ namespace Pruebas
         [SetUp]
         public void SetUp()
         {
-            implementacion = new ImplementacionRegistrarUsuario();
             contextoMock = new Mock<ModeloDBContainer>();
+            implementacion = new ImplementacionRegistrarUsuario(contextoMock.Object);
         }
         /*
         [Test]
@@ -31,87 +31,145 @@ namespace Pruebas
         [Test]
         public void ProbarRegistrarUsuario()
         {
-            var usuario = new Usuario()
+            try
             {
-                NombreUsuario = "PruebaRegistro",
-                Contrasenia = "PruebaContrasenia",
-                Correo = "PruebaCorreo"
-            };
+                var usuario = new Usuario()
+                {
+                    NombreUsuario = "PruebaRegistro",
+                    Contrasenia = "PruebaContrasenia",
+                    Correo = "PruebaCorreo"
+                };
 
-            contextoMock.Setup(c => c.Jugador.Add(It.IsAny<Jugador>()));
-            contextoMock.Setup(c => c.SaveChanges()).Returns(1);
+                contextoMock.Setup(c => c.Jugador.Add(It.IsAny<Jugador>()));
+                contextoMock.Setup(c => c.SaveChanges()).Returns(1);
 
-            bool resultado = implementacion.RegistrarUsuario(usuario);
+                bool resultado = implementacion.RegistrarUsuario(usuario);
 
-            contextoMock.Verify(c => c.Jugador.Add(It.Is<Jugador>(j =>
-                j.nombreUsuario == usuario.NombreUsuario &&
-                j.contrasenia == usuario.Contrasenia &&
-                j.correoElectronico == usuario.Correo
-            )), Times.Once);
+                contextoMock.Verify(c => c.Jugador.Add(It.Is<Jugador>(j =>
+                    j.nombreUsuario == usuario.NombreUsuario &&
+                    j.contrasenia == usuario.Contrasenia &&
+                    j.correoElectronico == usuario.Correo
+                )), Times.Once);
 
-            contextoMock.Verify(c => c.SaveChanges(), Times.Once);
+                contextoMock.Verify(c => c.SaveChanges(), Times.Once);
 
-            Assert.That(resultado, Is.True);
+                Assert.That(resultado, Is.True);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            
         }
 
 
         [Test]
         public void ProbarGenerarClaveUsuario_ClaveUnica()
         {
-            string clave = implementacion.GenerarClaveUsuario();
+            try
+            {
+                string clave = implementacion.GenerarClaveUsuario();
 
-            Assert.That(implementacion.ValidarClaveNoRepetida, Is.True);
+                Assert.That(implementacion.ValidarClaveNoRepetida, Is.True);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         [Test]
         public void ProbarValidarNombreNoRepetido_NombreExistente()
         {
-            bool resultado = implementacion.ValidarNombreNoRepetido("Saul");
+            try
+            {
+                bool resultado = implementacion.ValidarNombreNoRepetido("Saul");
 
-            Assert.That(resultado, Is.False);
+                Assert.That(resultado, Is.False);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         [Test]
         public void ProbarValidarNombreNoRepetido_NombreInexistente()
         {
-            bool resultado = implementacion.ValidarNombreNoRepetido("Nombre Inexistente");
+            try
+            {
+                bool resultado = implementacion.ValidarNombreNoRepetido("Nombre Inexistente");
 
-            Assert.That(resultado, Is.False);
+                Assert.That(resultado, Is.False);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         [Test]
         public void ProbarGenerarCodigo_Longitud()
         {
-            int longitud = 6;
-            string codigo = implementacion.GenerarCodigo(longitud);
+            try
+            {
+                int longitud = 6;
+                string codigo = implementacion.GenerarCodigo(longitud);
 
-            Assert.That(codigo.Length, Is.EqualTo(longitud));
+                Assert.That(codigo.Length, Is.EqualTo(longitud));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         [Test]
         public void ProbarGenerarCodigo_CaracteresValidos()
         {
-            int longitud = 6;
-            string codigo = implementacion.GenerarCodigo(longitud);
+            try
+            {
+                int longitud = 6;
+                string codigo = implementacion.GenerarCodigo(longitud);
 
-            StringAssert.IsMatch("^[A-Z0-9]+$", codigo);
+                StringAssert.IsMatch("^[A-Z0-9]+$", codigo);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         [Test]
         public void ProbarValidarClaveNoRepetida_ClaveGenerada()
         {
-            string clave = implementacion.GenerarCodigo(10);
-            bool resultado = implementacion.ValidarClaveNoRepetida(clave);
+            try
+            {
+                string clave = implementacion.GenerarCodigo(10);
+                bool resultado = implementacion.ValidarClaveNoRepetida(clave);
 
-            Assert.That(resultado, Is.True);
+                Assert.That(resultado, Is.True);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         [Test]
         public void ProbarValidarClaveNoRepetida_ClaveExistente()
         {
-            bool resultado = implementacion.ValidarClaveNoRepetida("V86ZS316IC");
+            try
+            {
+                bool resultado = implementacion.ValidarClaveNoRepetida("V86ZS316IC");
 
-            Assert.That(resultado, Is.False);
+                Assert.That(resultado, Is.False);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

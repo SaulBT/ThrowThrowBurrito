@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Net.Security;
+using System.Runtime.Remoting.Contexts;
 using System.Runtime.Serialization;
 using System.Security.Cryptography.X509Certificates;
 using System.ServiceModel;
@@ -29,7 +30,11 @@ namespace Servicios
         const string cuerpoCorreo = "Se ha solicitado el registro de un usuario bajo esta dirección de correo.\n" +
             "Si usted no lo has solicitado, por favor ignore este mensaje\n\n" +
             "\tCódigo de verificación: ";
-
+        private ModeloDBContainer _contexto;
+        public ImplementacionRegistrarUsuario(ModeloDBContainer contexto)
+        {
+            _contexto = contexto ?? throw new ArgumentNullException(nameof(contexto));
+        }
 
         public string EnviarCodigoCorreo(string correo)
         {

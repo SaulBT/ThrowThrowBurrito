@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Servicios", "Servicios\Serv
 		{94E2B5FA-3F8E-4A54-9695-2F2E4FA4663D} = {94E2B5FA-3F8E-4A54-9695-2F2E4FA4663D}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pruebas", "PruebasRegistrarUsuario\Pruebas.csproj", "{6A80BCB6-033C-4FE2-A3A5-76D0D168CF39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pruebas", "PruebasRegistrarUsuario\Pruebas.csproj", "{6A80BCB6-033C-4FE2-A3A5-76D0D168CF39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
