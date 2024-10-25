@@ -43,20 +43,10 @@
   <wsdl:message name="IServicioPersonalizarPerfil_GuardarCambios_OutputMessage">
     <wsdl:part name="parameters" element="tns:GuardarCambiosResponse" />
   </wsdl:message>
-  <wsdl:message name="IServicioPersonalizarPerfil_ObtenerPerfil_InputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerPerfil" />
-  </wsdl:message>
-  <wsdl:message name="IServicioPersonalizarPerfil_ObtenerPerfil_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ObtenerPerfilResponse" />
-  </wsdl:message>
   <wsdl:portType name="IServicioPersonalizarPerfil">
     <wsdl:operation name="GuardarCambios">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioPersonalizarPerfil/GuardarCambios" message="tns:IServicioPersonalizarPerfil_GuardarCambios_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioPersonalizarPerfil/GuardarCambiosResponse" message="tns:IServicioPersonalizarPerfil_GuardarCambios_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerPerfil">
-      <wsdl:input wsaw:Action="http://tempuri.org/IServicioPersonalizarPerfil/ObtenerPerfil" message="tns:IServicioPersonalizarPerfil_ObtenerPerfil_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IServicioPersonalizarPerfil/ObtenerPerfilResponse" message="tns:IServicioPersonalizarPerfil_ObtenerPerfil_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IServicioPersonalizarPerfil" type="tns:IServicioPersonalizarPerfil">
@@ -64,15 +54,6 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="GuardarCambios">
       <soap12:operation soapAction="http://tempuri.org/IServicioPersonalizarPerfil/GuardarCambios" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="ObtenerPerfil">
-      <soap12:operation soapAction="http://tempuri.org/IServicioPersonalizarPerfil/ObtenerPerfil" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

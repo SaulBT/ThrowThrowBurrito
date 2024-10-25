@@ -1,4 +1,6 @@
-﻿using Cliente.Pruebas;
+﻿using Cliente.Logica;
+using Cliente.Pruebas;
+using Cliente.ServicioLogin;
 using Cliente.ServicioRegistrarUsuario;
 using System;
 using System.Collections.Generic;
@@ -20,24 +22,27 @@ using static Cliente.Ventanas.VntRegistrarUsuario;
 
 namespace Cliente.Ventanas
 {
-    /// <summary>
-    /// Lógica de interacción para ValidarCorreo.xaml
-    /// </summary>
     public partial class VntValidarCorreo : Page
     {
         private string codigo;
         private Usuario usuario;
         private ServicioRegistrarUsuarioClient proxy;
-        private PruebasLogin logica;
+        private LogicaCrearJugador logica;
+        private string contrasenia;
+        private static Dictionary<string, DateTime> ultimaHoraDeEnvio = new Dictionary<string, DateTime>();
+        private static TimeSpan tiempoEntreEnvios = TimeSpan.FromMinutes(1);
+
         public VntValidarCorreo(ParametrosNavegacion parametros)
         {
             try
             {
                 InitializeComponent();
-                logica = new PruebasLogin();
+                logica = new LogicaCrearJugador();
                 proxy = new ServicioRegistrarUsuarioClient();
                 this.usuario = parametros.Usuario;
+                contrasenia = usuario.Contrasenia;
                 this.codigo = parametros.Codigo;
+                ultimaHoraDeEnvio[usuario.Correo] = DateTime.Now;
             }
             catch (EndpointNotFoundException ex)
             {
@@ -63,8 +68,17 @@ namespace Cliente.Ventanas
         {
             try
             {
-                this.codigo = proxy.EnviarCodigoCorreo(usuario.Correo);
-                mostrarAlerta("Se ha enviado un nuevo código al correo proporcionado.");
+                txbCodigo.Text = "";
+                if (ultimaHoraDeEnvio.ContainsKey(usuario.Correo) && ultimaHoraDeEnvio[usuario.Correo] + tiempoEntreEnvios < DateTime.Now)
+                {
+                    this.codigo = proxy.EnviarCodigoCorreo(usuario.Correo);
+                    ultimaHoraDeEnvio[usuario.Correo] = DateTime.Now;
+                    mostrarAlerta("Se ha enviado un nuevo código al correo proporcionado.");
+                }
+                else
+                {
+                    mostrarAlerta("Por favor, espere 1 minuto antes de volver a enviar un código al correo ingresado.");
+                }
             }
             catch (EndpointNotFoundException ex)
             {
@@ -92,12 +106,9 @@ namespace Cliente.Ventanas
             {
                 if (txbCodigo.Text.Equals(this.codigo))
                 {
-                    
+                    logica.crearUsuario(usuario);   
                     mostrarAlerta("Se ha registrado el usuario exitosamente.");
-                    /* 
-                     * TODO IMPLEMENTAR FUNCION DE INGRESAR AL MENU PRINCIPAL YA LOGEADO
-                     * También debería verificar excepciones con la base de datos desde el servidor
-                     */
+                    
                 }
                 else
                 {
@@ -138,7 +149,13 @@ namespace Cliente.Ventanas
             Console.WriteLine(proxy.State.ToString());
             if (proxy.State == CommunicationState.Closed)
             {
-                //NavigationService.GoBack();
+                NavigationService.GoBack();
+            }
+            if (txbCodigo.Text.Equals(this.codigo))
+            {
+                LogicaLogin logicaLogin = new LogicaLogin();
+                vntMenuPrincipal vntMenuPrincipal = new vntMenuPrincipal(logicaLogin.IniciarSesion(usuario.NombreUsuario, contrasenia));
+                NavigationService.Navigate(vntMenuPrincipal);
             }
         }
 

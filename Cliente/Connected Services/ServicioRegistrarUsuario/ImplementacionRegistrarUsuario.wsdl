@@ -36,12 +36,6 @@
       <xsd:import schemaLocation="http://localhost:8084/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Servicios" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IServicioRegistrarUsuario_ValidarDatos_InputMessage">
-    <wsdl:part name="parameters" element="tns:ValidarDatos" />
-  </wsdl:message>
-  <wsdl:message name="IServicioRegistrarUsuario_ValidarDatos_OutputMessage">
-    <wsdl:part name="parameters" element="tns:ValidarDatosResponse" />
-  </wsdl:message>
   <wsdl:message name="IServicioRegistrarUsuario_EnviarCodigoCorreo_InputMessage">
     <wsdl:part name="parameters" element="tns:EnviarCodigoCorreo" />
   </wsdl:message>
@@ -54,11 +48,13 @@
   <wsdl:message name="IServicioRegistrarUsuario_RegistrarUsuario_OutputMessage">
     <wsdl:part name="parameters" element="tns:RegistrarUsuarioResponse" />
   </wsdl:message>
+  <wsdl:message name="IServicioRegistrarUsuario_ValidarNombreNoRepetido_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarNombreNoRepetido" />
+  </wsdl:message>
+  <wsdl:message name="IServicioRegistrarUsuario_ValidarNombreNoRepetido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarNombreNoRepetidoResponse" />
+  </wsdl:message>
   <wsdl:portType name="IServicioRegistrarUsuario">
-    <wsdl:operation name="ValidarDatos">
-      <wsdl:input wsaw:Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarDatos" message="tns:IServicioRegistrarUsuario_ValidarDatos_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarDatosResponse" message="tns:IServicioRegistrarUsuario_ValidarDatos_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="EnviarCodigoCorreo">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioRegistrarUsuario/EnviarCodigoCorreo" message="tns:IServicioRegistrarUsuario_EnviarCodigoCorreo_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioRegistrarUsuario/EnviarCodigoCorreoResponse" message="tns:IServicioRegistrarUsuario_EnviarCodigoCorreo_OutputMessage" />
@@ -67,19 +63,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioRegistrarUsuario/RegistrarUsuario" message="tns:IServicioRegistrarUsuario_RegistrarUsuario_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioRegistrarUsuario/RegistrarUsuarioResponse" message="tns:IServicioRegistrarUsuario_RegistrarUsuario_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ValidarNombreNoRepetido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarNombreNoRepetido" message="tns:IServicioRegistrarUsuario_ValidarNombreNoRepetido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarNombreNoRepetidoResponse" message="tns:IServicioRegistrarUsuario_ValidarNombreNoRepetido_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IServicioRegistrarUsuario" type="tns:IServicioRegistrarUsuario">
     <wsp:PolicyReference URI="#NetTcpBinding_IServicioRegistrarUsuario_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
-    <wsdl:operation name="ValidarDatos">
-      <soap12:operation soapAction="http://tempuri.org/IServicioRegistrarUsuario/ValidarDatos" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="EnviarCodigoCorreo">
       <soap12:operation soapAction="http://tempuri.org/IServicioRegistrarUsuario/EnviarCodigoCorreo" style="document" />
       <wsdl:input>
@@ -91,6 +82,15 @@
     </wsdl:operation>
     <wsdl:operation name="RegistrarUsuario">
       <soap12:operation soapAction="http://tempuri.org/IServicioRegistrarUsuario/RegistrarUsuario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarNombreNoRepetido">
+      <soap12:operation soapAction="http://tempuri.org/IServicioRegistrarUsuario/ValidarNombreNoRepetido" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

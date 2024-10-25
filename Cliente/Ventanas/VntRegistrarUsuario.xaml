@@ -12,13 +12,50 @@
         <Grid.Background>
             <ImageBrush ImageSource="/Imagenes/imgFondo.png"/>
         </Grid.Background>
-        <Label Content="Registrar usuario" FontSize="50" HorizontalAlignment="Center" Margin="0,38,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" Width="886" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txbNombreUsuario" HorizontalAlignment="Center" Margin="0,262,0,0" TextWrapping="Wrap" Text="Nombre de usuario" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txbCorreo" HorizontalAlignment="Center" Margin="0,349,0,0" TextWrapping="Wrap" Text="Correo electrónico" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txbContrasenia" HorizontalAlignment="Center" Margin="0,307,0,0" TextWrapping="Wrap" Text="Contraseña" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnSiguiente" Content="Siguiente" HorizontalAlignment="Center" Margin="0,413,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.168,0.603" Click="btnSiguiente_Click"/>
-        <Button x:Name="btnCancelar" Content="Cancelar" HorizontalAlignment="Center" Margin="0,459,0,0" VerticalAlignment="Top" Click="btnCancelar_Click"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Source="/Imagenes/imgTitulo.png" Width="300"/>
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Crear una cuenta" FontSize="35" Margin="0,0,0,30" Width="800" FontWeight="Bold" FontFamily="Arial" Foreground="#1F3039"/>
 
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Nombre de usuario:" FontSize="20" Margin="0,0,0,5" Width="267"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                <TextBox x:Name="txbNombreUsuario" HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="15" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="250" BorderBrush="gray"/>
+                <TextBlock x:Name="tbcErrorNombreUsuario" TextAlignment="Justify" Text="Error." TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0,0,70,0" FontSize="15" Height="20" Foreground="Crimson" Visibility="Hidden" Width="205"/>
+            </StackPanel>
+            <TextBlock TextAlignment="Justify" Text="El nombre de usuario puede contener letras, números y los símbolos '_' y '.', debe tener una longitud de 3 a 20 caracteres." TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,15" FontSize="15" Width="450" />
+
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Contraseña:" FontSize="20" Margin="0,0,0,0" Width="267"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                <PasswordBox x:Name="pwbContrasenia" PasswordChar="*" Width="250" FontSize="15" BorderBrush="LightSlateGray"/>
+                <TextBlock x:Name="tbcErrorContrasenia" TextAlignment="Justify" TextWrapping="Wrap" Text="Formato inválido!" HorizontalAlignment="Left" FontSize="15" Height="20" Margin="0,0,155,0" Foreground="Crimson" Visibility="Hidden" Width="120"/>
+            </StackPanel>
+            <TextBlock TextAlignment="Justify" TextWrapping="Wrap" Text="La contraseña debe contener de 8 a 100 caracteres y utilizar al menos una letra mayúscula, minúscula, y un número." HorizontalAlignment="Center" FontSize="15" Width="450" Margin="0,0,0,15"/>
+
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Correo Electrónico:" FontSize="20" Margin="0,0,0,0" Width="267"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                <TextBox x:Name="txbCorreo" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="250" FontSize="15" BorderBrush="LightSlateGray"/>
+                <TextBlock x:Name="tbcErrorCorreo" TextWrapping="Wrap" Text="Formato inválido!" HorizontalAlignment="Left" FontSize="15" Foreground="Crimson" Height="20" Margin="0,0,155,0" Visibility="Hidden" Width="120"/>
+            </StackPanel>
+
+            <Button x:Name="btnSiguiente" Width="150" Height="40" FontSize="20" Margin="0,40,0,35" Click="btnSiguiente_Click" Content="Siguiente">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Button x:Name="btnCancelar" Content="Cancelar" FontSize="20"  Width="150" Height="40" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Click="btnCancelar_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="#C7785F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
 
         <!--Ventana emergente-->
         <Grid x:Name="gFondoNegro" Background="Black" Opacity="0.5" Visibility="Hidden"/>
@@ -39,6 +76,5 @@
                 </Button>
             </StackPanel>
         </Grid>
-
     </Grid>
 </Page>

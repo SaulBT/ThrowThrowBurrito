@@ -12,16 +12,68 @@
         <Grid.Background>
             <ImageBrush ImageSource="/Imagenes/imgFondo.png"/>
         </Grid.Background>
-        <TextBox x:Name="txbNombreUsuario" HorizontalAlignment="Left" Margin="756,206,0,0" TextWrapping="Wrap" Text="Nombre de usuario" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="txbDescripcion" HorizontalAlignment="Left" Margin="697,0,0,0" TextWrapping="Wrap" Text="Descripción" VerticalAlignment="Center" Width="238" Height="86"/>
-        <Button x:Name="btnConfirmar" Content="Confirmar" HorizontalAlignment="Left" Margin="405,569,0,0" VerticalAlignment="Top" Click="btnConfirmar_Click"/>
-        <Button x:Name="btnCancelar" Content="Cancelar" HorizontalAlignment="Left" Margin="791,574,0,0" VerticalAlignment="Top" Click="btnCancelar_Click"/>
-        <Button x:Name="btnSubirFoto" Content="Subir Foto de Perfil" HorizontalAlignment="Left" Margin="381,448,0,0" VerticalAlignment="Top" Click="btnSubirFoto_Click"/>
-        <Border  Background="#FFD6D6D6" Width="250" Height="250" Margin="308,167,722,303">
-            <Image x:Name="imgFotoPerfil" HorizontalAlignment="Left" Height="250" Margin="0,0,0,0" VerticalAlignment="Top" Width="250" Stretch="Fill" StretchDirection="Both" />
-        </Border>
-        <Label Content="Foto de Perfil" FontSize="20" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="355,267,0,0" Height="50" Width="157" Background="{x:Null}" FontFamily="Arial" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold" FontStyle="Italic"/>
-        <Label Content="Personalizar Perfil" FontSize="50" HorizontalAlignment="Center" Margin="0,38,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" Width="886" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Source="/Imagenes/imgTitulo.png" Width="300"/>
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Personalizar Perfil" FontSize="35" Margin="0,0,0,30" Width="800" FontWeight="Bold" FontFamily="Arial" Foreground="#1F3039"/>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Margin="0,0,100,0">
+                    <Border  Background="#FFD6D6D6" Width="200" Height="200" Margin="0,0,0,0" BorderBrush="#1F3039" BorderThickness="2">
+                        <Grid>
+                            <Image Source="/Imagenes/imgUsuario.png" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150"/>
+                            <Image x:Name="imgFotoPerfil" HorizontalAlignment="Left" Height="200" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Stretch="Fill" StretchDirection="Both" />
+                        </Grid>
+                    </Border>
+                    <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Foto de Perfil" FontSize="20" Margin="0,0,0,10" Width="267" FontWeight="Bold" FontStyle="Italic"/>
+                    <TextBlock TextAlignment="Center" Text="La foto debe tener formato .png o .jpg y un tamaño máximo de 5 Mb." TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,15" FontSize="15" Width="300" />
+                    <Button x:Name="btnSubirFoto" Content="Subir Foto de Perfil" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Click="btnSubirFoto_Click" Width="200" Height="40" FontSize="20">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+                <StackPanel>
+                    <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Nombre de Usuario:" FontSize="20" Margin="0,20,0,10" Width="267"/>
+                    <TextBox x:Name="txbNombreUsuario" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="Nombre de usuario" VerticalAlignment="Top" Width="300" FontSize="15" BorderBrush="gray"/>
+                    <TextBlock TextAlignment="Center" Text="El nombre de usuario puede contener letras, números y los símbolos “_” y “.”, debe tener una longitud de 3 a 20 caracteres." TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,40" FontSize="15" Width="400" />
+                    
+                    <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Descripción:" FontSize="20" Margin="0,0,0,10" Width="267"/>
+                    <TextBox x:Name="txbDescripcion" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="Descripción" VerticalAlignment="Center" Width="350" Height="86" FontSize="15" BorderBrush="gray" MaxLength="100"/>
+                    <TextBlock TextAlignment="Center" Text="La descripción debe tener un máximo de 100 caracteres." TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,15" FontSize="15" Width="400" />
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,60,0,0">
+                <Button x:Name="btnConfirmar" Content="Confirmar" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Click="btnConfirmar_Click" Width="150" Height="40" FontSize="20">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Button x:Name="btnCancelar" Content="Cancelar" HorizontalAlignment="Center" Margin="300,0,0,0" VerticalAlignment="Top" Click="btnCancelar_Click" Width="150" Height="40" FontSize="20">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="#C7785F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+
+        
+       
+        
+        
+        
+        
 
         <!--Ventana emergente-->
         <Grid x:Name="gFondoNegro" Background="Black" Opacity="0.5" Visibility="Hidden"/>

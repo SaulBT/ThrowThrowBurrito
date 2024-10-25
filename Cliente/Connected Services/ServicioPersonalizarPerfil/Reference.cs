@@ -99,12 +99,6 @@ namespace Cliente.ServicioPersonalizarPerfil {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioPersonalizarPerfil/GuardarCambios", ReplyAction="http://tempuri.org/IServicioPersonalizarPerfil/GuardarCambiosResponse")]
         System.Threading.Tasks.Task<bool> GuardarCambiosAsync(Cliente.ServicioPersonalizarPerfil.Perfil perfil, string claveUsuario);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioPersonalizarPerfil/ObtenerPerfil", ReplyAction="http://tempuri.org/IServicioPersonalizarPerfil/ObtenerPerfilResponse")]
-        Cliente.ServicioPersonalizarPerfil.Perfil ObtenerPerfil(string claveUsuario);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioPersonalizarPerfil/ObtenerPerfil", ReplyAction="http://tempuri.org/IServicioPersonalizarPerfil/ObtenerPerfilResponse")]
-        System.Threading.Tasks.Task<Cliente.ServicioPersonalizarPerfil.Perfil> ObtenerPerfilAsync(string claveUsuario);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -140,14 +134,6 @@ namespace Cliente.ServicioPersonalizarPerfil {
         
         public System.Threading.Tasks.Task<bool> GuardarCambiosAsync(Cliente.ServicioPersonalizarPerfil.Perfil perfil, string claveUsuario) {
             return base.Channel.GuardarCambiosAsync(perfil, claveUsuario);
-        }
-        
-        public Cliente.ServicioPersonalizarPerfil.Perfil ObtenerPerfil(string claveUsuario) {
-            return base.Channel.ObtenerPerfil(claveUsuario);
-        }
-        
-        public System.Threading.Tasks.Task<Cliente.ServicioPersonalizarPerfil.Perfil> ObtenerPerfilAsync(string claveUsuario) {
-            return base.Channel.ObtenerPerfilAsync(claveUsuario);
         }
     }
 }

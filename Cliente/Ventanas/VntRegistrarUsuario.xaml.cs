@@ -57,7 +57,7 @@ namespace Cliente.Ventanas
                 InitializeComponent();
                 proxy = new ServicioRegistrarUsuario.ServicioRegistrarUsuarioClient();
                 txbNombreUsuario.Text = usuario.NombreUsuario;
-                txbContrasenia.Text = usuario.Contrasenia;
+                pwbContrasenia.Password = usuario.Contrasenia;
                 txbCorreo.Text = usuario.Correo;
             }
             catch (EndpointNotFoundException ex)
@@ -79,21 +79,20 @@ namespace Cliente.Ventanas
                 proxy.Abort();
             }
         }
-
+        
         private void btnSiguiente_Click(object sender, RoutedEventArgs e)
-        {            
-            try
+        {
+            if (!string.IsNullOrEmpty(txbNombreUsuario.Text) && !string.IsNullOrEmpty(pwbContrasenia.Password) && !string.IsNullOrEmpty(txbCorreo.Text))
             {
-                //TODO: HACER VALIDACION DE QUE NO SEAN NULL
-                if (!string.IsNullOrEmpty(txbNombreUsuario.Text) && !string.IsNullOrEmpty(txbContrasenia.Text) && !string.IsNullOrEmpty(txbCorreo.Text))
+                ServicioRegistrarUsuario.Usuario usuario = new ServicioRegistrarUsuario.Usuario()
                 {
-                    ServicioRegistrarUsuario.Usuario usuario = new ServicioRegistrarUsuario.Usuario()
-                    {
-                        NombreUsuario = txbNombreUsuario.Text,
-                        Contrasenia = txbContrasenia.Text,
-                        Correo = txbCorreo.Text,
-                    };
-                    if (proxy.ValidarDatos(usuario))
+                    NombreUsuario = txbNombreUsuario.Text,
+                    Contrasenia = pwbContrasenia.Password,
+                    Correo = txbCorreo.Text,
+                };
+                try
+                {
+                    if (validarDatos(usuario))
                     {
                         ParametrosNavegacion parametros = new ParametrosNavegacion(proxy.EnviarCodigoCorreo(usuario.Correo), usuario);
                         VntValidarCorreo validarCorreo = new VntValidarCorreo(parametros);
@@ -101,37 +100,32 @@ namespace Cliente.Ventanas
                     }
                     else
                     {
-                        mostrarAlerta("Formato incorrecto de datos, corríjalos e intente de nuevo.");
                         return;
-                        /*
-                         * TODO pasar las verificaciones del servidor al cliente 
-                         * para poder especificar cuál campo tiene formato incorrecto
-                         */
                     }
                 }
-                else
+                catch (EndpointNotFoundException ex)
                 {
-                    mostrarAlerta("Los campos están vacíos, por favor llénelos todos.");
-                    return;
+                    mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
+                    Console.WriteLine(ex.Message);
+                    proxy.Abort();
+                }
+                catch (CommunicationException ex)
+                {
+                    mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
+                    Console.WriteLine(ex.Message);
+                    proxy.Abort();
+                }
+                catch (Exception ex)
+                {
+                    mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
+                    Console.WriteLine(ex.Message);
+                    proxy.Abort();
                 }
             }
-            catch (EndpointNotFoundException ex)
+            else
             {
-                mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
-                Console.WriteLine(ex.Message);
-                proxy.Abort();
-            }
-            catch (CommunicationException ex)
-            {
-                mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
-                Console.WriteLine(ex.Message);
-                proxy.Abort();
-            }
-            catch (Exception ex)
-            {
-                mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
-                Console.WriteLine(ex.Message);
-                proxy.Abort();
+                mostrarAlerta("No deje los campos vacíos por favor.");
+                return;
             }
             
         }
@@ -155,6 +149,21 @@ namespace Cliente.Ventanas
             }
         }
 
+        private bool validarDatos(Usuario usuario)
+        {
+            bool nombreValidado =  NombreEsValido(usuario.NombreUsuario);
+            bool contraseniaValidada = ContraseniaEsValida(usuario.Contrasenia);
+            bool correoValidado = CorreoEsValido(usuario.Correo);
+            if (nombreValidado && contraseniaValidada && correoValidado)
+            {
+                return true;
+            } 
+            else
+            {
+                return false;
+            }
+        }
+
         private void btnAceptarEmergente_Click(object sender, RoutedEventArgs e)
         {
             gFondoNegro.Visibility = Visibility.Hidden;
@@ -172,6 +181,98 @@ namespace Cliente.Ventanas
             gFondoNegro.Visibility = Visibility.Visible;
             gVentanaEmergente.Visibility = Visibility.Visible;
             tbcMensajeEmergente.Text = mensaje;
+        }
+
+        public bool NombreEsValido(string nombre)
+        {
+            if ((nombre.Length >= 3) && (nombre.Length <= 20))
+            {
+                foreach (char c in nombre)
+                {
+                    if (!char.IsLetterOrDigit(c) && c != '-' && c != '.')
+                    {
+                        tbcErrorNombreUsuario.Text = "Formato inválido!";
+                        tbcErrorNombreUsuario.Visibility = Visibility.Visible;
+                        return false;
+                    }
+                }
+                if (proxy.ValidarNombreNoRepetido(nombre))
+                {
+                    tbcErrorNombreUsuario.Visibility = Visibility.Hidden;
+                    return true;
+                }
+                tbcErrorNombreUsuario.Text = "Nombre ya ocupado!";
+                tbcErrorNombreUsuario.Visibility = Visibility.Visible;
+                return false;
+            }
+            else
+            {
+                tbcErrorNombreUsuario.Text = "Formato inválido!";
+                tbcErrorNombreUsuario.Visibility = Visibility.Visible;
+                return false;
+            }
+        }
+
+        public bool ContraseniaEsValida(string contrasenia)
+        {
+            if ((contrasenia.Length >= 8) && (contrasenia.Length <= 100))
+            {
+                int contNumero = 0, contMayuscula = 0, contMinuscula = 0;
+                foreach (char c in contrasenia)
+                {
+                    if (char.IsNumber(c))
+                    {
+                        contNumero++;
+                    }
+                    else if (char.IsUpper(c))
+                    {
+                        contMayuscula++;
+                    }
+                    else if (char.IsLower(c))
+                    {
+                        contMinuscula++;
+                    }
+                }
+                if (contNumero > 0 && contMayuscula > 0 && contMinuscula > 0)
+                {
+                    tbcErrorContrasenia.Visibility = Visibility.Hidden;
+                    return true;
+                }
+                else
+                {
+                    tbcErrorContrasenia.Visibility = Visibility.Visible;
+                    return false;
+                }
+            }
+            else
+            {
+                tbcErrorContrasenia.Visibility = Visibility.Visible;
+                return false;
+            }
+        }
+
+        public bool CorreoEsValido(string correo)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(correo);
+                if (addr.Address == correo)
+                {
+                    tbcErrorCorreo.Visibility = Visibility.Hidden;
+                    return true;
+                }
+                else
+                {
+                    Console.WriteLine("El correo no existe");
+                    tbcErrorCorreo.Visibility = Visibility.Visible;
+                    return false;
+                }
+            }
+            catch
+            {
+                tbcErrorCorreo.Visibility = Visibility.Visible;
+                return false;
+            }
         }
     }
 }

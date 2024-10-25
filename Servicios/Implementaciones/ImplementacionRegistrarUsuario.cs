@@ -64,7 +64,6 @@ namespace Servicios
                 smtpClient.EnableSsl = true;
                 smtpClient.Send(correoCodigo);
                 Console.WriteLine("Se envía el código " + codigo + " al correo: " + correo);
-                //MessageBox.Show("Enviado");
             }
             catch (Exception ex)
             {
@@ -87,7 +86,7 @@ namespace Servicios
                         nombreUsuario = usuario.NombreUsuario,
                         contrasenia = usuario.Contrasenia,
                         correoElectronico = usuario.Correo,
-                        claveUsuario = GenerarCodigo(longitudClaveJugador),
+                        claveUsuario = GenerarClaveUsuario(),
                         descripcion = null,
                         fotoPerfil = null,
                         estado = null,
@@ -106,105 +105,35 @@ namespace Servicios
 
         }
 
-
-        public bool ValidarDatos(Usuario usuario)
+        public string GenerarClaveUsuario()
         {
-            /*
-             * Función que valida si los datos nombre de usuario, contrasenia
-             * correo cumplen el formato y si el correo existe
-             */
-            if (NombreEsValido(usuario.NombreUsuario) && ContraseniaEsValida(usuario.Contrasenia) && CorreoEsValido(usuario.Correo)) {
-                Console.WriteLine("Todos los datos son validos");
-                return true;
-            } else
+            string clave;
+            do
             {
-                Console.WriteLine("Los datos no son validos");
-                return false;
-            }
+                clave = GenerarCodigo(longitudClaveJugador);
+            } while (!ValidarClaveNoRepetida(clave));
+            return clave;
+            
         }
-
-        //Métodos no pertenecientes a la interfaz:
-
-        public bool CorreoEsValido(string correo)
+        public bool ValidarNombreNoRepetido(string nombre)
         {
-            try
+            using (var contexto = new ModeloDBContainer())
             {
-                var addr = new System.Net.Mail.MailAddress(correo);
-                if (addr.Address == correo)
+                contexto.Database.Log = Console.WriteLine;
+                var jugador = (from j in contexto.Jugador
+                               where j.nombreUsuario == nombre
+                               select j).FirstOrDefault();
+                if (jugador == null)
                 {
-                    Console.WriteLine("El correo sí existe");
+                    Console.WriteLine("Jugador es nulo");
                     return true;
                 }
                 else
                 {
-                    Console.WriteLine("El correo no existe");
+                    Console.WriteLine("Jugador no es nulo");
                     return false;
                 }
-            }
-            catch
-            {
-                Console.WriteLine("Error al verificar si el correo existe...");
-                return false;
-            }
-        }
 
-        public bool NombreEsValido(string nombre)
-        {
-            if ((nombre.Length >= 3) && (nombre.Length <= 20))
-            {
-                foreach (char c in nombre)
-                {
-                    if (!char.IsLetterOrDigit(c) && c != '-' && c != '.')
-                    {
-                        Console.WriteLine("El nombre contiene símbolos no permitidos");
-                        return false;
-                    }
-                }
-                Console.WriteLine("Nombre valido");
-                return true;
-            }
-            else
-            {
-                Console.WriteLine("El nombre es mayor a 20 caracteres o menor a 3");
-                return false;
-            }
-        }
-
-        public bool ContraseniaEsValida(string contrasenia)
-        {
-            if ((contrasenia.Length >= 8) && (contrasenia.Length <= 100))
-            {
-                int contNumero = 0, contMayuscula = 0, contMinuscula = 0;
-                foreach (char c in contrasenia)
-                {
-                    if (char.IsNumber(c))
-                    {
-                        contNumero++;
-                    }
-                    else if (char.IsUpper(c))
-                    {
-                        contMayuscula++;
-                    }
-                    else if (char.IsLower(c))
-                    {
-                        contMinuscula++;
-                    }
-                }
-                if (contNumero > 0 && contMayuscula > 0 && contMinuscula > 0)
-                {
-                    Console.WriteLine("Contraseña valida");
-                    return true;
-                }
-                else
-                {
-                    Console.WriteLine("La contraseña no contiene los parametros de mayuscula, minuscula y numero");
-                    return false;
-                }
-            }
-            else
-            {
-                Console.WriteLine("La contraseña no debe ser menor a 8 caracteres ni mayor a 100");
-                return false;
             }
         }
 
@@ -219,5 +148,24 @@ namespace Servicios
             return resultado.ToString();
         }
 
+        public bool ValidarClaveNoRepetida(string clave)
+        {
+            using (var contexto = new ModeloDBContainer())
+            {
+                contexto.Database.Log = Console.WriteLine;
+                var jugador = (from j in contexto.Jugador
+                               where j.claveUsuario == clave
+                               select j).FirstOrDefault();
+                if (jugador == null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+        }
     }
 }

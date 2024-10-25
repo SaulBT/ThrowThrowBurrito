@@ -12,11 +12,11 @@ namespace Servicios
     public interface IServicioRegistrarUsuario
     {
         [OperationContract]
-        bool ValidarDatos(Usuario usuario);
-        [OperationContract]
         string EnviarCodigoCorreo(string correo);
         [OperationContract]
         bool RegistrarUsuario(Usuario usuario);
+        [OperationContract]
+        bool ValidarNombreNoRepetido(string nombre);
     }
 
     [DataContract]

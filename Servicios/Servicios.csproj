@@ -57,10 +57,10 @@
     <Compile Include="Implementaciones\ImplementacionLogin.cs" />
     <Compile Include="Interfaces\IServicioChat.cs" />
     <Compile Include="Interfaces\IServicioLogin.cs" />
-    <Compile Include="ImplementacionPersonalizarPerfil.cs" />
-    <Compile Include="IServicioPersonalizarPerfil.cs" />
-    <Compile Include="IServicioRegistrarUsuario.cs" />
-    <Compile Include="ImplementacionRegistrarUsuario.cs" />
+    <Compile Include="Implementaciones\ImplementacionPersonalizarPerfil.cs" />
+    <Compile Include="Interfaces\IServicioPersonalizarPerfil.cs" />
+    <Compile Include="Interfaces\IServicioRegistrarUsuario.cs" />
+    <Compile Include="Implementaciones\ImplementacionRegistrarUsuario.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">

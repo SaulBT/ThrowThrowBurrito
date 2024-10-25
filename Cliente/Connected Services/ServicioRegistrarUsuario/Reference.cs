@@ -94,12 +94,6 @@ namespace Cliente.ServicioRegistrarUsuario {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ServicioRegistrarUsuario.IServicioRegistrarUsuario")]
     public interface IServicioRegistrarUsuario {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarDatos", ReplyAction="http://tempuri.org/IServicioRegistrarUsuario/ValidarDatosResponse")]
-        bool ValidarDatos(Cliente.ServicioRegistrarUsuario.Usuario usuario);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarDatos", ReplyAction="http://tempuri.org/IServicioRegistrarUsuario/ValidarDatosResponse")]
-        System.Threading.Tasks.Task<bool> ValidarDatosAsync(Cliente.ServicioRegistrarUsuario.Usuario usuario);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRegistrarUsuario/EnviarCodigoCorreo", ReplyAction="http://tempuri.org/IServicioRegistrarUsuario/EnviarCodigoCorreoResponse")]
         string EnviarCodigoCorreo(string correo);
         
@@ -111,6 +105,12 @@ namespace Cliente.ServicioRegistrarUsuario {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRegistrarUsuario/RegistrarUsuario", ReplyAction="http://tempuri.org/IServicioRegistrarUsuario/RegistrarUsuarioResponse")]
         System.Threading.Tasks.Task<bool> RegistrarUsuarioAsync(Cliente.ServicioRegistrarUsuario.Usuario usuario);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarNombreNoRepetido", ReplyAction="http://tempuri.org/IServicioRegistrarUsuario/ValidarNombreNoRepetidoResponse")]
+        bool ValidarNombreNoRepetido(string nombre);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarNombreNoRepetido", ReplyAction="http://tempuri.org/IServicioRegistrarUsuario/ValidarNombreNoRepetidoResponse")]
+        System.Threading.Tasks.Task<bool> ValidarNombreNoRepetidoAsync(string nombre);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -140,14 +140,6 @@ namespace Cliente.ServicioRegistrarUsuario {
                 base(binding, remoteAddress) {
         }
         
-        public bool ValidarDatos(Cliente.ServicioRegistrarUsuario.Usuario usuario) {
-            return base.Channel.ValidarDatos(usuario);
-        }
-        
-        public System.Threading.Tasks.Task<bool> ValidarDatosAsync(Cliente.ServicioRegistrarUsuario.Usuario usuario) {
-            return base.Channel.ValidarDatosAsync(usuario);
-        }
-        
         public string EnviarCodigoCorreo(string correo) {
             return base.Channel.EnviarCodigoCorreo(correo);
         }
@@ -162,6 +154,14 @@ namespace Cliente.ServicioRegistrarUsuario {
         
         public System.Threading.Tasks.Task<bool> RegistrarUsuarioAsync(Cliente.ServicioRegistrarUsuario.Usuario usuario) {
             return base.Channel.RegistrarUsuarioAsync(usuario);
+        }
+        
+        public bool ValidarNombreNoRepetido(string nombre) {
+            return base.Channel.ValidarNombreNoRepetido(nombre);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ValidarNombreNoRepetidoAsync(string nombre) {
+            return base.Channel.ValidarNombreNoRepetidoAsync(nombre);
         }
     }
 }

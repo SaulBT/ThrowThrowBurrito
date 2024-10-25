@@ -12,15 +12,46 @@
         <Grid.Background>
             <ImageBrush ImageSource="/Imagenes/imgFondo.png"/>
         </Grid.Background>
-        <Label Content="Validar correo" FontSize="50" HorizontalAlignment="Center" Margin="0,38,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" Width="886" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <TextBox x:Name="txbCodigo" HorizontalAlignment="Center" Margin="0,199,0,0" TextWrapping="Wrap" Text="Código" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnConfirmar" Content="Confirmar" HorizontalAlignment="Center" Margin="0,296,0,0" VerticalAlignment="Top" Click="btnConfirmar_Click"/>
-        <Button x:Name="btnReenviar" Content="Reenviar Código" HorizontalAlignment="Center" Margin="0,340,0,0" VerticalAlignment="Top" Click="btnReenviar_Click"/>
-        <Button x:Name="btnVolver" Content="Volver" HorizontalAlignment="Center" Margin="0,379,0,0" VerticalAlignment="Top" Click="btnVolver_Click"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,60,0,30" Source="/Imagenes/imgTitulo.png" Width="300"/>
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Confirma tu correo electrónico" FontSize="35" Margin="0,0,0,25" Width="800" FontWeight="Bold" FontFamily="Arial" Foreground="#1F3039"/>
+            <TextBlock TextAlignment="Center" Text="Hemos enviado un código de verificación a tu correo, por favor ingrésalo en el siguiente espacio para confirmar que es tuyo." TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,25" FontSize="20" Width="450"/>
 
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Código:" FontSize="20" Margin="0,0,0,5" Width="267" FontWeight="Bold"/>
+            <TextBox x:Name="txbCodigo" HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="15" TextWrapping="Wrap" Text="" Width="250" BorderBrush="gray"/>
+            <TextBlock x:Name="tbcErrorCorreo" TextWrapping="Wrap" Text="Los códigos no coinciden!" HorizontalAlignment="Center" FontSize="15" Foreground="Crimson" Height="20" Margin="0,0,0,40" Visibility="Hidden"/>
+
+            <Button x:Name="btnConfirmar" Width="150" Height="40" FontSize="20" Content="Confirmar" HorizontalAlignment="Center" Margin="0,0,0,25" VerticalAlignment="Top" Click="btnConfirmar_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="btnReenviar" Width="150" Height="40" FontSize="20" Content="Reenviar Código" HorizontalAlignment="Center" Margin="0,0,0,50" VerticalAlignment="Top" Click="btnReenviar_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="btnVolver" Width="150" Height="40" FontSize="20" Content="Volver" HorizontalAlignment="Center" Margin="0,0,0,80" VerticalAlignment="Top" Click="btnVolver_Click">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="#C7785F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
 
         <!--Ventana emergente-->
-        <Grid x:Name="gFondoNegro" Background="Black" Opacity="0.5" Visibility="Hidden"/>
+        <Grid x:Name="gFondoNegro" Background="Black" Opacity="0.5" Visibility="Hidden" />
         <Grid x:Name="gVentanaEmergente" Visibility="Hidden">
             <Grid.Background>
                 <ImageBrush ImageSource="/Imagenes/imgVentanaEmergente.png" Stretch="None"/>

@@ -1,5 +1,6 @@
 ﻿using Cliente.ServicioLogin;
 using Cliente.ServicioPersonalizarPerfil;
+using Cliente.ServicioRegistrarUsuario;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,9 +20,6 @@ using System.Windows.Shapes;
 
 namespace Cliente.Ventanas.Perfil
 {
-    /// <summary>
-    /// Lógica de interacción para PersonalizarPerfil.xaml
-    /// </summary>
     public partial class VntPersonalizarPerfil : Page
     {
         private Jugador jugador;
@@ -38,14 +36,16 @@ namespace Cliente.Ventanas.Perfil
             if (jugador.fotoPerfil != null)
                 imgFotoPerfil.Source = ConvertirByteAImagen(jugador.fotoPerfil);
 
+
         }
 
         //POR LO MIENTRAS
         private void cambiarPefilJugador()
         {
             perfil.NombreUsuario = jugador.nombreUsuario;
-            if (jugador.descripcion != null)
-                perfil.Descripcion = "";
+            perfil.Descripcion = jugador.descripcion;
+            if (jugador.fotoPerfil != null)
+                perfil.Foto = jugador.fotoPerfil;
         }
 
         private void cambiarJugadorPerfil()
@@ -67,34 +67,22 @@ namespace Cliente.Ventanas.Perfil
         {
             try
             {
-                if (!string.IsNullOrEmpty(txbNombreUsuario.Text))
+                if (validarDatos())
                 {
                     perfil.Descripcion = txbDescripcion.Text;
                     perfil.NombreUsuario = txbNombreUsuario.Text;
                     string claveUsuario = jugador.claveUsuario;
-
-                    if (FotoEsValida(perfil.Foto))
+                    if (proxy.GuardarCambios(perfil, claveUsuario))
                     {
-                        if (proxy.GuardarCambios(perfil, claveUsuario))
-                        {
-                            cambiarJugadorPerfil();
-                            mostrarAlerta("Cambios guardados con éxito");
-                            VntPerfil verPerfil = new VntPerfil(jugador);
-                            NavigationService.Navigate(verPerfil);
-                        }
-                        else
-                        {
-                            mostrarAlerta("no se puedo guardar el cambio");
-                        }
+                        cambiarJugadorPerfil();
+                        mostrarAlerta("Cambios guardados con éxito");
+                        VntPerfil verPerfil = new VntPerfil(jugador);
+                        NavigationService.Navigate(verPerfil);
                     }
                     else
                     {
-                        mostrarAlerta("la foto no es valida, es muy grande");
-                    } 
-                }
-                else
-                {
-                    mostrarAlerta("Nombre de usuario vacío");
+                        mostrarAlerta("no se puedo guardar el cambio");
+                    }
                 }
             }
             catch (EndpointNotFoundException ex)
@@ -157,6 +145,7 @@ namespace Cliente.Ventanas.Perfil
             }
             else
             {
+                mostrarAlerta("La imagen supera el tamaño máximo.");
                 return false;
             }
 
@@ -196,6 +185,67 @@ namespace Cliente.Ventanas.Perfil
             gFondoNegro.Visibility = Visibility.Visible;
             gVentanaEmergente.Visibility = Visibility.Visible;
             tbcMensajeEmergente.Text = mensaje;
+        }
+
+        private bool validarDatos()
+        {
+            if (!string.IsNullOrEmpty(txbNombreUsuario.Text))
+            {
+                if (NombreEsValido(txbNombreUsuario.Text))
+                {
+                    if (FotoEsValida(perfil.Foto))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                mostrarAlerta("El nombre de usuario no puede quedarse vacío.");
+                return false;
+            }
+        }
+
+        public bool NombreEsValido(string nombre)
+        {
+            if (!nombre.Equals(perfil.NombreUsuario))
+            {
+                if ((nombre.Length >= 3) && (nombre.Length <= 20))
+                {
+                    foreach (char c in nombre)
+                    {
+                        if (!char.IsLetterOrDigit(c) && c != '-' && c != '.')
+                        {
+                            mostrarAlerta("Formato inválido del nombre de usuario.");
+                            return false;
+                        }
+                    }
+                    ServicioRegistrarUsuarioClient proxy = new ServicioRegistrarUsuarioClient();
+                    if (proxy.ValidarNombreNoRepetido(nombre))
+                    {
+                        return true;
+                    }
+                    mostrarAlerta("El nombre de usuario ingresado ya está ocupado.");
+                    return false;
+                }
+                else
+                {
+                    mostrarAlerta("Formato inválido del nombre de usuario.");
+                    return false;
+                }
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }

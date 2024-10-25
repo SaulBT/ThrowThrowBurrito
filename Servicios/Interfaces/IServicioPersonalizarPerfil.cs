@@ -14,8 +14,6 @@ namespace Servicios
     {
         [OperationContract]
         bool GuardarCambios(Perfil perfil, string claveUsuario);
-        [OperationContract]
-        Perfil ObtenerPerfil(string claveUsuario);
         
     }
 
