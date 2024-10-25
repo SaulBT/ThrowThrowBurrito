@@ -31,6 +31,7 @@ namespace Servicios
             "Si usted no lo has solicitado, por favor ignore este mensaje\n\n" +
             "\tCódigo de verificación: ";
         private ModeloDBContainer _contexto;
+        public ImplementacionRegistrarUsuario() { }
         public ImplementacionRegistrarUsuario(ModeloDBContainer contexto)
         {
             _contexto = contexto ?? throw new ArgumentNullException(nameof(contexto));

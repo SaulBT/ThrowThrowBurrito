@@ -13,6 +13,7 @@ namespace Servicios
     public class ImplementacionPersonalizarPerfil : IServicioPersonalizarPerfil
     {
         private ModeloDBContainer _contexto;
+        public ImplementacionPersonalizarPerfil() { }
         public ImplementacionPersonalizarPerfil(ModeloDBContainer contexto)
         {
             _contexto = contexto ?? throw new ArgumentNullException(nameof(contexto));
