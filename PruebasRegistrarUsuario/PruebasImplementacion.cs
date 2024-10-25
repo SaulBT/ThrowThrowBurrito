@@ -13,6 +13,7 @@ namespace Pruebas
         //no se prueba captura de excepciones, eso se maneja desde el cliente
 
         private ImplementacionRegistrarUsuario implementacion;
+        private ImplementacionPersonalizarPerfil ImplementacionPersonalizarPerfil;
         private Mock<ModeloDBContainer> contextoMock;
 
         [SetUp]
@@ -20,14 +21,43 @@ namespace Pruebas
         {
             contextoMock = new Mock<ModeloDBContainer>();
             implementacion = new ImplementacionRegistrarUsuario(contextoMock.Object);
+            ImplementacionPersonalizarPerfil = new ImplementacionPersonalizarPerfil(contextoMock.Object);
         }
-        /*
+        //implementación registro usuario
+
         [Test]
-        public void ProbarEnviarCodigo_SeEnviaCodigoCorrecto()
+        public void ProbarEnviarCodigo_CaracteresValidos()
         {
-            //esta función utiliza número aleatorios, no se puede predecir el código que se genera
+            try
+            {
+                string correo = "Ejemplo@gmail.com";
+                string codigo = implementacion.EnviarCodigoCorreo(correo);
+
+                StringAssert.IsMatch("^[A-Z0-9]+$", codigo);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
-        */
+
+        [Test]
+        public void ProbarEnviarCodigo_Longitud()
+        {
+            try
+            {
+                int longitud = 6;
+                string correo = "Ejemplo@gmail.com";
+                string codigo = implementacion.EnviarCodigoCorreo(correo);
+
+                Assert.That(codigo.Length, Is.EqualTo(longitud));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
         [Test]
         public void ProbarRegistrarUsuario()
         {
@@ -171,5 +201,31 @@ namespace Pruebas
                 Console.WriteLine(ex.Message);
             }
         }
+
+        //implementación personalizar perfil
+
+        [Test]
+        public void ProbarGuardarCambios()
+        {
+            try
+            {
+                Perfil perfil = new Perfil()
+                {
+                    NombreUsuario = "Gerardo",
+                    Descripcion = "I drive tin tin tin tin tin",
+                    Foto = null
+                };
+                string clave = "V86ZS316IC";
+                bool resultado = ImplementacionPersonalizarPerfil.GuardarCambios(perfil, clave);
+
+                Assert.That(resultado, Is.True);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+
     }
 }
