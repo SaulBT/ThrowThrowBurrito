@@ -22,31 +22,31 @@ namespace Cliente.Ventanas
     /// </summary>
     public partial class VntRegistrarUsuario : Page
     {
-        private ServicioRegistrarUsuario.ServicioRegistrarUsuarioClient proxy;
+        private ServicioRegistrarUsuario.ServicioRegistrarUsuarioClient servicio;
         public VntRegistrarUsuario()
         {
             try
             {
                 InitializeComponent();
-                proxy = new ServicioRegistrarUsuario.ServicioRegistrarUsuarioClient();
+                servicio= new ServicioRegistrarUsuario.ServicioRegistrarUsuarioClient();
             }
             catch (EndpointNotFoundException ex)
             {
                 mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
                 Console.WriteLine(ex.Message);
-                proxy.Abort();
+                servicio.Abort();
             }
             catch (CommunicationException ex)
             {
                 mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
                 Console.WriteLine(ex.Message);
-                proxy.Abort();
+                servicio.Abort();
             }
             catch (Exception ex)
             {
                 mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
                 Console.WriteLine(ex.Message);
-                proxy.Abort();
+                servicio.Abort();
             }
         }
 
@@ -55,7 +55,7 @@ namespace Cliente.Ventanas
             try
             {
                 InitializeComponent();
-                proxy = new ServicioRegistrarUsuario.ServicioRegistrarUsuarioClient();
+                servicio= new ServicioRegistrarUsuario.ServicioRegistrarUsuarioClient();
                 txbNombreUsuario.Text = usuario.NombreUsuario;
                 pwbContrasenia.Password = usuario.Contrasenia;
                 txbCorreo.Text = usuario.Correo;
@@ -64,19 +64,19 @@ namespace Cliente.Ventanas
             {
                 mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
                 Console.WriteLine(ex.Message);
-                proxy.Abort();
+                servicio.Abort();
             }
             catch (CommunicationException ex)
             {
                 mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
                 Console.WriteLine(ex.Message);
-                proxy.Abort();
+                servicio.Abort();
             }
             catch (Exception ex)
             {
                 mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
                 Console.WriteLine(ex.Message);
-                proxy.Abort();
+                servicio.Abort();
             }
         }
         
@@ -94,7 +94,7 @@ namespace Cliente.Ventanas
                 {
                     if (validarDatos(usuario))
                     {
-                        ParametrosNavegacion parametros = new ParametrosNavegacion(proxy.EnviarCodigoCorreo(usuario.Correo), usuario);
+                        ParametrosNavegacion parametros = new ParametrosNavegacion(servicio.EnviarCodigoCorreo(usuario.Correo), usuario);
                         VntValidarCorreo validarCorreo = new VntValidarCorreo(parametros);
                         NavigationService.Navigate(validarCorreo);
                     }
@@ -107,19 +107,19 @@ namespace Cliente.Ventanas
                 {
                     mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
                     Console.WriteLine(ex.Message);
-                    proxy.Abort();
+                    servicio.Abort();
                 }
                 catch (CommunicationException ex)
                 {
                     mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
                     Console.WriteLine(ex.Message);
-                    proxy.Abort();
+                    servicio.Abort();
                 }
                 catch (Exception ex)
                 {
                     mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
                     Console.WriteLine(ex.Message);
-                    proxy.Abort();
+                    servicio.Abort();
                 }
             }
             else
@@ -134,7 +134,7 @@ namespace Cliente.Ventanas
         {
             vntLogin vntLogin = new vntLogin();
             NavigationService.Navigate(vntLogin);
-            proxy.Close();
+            servicio.Close();
         }
 
         public class ParametrosNavegacion
@@ -169,8 +169,8 @@ namespace Cliente.Ventanas
             gFondoNegro.Visibility = Visibility.Hidden;
             gVentanaEmergente.Visibility = Visibility.Hidden;
             tbcMensajeEmergente.Text = "";
-            Console.WriteLine(proxy.State.ToString());
-            if (proxy.State == CommunicationState.Closed)
+            Console.WriteLine(servicio.State.ToString());
+            if (servicio.State == CommunicationState.Closed)
             {
                 NavigationService.GoBack();
             }
@@ -196,7 +196,7 @@ namespace Cliente.Ventanas
                         return false;
                     }
                 }
-                if (proxy.ValidarNombreNoRepetido(nombre))
+                if (servicio.ValidarNombreNoRepetido(nombre))
                 {
                     tbcErrorNombreUsuario.Visibility = Visibility.Hidden;
                     return true;

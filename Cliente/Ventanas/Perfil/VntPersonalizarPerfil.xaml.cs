@@ -24,7 +24,7 @@ namespace Cliente.Ventanas.Perfil
     {
         private Jugador jugador;
         private ServicioPersonalizarPerfil.Perfil perfil = new ServicioPersonalizarPerfil.Perfil();
-        private ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient proxy = new ServicioPersonalizarPerfilClient();
+        private ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient servicio = new ServicioPersonalizarPerfilClient();
 
         public VntPersonalizarPerfil(Jugador jugador)
         {
@@ -60,7 +60,7 @@ namespace Cliente.Ventanas.Perfil
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
-            proxy.Close();
+            servicio.Close();
         }
 
         private void btnConfirmar_Click(object sender, RoutedEventArgs e)
@@ -72,7 +72,7 @@ namespace Cliente.Ventanas.Perfil
                     perfil.Descripcion = txbDescripcion.Text;
                     perfil.NombreUsuario = txbNombreUsuario.Text;
                     string claveUsuario = jugador.claveUsuario;
-                    if (proxy.GuardarCambios(perfil, claveUsuario))
+                    if (servicio.GuardarCambios(perfil, claveUsuario))
                     {
                         cambiarJugadorPerfil();
                         mostrarAlerta("Cambios guardados con éxito");
@@ -89,19 +89,19 @@ namespace Cliente.Ventanas.Perfil
             {
                 mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
                 Console.WriteLine(ex.Message);
-                proxy.Abort();
+                servicio.Abort();
             }
             catch (CommunicationException ex)
             {
                 mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
                 Console.WriteLine(ex.Message);
-                proxy.Abort();
+                servicio.Abort();
             }
             catch (Exception ex)
             {
                 mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
                 Console.WriteLine(ex.Message);
-                proxy.Abort();
+                servicio.Abort();
             } 
         }
 
@@ -122,8 +122,8 @@ namespace Cliente.Ventanas.Perfil
             gFondoNegro.Visibility = Visibility.Hidden;
             gVentanaEmergente.Visibility = Visibility.Hidden;
             tbcMensajeEmergente.Text = "";
-            Console.WriteLine(proxy.State.ToString());
-            if (proxy.State == CommunicationState.Closed)
+            Console.WriteLine(servicio.State.ToString());
+            if (servicio.State == CommunicationState.Closed)
             {
                 NavigationService.GoBack();
             }
@@ -228,8 +228,8 @@ namespace Cliente.Ventanas.Perfil
                             return false;
                         }
                     }
-                    ServicioRegistrarUsuarioClient proxy = new ServicioRegistrarUsuarioClient();
-                    if (proxy.ValidarNombreNoRepetido(nombre))
+                    ServicioRegistrarUsuarioClient servicio = new ServicioRegistrarUsuarioClient();
+                    if (servicio.ValidarNombreNoRepetido(nombre))
                     {
                         return true;
                     }

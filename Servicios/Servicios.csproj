@@ -47,12 +47,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clases\ConfiguracionGeneral.cs" />
-    <Compile Include="Clases\DatosJugadorPartida.cs" />
-    <Compile Include="Clases\Jugador.cs" />
-    <Compile Include="Clases\Amigo.cs" />
-    <Compile Include="Clases\Partida.cs" />
-    <Compile Include="Clases\SolicitudAmigo.cs" />
     <Compile Include="Implementaciones\ImplementacionChat.cs" />
     <Compile Include="Implementaciones\ImplementacionLogin.cs" />
     <Compile Include="Interfaces\IServicioChat.cs" />

@@ -26,7 +26,7 @@ namespace Cliente.Ventanas
     {
         private string codigo;
         private Usuario usuario;
-        private ServicioRegistrarUsuarioClient proxy;
+        private ServicioRegistrarUsuarioClient servicio;
         private LogicaCrearJugador logica;
         private string contrasenia;
         private static Dictionary<string, DateTime> ultimaHoraDeEnvio = new Dictionary<string, DateTime>();
@@ -38,7 +38,7 @@ namespace Cliente.Ventanas
             {
                 InitializeComponent();
                 logica = new LogicaCrearJugador();
-                proxy = new ServicioRegistrarUsuarioClient();
+                servicio = new ServicioRegistrarUsuarioClient();
                 this.usuario = parametros.Usuario;
                 contrasenia = usuario.Contrasenia;
                 this.codigo = parametros.Codigo;
@@ -48,19 +48,19 @@ namespace Cliente.Ventanas
             {
                 mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
                 Console.WriteLine(ex.Message);
-                proxy.Abort();
+                servicio.Abort();
             }
             catch (CommunicationException ex)
             {
                 mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
                 Console.WriteLine(ex.Message);
-                proxy.Abort();
+                servicio.Abort();
             }
             catch (Exception ex)
             {
                 mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
                 Console.WriteLine(ex.Message);
-                proxy.Abort();
+                servicio.Abort();
             }
         }
 
@@ -71,7 +71,7 @@ namespace Cliente.Ventanas
                 txbCodigo.Text = "";
                 if (ultimaHoraDeEnvio.ContainsKey(usuario.Correo) && ultimaHoraDeEnvio[usuario.Correo] + tiempoEntreEnvios < DateTime.Now)
                 {
-                    this.codigo = proxy.EnviarCodigoCorreo(usuario.Correo);
+                    this.codigo = servicio.EnviarCodigoCorreo(usuario.Correo);
                     ultimaHoraDeEnvio[usuario.Correo] = DateTime.Now;
                     mostrarAlerta("Se ha enviado un nuevo código al correo proporcionado.");
                 }
@@ -84,19 +84,19 @@ namespace Cliente.Ventanas
             {
                 mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
                 Console.WriteLine(ex.Message);
-                proxy.Abort();
+                servicio.Abort();
             }
             catch (CommunicationException ex)
             {
                 mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
                 Console.WriteLine(ex.Message);
-                proxy.Abort();
+                servicio.Abort();
             }
             catch (Exception ex)
             {
                 mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
                 Console.WriteLine(ex.Message);
-                proxy.Abort();
+                servicio.Abort();
             } 
         }
 
@@ -119,26 +119,26 @@ namespace Cliente.Ventanas
             {
                 mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
                 Console.WriteLine(ex.Message);
-                proxy.Abort();
+                servicio.Abort();
             }
             catch (CommunicationException ex)
             {
                 mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
                 Console.WriteLine(ex.Message);
-                proxy.Abort();
+                servicio.Abort();
             }
             catch (Exception ex)
             {
                 mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
                 Console.WriteLine(ex.Message);
-                proxy.Abort();
+                servicio.Abort();
             } 
         }
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.GoBack();
-            proxy.Close();
+            servicio.Close();
         }
 
         private void btnAceptarEmergente_Click(object sender, RoutedEventArgs e)
@@ -146,8 +146,8 @@ namespace Cliente.Ventanas
             gFondoNegro.Visibility = Visibility.Hidden;
             gVentanaEmergente.Visibility = Visibility.Hidden;
             tbcMensajeEmergente.Text = "";
-            Console.WriteLine(proxy.State.ToString());
-            if (proxy.State == CommunicationState.Closed)
+            Console.WriteLine(servicio.State.ToString());
+            if (servicio.State == CommunicationState.Closed)
             {
                 NavigationService.GoBack();
             }
