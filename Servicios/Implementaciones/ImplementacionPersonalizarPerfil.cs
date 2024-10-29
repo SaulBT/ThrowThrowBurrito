@@ -1,6 +1,7 @@
 ﻿using AccesoDatos;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace Servicios
         {
             using (var contexto = new ModeloDBContainer())
             {
+                contexto.Configuration.ProxyCreationEnabled = false;
                 contexto.Database.Log = Console.WriteLine;
                 var jugador = contexto.Jugador.FirstOrDefault(c => c.claveUsuario == claveUsuario);
                 if (jugador != null)

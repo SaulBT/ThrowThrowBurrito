@@ -12,16 +12,12 @@ namespace AccesoDatos
     using System;
     using System.Collections.Generic;
     
-    public partial class DatosJugadorPartida
+    public partial class sysdiagrams
     {
-        public Nullable<int> puntaje { get; set; }
-        public Nullable<int> idAspecto { get; set; }
-        public int idDatosJugadorPartida { get; set; }
-        public Nullable<bool> expulsado { get; set; }
-        public int idJugador { get; set; }
-        public int idPartida { get; set; }
-    
-        public virtual Jugador Jugador { get; set; }
-        public virtual Partida Partida { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

@@ -55,6 +55,7 @@
     <Compile Include="Interfaces\IServicioPersonalizarPerfil.cs" />
     <Compile Include="Interfaces\IServicioRegistrarUsuario.cs" />
     <Compile Include="Implementaciones\ImplementacionRegistrarUsuario.cs" />
+    <Compile Include="Utilidades.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">

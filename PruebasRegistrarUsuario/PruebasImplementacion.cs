@@ -144,7 +144,7 @@ namespace Pruebas
             try
             {
                 int longitud = 6;
-                string codigo = implementacion.GenerarCodigo(longitud);
+                string codigo = Utilidades.GenerarCodigo(longitud);
 
                 Assert.That(codigo.Length, Is.EqualTo(longitud));
             }
@@ -160,7 +160,7 @@ namespace Pruebas
             try
             {
                 int longitud = 6;
-                string codigo = implementacion.GenerarCodigo(longitud);
+                string codigo = Utilidades.GenerarCodigo(longitud);
 
                 StringAssert.IsMatch("^[A-Z0-9]+$", codigo);
             }
@@ -175,7 +175,7 @@ namespace Pruebas
         {
             try
             {
-                string clave = implementacion.GenerarCodigo(10);
+                string clave = Utilidades.GenerarCodigo(10);
                 bool resultado = implementacion.ValidarClaveNoRepetida(clave);
 
                 Assert.That(resultado, Is.True);

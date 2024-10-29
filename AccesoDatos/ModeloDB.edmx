@@ -10,7 +10,7 @@
             <PropertyRef Name="idAmigo" />
           </Key>
           <Property Name="claveUsuarioAmigo" Type="varchar" MaxLength="10" />
-          <Property Name="idAmigo" Type="int" Nullable="false" />
+          <Property Name="idAmigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="DatosJugadorPartida">
           <Key>
@@ -19,7 +19,9 @@
           <Property Name="puntaje" Type="int" />
           <Property Name="idAspecto" Type="int" />
           <Property Name="expulsado" Type="bit" />
-          <Property Name="idDatosJugadorPartida" Type="int" Nullable="false" />
+          <Property Name="idDatosJugadorPartida" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idJugador" Type="int" Nullable="false" />
+          <Property Name="idPartida" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Jugador">
           <Key>
@@ -46,7 +48,7 @@
           <Property Name="tiempoGuerra" Type="int" />
           <Property Name="puntajeVictoria" Type="int" />
           <Property Name="nombreGanador" Type="varchar" MaxLength="20" />
-          <Property Name="idPartida" Type="int" Nullable="false" />
+          <Property Name="idPartida" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="SolicitudAmigo">
           <Key>
@@ -54,14 +56,91 @@
           </Key>
           <Property Name="fecha" Type="date" />
           <Property Name="estado" Type="varchar" MaxLength="8" />
-          <Property Name="idSolicitudAmigo" Type="int" Nullable="false" />
+          <Property Name="idSolicitudAmigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idAmigo" Type="int" Nullable="false" />
+          <Property Name="idJugador" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_DatosJugadorPartida_Jugador">
+          <End Role="Jugador" Type="Self.Jugador" Multiplicity="1" />
+          <End Role="DatosJugadorPartida" Type="Self.DatosJugadorPartida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="idJugador" />
+            </Principal>
+            <Dependent Role="DatosJugadorPartida">
+              <PropertyRef Name="idJugador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DatosJugadorPartida_Partida">
+          <End Role="Partida" Type="Self.Partida" Multiplicity="1" />
+          <End Role="DatosJugadorPartida" Type="Self.DatosJugadorPartida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partida">
+              <PropertyRef Name="idPartida" />
+            </Principal>
+            <Dependent Role="DatosJugadorPartida">
+              <PropertyRef Name="idPartida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SolicitudAmigo_Amigo">
+          <End Role="Amigo" Type="Self.Amigo" Multiplicity="1" />
+          <End Role="SolicitudAmigo" Type="Self.SolicitudAmigo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Amigo">
+              <PropertyRef Name="idAmigo" />
+            </Principal>
+            <Dependent Role="SolicitudAmigo">
+              <PropertyRef Name="idAmigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SolicitudAmigo_Jugador">
+          <End Role="Jugador" Type="Self.Jugador" Multiplicity="1" />
+          <End Role="SolicitudAmigo" Type="Self.SolicitudAmigo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="idJugador" />
+            </Principal>
+            <Dependent Role="SolicitudAmigo">
+              <PropertyRef Name="idJugador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ModeloDBStoreContainer">
           <EntitySet Name="Amigo" EntityType="Self.Amigo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DatosJugadorPartida" EntityType="Self.DatosJugadorPartida" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Jugador" EntityType="Self.Jugador" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Partida" EntityType="Self.Partida" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SolicitudAmigo" EntityType="Self.SolicitudAmigo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DatosJugadorPartida_Jugador" Association="Self.FK_DatosJugadorPartida_Jugador">
+            <End Role="Jugador" EntitySet="Jugador" />
+            <End Role="DatosJugadorPartida" EntitySet="DatosJugadorPartida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DatosJugadorPartida_Partida" Association="Self.FK_DatosJugadorPartida_Partida">
+            <End Role="Partida" EntitySet="Partida" />
+            <End Role="DatosJugadorPartida" EntitySet="DatosJugadorPartida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SolicitudAmigo_Amigo" Association="Self.FK_SolicitudAmigo_Amigo">
+            <End Role="Amigo" EntitySet="Amigo" />
+            <End Role="SolicitudAmigo" EntitySet="SolicitudAmigo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SolicitudAmigo_Jugador" Association="Self.FK_SolicitudAmigo_Jugador">
+            <End Role="Jugador" EntitySet="Jugador" />
+            <End Role="SolicitudAmigo" EntitySet="SolicitudAmigo" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -73,6 +152,23 @@
           <EntitySet Name="Jugador" EntityType="ModeloDB.Jugador" />
           <EntitySet Name="Partida" EntityType="ModeloDB.Partida" />
           <EntitySet Name="SolicitudAmigo" EntityType="ModeloDB.SolicitudAmigo" />
+          <AssociationSet Name="FK_DatosJugadorPartida_Jugador" Association="ModeloDB.FK_DatosJugadorPartida_Jugador">
+            <End Role="Jugador" EntitySet="Jugador" />
+            <End Role="DatosJugadorPartida" EntitySet="DatosJugadorPartida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DatosJugadorPartida_Partida" Association="ModeloDB.FK_DatosJugadorPartida_Partida">
+            <End Role="Partida" EntitySet="Partida" />
+            <End Role="DatosJugadorPartida" EntitySet="DatosJugadorPartida" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SolicitudAmigo_Jugador" Association="ModeloDB.FK_SolicitudAmigo_Jugador">
+            <End Role="Jugador" EntitySet="Jugador" />
+            <End Role="SolicitudAmigo" EntitySet="SolicitudAmigo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SolicitudAmigo_Amigo" Association="ModeloDB.FK_SolicitudAmigo_Amigo">
+            <End Role="Amigo" EntitySet="Amigo" />
+            <End Role="SolicitudAmigo" EntitySet="SolicitudAmigo" />
+          </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="ModeloDB.sysdiagrams" />
         </EntityContainer>
         <EntityType Name="Amigo">
           <Key>
@@ -80,6 +176,7 @@
           </Key>
           <Property Name="claveUsuarioAmigo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="idAmigo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SolicitudAmigo" Relationship="ModeloDB.FK_SolicitudAmigo_Amigo" FromRole="Amigo" ToRole="SolicitudAmigo" />
         </EntityType>
         <EntityType Name="DatosJugadorPartida">
           <Key>
@@ -89,6 +186,10 @@
           <Property Name="idAspecto" Type="Int32" />
           <Property Name="idDatosJugadorPartida" Type="Int32" Nullable="false" />
           <Property Name="expulsado" Type="Boolean" />
+          <Property Name="idJugador" Type="Int32" Nullable="false" />
+          <Property Name="idPartida" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Jugador" Relationship="ModeloDB.FK_DatosJugadorPartida_Jugador" FromRole="DatosJugadorPartida" ToRole="Jugador" />
+          <NavigationProperty Name="Partida" Relationship="ModeloDB.FK_DatosJugadorPartida_Partida" FromRole="DatosJugadorPartida" ToRole="Partida" />
         </EntityType>
         <EntityType Name="Jugador">
           <Key>
@@ -103,6 +204,8 @@
           <Property Name="nombreUsuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="esInvitado" Type="Boolean" />
           <Property Name="idJugador" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DatosJugadorPartida" Relationship="ModeloDB.FK_DatosJugadorPartida_Jugador" FromRole="Jugador" ToRole="DatosJugadorPartida" />
+          <NavigationProperty Name="SolicitudAmigo" Relationship="ModeloDB.FK_SolicitudAmigo_Jugador" FromRole="Jugador" ToRole="SolicitudAmigo" />
         </EntityType>
         <EntityType Name="Partida">
           <Key>
@@ -116,6 +219,7 @@
           <Property Name="puntajeVictoria" Type="Int32" />
           <Property Name="nombreGanador" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
           <Property Name="idPartida" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DatosJugadorPartida" Relationship="ModeloDB.FK_DatosJugadorPartida_Partida" FromRole="Partida" ToRole="DatosJugadorPartida" />
         </EntityType>
         <EntityType Name="SolicitudAmigo">
           <Key>
@@ -124,6 +228,68 @@
           <Property Name="fecha" Type="DateTime" Precision="0" />
           <Property Name="estado" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="idSolicitudAmigo" Type="Int32" Nullable="false" />
+          <Property Name="idAmigo" Type="Int32" Nullable="false" />
+          <Property Name="idJugador" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Jugador" Relationship="ModeloDB.FK_SolicitudAmigo_Jugador" FromRole="SolicitudAmigo" ToRole="Jugador" />
+          <NavigationProperty Name="Amigo" Relationship="ModeloDB.FK_SolicitudAmigo_Amigo" FromRole="SolicitudAmigo" ToRole="Amigo" />
+        </EntityType>
+        <Association Name="FK_DatosJugadorPartida_Jugador">
+          <End Type="ModeloDB.Jugador" Role="Jugador" Multiplicity="1" />
+          <End Type="ModeloDB.DatosJugadorPartida" Role="DatosJugadorPartida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="idJugador" />
+            </Principal>
+            <Dependent Role="DatosJugadorPartida">
+              <PropertyRef Name="idJugador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DatosJugadorPartida_Partida">
+          <End Type="ModeloDB.Partida" Role="Partida" Multiplicity="1" />
+          <End Type="ModeloDB.DatosJugadorPartida" Role="DatosJugadorPartida" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Partida">
+              <PropertyRef Name="idPartida" />
+            </Principal>
+            <Dependent Role="DatosJugadorPartida">
+              <PropertyRef Name="idPartida" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SolicitudAmigo_Jugador">
+          <End Type="ModeloDB.Jugador" Role="Jugador" Multiplicity="1" />
+          <End Type="ModeloDB.SolicitudAmigo" Role="SolicitudAmigo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="idJugador" />
+            </Principal>
+            <Dependent Role="SolicitudAmigo">
+              <PropertyRef Name="idJugador" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SolicitudAmigo_Amigo">
+          <End Type="ModeloDB.Amigo" Role="Amigo" Multiplicity="1" />
+          <End Type="ModeloDB.SolicitudAmigo" Role="SolicitudAmigo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Amigo">
+              <PropertyRef Name="idAmigo" />
+            </Principal>
+            <Dependent Role="SolicitudAmigo">
+              <PropertyRef Name="idAmigo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -144,6 +310,8 @@
           <EntitySetMapping Name="DatosJugadorPartida">
             <EntityTypeMapping TypeName="ModeloDB.DatosJugadorPartida">
               <MappingFragment StoreEntitySet="DatosJugadorPartida">
+                <ScalarProperty Name="idPartida" ColumnName="idPartida" />
+                <ScalarProperty Name="idJugador" ColumnName="idJugador" />
                 <ScalarProperty Name="idDatosJugadorPartida" ColumnName="idDatosJugadorPartida" />
                 <ScalarProperty Name="expulsado" ColumnName="expulsado" />
                 <ScalarProperty Name="idAspecto" ColumnName="idAspecto" />
@@ -183,9 +351,22 @@
           <EntitySetMapping Name="SolicitudAmigo">
             <EntityTypeMapping TypeName="ModeloDB.SolicitudAmigo">
               <MappingFragment StoreEntitySet="SolicitudAmigo">
+                <ScalarProperty Name="idJugador" ColumnName="idJugador" />
+                <ScalarProperty Name="idAmigo" ColumnName="idAmigo" />
                 <ScalarProperty Name="idSolicitudAmigo" ColumnName="idSolicitudAmigo" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ModeloDB.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

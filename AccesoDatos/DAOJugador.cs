@@ -14,6 +14,7 @@ namespace AccesoDatos
         {
             using (var contexto = new ModeloDBContainer())
             {
+                contexto.Configuration.ProxyCreationEnabled = false;
                 contexto.Database.Log = Console.WriteLine;
                 var jugador = (from j in contexto.Jugador
                                              where j.nombreUsuario == nombreUsuario && j.contrasenia == contrasenia

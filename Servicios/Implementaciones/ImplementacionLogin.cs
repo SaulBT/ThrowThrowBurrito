@@ -21,9 +21,14 @@ namespace Servicios.Implementaciones
 
                 return jugador;
             }
-            
+
             catch (EntityException ex)
             {
+                throw new FaultException("Error de la base de datos");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
                 throw new FaultException("Error de la base de datos");
             }
         }

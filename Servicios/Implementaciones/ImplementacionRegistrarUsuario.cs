@@ -39,23 +39,13 @@ namespace Servicios
 
         public string EnviarCodigoCorreo(string correo)
         {
-            /*
-             * Función que envía el código al correo ingresado
-             * debería hacer una validación para que no se haga spam
-             * genera el codigo al momento y lo devuelve 
-             */
-
-            string codigo = GenerarCodigo(longitudCodigo);
-
-            //Creando el correo
+            string codigo = Utilidades.GenerarCodigo(longitudCodigo);
             MailMessage correoCodigo = new MailMessage();
             correoCodigo.From = new MailAddress(emailJuego, aliasJuego, System.Text.Encoding.UTF8);
             correoCodigo.To.Add(correo);
             correoCodigo.Subject = asuntoCorreo;
             correoCodigo.Body = cuerpoCorreo + codigo;
             correoCodigo.Priority = MailPriority.Normal;
-
-            //enviando el correo
             try
             {
                 SmtpClient smtpClient = new SmtpClient();
@@ -86,6 +76,7 @@ namespace Servicios
             {
                 using (var contexto = new ModeloDBContainer())
                 {
+                    contexto.Configuration.ProxyCreationEnabled = false;
                     contexto.Database.Log = Console.WriteLine;
                     var jugador = new Jugador
                     {
@@ -116,7 +107,7 @@ namespace Servicios
             string clave;
             do
             {
-                clave = GenerarCodigo(longitudClaveJugador);
+                clave = Utilidades.GenerarCodigo(longitudClaveJugador);
             } while (!ValidarClaveNoRepetida(clave));
             return clave;
             
@@ -125,6 +116,7 @@ namespace Servicios
         {
             using (var contexto = new ModeloDBContainer())
             {
+                contexto.Configuration.ProxyCreationEnabled = false;
                 contexto.Database.Log = Console.WriteLine;
                 var jugador = (from j in contexto.Jugador
                                where j.nombreUsuario == nombre
@@ -143,21 +135,11 @@ namespace Servicios
             }
         }
 
-        public string GenerarCodigo(int longitud) {
-            Random random = new Random();
-            string caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            
-            StringBuilder resultado = new StringBuilder(longitud);
-            for (int i = 0; i < longitud; i++) {
-                resultado.Append(caracteres[random.Next(caracteres.Length)]);
-            }
-            return resultado.ToString();
-        }
-
         public bool ValidarClaveNoRepetida(string clave)
         {
             using (var contexto = new ModeloDBContainer())
             {
+                contexto.Configuration.ProxyCreationEnabled = false;
                 contexto.Database.Log = Console.WriteLine;
                 var jugador = (from j in contexto.Jugador
                                where j.claveUsuario == clave
