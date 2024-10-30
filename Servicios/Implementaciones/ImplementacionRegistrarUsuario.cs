@@ -21,13 +21,13 @@ namespace Servicios
     
     public class ImplementacionRegistrarUsuario : IServicioRegistrarUsuario
     {
-        const int longitudCodigo = 6;
-        const int longitudClaveJugador = 10;
-        const string emailJuego = "Luispablolagunesnoriega@gmail.com";
-        const string contraseniaEmail = "sfad yvzo rpwn ubyd";
-        const string aliasJuego = "Throw Throw Burrito Game";
-        const string asuntoCorreo = "Código de verificación - Registro de usuario";
-        const string cuerpoCorreo = "Se ha solicitado el registro de un usuario bajo esta dirección de correo.\n" +
+        const int LONGITUD_CODIGO = 6;
+        const int LONGITUD_CLAVE_JUGADOR = 10;
+        const string EMAIL_JUEGO = "Luispablolagunesnoriega@gmail.com";
+        const string CONTRASENIA_EMAIL = "sfad yvzo rpwn ubyd";
+        const string ALIAS_JUEGO = "Throw Throw Burrito Game";
+        const string ASUNTO_CORREO = "Código de verificación - Registro de usuario";
+        const string CUERPO_CORREO = "Se ha solicitado el registro de un usuario bajo esta dirección de correo.\n" +
             "Si usted no lo has solicitado, por favor ignore este mensaje\n\n" +
             "\tCódigo de verificación: ";
         private ModeloDBContainer _contexto;
@@ -39,12 +39,12 @@ namespace Servicios
 
         public string EnviarCodigoCorreo(string correo)
         {
-            string codigo = Utilidades.GenerarCodigo(longitudCodigo);
+            string codigo = Utilidades.GenerarCodigo(LONGITUD_CODIGO);
             MailMessage correoCodigo = new MailMessage();
-            correoCodigo.From = new MailAddress(emailJuego, aliasJuego, System.Text.Encoding.UTF8);
+            correoCodigo.From = new MailAddress(EMAIL_JUEGO, ALIAS_JUEGO, System.Text.Encoding.UTF8);
             correoCodigo.To.Add(correo);
-            correoCodigo.Subject = asuntoCorreo;
-            correoCodigo.Body = cuerpoCorreo + codigo;
+            correoCodigo.Subject = ASUNTO_CORREO;
+            correoCodigo.Body = CUERPO_CORREO + codigo;
             correoCodigo.Priority = MailPriority.Normal;
             try
             {
@@ -52,7 +52,7 @@ namespace Servicios
                 smtpClient.UseDefaultCredentials = false;
                 smtpClient.Port = 25;
                 smtpClient.Host = "smtp.gmail.com";
-                smtpClient.Credentials = new System.Net.NetworkCredential(emailJuego, contraseniaEmail);
+                smtpClient.Credentials = new System.Net.NetworkCredential(EMAIL_JUEGO, CONTRASENIA_EMAIL);
                 ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
                 {
                     return true;
@@ -106,7 +106,7 @@ namespace Servicios
             string clave;
             do
             {
-                clave = Utilidades.GenerarCodigo(longitudClaveJugador);
+                clave = Utilidades.GenerarCodigo(LONGITUD_CLAVE_JUGADOR);
             } while (!ValidarClaveNoRepetida(clave));
             return clave;
             
