@@ -15,19 +15,34 @@ namespace Servicios.Interfaces
         Partida CrearPartida(string claveJugador, int idJugador);
 
         [OperationContract]
-        bool UnirsePartida(string clavePartida, int idJugador, string claveJugador);
+        bool UnirsePartida(string codigoPartida, int idJugador, string claveJugador);
 
         [OperationContract(IsOneWay = true)]
-        void CambiarConfiguracionPartida();
+        void CambiarConfiguracionPartida(Partida partidaLocal);
+
+        [OperationContract(IsOneWay = true)]
+        void CambiarDatosJugador(DatosJugadorPartida datosLocales);
 
         [OperationContract]
-        DatosJugadorPartida[] RetornarDatosJugador(string clavePartida);
+        DatosJugadorPartida[] RetornarDatosJugador(string codigoPartida);
+
+        [OperationContract]
+        Partida RetornarPartida(string codigoPartida);
+
+        [OperationContract(IsOneWay = true)]
+        void IniciarPartida(string codigoPartida);
+
+        [OperationContract(IsOneWay = true)]
+        void SalirPartida(DatosJugadorPartida datos, Partida partidaLocal);
     }
 
     [ServiceContract]
     public interface IServicioJuegoCallback
     {
         [OperationContract]
-        Partida ActualizarPartida();
+        void ActualizarPartida(Partida partidaLocal);
+
+        [OperationContract]
+        void ActualizarDatos(DatosJugadorPartida datos);
     }
 }

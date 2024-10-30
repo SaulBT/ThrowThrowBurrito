@@ -17,8 +17,8 @@ namespace AccesoDatos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Jugador()
         {
-            this.DatosJugadorPartida = new HashSet<DatosJugadorPartida>();
             this.SolicitudAmigo = new HashSet<SolicitudAmigo>();
+            this.DatosJugadorPartida = new HashSet<DatosJugadorPartida>();
         }
     
         public string descripcion { get; set; }
@@ -32,8 +32,8 @@ namespace AccesoDatos
         public int idJugador { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DatosJugadorPartida> DatosJugadorPartida { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SolicitudAmigo> SolicitudAmigo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DatosJugadorPartida> DatosJugadorPartida { get; set; }
     }
 }

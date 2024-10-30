@@ -6,15 +6,15 @@
     <edmx:Diagrams>
       <Diagram DiagramId="abc444b0e60f41088c8ada9ad591a433" Name="Diagram1" ZoomLevel="75" >
         <EntityTypeShape EntityType="ModeloDB.Amigo" Width="1.5" PointX="0.625" PointY="3.375" />
-        <EntityTypeShape EntityType="ModeloDB.DatosJugadorPartida" Width="1.5" PointX="8.25" PointY="3.25" />
         <EntityTypeShape EntityType="ModeloDB.Jugador" Width="1.5" PointX="5.75" PointY="2.625" />
         <EntityTypeShape EntityType="ModeloDB.Partida" Width="1.5" PointX="11.25" PointY="2.75" />
         <EntityTypeShape EntityType="ModeloDB.SolicitudAmigo" Width="1.5" PointX="3.25" PointY="3.125" />
-        <AssociationConnector Association="ModeloDB.FK_DatosJugadorPartida_Jugador" />
-        <AssociationConnector Association="ModeloDB.FK_DatosJugadorPartida_Partida" />
         <AssociationConnector Association="ModeloDB.FK_SolicitudAmigo_Jugador" />
         <AssociationConnector Association="ModeloDB.FK_SolicitudAmigo_Amigo" />
         <EntityTypeShape EntityType="ModeloDB.sysdiagrams" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="ModeloDB.DatosJugadorPartida" Width="1.5" PointX="8.625" PointY="2.625" />
+        <AssociationConnector Association="ModeloDB.FK_DatosJugadorPartida_Jugador" />
+        <AssociationConnector Association="ModeloDB.FK_DatosJugadorPartida_Partida" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

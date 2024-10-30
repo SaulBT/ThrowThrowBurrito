@@ -80,27 +80,9 @@ namespace Servicios.Implementaciones
             do
             {
                 partidaLocal.codigoPartida = Utilidades.GenerarCodigo(LONGITUD_CODIGO_PARTIDA);
-            } while (!ValidarClaveNoRepetida(partidaLocal.codigoPartida));
+            } while (!ValidarCodigoNoRepetido(partidaLocal.codigoPartida));
             /*
-            using (var contexto = new ModeloDBContainer())
-            {
-                contexto.Database.Log = Console.WriteLine;
-                var partida = new Partida
-                {
-                    codigoPartida = partidaLocal.codigoPartida,
-                    fecha = partidaLocal.fecha,
-                    tiempoGuerra = partidaLocal.tiempoGuerra,
-                    puntajeVictoria = partidaLocal.puntajeVictoria,
-                    duracion = partidaLocal.duracion,
-                    nombreGanador = partidaLocal.nombreGanador,
-                };
-                contexto.Partida.Add(partida);
-                contexto.SaveChanges();
-
-                partidaLocal.idPartida = (from p in contexto.Partida
-                               where p.codigoPartida == partidaLocal.codigoPartida
-                               select p.idPartida).FirstOrDefault();
-            }
+            
             */
             CrearDatosJugadorPartida(true, claveJugador, partidaLocal.codigoPartida, idJugador);
 
@@ -110,7 +92,7 @@ namespace Servicios.Implementaciones
             return partidaLocal;
         }
 
-        public bool ValidarClaveNoRepetida(string clave)
+        public bool ValidarCodigoNoRepetido(string clave)
         {
             using (var contexto = new ModeloDBContainer())
             {
@@ -140,20 +122,20 @@ namespace Servicios.Implementaciones
                 expulsado = false,
                 esAdmin = esAdmin,
                 claveJugador = claveJugador,
-                clavePartida = clavePartida,
+                codigoPartida = clavePartida,
                 idJugador = idJugador,
             };
 
             datosActuales.Add(datosJugadorPartida);
         }
 
-        public bool UnirsePartida(string clavePartida, int idJugador, string claveJugador)
+        public bool UnirsePartida(string codigoPartida, int idJugador, string claveJugador)
         {
             foreach(var p in partidasActuales)
             {
-                if(p.codigoPartida == clavePartida)
+                if(p.codigoPartida == codigoPartida)
                 {
-                    CrearDatosJugadorPartida(false, claveJugador, clavePartida, idJugador);
+                    CrearDatosJugadorPartida(false, claveJugador, codigoPartida, idJugador);
                     return true;
                 }
             }
@@ -161,13 +143,13 @@ namespace Servicios.Implementaciones
             return false;
         }
 
-        public DatosJugadorPartida[] RetornarDatosJugador(string clavePartida)
+        public DatosJugadorPartida[] RetornarDatosJugador(string codigoPartida)
         {
             int j = 0;
             DatosJugadorPartida[] datos = new DatosJugadorPartida[4];
             foreach(var d in datosActuales)
             {
-                if (d.clavePartida == clavePartida)
+                if (d.codigoPartida == codigoPartida)
                 {
                     datos[j] = d;
                     j++;
@@ -177,9 +159,123 @@ namespace Servicios.Implementaciones
             return datos;
         }
 
-        public void CambiarConfiguracionPartida()
+        public Partida RetornarPartida(string codigoPartida)
         {
-            throw new NotImplementedException();
+            Partida retorno = new Partida();
+
+            foreach(var p in partidasActuales)
+            {
+                if(p.codigoPartida == codigoPartida)
+                {
+                    retorno = p;
+                }
+            }
+
+            return retorno;
+        }
+
+        public void CambiarConfiguracionPartida(Partida partidaLocal)
+        {
+            Partida partida = partidasActuales.Find(p => p.idPartida == partidaLocal.idPartida);
+            if (partida == null)
+            {
+                partida = partidaLocal;
+            }
+
+            foreach(var d in datosActuales)
+            {
+                if(d.codigoPartida == partidaLocal.codigoPartida)
+                {
+                    var cliente = clientesJuego[d.claveJugador];
+                    cliente.ActualizarPartida(partidaLocal);
+                }
+            }
+        }
+
+        public void CambiarDatosJugador(DatosJugadorPartida datosLocales)
+        {
+            DatosJugadorPartida datos = datosActuales.Find(d => d.claveJugador == datosLocales.claveJugador);
+            if (datos == null)
+            {
+                datos = datosLocales;
+            }
+
+            foreach (var d in datosActuales)
+            {
+                if (d.codigoPartida == datosLocales.codigoPartida)
+                {
+                    var cliente = clientesJuego[d.claveJugador];
+                    cliente.ActualizarDatos(datosLocales);
+                }
+            }
+        }
+
+        public void IniciarPartida(string codigoPartida)
+        {
+            Partida partida = partidasActuales.Find(p => p.codigoPartida == codigoPartida);
+            using (var contexto = new ModeloDBContainer())
+            {
+                contexto.Database.Log = Console.WriteLine;
+                var partidaN = new Partida
+                {
+                    codigoPartida = partida.codigoPartida,
+                    fecha = partida.fecha,
+                    tiempoGuerra = partida.tiempoGuerra,
+                    puntajeVictoria = partida.puntajeVictoria,
+                    duracion = partida.duracion,
+                    nombreGanador = partida.nombreGanador,
+                };
+                contexto.Partida.Add(partida);
+                contexto.SaveChanges();
+
+                partida.idPartida = (from p in contexto.Partida
+                                     where p.codigoPartida ==  partida.codigoPartida select p.idPartida).FirstOrDefault();
+
+                foreach(var d in datosActuales)
+                {
+                    if (d.codigoPartida == partida.codigoPartida)
+                    {
+                        var datos = new DatosJugadorPartida
+                        {
+                            puntaje = d.puntaje,
+                            idAspecto = d.idAspecto,
+                            expulsado = d.expulsado,
+                            idJugador = d.idJugador,
+                            idPartida = partida.idPartida,
+                            esAdmin = d.esAdmin,
+                            claveJugador = d.claveJugador,
+                            codigoPartida = d.codigoPartida
+                        };
+                        contexto.DatosJugadorPartida.Add(datos);
+                        contexto.SaveChanges();
+
+                    }
+                }
+            }
+        }
+
+        public void SalirPartida(DatosJugadorPartida datos, Partida partidaLocal)
+        {
+            datosActuales.Remove(datos);
+            if (!cambiarAdmin(datos.codigoPartida))
+            {
+                partidasActuales.Remove(partidaLocal);
+            }
+            clientesJuego.Remove(datos.claveJugador);
+        }
+
+        private bool cambiarAdmin(String codigoPartida)
+        {
+            foreach(var d in datosActuales)
+            {
+                if(d.codigoPartida == codigoPartida)
+                {
+                    d.esAdmin = true;
+                    return true;
+                }
+            }
+
+            return false;
         }
     }
 }
