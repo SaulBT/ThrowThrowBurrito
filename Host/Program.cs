@@ -13,7 +13,7 @@ namespace Host
         static void Main(string[] args)
         {
             using (ServiceHost hostBurrito = new ServiceHost(typeof(Servicios.Implementaciones.ImplementacionLogin)))
-            using (ServiceHost hostChat = new ServiceHost(typeof(Servicios.Implementaciones.ImplementacionChat)))
+            using (ServiceHost hostChat = new ServiceHost(typeof(Servicios.Implementaciones.ImplementacionJuego)))
             using (ServiceHost hostRegistrarUsuario = new ServiceHost(typeof(Servicios.ImplementacionRegistrarUsuario)))
             using (ServiceHost hostPersonalizarPerfil = new ServiceHost(typeof(Servicios.ImplementacionPersonalizarPerfil)))
             {

@@ -22,6 +22,9 @@
           <Property Name="idDatosJugadorPartida" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idJugador" Type="int" Nullable="false" />
           <Property Name="idPartida" Type="int" Nullable="false" />
+          <Property Name="esAdmin" Type="bit" />
+          <Property Name="claveJugador" Type="varchar" MaxLength="10" />
+          <Property Name="clavePartida" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Jugador">
           <Key>
@@ -57,8 +60,8 @@
           <Property Name="fecha" Type="date" />
           <Property Name="estado" Type="varchar" MaxLength="8" />
           <Property Name="idSolicitudAmigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idAmigo" Type="int" Nullable="false" />
           <Property Name="idJugador" Type="int" Nullable="false" />
+          <Property Name="idAmigo" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -190,6 +193,9 @@
           <Property Name="idPartida" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Jugador" Relationship="ModeloDB.FK_DatosJugadorPartida_Jugador" FromRole="DatosJugadorPartida" ToRole="Jugador" />
           <NavigationProperty Name="Partida" Relationship="ModeloDB.FK_DatosJugadorPartida_Partida" FromRole="DatosJugadorPartida" ToRole="Partida" />
+          <Property Name="esAdmin" Type="Boolean" />
+          <Property Name="claveJugador" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="clavePartida" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Jugador">
           <Key>
@@ -310,6 +316,9 @@
           <EntitySetMapping Name="DatosJugadorPartida">
             <EntityTypeMapping TypeName="ModeloDB.DatosJugadorPartida">
               <MappingFragment StoreEntitySet="DatosJugadorPartida">
+                <ScalarProperty Name="clavePartida" ColumnName="clavePartida" />
+                <ScalarProperty Name="claveJugador" ColumnName="claveJugador" />
+                <ScalarProperty Name="esAdmin" ColumnName="esAdmin" />
                 <ScalarProperty Name="idPartida" ColumnName="idPartida" />
                 <ScalarProperty Name="idJugador" ColumnName="idJugador" />
                 <ScalarProperty Name="idDatosJugadorPartida" ColumnName="idDatosJugadorPartida" />

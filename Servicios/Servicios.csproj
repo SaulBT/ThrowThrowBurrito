@@ -47,9 +47,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Implementaciones\ImplementacionChat.cs" />
+    <Compile Include="Implementaciones\ImplementacionJuego.cs" />
     <Compile Include="Implementaciones\ImplementacionLogin.cs" />
     <Compile Include="Interfaces\IServicioChat.cs" />
+    <Compile Include="Interfaces\IServicioJuego.cs" />
     <Compile Include="Interfaces\IServicioLogin.cs" />
     <Compile Include="Implementaciones\ImplementacionPersonalizarPerfil.cs" />
     <Compile Include="Interfaces\IServicioPersonalizarPerfil.cs" />
