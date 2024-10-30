@@ -14,14 +14,26 @@ namespace AccesoDatos
         {
             using (var contexto = new ModeloDBContainer())
             {
-                contexto.Configuration.ProxyCreationEnabled = false;
                 contexto.Database.Log = Console.WriteLine;
                 var jugador = (from j in contexto.Jugador
                                              where j.nombreUsuario == nombreUsuario && j.contrasenia == contrasenia
                                              && j.nombreUsuario.Equals(nombreUsuario, StringComparison.Ordinal)
                                              && j.contrasenia.Equals(contrasenia, StringComparison.Ordinal)
                                              select j).FirstOrDefault();
-                return jugador;
+
+                Jugador respuesta = new Jugador
+                {
+                    claveUsuario = jugador.claveUsuario,
+                    descripcion = jugador.descripcion,
+                    fotoPerfil = jugador.fotoPerfil,
+                    correoElectronico = jugador.correoElectronico,
+                    contrasenia = jugador.contrasenia,
+                    estado = jugador.estado,
+                    nombreUsuario = jugador.nombreUsuario,
+                    esInvitado = jugador.esInvitado
+                };
+
+                return respuesta;
             }
             
 

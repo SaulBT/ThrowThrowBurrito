@@ -25,7 +25,6 @@ namespace Servicios.Implementaciones
             {
                 clientes.Add(callback);
             }
-            Console.WriteLine("Llego " + nombreUsuario);
             string mensajeCompleto = nombreUsuario + " se ha unido!";
             TransmitirMensaje(mensajeCompleto);
         }
@@ -48,7 +47,6 @@ namespace Servicios.Implementaciones
         {
             foreach (var cliente in clientes)
             {
-                Console.WriteLine("Se esta transmitiendo el mensaje");
                 cliente.RecibirMensaje(mensajeCompleto);
             }
         }

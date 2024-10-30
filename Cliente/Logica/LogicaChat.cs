@@ -116,11 +116,6 @@ namespace Cliente.Logica
         {
             if (conexion)
             {
-                if (mensajesPendientes.Count() > 0)
-                {
-                    enviarMensajesPendientes();
-                }
-
                 servicio.EnviarMensaje(nombreUsuario, mensaje);
             }
             else

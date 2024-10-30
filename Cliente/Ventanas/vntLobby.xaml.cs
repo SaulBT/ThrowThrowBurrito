@@ -33,7 +33,7 @@ namespace Cliente.Ventanas
             InitializeComponent();
             this.jugador = jugador;
             logica = new LogicaChat(this, jugador.nombreUsuario);
-            Unirse();
+            //Unirse();
             
         }
 

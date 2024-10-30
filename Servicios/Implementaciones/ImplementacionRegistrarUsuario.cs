@@ -76,7 +76,6 @@ namespace Servicios
             {
                 using (var contexto = new ModeloDBContainer())
                 {
-                    contexto.Configuration.ProxyCreationEnabled = false;
                     contexto.Database.Log = Console.WriteLine;
                     var jugador = new Jugador
                     {
@@ -116,7 +115,6 @@ namespace Servicios
         {
             using (var contexto = new ModeloDBContainer())
             {
-                contexto.Configuration.ProxyCreationEnabled = false;
                 contexto.Database.Log = Console.WriteLine;
                 var jugador = (from j in contexto.Jugador
                                where j.nombreUsuario == nombre
@@ -139,11 +137,11 @@ namespace Servicios
         {
             using (var contexto = new ModeloDBContainer())
             {
-                contexto.Configuration.ProxyCreationEnabled = false;
                 contexto.Database.Log = Console.WriteLine;
                 var jugador = (from j in contexto.Jugador
                                where j.claveUsuario == clave
                                select j).FirstOrDefault();
+                
                 if (jugador == null)
                 {
                     return true;
