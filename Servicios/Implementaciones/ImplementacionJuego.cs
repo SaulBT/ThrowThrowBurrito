@@ -257,9 +257,12 @@ namespace Servicios.Implementaciones
         public void SalirPartida(DatosJugadorPartida datos, Partida partidaLocal)
         {
             datosActuales.Remove(datos);
-            if (!cambiarAdmin(datos.codigoPartida))
+            if (datos.esAdmin == true)
             {
-                partidasActuales.Remove(partidaLocal);
+                if (!cambiarAdmin(datos.codigoPartida))
+                {
+                    partidasActuales.Remove(partidaLocal);
+                }
             }
             clientesJuego.Remove(datos.claveJugador);
         }
