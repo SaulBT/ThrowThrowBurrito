@@ -25,7 +25,8 @@ namespace Cliente.Ventanas
     public partial class vntLobby : Page
     {
         private ServicioLogin.Jugador jugador;
-        private LogicaChat logica;
+        private LogicaChat logicaChat;
+        private LogicaJuego logicaJuego;
         private Partida partidaLocal;
         private DatosJugadorPartida[] datosJugadorPartida;
         private ServicioJuegoClient servicioJuegoClient;
@@ -35,11 +36,15 @@ namespace Cliente.Ventanas
             InitializeComponent();
             this.jugador = jugador;
             this.partidaLocal = partida;
-            logica = new LogicaChat(this, jugador.nombreUsuario);
+            logicaChat= new LogicaChat(this, jugador.nombreUsuario);
+            logicaJuego = new LogicaJuego();
+            tbcCodigoPartida.Text += partida.codigoPartida;
 
             InstanceContext contexto = new InstanceContext(this);
             servicioJuegoClient = new ServicioJuego.ServicioJuegoClient(contexto);
-            datosJugadorPartida = servicioJuegoClient.RetornarDatosJugador(partida.codigoPartida);
+            datosJugadorPartida = logicaJuego.RetornarDatosJugador(partida.codigoPartida);
+
+            ConfigurarVistaAdmin();
             /*
              * hago el retorno de datos directamente en el lobby mientras que el retorno de de partida lo hago desde el menú
              * esto porque ahí mismo se crea la partida (evitando ir a una ventana aparte en caso de ocurra en error) pues 
@@ -50,12 +55,33 @@ namespace Cliente.Ventanas
 
         }
 
+        private void ConfigurarVistaAdmin()
+        {
+            //Función para configurar las opciones que aparecen en caso de que el cliente sea el admin de la partida
+
+            foreach (DatosJugadorPartida dato in datosJugadorPartida)
+            {
+                if (dato.claveJugador.Equals(jugador.claveUsuario))
+                {
+                    if (dato.esAdmin == true)
+                    {
+                        btnIniciarPartida.Visibility = Visibility.Visible;
+                        return;
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+                
+            }
+        }
 
         public void Unirse()
         {
             try
             {
-                logica.Unirse(this.jugador.nombreUsuario);
+                logicaChat.Unirse(this.jugador.nombreUsuario);
             }
             catch (FaultException ex)
             {
@@ -110,7 +136,7 @@ namespace Cliente.Ventanas
                 try
                 {
                     string mensaje = tbcMensaje.Text;
-                    logica.EnviarMensaje(mensaje);
+                    logicaChat.EnviarMensaje(mensaje);
                     tbcMensaje.Text = "";
                 }
                 catch (EndpointNotFoundException ex)
@@ -146,8 +172,38 @@ namespace Cliente.Ventanas
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
-            vntMenuPrincipal vntMenuPrincipal = new vntMenuPrincipal(jugador);
-            NavigationService.Navigate(vntMenuPrincipal);
+            try
+            {
+                foreach (DatosJugadorPartida dato in datosJugadorPartida)
+                {
+                    if (dato.claveJugador.Equals(jugador.claveUsuario))
+                    {
+                        logicaJuego.SalirPartida(dato, partidaLocal);
+                        break;
+                    }
+                }
+
+                vntMenuPrincipal vntMenuPrincipal = new vntMenuPrincipal(jugador);
+                NavigationService.Navigate(vntMenuPrincipal);
+            }
+            catch (FaultException ex)
+            {
+                mostrarAlerta(ex.Message);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
+            }
+            catch (CommunicationException ex)
+            {
+                mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
+
+            }
+            catch (Exception ex)
+            {
+                mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
+            }
+            
         }
 
         private void tbcMensaje_TextChanged(object sender, TextChangedEventArgs e)

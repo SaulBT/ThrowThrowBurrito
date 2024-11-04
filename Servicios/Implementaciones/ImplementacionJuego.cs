@@ -88,6 +88,7 @@ namespace Servicios.Implementaciones
 
             var clienteJuego = OperationContext.Current.GetCallbackChannel<IServicioJuegoCallback>();
             clientesJuego.Add(claveJugador, clienteJuego);
+            partidasActuales.Add(partidaLocal);
 
             return partidaLocal;
         }
@@ -133,7 +134,7 @@ namespace Servicios.Implementaciones
         {
             foreach(var p in partidasActuales)
             {
-                if(p.codigoPartida == codigoPartida)
+                if(p.codigoPartida.Equals(codigoPartida))
                 {
                     CrearDatosJugadorPartida(false, claveJugador, codigoPartida, idJugador);
                     return true;
@@ -256,12 +257,17 @@ namespace Servicios.Implementaciones
 
         public void SalirPartida(DatosJugadorPartida datos, Partida partidaLocal)
         {
-            datosActuales.Remove(datos);
+            //datosActuales.Remove(datos);
+            var comparadorDatos = new ComparadorDatosJugadorPartida(); 
+            datosActuales = datosActuales.Except(new List<DatosJugadorPartida> { datos }, comparadorDatos).ToList();
+
             if (datos.esAdmin == true)
             {
                 if (!cambiarAdmin(datos.codigoPartida))
                 {
-                    partidasActuales.Remove(partidaLocal);
+                    //partidasActuales.Remove(partidaLocal);
+                    var comparadorPartidas = new ComparadorPartida();
+                    partidasActuales = partidasActuales.Except(new List<Partida> {partidaLocal}, comparadorPartidas).ToList();  
                 }
             }
             clientesJuego.Remove(datos.claveJugador);
@@ -271,14 +277,59 @@ namespace Servicios.Implementaciones
         {
             foreach(var d in datosActuales)
             {
-                if(d.codigoPartida == codigoPartida)
+                if (d == null)
+                {
+                    break;
+                }
+                else 
                 {
                     d.esAdmin = true;
                     return true;
                 }
             }
-
             return false;
+        }
+
+        private class ComparadorDatosJugadorPartida : IEqualityComparer<DatosJugadorPartida>
+        {
+            public bool Equals(DatosJugadorPartida x, DatosJugadorPartida y)
+            {
+                if (Object.ReferenceEquals(x, y)) 
+                    return true; 
+                if (x == null || y == null) 
+                    return false; 
+                return x.claveJugador == y.claveJugador && x.codigoPartida == y.codigoPartida && x.idJugador == y.idJugador;
+            }
+
+            public int GetHashCode(DatosJugadorPartida d)
+            {
+                if (d == null) 
+                    return 0; 
+                int hashClaveJugador = d.claveJugador == null ? 0 : d.claveJugador.GetHashCode(); 
+                int hashCodigoPartida = d.codigoPartida == null ? 0 : d.codigoPartida.GetHashCode(); 
+                int hashIdJugador = d.idJugador.GetHashCode(); 
+                return hashClaveJugador ^ hashCodigoPartida ^ hashIdJugador;
+            }
+        }
+        private class ComparadorPartida : IEqualityComparer<Partida>
+        {
+            public bool Equals(Partida x, Partida y)
+            {
+                if (Object.ReferenceEquals (x, y)) 
+                    return true;
+                if (x == null || y == null) 
+                    return false;
+                return x.idPartida == y.idPartida && x.codigoPartida == y.codigoPartida;
+            }
+
+            public int GetHashCode(Partida p)
+            {
+                if (p == null)
+                    return 0;
+                int hashIdPartida = p.idPartida.GetHashCode();
+                int hashCodigoPartida = p.codigoPartida == null ? 0 : p.codigoPartida.GetHashCode();
+                return hashCodigoPartida ^ hashIdPartida;
+            }
         }
     }
 }

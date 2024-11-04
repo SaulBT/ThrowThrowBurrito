@@ -62,7 +62,8 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button x:Name="btnIniciarPartida" Width="220" Height="50" Margin="0,15,0,0" HorizontalAlignment="Center" FontSize="23">
+            <TextBlock x:Name="tbcCodigoPartida" Text="Código: " FontSize="23" HorizontalAlignment="Center" Margin="0,15,0,0"/>
+            <Button x:Name="btnIniciarPartida" Width="220" Height="50" Margin="0,5,0,0" HorizontalAlignment="Center" FontSize="23" Visibility="Hidden">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="#33CC00" BorderBrush="#0E6987" BorderThickness="3" CornerRadius="10">

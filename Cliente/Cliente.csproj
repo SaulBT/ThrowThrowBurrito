@@ -109,6 +109,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Logica\LogicaCrearJugador.cs" />
+    <Compile Include="Logica\LogicaJuego.cs" />
     <Compile Include="Pruebas\PruebasChat.cs" />
     <Compile Include="Pruebas\PruebasLogin.cs" />
     <Compile Include="Ventanas\vntLobby.xaml.cs">
