@@ -23,6 +23,7 @@
   </MetadataSources>
   <Metadata>
     <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="5520dbd5-447e-464e-bdc7-93f0d9978654" SourceId="1" SourceUrl="http://localhost:8088/?xsd=xsd1" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="3d5cf523-ae3a-4426-a056-771a67fe97d3" SourceId="1" SourceUrl="http://localhost:8088/?xsd=xsd2" />
     <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="aa63b565-003a-4e14-8f9d-175b53772dc2" SourceId="1" SourceUrl="http://localhost:8088/?xsd=xsd0" />
     <MetadataFile FileName="ImplementacionChat.wsdl" MetadataType="Wsdl" ID="0417d589-26ea-4a62-93ae-98eae5292bc8" SourceId="1" SourceUrl="http://localhost:8088/?wsdl" />
   </Metadata>

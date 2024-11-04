@@ -1,5 +1,5 @@
 ﻿using Cliente.Logica;
-using Cliente.ServicioChat;
+using Cliente.ServicioJuego;
 using Cliente.ServicioLogin;
 using System;
 using System.Collections.Generic;
@@ -25,10 +25,10 @@ namespace Cliente.Ventanas
     /// </summary>
     public partial class vntLobby : Page
     {
-        private Jugador jugador;
+        private ServicioLogin.Jugador jugador;
         private LogicaChat logica;
 
-        public vntLobby(Jugador jugador)
+        public vntLobby(ServicioLogin.Jugador jugador)
         {
             InitializeComponent();
             this.jugador = jugador;

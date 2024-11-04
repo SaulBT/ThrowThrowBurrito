@@ -20,20 +20,26 @@ namespace AccesoDatos
                                              && j.nombreUsuario.Equals(nombreUsuario, StringComparison.Ordinal)
                                              && j.contrasenia.Equals(contrasenia, StringComparison.Ordinal)
                                              select j).FirstOrDefault();
-
-                Jugador respuesta = new Jugador
+                if (jugador != null)
                 {
-                    claveUsuario = jugador.claveUsuario,
-                    descripcion = jugador.descripcion,
-                    fotoPerfil = jugador.fotoPerfil,
-                    correoElectronico = jugador.correoElectronico,
-                    contrasenia = jugador.contrasenia,
-                    estado = jugador.estado,
-                    nombreUsuario = jugador.nombreUsuario,
-                    esInvitado = jugador.esInvitado
-                };
+                    Jugador respuesta = new Jugador
+                    {
+                        claveUsuario = jugador.claveUsuario,
+                        descripcion = jugador.descripcion,
+                        fotoPerfil = jugador.fotoPerfil,
+                        correoElectronico = jugador.correoElectronico,
+                        contrasenia = jugador.contrasenia,
+                        estado = jugador.estado,
+                        nombreUsuario = jugador.nombreUsuario,
+                        esInvitado = jugador.esInvitado
+                    };
 
-                return respuesta;
+                    return respuesta;
+                }
+                else
+                {
+                    return null;
+                }
             }
             
 

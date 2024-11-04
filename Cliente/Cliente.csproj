@@ -93,7 +93,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Connected Services\ServicioChat\Reference.cs">
+    <Compile Include="Connected Services\ServicioJuego\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -194,11 +194,20 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Connected Services\ServicioChat\ImplementacionChat.wsdl" />
-    <None Include="Connected Services\ServicioChat\item.xsd">
+    <None Include="Connected Services\ServicioJuego\Cliente.ServicioJuego.DatosJugadorPartida.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioJuego\Cliente.ServicioJuego.Partida.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\ServicioJuego\ImplementacionChat.wsdl" />
+    <None Include="Connected Services\ServicioJuego\item.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ServicioChat\item1.xsd">
+    <None Include="Connected Services\ServicioJuego\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServicioJuego\item2.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\ServicioLogin\Cliente.ServicioLogin.Jugador.datasource">
@@ -247,7 +256,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\ServicioChat\" />
+    <WCFMetadataStorage Include="Connected Services\ServicioJuego\" />
     <WCFMetadataStorage Include="Connected Services\ServicioLogin\" />
     <WCFMetadataStorage Include="Connected Services\ServicioPersonalizarPerfil\" />
     <WCFMetadataStorage Include="Connected Services\ServicioRegistrarUsuario\" />
@@ -281,9 +290,9 @@
   <ItemGroup>
     <Resource Include="Imagenes\imgAgregarAmigo.png" />
     <Resource Include="Imagenes\imgFondoLobby.png" />
-    <None Include="Connected Services\ServicioChat\configuration91.svcinfo" />
-    <None Include="Connected Services\ServicioChat\configuration.svcinfo" />
-    <None Include="Connected Services\ServicioChat\Reference.svcmap">
+    <None Include="Connected Services\ServicioJuego\configuration91.svcinfo" />
+    <None Include="Connected Services\ServicioJuego\configuration.svcinfo" />
+    <None Include="Connected Services\ServicioJuego\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

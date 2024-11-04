@@ -1,4 +1,4 @@
-﻿using Cliente.ServicioChat;
+﻿using Cliente.ServicioJuego;
 using Cliente.ServicioLogin;
 using Cliente.Ventanas;
 using System;
@@ -14,7 +14,7 @@ namespace Cliente.Logica
 {
     public class LogicaChat : IServicioChatCallback
     {
-        public ServicioChat.ServicioChatClient servicio;
+        public ServicioJuego.ServicioChatClient servicio;
         private vntLobby vntLobby;
         private DispatcherTimer timer;
         bool conexion;
@@ -25,7 +25,7 @@ namespace Cliente.Logica
         public LogicaChat(vntLobby vntLobby, string nombreUsuaio)
         {
             InstanceContext contexto = new InstanceContext(this);
-            this.servicio = new ServicioChat.ServicioChatClient(contexto);
+            this.servicio = new ServicioJuego.ServicioChatClient(contexto);
             this.vntLobby = vntLobby;
             this.conexion = true;
             this.activo = true;
@@ -49,7 +49,7 @@ namespace Cliente.Logica
             if (servicio.State == CommunicationState.Faulted)
             {
                 InstanceContext contexto = new InstanceContext(this);
-                servicio = new ServicioChat.ServicioChatClient(contexto);
+                servicio = new ServicioJuego.ServicioChatClient(contexto);
             }
         }
         private void configurarTimer()
