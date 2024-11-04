@@ -26,6 +26,7 @@ namespace Cliente.Ventanas
     {
         private SoundPlayer reproductor;
         private Jugador jugador;
+        private ServicioJuego.ServicioJuegoClient servicioJuegoClient;
 
         public vntMenuPrincipal(Jugador jugador)
         {
@@ -66,7 +67,22 @@ namespace Cliente.Ventanas
         {
             try
             {
-                vntLobby vntLobby = new vntLobby(this.jugador);
+                InstanceContext contexto = new InstanceContext(this);
+                servicioJuegoClient = new ServicioJuego.ServicioJuegoClient(contexto);
+                var partida = servicioJuegoClient.CrearPartida(jugador.claveUsuario, jugador.idJugador);
+                ServicioJuego.Partida partidaLocal = new ServicioJuego.Partida
+                {
+                    fecha = partida.fecha,
+                    tiempoGuerra = partida.tiempoGuerra,
+                    puntajeVictoria = partida.puntajeVictoria,
+                    duracion = partida.duracion,
+                    estado = partida.estado,
+                    nombreGanador = partida.nombreGanador,
+                    codigoPartida = partida.codigoPartida,
+                };
+                Console.WriteLine("Nueva partida creada con codigo: "+partidaLocal.codigoPartida);
+
+                vntLobby vntLobby = new vntLobby(this.jugador, partidaLocal);
                 vntLobby.Unirse();
                 NavigationService.Navigate(vntLobby);
             }
@@ -92,7 +108,8 @@ namespace Cliente.Ventanas
 
         private void btnUnirsePartida_Click(object sender, RoutedEventArgs e)
         {
-
+            gFondoNegro.Visibility = Visibility.Visible;
+            gVentanaUnirsePartida.Visibility = Visibility.Visible;
         }
 
         private void btnConfiguraciones_Click(object sender, RoutedEventArgs e)
@@ -104,6 +121,63 @@ namespace Cliente.Ventanas
         {
             VntPerfil vntPerfil = new VntPerfil(jugador);
             NavigationService.Navigate(vntPerfil);
+        }
+
+        private void btnAceptarUnirsePartida_Click(object sender, RoutedEventArgs e)
+        {
+            InstanceContext contexto = new InstanceContext(this);
+            servicioJuegoClient = new ServicioJuego.ServicioJuegoClient(contexto);
+            string codigoPartida = tbxCodigoPartida.Text;
+            if (!String.IsNullOrEmpty(codigoPartida) )
+            {
+                try
+                {
+                    if (servicioJuegoClient.UnirsePartida(codigoPartida, jugador.idJugador, jugador.claveUsuario))
+                    {
+                        tbcErrorUnirsePartida.Visibility= Visibility.Hidden;
+                        ServicioJuego.Partida partidaLocal = servicioJuegoClient.RetornarPartida(codigoPartida);
+                        vntLobby vntLobby = new vntLobby(this.jugador, partidaLocal);
+                        vntLobby.Unirse();
+
+                        NavigationService.Navigate(vntLobby);
+                    }
+                    else
+                    {
+                        tbcErrorUnirsePartida.Text = "No se encontró una partida existente con ese código";
+                        tbcErrorUnirsePartida.Visibility = Visibility.Visible;
+                    }
+                }
+                catch (EndpointNotFoundException ex)
+                {
+                    mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
+                    Console.WriteLine(ex.Message);
+                    servicioJuegoClient.Abort();
+                }
+                catch (CommunicationException ex)
+                {
+                    mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
+                    Console.WriteLine(ex.Message);
+                    servicioJuegoClient.Abort();
+                }
+                catch (Exception ex)
+                {
+                    mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
+                    Console.WriteLine(ex.Message);
+                    servicioJuegoClient.Abort();
+                }
+            }
+            else
+            {
+                tbcErrorUnirsePartida.Text = "Por favor, no deje el campo vacío";
+                tbcErrorUnirsePartida.Visibility = Visibility.Visible;
+            }
+            
+        }
+
+        private void btnCancelarUnirsePartida_Click(object sender, RoutedEventArgs e)
+        {
+            gVentanaUnirsePartida.Visibility = Visibility.Hidden;
+            gFondoNegro.Visibility = Visibility.Hidden;
         }
     }
 }

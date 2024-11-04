@@ -153,8 +153,75 @@
             </Button>
         </StackPanel>
 
-        <!--Ventana emergente-->
         <Grid x:Name="gFondoNegro" Background="Black" Opacity="0.5" Visibility="Hidden"/>
+
+        <!--Ventana Unirse Partida-->
+        <Grid x:Name="gVentanaUnirsePartida" Visibility="Hidden">
+            <Grid.Background>
+                <ImageBrush ImageSource="/Imagenes/imgVentanaEmergente.png" Stretch="None"/>
+            </Grid.Background>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Label Content="Ingrese el código de la partida:" FontSize="18" HorizontalContentAlignment="Center" Margin="0,0,0,10"/>
+                <TextBox x:Name="tbxCodigoPartida" FontSize="18"/>
+                <TextBlock x:Name="tbcErrorUnirsePartida" Foreground="Crimson" Visibility="Hidden"/>
+                <Button x:Name="btnAceptarUnirsePartida" Width="120" Height="30" Margin="0,10,0,0" Click="btnAceptarUnirsePartida_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                                <ContentPresenter Content="Aceptar" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#8C8573" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#CAC19F" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <Button x:Name="btnCancelarUnirsePartida" Width="130" Height="30" Margin="0,10,0,0" Click="btnCancelarUnirsePartida_Click">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" Background="#C7785F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                                <ContentPresenter Content="Cerrar Sesión" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#8C8573" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#C7785F" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </Grid>
+        
+        <!--Ventana emergente-->
         <Grid x:Name="gVentanaEmergente" Visibility="Hidden">
             <Grid.Background>
                 <ImageBrush ImageSource="/Imagenes/imgVentanaEmergente.png" Stretch="None"/>
