@@ -195,7 +195,7 @@
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border x:Name="border" Background="#C7785F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
-                                <ContentPresenter Content="Cerrar Sesión" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <ContentPresenter Content="Cancelar" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsPressed" Value="True">

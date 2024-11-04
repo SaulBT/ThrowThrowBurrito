@@ -1,5 +1,6 @@
 ﻿using Cliente.ServicioLogin;
 using Cliente.Ventanas.Perfil;
+using Cliente.Logica;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace Cliente.Ventanas
         private SoundPlayer reproductor;
         private Jugador jugador;
         private ServicioJuego.ServicioJuegoClient servicioJuegoClient;
+        private LogicaJuego logicaJuego;
 
         public vntMenuPrincipal(Jugador jugador)
         {
@@ -34,6 +36,7 @@ namespace Cliente.Ventanas
             this.reproductor = new SoundPlayer("Musica/mscMenu.wav");
             this.Loaded += MenuPrincipal_Loaded;
             this.jugador = jugador;
+            logicaJuego = new LogicaJuego();
         }
 
         
@@ -51,7 +54,10 @@ namespace Cliente.Ventanas
 
         private void btnAceptarEmergente_Click(object sender, RoutedEventArgs e)
         {
-            gFondoNegro.Visibility = Visibility.Hidden;
+            if (gVentanaUnirsePartida.Visibility != Visibility.Visible)
+            {
+                gFondoNegro.Visibility = Visibility.Hidden;
+            }
             gVentanaEmergente.Visibility = Visibility.Hidden;
             tbcMensajeEmergente.Text = "";
         }
@@ -67,20 +73,7 @@ namespace Cliente.Ventanas
         {
             try
             {
-                InstanceContext contexto = new InstanceContext(this);
-                servicioJuegoClient = new ServicioJuego.ServicioJuegoClient(contexto);
-                var partida = servicioJuegoClient.CrearPartida(jugador.claveUsuario, jugador.idJugador);
-                ServicioJuego.Partida partidaLocal = new ServicioJuego.Partida
-                {
-                    fecha = partida.fecha,
-                    tiempoGuerra = partida.tiempoGuerra,
-                    puntajeVictoria = partida.puntajeVictoria,
-                    duracion = partida.duracion,
-                    estado = partida.estado,
-                    nombreGanador = partida.nombreGanador,
-                    codigoPartida = partida.codigoPartida,
-                };
-                Console.WriteLine("Nueva partida creada con codigo: "+partidaLocal.codigoPartida);
+                ServicioJuego.Partida partidaLocal = logicaJuego.CrearPartida(jugador.claveUsuario, jugador.idJugador);
 
                 vntLobby vntLobby = new vntLobby(this.jugador, partidaLocal);
                 vntLobby.Unirse();
@@ -132,12 +125,13 @@ namespace Cliente.Ventanas
             {
                 try
                 {
-                    if (servicioJuegoClient.UnirsePartida(codigoPartida, jugador.idJugador, jugador.claveUsuario))
+                    if (logicaJuego.UnirsePartida(codigoPartida, jugador.idJugador, jugador.claveUsuario))
                     {
                         tbcErrorUnirsePartida.Visibility= Visibility.Hidden;
-                        ServicioJuego.Partida partidaLocal = servicioJuegoClient.RetornarPartida(codigoPartida);
+                        ServicioJuego.Partida partidaLocal = logicaJuego.RetornarPartida(codigoPartida);
                         vntLobby vntLobby = new vntLobby(this.jugador, partidaLocal);
                         vntLobby.Unirse();
+
 
                         NavigationService.Navigate(vntLobby);
                     }
@@ -150,19 +144,19 @@ namespace Cliente.Ventanas
                 catch (EndpointNotFoundException ex)
                 {
                     mostrarAlerta("Lo sentimos, no se pudo conectar con el servidor.");
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Error al unirse a una partida: "+ex.Message);
                     servicioJuegoClient.Abort();
                 }
                 catch (CommunicationException ex)
                 {
                     mostrarAlerta("Lo sentimos, la comunicación con el servidor se anuló.");
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Error al unirse a una partida: " + ex.Message);
                     servicioJuegoClient.Abort();
                 }
                 catch (Exception ex)
                 {
                     mostrarAlerta("Lo sentimos, ha ocurrido un error inesperado.");
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Error al unirse a una partida: " + ex.Message);
                     servicioJuegoClient.Abort();
                 }
             }
