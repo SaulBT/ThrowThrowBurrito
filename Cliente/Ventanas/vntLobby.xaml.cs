@@ -1,6 +1,5 @@
 ﻿using Cliente.Logica;
 using Cliente.ServicioJuego;
-using Cliente.ServicioLogin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,15 +26,30 @@ namespace Cliente.Ventanas
     {
         private ServicioLogin.Jugador jugador;
         private LogicaChat logica;
+        private Partida partidaLocal;
+        private DatosJugadorPartida[] datosJugadorPartida;
+        private ServicioJuegoClient servicioJuegoClient;
 
-        public vntLobby(ServicioLogin.Jugador jugador)
+        public vntLobby(ServicioLogin.Jugador jugador, Partida partida)
         {
             InitializeComponent();
             this.jugador = jugador;
+            this.partidaLocal = partida;
             logica = new LogicaChat(this, jugador.nombreUsuario);
-            //Unirse();
-            
+
+            InstanceContext contexto = new InstanceContext(this);
+            servicioJuegoClient = new ServicioJuego.ServicioJuegoClient(contexto);
+            datosJugadorPartida = servicioJuegoClient.RetornarDatosJugador(partida.codigoPartida);
+            /*
+             * hago el retorno de datos directamente en el lobby mientras que el retorno de de partida lo hago desde el menú
+             * esto porque ahí mismo se crea la partida (evitando ir a una ventana aparte en caso de ocurra en error) pues 
+             * dicho metodo devuelve ya el objeto de la partida, de otro modo tendría que crear la partida en esta misma ventana
+             * y en caso de dar error se tendría que estar navegando entre más ventanas
+             */
+
+
         }
+
 
         public void Unirse()
         {
