@@ -18,7 +18,7 @@
             <TextBlock TextAlignment="Center" Text="Hemos enviado un código de verificación a tu correo, por favor ingrésalo en el siguiente espacio para confirmar que es tuyo." TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,25" FontSize="20" Width="450"/>
 
             <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Código:" FontSize="20" Margin="0,0,0,5" Width="267" FontWeight="Bold"/>
-            <TextBox x:Name="txbCodigo" HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="15" TextWrapping="Wrap" Text="" Width="250" BorderBrush="gray"/>
+            <TextBox x:Name="txbCodigo" HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="15" TextWrapping="Wrap" Text="" Width="250" BorderBrush="gray" MaxLength="6"/>
             <TextBlock x:Name="tbcErrorCorreo" TextWrapping="Wrap" Text="Los códigos no coinciden!" HorizontalAlignment="Center" FontSize="15" Foreground="Crimson" Height="20" Margin="0,0,0,40" Visibility="Hidden"/>
 
             <Button x:Name="btnConfirmar" Width="150" Height="40" FontSize="20" Content="Confirmar" HorizontalAlignment="Center" Margin="0,0,0,25" VerticalAlignment="Top" Click="btnConfirmar_Click">

@@ -38,7 +38,7 @@ namespace Cliente.Ventanas
             if (verificacion)
             {
                 string nombreUsuario = tbxNombreUsuario.Text;
-                string contrasenia = tbxContrasenia.Text;
+                string contrasenia = pwbContrasenia.Password;
                 try
                 {
                     Jugador jugador = logica.IniciarSesion(nombreUsuario, contrasenia);
@@ -85,7 +85,7 @@ namespace Cliente.Ventanas
                 resultado = false;
             }
 
-            if (tbxContrasenia.Text.Equals(""))
+            if (pwbContrasenia.Password.Equals(""))
             {
                 tbcErrorContrasenia.Text = "Por favor, llena este campo";
                 resultado = false;

@@ -55,7 +55,7 @@
                 </StackPanel>
                 <StackPanel>
                     <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Nombre de Usuario:" FontSize="20" Margin="0,20,0,10" Width="267"/>
-                    <TextBox x:Name="txbNombreUsuario" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="Nombre de usuario" VerticalAlignment="Top" Width="300" FontSize="15" BorderBrush="gray"/>
+                    <TextBox x:Name="txbNombreUsuario" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="Nombre de usuario" VerticalAlignment="Top" Width="300" FontSize="15" BorderBrush="gray" MaxLength="20"/>
                     <TextBlock TextAlignment="Center" Text="El nombre de usuario puede contener letras, números y los símbolos “_” y “.”, debe tener una longitud de 3 a 20 caracteres." TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,40" FontSize="15" Width="400" />
                     
                     <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Descripción:" FontSize="20" Margin="0,0,0,10" Width="267"/>

@@ -18,21 +18,21 @@
 
             <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Nombre de usuario:" FontSize="20" Margin="0,0,0,5" Width="267"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
-                <TextBox x:Name="txbNombreUsuario" HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="15" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="250" BorderBrush="gray"/>
+                <TextBox x:Name="txbNombreUsuario" HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="15" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="250" BorderBrush="gray" MaxLength="20" />
                 <TextBlock x:Name="tbcErrorNombreUsuario" TextAlignment="Justify" Text="Error." TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0,0,70,0" FontSize="15" Height="20" Foreground="Crimson" Visibility="Hidden" Width="205"/>
             </StackPanel>
             <TextBlock TextAlignment="Justify" Text="El nombre de usuario puede contener letras, números y los símbolos '_' y '.', debe tener una longitud de 3 a 20 caracteres." TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,15" FontSize="15" Width="450" />
 
             <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Contraseña:" FontSize="20" Margin="0,0,0,0" Width="267"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
-                <PasswordBox x:Name="pwbContrasenia" PasswordChar="*" Width="250" FontSize="15" BorderBrush="LightSlateGray"/>
+                <PasswordBox x:Name="pwbContrasenia" PasswordChar="*" Width="250" FontSize="15" BorderBrush="LightSlateGray" MaxLength="100"/>
                 <TextBlock x:Name="tbcErrorContrasenia" TextAlignment="Justify" TextWrapping="Wrap" Text="Formato inválido!" HorizontalAlignment="Left" FontSize="15" Height="20" Margin="0,0,155,0" Foreground="Crimson" Visibility="Hidden" Width="120"/>
             </StackPanel>
             <TextBlock TextAlignment="Justify" TextWrapping="Wrap" Text="La contraseña debe contener de 8 a 100 caracteres y utilizar al menos una letra mayúscula, minúscula, y un número." HorizontalAlignment="Center" FontSize="15" Width="450" Margin="0,0,0,15"/>
 
             <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Correo Electrónico:" FontSize="20" Margin="0,0,0,0" Width="267"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
-                <TextBox x:Name="txbCorreo" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="250" FontSize="15" BorderBrush="LightSlateGray"/>
+                <TextBox x:Name="txbCorreo" HorizontalAlignment="Center" Margin="0,0,0,0" Text="" VerticalAlignment="Top" Width="250" FontSize="15" BorderBrush="LightSlateGray" MaxLength="320"/>
                 <TextBlock x:Name="tbcErrorCorreo" TextWrapping="Wrap" Text="Formato inválido!" HorizontalAlignment="Left" FontSize="15" Foreground="Crimson" Height="20" Margin="0,0,155,0" Visibility="Hidden" Width="120"/>
             </StackPanel>
 
