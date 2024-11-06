@@ -19,6 +19,7 @@ namespace AccesoDatos
         {
             this.SolicitudAmigo = new HashSet<SolicitudAmigo>();
             this.DatosJugadorPartida = new HashSet<DatosJugadorPartida>();
+            this.SolicitudBloqueo = new HashSet<SolicitudBloqueo>();
         }
     
         public string descripcion { get; set; }
@@ -35,5 +36,7 @@ namespace AccesoDatos
         public virtual ICollection<SolicitudAmigo> SolicitudAmigo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DatosJugadorPartida> DatosJugadorPartida { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SolicitudBloqueo> SolicitudBloqueo { get; set; }
     }
 }

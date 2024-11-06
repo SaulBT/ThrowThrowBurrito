@@ -15,6 +15,10 @@
         <EntityTypeShape EntityType="ModeloDB.DatosJugadorPartida" Width="1.5" PointX="8.625" PointY="2.625" />
         <AssociationConnector Association="ModeloDB.FK_DatosJugadorPartida_Jugador" />
         <AssociationConnector Association="ModeloDB.FK_DatosJugadorPartida_Partida" />
+        <EntityTypeShape EntityType="ModeloDB.Bloqueado" Width="1.5" PointX="8.5" PointY="7.125" />
+        <EntityTypeShape EntityType="ModeloDB.SolicitudBloqueo" Width="1.5" PointX="5.75" PointY="6.75" />
+        <AssociationConnector Association="ModeloDB.FK_SolicitudBloqueo_Bloqueado" />
+        <AssociationConnector Association="ModeloDB.FK_SolicitudBloqueo_Jugador" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
