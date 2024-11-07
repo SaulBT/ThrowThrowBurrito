@@ -1,6 +1,5 @@
 ﻿using Cliente.Logica;
-using Cliente.ServicioJuego;
-using Cliente.ServicioLogin;
+using Cliente.ServiciosJuego;
 using Cliente.Ventanas;
 using NUnit.Framework;
 using System;

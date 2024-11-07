@@ -1,5 +1,4 @@
-﻿using Cliente.ServicioRegistrarUsuario;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -14,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Cliente.ServiciosGestionUsuarios;
 
 namespace Cliente.Ventanas
 {
@@ -22,13 +22,13 @@ namespace Cliente.Ventanas
     /// </summary>
     public partial class VntRegistrarUsuario : Page
     {
-        private ServicioRegistrarUsuario.ServicioRegistrarUsuarioClient servicio;
+        private ServicioRegistrarUsuarioClient servicio;
         public VntRegistrarUsuario()
         {
             try
             {
                 InitializeComponent();
-                servicio= new ServicioRegistrarUsuario.ServicioRegistrarUsuarioClient();
+                servicio= new ServicioRegistrarUsuarioClient();
             }
             catch (EndpointNotFoundException ex)
             {
@@ -55,7 +55,7 @@ namespace Cliente.Ventanas
             try
             {
                 InitializeComponent();
-                servicio= new ServicioRegistrarUsuario.ServicioRegistrarUsuarioClient();
+                servicio= new ServicioRegistrarUsuarioClient();
                 txbNombreUsuario.Text = usuario.NombreUsuario;
                 pwbContrasenia.Password = usuario.Contrasenia;
                 txbCorreo.Text = usuario.Correo;
@@ -84,7 +84,7 @@ namespace Cliente.Ventanas
         {
             if (!string.IsNullOrEmpty(txbNombreUsuario.Text) && !string.IsNullOrEmpty(pwbContrasenia.Password) && !string.IsNullOrEmpty(txbCorreo.Text))
             {
-                ServicioRegistrarUsuario.Usuario usuario = new ServicioRegistrarUsuario.Usuario()
+                Usuario usuario = new Usuario()
                 {
                     NombreUsuario = txbNombreUsuario.Text,
                     Contrasenia = pwbContrasenia.Password,

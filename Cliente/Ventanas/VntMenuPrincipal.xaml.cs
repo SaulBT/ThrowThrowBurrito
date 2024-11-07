@@ -1,5 +1,6 @@
-﻿using Cliente.ServicioLogin;
-using Cliente.Ventanas.Perfil;
+﻿using Cliente.Ventanas.Perfil;
+using Cliente.ServiciosGestionUsuarios;
+using Cliente.ServiciosJuego;
 using Cliente.Logica;
 using System;
 using System.Collections.Generic;
@@ -26,11 +27,11 @@ namespace Cliente.Ventanas
     public partial class vntMenuPrincipal : Page
     {
         private SoundPlayer reproductor;
-        private Jugador jugador;
-        private ServicioJuego.ServicioJuegoClient servicioJuegoClient;
+        private ServiciosGestionUsuarios.Jugador jugador;
+        private ServicioJuegoClient servicioJuegoClient;
         private LogicaJuego logicaJuego;
 
-        public vntMenuPrincipal(Jugador jugador)
+        public vntMenuPrincipal(ServiciosGestionUsuarios.Jugador jugador)
         {
             InitializeComponent();
             this.reproductor = new SoundPlayer("Musica/mscMenu.wav");
@@ -73,7 +74,7 @@ namespace Cliente.Ventanas
         {
             try
             {
-                ServicioJuego.Partida partidaLocal = logicaJuego.CrearPartida(jugador.claveUsuario, jugador.idJugador);
+                ServiciosJuego.Partida partidaLocal = logicaJuego.CrearPartida(jugador.claveUsuario, jugador.idJugador);
 
                 vntLobby vntLobby = new vntLobby(this.jugador, partidaLocal);
                 vntLobby.Unirse();
@@ -119,7 +120,7 @@ namespace Cliente.Ventanas
         private void btnAceptarUnirsePartida_Click(object sender, RoutedEventArgs e)
         {
             InstanceContext contexto = new InstanceContext(this);
-            servicioJuegoClient = new ServicioJuego.ServicioJuegoClient(contexto);
+            servicioJuegoClient = new ServiciosJuego.ServicioJuegoClient(contexto);
             string codigoPartida = tbxCodigoPartida.Text;
             if (!String.IsNullOrEmpty(codigoPartida) )
             {
@@ -128,7 +129,7 @@ namespace Cliente.Ventanas
                     if (logicaJuego.UnirsePartida(codigoPartida, jugador.idJugador, jugador.claveUsuario))
                     {
                         tbcErrorUnirsePartida.Visibility= Visibility.Hidden;
-                        ServicioJuego.Partida partidaLocal = logicaJuego.RetornarPartida(codigoPartida);
+                        ServiciosJuego.Partida partidaLocal = logicaJuego.RetornarPartida(codigoPartida);
                         vntLobby vntLobby = new vntLobby(this.jugador, partidaLocal);
                         vntLobby.Unirse();
 

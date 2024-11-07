@@ -1,5 +1,5 @@
 ﻿using Cliente.Logica;
-using Cliente.ServicioLogin;
+using Cliente.ServiciosGestionUsuarios;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

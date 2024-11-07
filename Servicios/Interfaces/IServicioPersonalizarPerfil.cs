@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AccesoDatos;
 
-namespace Servicios
+namespace Servicios.Interfaces
 {
     [ServiceContract]
     public interface IServicioPersonalizarPerfil

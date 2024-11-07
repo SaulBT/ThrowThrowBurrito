@@ -60,9 +60,9 @@
   </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://localhost:8088/?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://localhost:8088/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:8088/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/AccesoDatos" />
+      <xsd:import schemaLocation="http://localhost:8084/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8084/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8084/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/AccesoDatos" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IServicioJuego_CrearPartida_InputMessage">
@@ -169,21 +169,21 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioJuego/ActualizarDatosResponse" message="tns:IServicioJuego_ActualizarDatos_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:portType name="IServicioChat">
-    <wsdl:operation name="Unirse">
+  <wsdl:portType msc:usingSession="true" name="IServicioChat">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Unirse">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioChat/Unirse" message="tns:IServicioChat_Unirse_InputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="EnviarMensaje">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="EnviarMensaje">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioChat/EnviarMensaje" message="tns:IServicioChat_EnviarMensaje_InputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ProbarConexion">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="ProbarConexion">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioChat/ProbarConexion" message="tns:IServicioChat_ProbarConexion_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioChat/ProbarConexionResponse" message="tns:IServicioChat_ProbarConexion_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="Salir">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="Salir">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioChat/Salir" message="tns:IServicioChat_Salir_InputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="RecibirMensaje">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="RecibirMensaje">
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioChat/RecibirMensaje" message="tns:IServicioChat_RecibirMensaje_OutputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
@@ -308,20 +308,20 @@
   </wsdl:binding>
   <wsdl:service name="ImplementacionJuego">
     <wsdl:port name="NetTcpBinding_IServicioJuego" binding="tns:NetTcpBinding_IServicioJuego">
-      <soap12:address location="net.tcp://localhost:8087/Servicios.Interfaces" />
+      <soap12:address location="net.tcp://localhost:8083/Juego" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8087/Servicios.Interfaces</wsa10:Address>
+        <wsa10:Address>net.tcp://localhost:8083/Juego</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>TAKISZOMBI\luisp</Upn>
+          <Upn>DESKTOP-2CEP8E3\Saúl</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IServicioChat" binding="tns:NetTcpBinding_IServicioChat">
-      <soap12:address location="net.tcp://localhost:8087/Servicios.Interfaces" />
+      <soap12:address location="net.tcp://localhost:8083/Chat" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8087/Servicios.Interfaces</wsa10:Address>
+        <wsa10:Address>net.tcp://localhost:8083/Chat</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>TAKISZOMBI\luisp</Upn>
+          <Upn>DESKTOP-2CEP8E3\Saúl</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

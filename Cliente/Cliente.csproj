@@ -93,17 +93,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Connected Services\ServicioJuego\Reference.cs">
+    <Compile Include="Connected Services\ServiciosGestionUsuarios\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Connected Services\ServicioPersonalizarPerfil\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Connected Services\ServicioRegistrarUsuario\Reference.cs">
+    <Compile Include="Connected Services\ServiciosJuego\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -136,11 +131,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Connected Services\ServicioLogin\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Logica\LogicaChat.cs" />
     <Compile Include="Logica\LogicaLogin.cs" />
@@ -195,53 +185,36 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Connected Services\ServicioJuego\Cliente.ServicioJuego.DatosJugadorPartida.datasource">
+    <None Include="Connected Services\ServiciosGestionUsuarios\Cliente.ServiciosGestionUsuarios.Jugador.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\ServicioJuego\Cliente.ServicioJuego.Partida.datasource">
+    <None Include="Connected Services\ServiciosGestionUsuarios\ImplementacionGestionUsuarios.wsdl" />
+    <None Include="Connected Services\ServiciosGestionUsuarios\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServiciosGestionUsuarios\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServiciosGestionUsuarios\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServiciosGestionUsuarios\item3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\ServiciosJuego\Cliente.ServiciosJuego.DatosJugadorPartida.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\ServicioJuego\ImplementacionChat.wsdl" />
-    <None Include="Connected Services\ServicioJuego\item.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\ServicioJuego\item1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\ServicioJuego\item2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\ServicioLogin\Cliente.ServicioLogin.Jugador.datasource">
+    <None Include="Connected Services\ServiciosJuego\Cliente.ServiciosJuego.Partida.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\ServicioLogin\ImplementacionLogin.wsdl" />
-    <None Include="Connected Services\ServicioLogin\item.xsd">
+    <None Include="Connected Services\ServiciosJuego\ImplementacionJuego.wsdl" />
+    <None Include="Connected Services\ServiciosJuego\item.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ServicioLogin\item1.xsd">
+    <None Include="Connected Services\ServiciosJuego\item1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\ServicioLogin\item2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\ServicioPersonalizarPerfil\ImplementacionPersonalizarPerfil.wsdl" />
-    <None Include="Connected Services\ServicioPersonalizarPerfil\item.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\ServicioPersonalizarPerfil\item1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\ServicioPersonalizarPerfil\item2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\ServicioRegistrarUsuario\ImplementacionRegistrarUsuario.wsdl" />
-    <None Include="Connected Services\ServicioRegistrarUsuario\item.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\ServicioRegistrarUsuario\item1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\ServicioRegistrarUsuario\item2.xsd">
+    <None Include="Connected Services\ServiciosJuego\item2.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
@@ -257,22 +230,8 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\ServicioJuego\" />
-    <WCFMetadataStorage Include="Connected Services\ServicioLogin\" />
-    <WCFMetadataStorage Include="Connected Services\ServicioPersonalizarPerfil\" />
-    <WCFMetadataStorage Include="Connected Services\ServicioRegistrarUsuario\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\ServicioLogin\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\ServicioLogin\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\ServicioLogin\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
+    <WCFMetadataStorage Include="Connected Services\ServiciosGestionUsuarios\" />
+    <WCFMetadataStorage Include="Connected Services\ServiciosJuego\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Imagenes\imgFondo.png" />
@@ -291,27 +250,19 @@
   <ItemGroup>
     <Resource Include="Imagenes\imgAgregarAmigo.png" />
     <Resource Include="Imagenes\imgFondoLobby.png" />
-    <None Include="Connected Services\ServicioJuego\configuration91.svcinfo" />
-    <None Include="Connected Services\ServicioJuego\configuration.svcinfo" />
-    <None Include="Connected Services\ServicioJuego\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Connected Services\ServicioRegistrarUsuario\item.disco" />
-    <None Include="Connected Services\ServicioRegistrarUsuario\configuration91.svcinfo" />
-    <None Include="Connected Services\ServicioRegistrarUsuario\configuration.svcinfo" />
-    <None Include="Connected Services\ServicioRegistrarUsuario\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Connected Services\ServicioPersonalizarPerfil\item.disco" />
-    <None Include="Connected Services\ServicioPersonalizarPerfil\configuration91.svcinfo" />
-    <None Include="Connected Services\ServicioPersonalizarPerfil\configuration.svcinfo" />
-    <None Include="Connected Services\ServicioPersonalizarPerfil\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Resource Include="Imagenes\imgUsuario.png" />
+    <None Include="Connected Services\ServiciosGestionUsuarios\configuration91.svcinfo" />
+    <None Include="Connected Services\ServiciosGestionUsuarios\configuration.svcinfo" />
+    <None Include="Connected Services\ServiciosGestionUsuarios\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\ServiciosJuego\configuration91.svcinfo" />
+    <None Include="Connected Services\ServiciosJuego\configuration.svcinfo" />
+    <None Include="Connected Services\ServiciosJuego\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Musica\mscMenu.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

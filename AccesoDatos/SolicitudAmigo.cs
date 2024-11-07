@@ -17,10 +17,10 @@ namespace AccesoDatos
         public Nullable<System.DateTime> fecha { get; set; }
         public string estado { get; set; }
         public int idSolicitudAmigo { get; set; }
-        public int idAmigo { get; set; }
         public int idJugador { get; set; }
+        public int idAmigo { get; set; }
     
-        public virtual Jugador Jugador { get; set; }
         public virtual Amigo Amigo { get; set; }
+        public virtual Jugador Jugador { get; set; }
     }
 }

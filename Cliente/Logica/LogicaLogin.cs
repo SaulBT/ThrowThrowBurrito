@@ -1,4 +1,4 @@
-﻿using Cliente.ServicioLogin;
+﻿using Cliente.ServiciosGestionUsuarios;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +11,7 @@ namespace Cliente.Logica
 {
     public class LogicaLogin
     {
-        public ServicioLogin.ServicioLoginClient servicio;
+        public ServicioLoginClient servicio;
 
         public LogicaLogin()
         {

@@ -4,7 +4,6 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
-using System.ServiceModel;
 
 namespace Host
 {
@@ -12,15 +11,11 @@ namespace Host
     {
         static void Main(string[] args)
         {
-            using (ServiceHost hostBurrito = new ServiceHost(typeof(Servicios.Implementaciones.ImplementacionLogin)))
-            using (ServiceHost hostChat = new ServiceHost(typeof(Servicios.Implementaciones.ImplementacionJuego)))
-            using (ServiceHost hostRegistrarUsuario = new ServiceHost(typeof(Servicios.ImplementacionRegistrarUsuario)))
-            using (ServiceHost hostPersonalizarPerfil = new ServiceHost(typeof(Servicios.ImplementacionPersonalizarPerfil)))
+            using (ServiceHost hostUsuarios = new ServiceHost(typeof(Servicios.Implementaciones.ImplementacionGestionUsuarios)))
+            using (ServiceHost hostJuego = new ServiceHost(typeof(Servicios.Implementaciones.ImplementacionJuego)))
             {
-                hostBurrito.Open();
-                hostChat.Open();
-                hostRegistrarUsuario.Open();
-                hostPersonalizarPerfil.Open();
+                hostUsuarios.Open();
+                hostJuego.Open();
 
                 Console.WriteLine("El servidor se está ejecutando.");
                 Console.ReadLine();

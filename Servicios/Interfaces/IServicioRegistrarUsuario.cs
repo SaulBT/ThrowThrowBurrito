@@ -6,7 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using AccesoDatos;
 
-namespace Servicios
+namespace Servicios.Interfaces
 {
     [ServiceContract]
     public interface IServicioRegistrarUsuario

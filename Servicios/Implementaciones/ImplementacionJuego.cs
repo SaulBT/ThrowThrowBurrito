@@ -1,5 +1,4 @@
 ﻿using AccesoDatos;
-using NUnit.Framework.Constraints;
 using Servicios.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,63 +9,23 @@ using System.Threading.Tasks;
 
 namespace Servicios.Implementaciones
 {
-    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
-    public class ImplementacionJuego : IServicioChat, IServicioJuego
+    public class ImplementacionJuego : IServicioJuego, IServicioChat
     {
         const int TIEMPO_GUERRA_DEFAULT = 20;
         const int PUNTOS_VICTORIA_DEFAULT = 10;
         const int LONGITUD_CODIGO_PARTIDA = 10;
-        private static List<IServicioChatCallback> clientes = new List<IServicioChatCallback>();
-        private static Dictionary<String,IServicioJuegoCallback> clientesJuego = new Dictionary<String,IServicioJuegoCallback>();
+        private static Dictionary<String, IServicioJuegoCallback> clientesJuego = new Dictionary<String, IServicioJuegoCallback>();
         private static List<Partida> partidasActuales = new List<Partida>();
         private static List<DatosJugadorPartida> datosActuales = new List<DatosJugadorPartida>();
-        
-        public void EnviarMensaje(string nombreUsuario, string mensaje)
-        {
-            string mensajeCompleto = "<" + nombreUsuario + ">: " + mensaje;
-            TransmitirMensaje(mensajeCompleto);
-        }
 
-        public void Unirse(string nombreUsuario)
-        {
-            var callback = OperationContext.Current.GetCallbackChannel<IServicioChatCallback>();
-            if (!clientes.Contains(callback))
-            {
-                clientes.Add(callback);
-            }
-            string mensajeCompleto = nombreUsuario + " se ha unido!";
-            TransmitirMensaje(mensajeCompleto);
-        }
+        private static List<IServicioChatCallback> clientes = new List<IServicioChatCallback>();
 
-        public void Salir(string nombreUsuario)
-        {
-            var callback = OperationContext.Current.GetCallbackChannel<IServicioChatCallback>();
-            clientes.Remove(callback);
-            string mensajeCompleto = nombreUsuario + " se ha ido!";
-            TransmitirMensaje(mensajeCompleto);
-        }
+        /*
+         * Servicio Juego
+        */
 
-        public bool ProbarConexion()
-        {
-            return true;
-        }
-
-        [OperationBehavior]
-        public void TransmitirMensaje(string mensajeCompleto)
-        {
-            foreach (var cliente in clientes)
-            {
-                cliente.RecibirMensaje(mensajeCompleto);
-            }
-        }
-        //Juego
         public Partida CrearPartida(string claveJugador, int idJugador)
         {
-            /*
-            string formato = "yyyy-MM-dd";
-            DateTime fechaActual = DateTime.Now;
-            string fechaActualS = fechaActual.ToString(formato);*/
-
             Partida partidaLocal = new Partida
             {
                 fecha = DateTime.Now,
@@ -81,9 +40,6 @@ namespace Servicios.Implementaciones
             {
                 partidaLocal.codigoPartida = Utilidades.GenerarCodigo(LONGITUD_CODIGO_PARTIDA);
             } while (!ValidarCodigoNoRepetido(partidaLocal.codigoPartida));
-            /*
-            
-            */
             CrearDatosJugadorPartida(true, claveJugador, partidaLocal.codigoPartida, idJugador);
 
             var clienteJuego = OperationContext.Current.GetCallbackChannel<IServicioJuegoCallback>();
@@ -132,9 +88,9 @@ namespace Servicios.Implementaciones
 
         public bool UnirsePartida(string codigoPartida, int idJugador, string claveJugador)
         {
-            foreach(var p in partidasActuales)
+            foreach (var p in partidasActuales)
             {
-                if(p.codigoPartida.Equals(codigoPartida))
+                if (p.codigoPartida.Equals(codigoPartida))
                 {
                     CrearDatosJugadorPartida(false, claveJugador, codigoPartida, idJugador);
                     return true;
@@ -148,7 +104,7 @@ namespace Servicios.Implementaciones
         {
             int j = 0;
             DatosJugadorPartida[] datos = new DatosJugadorPartida[4];
-            foreach(var d in datosActuales)
+            foreach (var d in datosActuales)
             {
                 if (d.codigoPartida == codigoPartida)
                 {
@@ -164,9 +120,9 @@ namespace Servicios.Implementaciones
         {
             Partida retorno = new Partida();
 
-            foreach(var p in partidasActuales)
+            foreach (var p in partidasActuales)
             {
-                if(p.codigoPartida == codigoPartida)
+                if (p.codigoPartida == codigoPartida)
                 {
                     retorno = p;
                 }
@@ -183,9 +139,9 @@ namespace Servicios.Implementaciones
                 partida = partidaLocal;
             }
 
-            foreach(var d in datosActuales)
+            foreach (var d in datosActuales)
             {
-                if(d.codigoPartida == partidaLocal.codigoPartida)
+                if (d.codigoPartida == partidaLocal.codigoPartida)
                 {
                     var cliente = clientesJuego[d.claveJugador];
                     cliente.ActualizarPartida(partidaLocal);
@@ -230,9 +186,10 @@ namespace Servicios.Implementaciones
                 contexto.SaveChanges();
 
                 partida.idPartida = (from p in contexto.Partida
-                                     where p.codigoPartida ==  partida.codigoPartida select p.idPartida).FirstOrDefault();
+                                     where p.codigoPartida == partida.codigoPartida
+                                     select p.idPartida).FirstOrDefault();
 
-                foreach(var d in datosActuales)
+                foreach (var d in datosActuales)
                 {
                     if (d.codigoPartida == partida.codigoPartida)
                     {
@@ -257,17 +214,15 @@ namespace Servicios.Implementaciones
 
         public void SalirPartida(DatosJugadorPartida datos, Partida partidaLocal)
         {
-            //datosActuales.Remove(datos);
-            var comparadorDatos = new ComparadorDatosJugadorPartida(); 
+            var comparadorDatos = new ComparadorDatosJugadorPartida();
             datosActuales = datosActuales.Except(new List<DatosJugadorPartida> { datos }, comparadorDatos).ToList();
 
             if (datos.esAdmin == true)
             {
                 if (!cambiarAdmin(datos.codigoPartida))
                 {
-                    //partidasActuales.Remove(partidaLocal);
                     var comparadorPartidas = new ComparadorPartida();
-                    partidasActuales = partidasActuales.Except(new List<Partida> {partidaLocal}, comparadorPartidas).ToList();  
+                    partidasActuales = partidasActuales.Except(new List<Partida> { partidaLocal }, comparadorPartidas).ToList();
                 }
             }
             clientesJuego.Remove(datos.claveJugador);
@@ -275,13 +230,13 @@ namespace Servicios.Implementaciones
 
         private bool cambiarAdmin(String codigoPartida)
         {
-            foreach(var d in datosActuales)
+            foreach (var d in datosActuales)
             {
                 if (d == null)
                 {
                     break;
                 }
-                else 
+                else
                 {
                     d.esAdmin = true;
                     return true;
@@ -290,24 +245,67 @@ namespace Servicios.Implementaciones
             return false;
         }
 
+        /*
+         * Servicio Chat
+        */
+
+        public void Unirse(string nombreUsuario)
+        {
+            var callback = OperationContext.Current.GetCallbackChannel<IServicioChatCallback>();
+            if (!clientes.Contains(callback))
+            {
+                clientes.Add(callback);
+            }
+            string mensajeCompleto = nombreUsuario + " se ha unido!";
+            TransmitirMensaje(mensajeCompleto);
+        }
+
+        public void EnviarMensaje(string nombreUsuario, string mensaje)
+        {
+            string mensajeCompleto = "<" + nombreUsuario + ">: " + mensaje;
+            TransmitirMensaje(mensajeCompleto);
+        }
+
+        public bool ProbarConexion()
+        {
+            return true;
+        }
+
+        public void Salir(string nombreUsuario)
+        {
+            var callback = OperationContext.Current.GetCallbackChannel<IServicioChatCallback>();
+            clientes.Remove(callback);
+            string mensajeCompleto = nombreUsuario + " se ha ido!";
+            TransmitirMensaje(mensajeCompleto);
+        }
+
+        [OperationBehavior]
+        public void TransmitirMensaje(string mensajeCompleto)
+        {
+            foreach (var cliente in clientes)
+            {
+                cliente.RecibirMensaje(mensajeCompleto);
+            }
+        }
+
         private class ComparadorDatosJugadorPartida : IEqualityComparer<DatosJugadorPartida>
         {
             public bool Equals(DatosJugadorPartida x, DatosJugadorPartida y)
             {
-                if (Object.ReferenceEquals(x, y)) 
-                    return true; 
-                if (x == null || y == null) 
-                    return false; 
+                if (Object.ReferenceEquals(x, y))
+                    return true;
+                if (x == null || y == null)
+                    return false;
                 return x.claveJugador == y.claveJugador && x.codigoPartida == y.codigoPartida && x.idJugador == y.idJugador;
             }
 
             public int GetHashCode(DatosJugadorPartida d)
             {
-                if (d == null) 
-                    return 0; 
-                int hashClaveJugador = d.claveJugador == null ? 0 : d.claveJugador.GetHashCode(); 
-                int hashCodigoPartida = d.codigoPartida == null ? 0 : d.codigoPartida.GetHashCode(); 
-                int hashIdJugador = d.idJugador.GetHashCode(); 
+                if (d == null)
+                    return 0;
+                int hashClaveJugador = d.claveJugador == null ? 0 : d.claveJugador.GetHashCode();
+                int hashCodigoPartida = d.codigoPartida == null ? 0 : d.codigoPartida.GetHashCode();
+                int hashIdJugador = d.idJugador.GetHashCode();
                 return hashClaveJugador ^ hashCodigoPartida ^ hashIdJugador;
             }
         }
@@ -315,9 +313,9 @@ namespace Servicios.Implementaciones
         {
             public bool Equals(Partida x, Partida y)
             {
-                if (Object.ReferenceEquals (x, y)) 
+                if (Object.ReferenceEquals(x, y))
                     return true;
-                if (x == null || y == null) 
+                if (x == null || y == null)
                     return false;
                 return x.idPartida == y.idPartida && x.codigoPartida == y.codigoPartida;
             }

@@ -20,7 +20,7 @@ namespace AccesoDatos
             this.SolicitudBloqueo = new HashSet<SolicitudBloqueo>();
         }
     
-        public int idBloqueado { get; set; }
+        public int idBloqueo { get; set; }
         public string claveJugadorBloqueado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

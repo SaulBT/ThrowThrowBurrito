@@ -1,4 +1,4 @@
-﻿using Cliente.ServicioJuego;
+﻿using Cliente.ServiciosJuego;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="d2f8beea-1e63-467d-b698-4eda370bafdc" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+<ReferenceGroup xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ID="bc51a6a8-eb02-4466-890d-f616f2cb3dd8" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
   <ClientOptions>
     <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
     <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
@@ -19,13 +19,13 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:8088/?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:8084/?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="5520dbd5-447e-464e-bdc7-93f0d9978654" SourceId="1" SourceUrl="http://localhost:8088/?xsd=xsd1" />
-    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="3d5cf523-ae3a-4426-a056-771a67fe97d3" SourceId="1" SourceUrl="http://localhost:8088/?xsd=xsd2" />
-    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="aa63b565-003a-4e14-8f9d-175b53772dc2" SourceId="1" SourceUrl="http://localhost:8088/?xsd=xsd0" />
-    <MetadataFile FileName="ImplementacionChat.wsdl" MetadataType="Wsdl" ID="0417d589-26ea-4a62-93ae-98eae5292bc8" SourceId="1" SourceUrl="http://localhost:8088/?wsdl" />
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="aee007ff-4dfa-4e83-a135-a018b7a5e4a1" SourceId="1" SourceUrl="http://localhost:8084/?xsd=xsd2" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="f324863f-c48e-4b2b-a90a-62ed900f2cea" SourceId="1" SourceUrl="http://localhost:8084/?xsd=xsd1" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="9eacb8e7-790e-45aa-bf1d-f7ed2a36c267" SourceId="1" SourceUrl="http://localhost:8084/?xsd=xsd0" />
+    <MetadataFile FileName="ImplementacionJuego.wsdl" MetadataType="Wsdl" ID="bfaeca6c-bad8-4a4d-b632-2fbdab6c76cf" SourceId="1" SourceUrl="http://localhost:8084/?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

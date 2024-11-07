@@ -1,5 +1,5 @@
 ﻿using Cliente.Logica;
-using Cliente.ServicioLogin;
+using Cliente.ServiciosGestionUsuarios;
 using System;
 using System.Collections.Generic;
 using System.Linq;

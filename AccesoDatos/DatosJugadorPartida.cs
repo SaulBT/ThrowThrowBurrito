@@ -21,8 +21,8 @@ namespace AccesoDatos
         public int idJugador { get; set; }
         public Nullable<int> idPartida { get; set; }
         public Nullable<bool> esAdmin { get; set; }
-        public string codigoPartida { get; set; }
         public string claveJugador { get; set; }
+        public string codigoPartida { get; set; }
     
         public virtual Jugador Jugador { get; set; }
         public virtual Partida Partida { get; set; }

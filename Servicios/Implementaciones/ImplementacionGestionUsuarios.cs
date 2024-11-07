@@ -1,26 +1,22 @@
-﻿using System;
+﻿using AccesoDatos;
+using Servicios.Interfaces;
+using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.Entity.Core.EntityClient;
-using System.Data.Entity.Core.Objects.DataClasses;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Net;
 using System.Net.Mail;
 using System.Net.Security;
-using System.Runtime.Remoting.Contexts;
-using System.Runtime.Serialization;
+using System.Net;
 using System.Security.Cryptography.X509Certificates;
-using System.ServiceModel;
 using System.Text;
-using System.Threading;
-using AccesoDatos;
-using Servicios.Interfaces;
+using System.Threading.Tasks;
+using System.Data.Entity;
+using System.Data.Entity.Core;
+using System.ServiceModel;
 
 namespace Servicios.Implementaciones
 {
-    
-    public class ImplementacionRegistrarUsuario : IServicioRegistrarUsuario
+    public class ImplementacionGestionUsuarios : IServicioRegistrarUsuario, IServicioPersonalizarPerfil, IServicioLogin
     {
         const int LONGITUD_CODIGO = 6;
         const int LONGITUD_CLAVE_JUGADOR = 10;
@@ -31,12 +27,10 @@ namespace Servicios.Implementaciones
         const string CUERPO_CORREO = "Se ha solicitado el registro de un usuario bajo esta dirección de correo.\n" +
             "Si usted no lo has solicitado, por favor ignore este mensaje\n\n" +
             "\tCódigo de verificación: ";
-        private ModeloDBContainer _contexto;
-        public ImplementacionRegistrarUsuario() { }
-        public ImplementacionRegistrarUsuario(ModeloDBContainer contexto)
-        {
-            _contexto = contexto ?? throw new ArgumentNullException(nameof(contexto));
-        }
+
+        /*
+         * Servicio RegistrarUsuario
+        */
 
         public string EnviarCodigoCorreo(string correo)
         {
@@ -110,7 +104,7 @@ namespace Servicios.Implementaciones
                 clave = Utilidades.GenerarCodigo(LONGITUD_CLAVE_JUGADOR);
             } while (!ValidarClaveNoRepetida(clave));
             return clave;
-            
+
         }
         public bool ValidarNombreNoRepetido(string nombre)
         {
@@ -142,7 +136,7 @@ namespace Servicios.Implementaciones
                 var jugador = (from j in contexto.Jugador
                                where j.claveUsuario == clave
                                select j).FirstOrDefault();
-                
+
                 if (jugador == null)
                 {
                     return true;
@@ -152,6 +146,59 @@ namespace Servicios.Implementaciones
                     return false;
                 }
 
+            }
+        }
+
+        /*
+         * Servicio PersonalizarPerfil
+        */
+
+        public bool GuardarCambios(Perfil perfil, string claveUsuario)
+        {
+            using (var contexto = new ModeloDBContainer())
+            {
+                contexto.Configuration.ProxyCreationEnabled = false;
+                contexto.Database.Log = Console.WriteLine;
+                var jugador = contexto.Jugador.FirstOrDefault(c => c.claveUsuario == claveUsuario);
+                if (jugador != null)
+                {
+                    jugador.nombreUsuario = perfil.NombreUsuario;
+                    jugador.descripcion = perfil.Descripcion;
+                    jugador.fotoPerfil = perfil.Foto;
+
+                    contexto.Entry(jugador).State = EntityState.Modified;
+                    contexto.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        /*
+         * Servicio Login
+        */
+
+        public Jugador Login(string nombreUsuario, string contrasenia)
+        {
+            try
+            {
+                Jugador jugador = null;
+                jugador = AccesoDatos.DAOJugador.buscarJugador(nombreUsuario, contrasenia);
+
+                return jugador;
+            }
+
+            catch (EntityException ex)
+            {
+                throw new FaultException("Error de la base de datos");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw new FaultException("Error de la base de datos");
             }
         }
     }

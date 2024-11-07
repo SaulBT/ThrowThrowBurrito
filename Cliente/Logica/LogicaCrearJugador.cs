@@ -1,10 +1,10 @@
-﻿using Cliente.ServicioRegistrarUsuario;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Cliente.ServiciosGestionUsuarios;
 
 namespace Cliente.Logica
 {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Servicios.Interfaces
 {
-    [ServiceContract(CallbackContract = typeof(IServicioChatCallback))]
+    [ServiceContract(SessionMode = SessionMode.Required, CallbackContract = typeof(IServicioChatCallback))]
     public interface IServicioChat
     {
         [OperationContract(IsOneWay = true)]

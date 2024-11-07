@@ -1,7 +1,4 @@
-﻿using Cliente.ServicioLogin;
-using Cliente.ServicioPersonalizarPerfil;
-using Cliente.ServicioRegistrarUsuario;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,14 +14,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Cliente.ServiciosGestionUsuarios;
 
 namespace Cliente.Ventanas.Perfil
 {
     public partial class VntPersonalizarPerfil : Page
     {
         private Jugador jugador;
-        private ServicioPersonalizarPerfil.Perfil perfil = new ServicioPersonalizarPerfil.Perfil();
-        private ServicioPersonalizarPerfil.ServicioPersonalizarPerfilClient servicio = new ServicioPersonalizarPerfilClient();
+        private ServiciosGestionUsuarios.Perfil perfil = new ServiciosGestionUsuarios.Perfil();
+        private ServicioPersonalizarPerfilClient servicio = new ServicioPersonalizarPerfilClient();
 
         public VntPersonalizarPerfil(Jugador jugador)
         {

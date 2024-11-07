@@ -1,6 +1,5 @@
-﻿using Cliente.ServicioLogin;
-using Cliente.ServicioPersonalizarPerfil;
-using System;
+﻿using System;
+using Cliente.ServiciosGestionUsuarios;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

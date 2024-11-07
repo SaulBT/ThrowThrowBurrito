@@ -1,7 +1,5 @@
 ﻿using Cliente.Logica;
 using Cliente.Pruebas;
-using Cliente.ServicioLogin;
-using Cliente.ServicioRegistrarUsuario;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Cliente.ServiciosGestionUsuarios;
 using static Cliente.Ventanas.VntRegistrarUsuario;
 
 namespace Cliente.Ventanas

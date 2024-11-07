@@ -1,5 +1,4 @@
 ﻿using Cliente.Logica;
-using Cliente.ServicioJuego;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Cliente.ServiciosGestionUsuarios;
+using Cliente.ServiciosJuego;
 
 namespace Cliente.Ventanas
 {
@@ -24,24 +25,24 @@ namespace Cliente.Ventanas
     /// </summary>
     public partial class vntLobby : Page
     {
-        private ServicioLogin.Jugador jugador;
+        private ServiciosJuego.Jugador jugador;
         private LogicaChat logicaChat;
         private LogicaJuego logicaJuego;
-        private Partida partidaLocal;
-        private DatosJugadorPartida[] datosJugadorPartida;
+        private ServiciosJuego.Partida partidaLocal;
+        private ServiciosJuego.DatosJugadorPartida[] datosJugadorPartida;
         private ServicioJuegoClient servicioJuegoClient;
 
-        public vntLobby(ServicioLogin.Jugador jugador, Partida partida)
+        public vntLobby(ServiciosGestionUsuarios.Jugador jugador, ServiciosJuego.Partida partida)
         {
             InitializeComponent();
-            this.jugador = jugador;
+            this.jugador = castJugadorJuego(jugador);
             this.partidaLocal = partida;
             logicaChat= new LogicaChat(this, jugador.nombreUsuario);
             logicaJuego = new LogicaJuego();
             tbcCodigoPartida.Text += partida.codigoPartida;
 
             InstanceContext contexto = new InstanceContext(this);
-            servicioJuegoClient = new ServicioJuego.ServicioJuegoClient(contexto);
+            servicioJuegoClient = new ServiciosJuego.ServicioJuegoClient(contexto);
             datosJugadorPartida = logicaJuego.RetornarDatosJugador(partida.codigoPartida);
 
             ConfigurarVistaAdmin();
@@ -55,11 +56,53 @@ namespace Cliente.Ventanas
 
         }
 
+        private ServiciosJuego.Jugador castJugadorJuego(ServiciosGestionUsuarios.Jugador jugadorG)
+        {
+            ServiciosJuego.Jugador jugadorJ = new ServiciosJuego.Jugador();
+            if (jugadorG.descripcion != null)
+                jugadorJ.descripcion = jugadorG.descripcion;
+            if (jugadorG.fotoPerfil != null)
+                jugadorJ.fotoPerfil = jugadorG.fotoPerfil;
+            if (jugadorG.estado != null)
+                jugadorJ.estado = jugadorG.estado;
+            if (jugadorG.esInvitado != null)
+                jugadorJ.esInvitado = jugadorG.esInvitado;
+
+            jugadorJ.claveUsuario = jugadorG.claveUsuario;
+            jugadorJ.correoElectronico = jugadorG.correoElectronico;
+            jugadorJ.contrasenia = jugadorG.contrasenia;
+            jugadorJ.idJugador = jugadorG.idJugador;
+            jugadorJ.nombreUsuario = jugadorG.nombreUsuario;
+
+            return jugadorJ;
+        }
+
+        private ServiciosGestionUsuarios.Jugador castJugadorUsuarios(ServiciosJuego.Jugador jugadorJ)
+        {
+            ServiciosGestionUsuarios.Jugador jugadorG = new ServiciosGestionUsuarios.Jugador();
+            if (jugadorJ.descripcion != null)
+                jugadorG.descripcion = jugadorJ.descripcion;
+            if (jugadorJ.fotoPerfil != null)
+                jugadorG.fotoPerfil = jugadorJ.fotoPerfil;
+            if (jugadorJ.estado != null)
+                jugadorG.estado = jugadorJ.estado;
+            if (jugadorJ.esInvitado != null)
+                jugadorG.esInvitado = jugadorJ.esInvitado;
+
+            jugadorG.claveUsuario = jugadorJ.claveUsuario;
+            jugadorG.correoElectronico = jugadorJ.correoElectronico;
+            jugadorG.contrasenia = jugadorJ.contrasenia;
+            jugadorG.idJugador = jugadorJ.idJugador;
+            jugadorG.nombreUsuario = jugadorJ.nombreUsuario;
+
+            return jugadorG;
+        }
+
         private void ConfigurarVistaAdmin()
         {
             //Función para configurar las opciones que aparecen en caso de que el cliente sea el admin de la partida
 
-            foreach (DatosJugadorPartida dato in datosJugadorPartida)
+            foreach (ServiciosJuego.DatosJugadorPartida dato in datosJugadorPartida)
             {
                 if (dato.claveJugador.Equals(jugador.claveUsuario))
                 {
@@ -174,7 +217,7 @@ namespace Cliente.Ventanas
         {
             try
             {
-                foreach (DatosJugadorPartida dato in datosJugadorPartida)
+                foreach (ServiciosJuego.DatosJugadorPartida dato in datosJugadorPartida)
                 {
                     if (dato.claveJugador.Equals(jugador.claveUsuario))
                     {
@@ -183,7 +226,7 @@ namespace Cliente.Ventanas
                     }
                 }
 
-                vntMenuPrincipal vntMenuPrincipal = new vntMenuPrincipal(jugador);
+                vntMenuPrincipal vntMenuPrincipal = new vntMenuPrincipal(castJugadorUsuarios(jugador));
                 NavigationService.Navigate(vntMenuPrincipal);
             }
             catch (FaultException ex)

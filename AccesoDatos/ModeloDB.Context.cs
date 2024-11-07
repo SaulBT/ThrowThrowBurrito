@@ -26,12 +26,12 @@ namespace AccesoDatos
         }
     
         public virtual DbSet<Amigo> Amigo { get; set; }
+        public virtual DbSet<Bloqueado> Bloqueado { get; set; }
+        public virtual DbSet<DatosJugadorPartida> DatosJugadorPartida { get; set; }
         public virtual DbSet<Jugador> Jugador { get; set; }
         public virtual DbSet<Partida> Partida { get; set; }
         public virtual DbSet<SolicitudAmigo> SolicitudAmigo { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
-        public virtual DbSet<DatosJugadorPartida> DatosJugadorPartida { get; set; }
-        public virtual DbSet<Bloqueado> Bloqueado { get; set; }
         public virtual DbSet<SolicitudBloqueo> SolicitudBloqueo { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }
