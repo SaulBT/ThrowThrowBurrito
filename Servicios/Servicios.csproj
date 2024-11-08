@@ -50,6 +50,8 @@
     <Compile Include="Implementaciones\ImplementacionGestionUsuarios.cs" />
     <Compile Include="Implementaciones\ImplementacionJuego.cs" />
     <Compile Include="Implementaciones\ImplementacionLogin.cs" />
+    <Compile Include="Implementaciones\ImplementacionSolicitudesAmigo.cs" />
+    <Compile Include="Interfaces\IServicioAmigos.cs" />
     <Compile Include="Interfaces\IServicioChat.cs" />
     <Compile Include="Interfaces\IServicioJuego.cs" />
     <Compile Include="Interfaces\IServicioLogin.cs" />
@@ -57,6 +59,7 @@
     <Compile Include="Interfaces\IServicioPersonalizarPerfil.cs" />
     <Compile Include="Interfaces\IServicioRegistrarUsuario.cs" />
     <Compile Include="Implementaciones\ImplementacionRegistrarUsuario.cs" />
+    <Compile Include="Interfaces\IServicioSolicitudes.cs" />
     <Compile Include="Utilidades.cs" />
   </ItemGroup>
   <ItemGroup>
