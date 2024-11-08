@@ -8,22 +8,32 @@ using System.Threading.Tasks;
 
 namespace Servicios.Interfaces
 {
-    [ServiceContract]
+    [ServiceContract(CallbackContract = typeof(IServicioSolicitudesCallback))]
     public interface IServicioSolicitudes
     {
         [OperationContract]
         bool EnviarSolicitud(string claveJugadorEmisor, string claveJugadorRemitente, int idJugador);
 
         [OperationContract]
-        SolicitudAmigo[] RecibirSolicitudes(string claveJugador);
+        SolicitudAmigo[] RecibirSolicitudes(int idJugador);
 
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void AceptarSolicitud(SolicitudAmigo solicitud);
 
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void RechazarSolicitud(int idSolicitudAmigo);
 
-        [OperationContract]
+        [OperationContract(IsOneWay = true)]
         void EnviarInvitacion(string codigoPartida, string codigoJugadorInvitado);
+    }
+
+    [ServiceContract]
+    public interface IServicioSolicitudesCallback
+    {
+        [OperationContract(IsOneWay = true)]
+        void ObtenerNuevaSolicitud(SolicitudAmigo nuevaSolicitud);
+
+        [OperationContract(IsOneWay = true)]
+        void ActualizarListaAmigos();
     }
 }

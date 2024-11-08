@@ -3,6 +3,7 @@ using Servicios.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,12 +11,14 @@ namespace Servicios.Implementaciones
 {
     public class ImplementacionSolicitudesAmigo : IServicioSolicitudes
     {
+        Dictionary<int, IServicioSolicitudesCallback> clientes = new Dictionary<int, IServicioSolicitudesCallback>();
+
         public bool EnviarSolicitud(string claveJugadorEmisor, string claveJugadorRemitente, int idJugador)
         {
             Jugador jugadorRemitente = buscarJugador(claveJugadorRemitente);
             if (jugadorRemitente != null)
             {
-                if (!verificarBloqueo(claveJugadorEmisor, claveJugadorRemitente) && !verificarAmigo(idJugador, jugadorRemitente.idJugador){
+                if (!verificarBloqueo(claveJugadorEmisor, claveJugadorRemitente) && !verificarAmigo(idJugador, jugadorRemitente.idJugador)){
                     SolicitudAmigo solicitudAmigo = new SolicitudAmigo
                     {
                         idJugador = idJugador,
@@ -24,9 +27,20 @@ namespace Servicios.Implementaciones
                         fecha = DateTime.Now,
                     };
 
-                    //TO DO -> CARGAR LA SOLICITUD A BD.
+                    using(var contexto = new ModeloDBContainer())
+                    {
+                        contexto.Database.Log = Console.WriteLine;
+                        contexto.SolicitudAmigo.Add(solicitudAmigo);
+                        contexto.SaveChanges();
+                    }
+
+                    actualizarSolicitudes(jugadorRemitente.idJugador, solicitudAmigo);
+
+                    return true;
                 }
             }
+            
+            return false;
         }
 
         private Jugador buscarJugador(string claveJugador)
@@ -101,10 +115,38 @@ namespace Servicios.Implementaciones
             }
         }
 
+        private void actualizarSolicitudes(int idJuador, SolicitudAmigo solicitud)
+        {
+            if (clientes.ContainsKey(idJuador))
+            {
+                {
+                    clientes[idJuador].ObtenerNuevaSolicitud(solicitud);
+                }
+            }
+        }
+
+        public SolicitudAmigo[] RecibirSolicitudes(int idJugador)
+        {
+            var callback = OperationContext.Current.GetCallbackChannel<IServicioSolicitudesCallback>();
+            clientes.Add(idJugador, callback);
+
+            List<SolicitudAmigo> listaSolicitudes = new List<SolicitudAmigo>();
+            using(var contexto = new ModeloDBContainer())
+            {
+                var solicitudes = (from s in contexto.SolicitudAmigo
+                                   where s.idJugador == idJugador && s.estado == "Pendiente"
+                                   select s);
+
+                listaSolicitudes = solicitudes.ToList<SolicitudAmigo>();
+            }
+
+            return listaSolicitudes.ToArray<SolicitudAmigo>();
+        }
 
         public void AceptarSolicitud(SolicitudAmigo solicitud)
         {
-            throw new NotImplementedException();
+            solicitud.estado = "Aceptada";
+
         }
 
         public void EnviarInvitacion(string codigoPartida, string codigoJugadorInvitado)
@@ -119,9 +161,6 @@ namespace Servicios.Implementaciones
             throw new NotImplementedException();
         }
 
-        public SolicitudAmigo[] RecibirSolicitudes(string claveJugador)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
