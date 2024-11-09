@@ -2,6 +2,7 @@
 using Servicios.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -146,7 +147,42 @@ namespace Servicios.Implementaciones
         public void AceptarSolicitud(SolicitudAmigo solicitud)
         {
             solicitud.estado = "Aceptada";
+            using(var contexto = new ModeloDBContainer())
+            {
+                contexto.Entry(solicitud).State = EntityState.Modified;
+                contexto.SaveChanges();
+            }
+            actualizarAmigos(solicitud.idJugador);
+            
+        }
 
+        private void crearAmistad(string claveJugadorAmigo)
+        {
+            using (var contexto = new ModeloDBContainer())
+            {
+                var amigo = (from a in contexto.Amigo
+                             where a.claveUsuarioAmigo == claveJugadorAmigo
+                             select a).FirstOrDefault();
+            }
+
+            Amigo amigo = new Amigo
+            {
+                claveUsuarioAmigo = claveJugadorAmigo
+            };
+
+            
+        }
+
+        private void crearSolicitudAmigo(int idJugadorEmisor, int idJugadorRemitente)
+
+        private void actualizarAmigos(int idJuador)
+        {
+            if (clientes.ContainsKey(idJuador))
+            {
+                {
+                    clientes[idJuador].ActualizarListaAmigos();
+                }
+            }
         }
 
         public void EnviarInvitacion(string codigoPartida, string codigoJugadorInvitado)
