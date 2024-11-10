@@ -144,6 +144,12 @@
   <wsdl:message name="IServicioRegistrarUsuario_ValidarNombreNoRepetido_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidarNombreNoRepetidoResponse" />
   </wsdl:message>
+  <wsdl:message name="IServicioRegistrarUsuario_ValidarCorreoNoRepetido_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCorreoNoRepetido" />
+  </wsdl:message>
+  <wsdl:message name="IServicioRegistrarUsuario_ValidarCorreoNoRepetido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCorreoNoRepetidoResponse" />
+  </wsdl:message>
   <wsdl:message name="IServicioLogin_Login_InputMessage">
     <wsdl:part name="parameters" element="tns:Login" />
   </wsdl:message>
@@ -162,6 +168,18 @@
   <wsdl:message name="IServicioCambiarContrasenia_CambiarContrasenia_OutputMessage">
     <wsdl:part name="parameters" element="tns:CambiarContraseniaResponse" />
   </wsdl:message>
+  <wsdl:message name="IServicioCambiarContrasenia_EnviarCorreoRecuperacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoRecuperacion" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCambiarContrasenia_EnviarCorreoRecuperacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoRecuperacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCambiarContrasenia_VerificarExistenciaUsuario_InputMessage">
+    <wsdl:part name="parameters" element="tns:VerificarExistenciaUsuario" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCambiarContrasenia_VerificarExistenciaUsuario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VerificarExistenciaUsuarioResponse" />
+  </wsdl:message>
   <wsdl:portType name="IServicioRegistrarUsuario">
     <wsdl:operation name="EnviarCodigoCorreo">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioRegistrarUsuario/EnviarCodigoCorreo" message="tns:IServicioRegistrarUsuario_EnviarCodigoCorreo_InputMessage" />
@@ -174,6 +192,10 @@
     <wsdl:operation name="ValidarNombreNoRepetido">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarNombreNoRepetido" message="tns:IServicioRegistrarUsuario_ValidarNombreNoRepetido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarNombreNoRepetidoResponse" message="tns:IServicioRegistrarUsuario_ValidarNombreNoRepetido_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidarCorreoNoRepetido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarCorreoNoRepetido" message="tns:IServicioRegistrarUsuario_ValidarCorreoNoRepetido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarCorreoNoRepetidoResponse" message="tns:IServicioRegistrarUsuario_ValidarCorreoNoRepetido_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IServicioLogin">
@@ -192,6 +214,14 @@
     <wsdl:operation name="CambiarContrasenia">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioCambiarContrasenia/CambiarContrasenia" message="tns:IServicioCambiarContrasenia_CambiarContrasenia_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioCambiarContrasenia/CambiarContraseniaResponse" message="tns:IServicioCambiarContrasenia_CambiarContrasenia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoRecuperacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioCambiarContrasenia/EnviarCorreoRecuperacion" message="tns:IServicioCambiarContrasenia_EnviarCorreoRecuperacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioCambiarContrasenia/EnviarCorreoRecuperacionResponse" message="tns:IServicioCambiarContrasenia_EnviarCorreoRecuperacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="VerificarExistenciaUsuario">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioCambiarContrasenia/VerificarExistenciaUsuario" message="tns:IServicioCambiarContrasenia_VerificarExistenciaUsuario_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioCambiarContrasenia/VerificarExistenciaUsuarioResponse" message="tns:IServicioCambiarContrasenia_VerificarExistenciaUsuario_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IServicioRegistrarUsuario" type="tns:IServicioRegistrarUsuario">
@@ -217,6 +247,15 @@
     </wsdl:operation>
     <wsdl:operation name="ValidarNombreNoRepetido">
       <soap12:operation soapAction="http://tempuri.org/IServicioRegistrarUsuario/ValidarNombreNoRepetido" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarCorreoNoRepetido">
+      <soap12:operation soapAction="http://tempuri.org/IServicioRegistrarUsuario/ValidarCorreoNoRepetido" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -256,6 +295,24 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="CambiarContrasenia">
       <soap12:operation soapAction="http://tempuri.org/IServicioCambiarContrasenia/CambiarContrasenia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoRecuperacion">
+      <soap12:operation soapAction="http://tempuri.org/IServicioCambiarContrasenia/EnviarCorreoRecuperacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificarExistenciaUsuario">
+      <soap12:operation soapAction="http://tempuri.org/IServicioCambiarContrasenia/VerificarExistenciaUsuario" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

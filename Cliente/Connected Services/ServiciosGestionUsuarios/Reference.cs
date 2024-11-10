@@ -1223,6 +1223,12 @@ namespace Cliente.ServiciosGestionUsuarios {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarNombreNoRepetido", ReplyAction="http://tempuri.org/IServicioRegistrarUsuario/ValidarNombreNoRepetidoResponse")]
         System.Threading.Tasks.Task<bool> ValidarNombreNoRepetidoAsync(string nombre);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarCorreoNoRepetido", ReplyAction="http://tempuri.org/IServicioRegistrarUsuario/ValidarCorreoNoRepetidoResponse")]
+        bool ValidarCorreoNoRepetido(string correo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarCorreoNoRepetido", ReplyAction="http://tempuri.org/IServicioRegistrarUsuario/ValidarCorreoNoRepetidoResponse")]
+        System.Threading.Tasks.Task<bool> ValidarCorreoNoRepetidoAsync(string correo);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1274,6 +1280,14 @@ namespace Cliente.ServiciosGestionUsuarios {
         
         public System.Threading.Tasks.Task<bool> ValidarNombreNoRepetidoAsync(string nombre) {
             return base.Channel.ValidarNombreNoRepetidoAsync(nombre);
+        }
+        
+        public bool ValidarCorreoNoRepetido(string correo) {
+            return base.Channel.ValidarCorreoNoRepetido(correo);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ValidarCorreoNoRepetidoAsync(string correo) {
+            return base.Channel.ValidarCorreoNoRepetidoAsync(correo);
         }
     }
     
@@ -1376,10 +1390,24 @@ namespace Cliente.ServiciosGestionUsuarios {
     public interface IServicioCambiarContrasenia {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCambiarContrasenia/CambiarContrasenia", ReplyAction="http://tempuri.org/IServicioCambiarContrasenia/CambiarContraseniaResponse")]
-        bool CambiarContrasenia(string contrasenia, string claveUsuario);
+        bool CambiarContrasenia(string contrasenia, string correo);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCambiarContrasenia/CambiarContrasenia", ReplyAction="http://tempuri.org/IServicioCambiarContrasenia/CambiarContraseniaResponse")]
-        System.Threading.Tasks.Task<bool> CambiarContraseniaAsync(string contrasenia, string claveUsuario);
+        System.Threading.Tasks.Task<bool> CambiarContraseniaAsync(string contrasenia, string correo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCambiarContrasenia/EnviarCorreoRecuperacion", ReplyAction="http://tempuri.org/IServicioCambiarContrasenia/EnviarCorreoRecuperacionResponse")]
+        string EnviarCorreoRecuperacion(string correo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCambiarContrasenia/EnviarCorreoRecuperacion", ReplyAction="http://tempuri.org/IServicioCambiarContrasenia/EnviarCorreoRecuperacionResponse")]
+        System.Threading.Tasks.Task<string> EnviarCorreoRecuperacionAsync(string correo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCambiarContrasenia/VerificarExistenciaUsuario", ReplyAction="http://tempuri.org/IServicioCambiarContrasenia/VerificarExistenciaUsuarioResponse" +
+            "")]
+        string VerificarExistenciaUsuario(string nombreOCorreo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioCambiarContrasenia/VerificarExistenciaUsuario", ReplyAction="http://tempuri.org/IServicioCambiarContrasenia/VerificarExistenciaUsuarioResponse" +
+            "")]
+        System.Threading.Tasks.Task<string> VerificarExistenciaUsuarioAsync(string nombreOCorreo);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1409,12 +1437,28 @@ namespace Cliente.ServiciosGestionUsuarios {
                 base(binding, remoteAddress) {
         }
         
-        public bool CambiarContrasenia(string contrasenia, string claveUsuario) {
-            return base.Channel.CambiarContrasenia(contrasenia, claveUsuario);
+        public bool CambiarContrasenia(string contrasenia, string correo) {
+            return base.Channel.CambiarContrasenia(contrasenia, correo);
         }
         
-        public System.Threading.Tasks.Task<bool> CambiarContraseniaAsync(string contrasenia, string claveUsuario) {
-            return base.Channel.CambiarContraseniaAsync(contrasenia, claveUsuario);
+        public System.Threading.Tasks.Task<bool> CambiarContraseniaAsync(string contrasenia, string correo) {
+            return base.Channel.CambiarContraseniaAsync(contrasenia, correo);
+        }
+        
+        public string EnviarCorreoRecuperacion(string correo) {
+            return base.Channel.EnviarCorreoRecuperacion(correo);
+        }
+        
+        public System.Threading.Tasks.Task<string> EnviarCorreoRecuperacionAsync(string correo) {
+            return base.Channel.EnviarCorreoRecuperacionAsync(correo);
+        }
+        
+        public string VerificarExistenciaUsuario(string nombreOCorreo) {
+            return base.Channel.VerificarExistenciaUsuario(nombreOCorreo);
+        }
+        
+        public System.Threading.Tasks.Task<string> VerificarExistenciaUsuarioAsync(string nombreOCorreo) {
+            return base.Channel.VerificarExistenciaUsuarioAsync(nombreOCorreo);
         }
     }
 }

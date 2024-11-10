@@ -113,6 +113,10 @@ namespace Cliente.Ventanas.Perfil
             {
                 NavigationService.GoBack();
             }
+            if (operacionExitosa)
+            {
+                NavigationService.GoBack();
+            }
         }
 
         // Funciones locales
@@ -171,11 +175,6 @@ namespace Cliente.Ventanas.Perfil
             gFondoNegro.Visibility = Visibility.Visible;
             gVentanaEmergente.Visibility = Visibility.Visible;
             tbcMensajeEmergente.Text = mensaje;
-            if (operacionExitosa)
-            {
-                VntPerfil verPerfil = new VntPerfil(jugador);
-                NavigationService.Navigate(verPerfil);
-            }
         }
 
         private bool validarDatos()

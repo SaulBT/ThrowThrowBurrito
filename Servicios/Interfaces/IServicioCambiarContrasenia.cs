@@ -11,7 +11,14 @@ namespace Servicios.Interfaces
     public interface IServicioCambiarContrasenia
     {
         [OperationContract]
-        bool CambiarContrasenia(string contrasenia, string claveUsuario);
+        bool CambiarContrasenia(string contrasenia, string correo);
+
+        [OperationContract]
+        string EnviarCorreoRecuperacion(string correo);
+
+        [OperationContract]
+        string VerificarExistenciaUsuario(string nombreOCorreo);
+
 
     }
 }

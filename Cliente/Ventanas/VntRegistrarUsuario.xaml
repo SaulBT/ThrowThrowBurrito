@@ -33,7 +33,7 @@
             <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Correo Electrónico:" FontSize="20" Margin="0,0,0,0" Width="267"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
                 <TextBox x:Name="txbCorreo" HorizontalAlignment="Center" Margin="0,0,0,0" Text="" VerticalAlignment="Top" Width="250" FontSize="15" BorderBrush="LightSlateGray" MaxLength="320"/>
-                <TextBlock x:Name="tbcErrorCorreo" TextWrapping="Wrap" Text="Formato inválido!" HorizontalAlignment="Left" FontSize="15" Foreground="Crimson" Height="20" Margin="0,0,155,0" Visibility="Hidden" Width="120"/>
+                <TextBlock x:Name="tbcErrorCorreo" TextWrapping="Wrap" Text="Formato inválido!" HorizontalAlignment="Left" FontSize="15" Foreground="Crimson" Height="20" Margin="0,0,25,0" Visibility="Hidden" Width="250"/>
             </StackPanel>
 
             <Button x:Name="btnSiguiente" Width="150" Height="40" FontSize="20" Margin="0,40,0,35" Click="btnSiguiente_Click" Content="Siguiente">

@@ -4,6 +4,7 @@ using System;
 using System.ServiceModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Navigation;
 
 namespace Cliente.Ventanas
@@ -107,9 +108,17 @@ namespace Cliente.Ventanas
             NavigationService.Navigate(vtnRegistrarUsuario);
         }
 
+        //recuperar contrasenia
+
         private void btnSalir_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
+        }
+
+        private void tbcRecuperarContrasenia_Click(object sender, MouseButtonEventArgs e)
+        {
+            VntRecuperarContrasenia vntRecuperarContrasenia = new VntRecuperarContrasenia();
+            NavigationService.Navigate(vntRecuperarContrasenia);
         }
     }
 }

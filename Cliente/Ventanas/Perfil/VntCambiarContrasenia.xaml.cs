@@ -26,9 +26,9 @@ namespace Cliente.Ventanas.Perfil
             {
                 if (validarDatos())
                 {
-                    string contraseniaHash = encriptar(pwbContraseniaNueva.Password);
+                    string contraseniaHash = Utilidades.encriptar(pwbContraseniaNueva.Password);
                     jugador.contrasenia = contraseniaHash;
-                    if (servicio.CambiarContrasenia(contraseniaHash, jugador.claveUsuario))
+                    if (servicio.CambiarContrasenia(contraseniaHash, jugador.correoElectronico))
                     {
                         operacionFueExitosa = true;
                         mostrarAlerta("La contraseña ha sido cambiada exitosamente.");
@@ -69,7 +69,6 @@ namespace Cliente.Ventanas.Perfil
             gFondoNegro.Visibility = Visibility.Hidden;
             gVentanaEmergente.Visibility = Visibility.Hidden;
             tbcMensajeEmergente.Text = "";
-            Console.WriteLine(servicio.State.ToString());
             if (operacionFueExitosa)
             {
                 NavigationService.GoBack();
@@ -113,7 +112,7 @@ namespace Cliente.Ventanas.Perfil
         }
         public bool ContraseniaActualCoincide(string contrasenia)
         {
-            if (jugador.contrasenia == encriptar(contrasenia))
+            if (jugador.contrasenia == Utilidades.encriptar(contrasenia))
             {
                 tbcErrorContraseniaActual.Visibility = Visibility.Hidden;
                 return true;
@@ -162,18 +161,6 @@ namespace Cliente.Ventanas.Perfil
                 return false;
             }
         }
-        private string encriptar(string contrasenia)
-        {
-            SHA256Managed sHA256Managed = new SHA256Managed();
-            string contraHash = String.Empty;
-            byte[] contraByte = sHA256Managed.ComputeHash(Encoding.UTF8.GetBytes(contrasenia));
-
-            foreach (byte b in contraByte)
-            {
-                contraHash += b.ToString("x2");
-            }
-
-            return contraHash;
-        }
+        
     }
 }

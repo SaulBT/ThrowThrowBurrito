@@ -21,6 +21,7 @@
             <TextBlock TextWrapping="Wrap" Text="Contraseña:" HorizontalAlignment="Center" FontSize="16"/>
             <PasswordBox x:Name="pwbContrasenia" PasswordChar="*" Width="200" Height="20" FontSize="15" BorderBrush="LightSlateGray" Margin="0,5,0,0" MaxLength="100"/>
             <TextBlock x:Name="tbcErrorContrasenia" TextWrapping="Wrap" Text="" HorizontalAlignment="Center" FontSize="14" Foreground="Crimson" Margin="0,0,0,10"/>
+            <TextBlock x:Name="tbcRecuperarContrasenia" Text="¿Olvidaste tu contraseña?" TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="14" Foreground="RoyalBlue" Margin="0,0,0,10" FontWeight="DemiBold" MouseLeftButtonUp="tbcRecuperarContrasenia_Click" Cursor="Hand"/>
             
             <Button x:Name="btnIniciarSesion" Width="150" Height="40" Margin="0,0,0,10" Click="btnIniciarSesion_Click">
                 <Button.Template>

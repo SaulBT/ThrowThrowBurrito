@@ -19,14 +19,24 @@ namespace Cliente.Ventanas.Perfil
         public VntPerfil(Jugador jugador)
         {
             InitializeComponent();
+            this.Loaded += Page_Loaded;
             this.jugador = jugador;
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            cargarDatos();
+        }
+
+        private void cargarDatos()
+        {
             tbcDescripcion.Text = jugador.descripcion;
             tbcNombreUsuario.Text = jugador.nombreUsuario;
             if (jugador.fotoPerfil != null)
                 imgFotoPerfil.Source = ConvertirByteAImagen(jugador.fotoPerfil);
         }
 
-        private BitmapImage ConvertirByteAImagen(byte[] imageData)
+            private BitmapImage ConvertirByteAImagen(byte[] imageData)
         {
             BitmapImage bitmap = new BitmapImage();
             using (MemoryStream ms = new MemoryStream(imageData))

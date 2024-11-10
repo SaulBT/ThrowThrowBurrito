@@ -248,18 +248,28 @@ namespace Cliente.Ventanas
                 var addr = new System.Net.Mail.MailAddress(correo);
                 if (addr.Address == correo)
                 {
-                    tbcErrorCorreo.Visibility = Visibility.Hidden;
-                    return true;
+                    if (servicio.ValidarCorreoNoRepetido(correo))
+                    {
+                        tbcErrorCorreo.Visibility = Visibility.Hidden;
+                        return true;
+                    } 
+                    else
+                    {
+                        tbcErrorCorreo.Text = ("Correo ya ocupado!");
+                        tbcErrorCorreo.Visibility = Visibility.Visible;
+                        return false;
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("El correo no existe");
+                    tbcErrorCorreo.Text = "Formato inválido!";
                     tbcErrorCorreo.Visibility = Visibility.Visible;
                     return false;
                 }
             }
             catch
             {
+                tbcErrorCorreo.Text = "Formato inválido!";
                 tbcErrorCorreo.Visibility = Visibility.Visible;
                 return false;
             }

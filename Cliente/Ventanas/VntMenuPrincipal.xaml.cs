@@ -41,7 +41,6 @@ namespace Cliente.Ventanas
             else
             {
                 configurarMusica();
-                Console.WriteLine("no suenad");
             }
         }
 

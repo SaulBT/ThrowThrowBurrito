@@ -17,6 +17,8 @@ namespace Servicios.Interfaces
         bool RegistrarUsuario(Usuario usuario);
         [OperationContract]
         bool ValidarNombreNoRepetido(string nombre);
+        [OperationContract]
+        bool ValidarCorreoNoRepetido(string correo);
     }
 
     [DataContract]
