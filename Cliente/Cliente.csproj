@@ -107,6 +107,24 @@
     <Compile Include="Logica\LogicaJuego.cs" />
     <Compile Include="Pruebas\PruebasChat.cs" />
     <Compile Include="Pruebas\PruebasLogin.cs" />
+    <Compile Include="Ventanas\VentanaEmergente\vntBloqueados.xaml.cs">
+      <DependentUpon>vntBloqueados.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\VentanaEmergente\vntBloquear.xaml.cs">
+      <DependentUpon>vntBloquear.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\VentanaEmergente\vntNotificaciones.xaml.cs">
+      <DependentUpon>vntNotificaciones.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\VentanaEmergente\vntAgregarAmigo.xaml.cs">
+      <DependentUpon>vntAgregarAmigo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\VentanaEmergente\vntErrorAmigo.xaml.cs">
+      <DependentUpon>vntErrorAmigo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\vntListaAmigos.xaml.cs">
+      <DependentUpon>vntListaAmigos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ventanas\vntLobby.xaml.cs">
       <DependentUpon>vntLobby.xaml</DependentUpon>
     </Compile>
@@ -134,6 +152,30 @@
     </Compile>
     <Compile Include="Logica\LogicaChat.cs" />
     <Compile Include="Logica\LogicaLogin.cs" />
+    <Page Include="Ventanas\VentanaEmergente\vntBloqueados.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ventanas\VentanaEmergente\vntBloquear.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\VentanaEmergente\vntNotificaciones.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ventanas\VentanaEmergente\vntAgregarAmigo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Ventanas\VentanaEmergente\vntErrorAmigo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\vntListaAmigos.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ventanas\vntLobby.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -263,6 +305,11 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <Resource Include="Imagenes\imgCampanaVacia.png" />
+    <Resource Include="Imagenes\imgFondoAmigos.png" />
+    <Resource Include="Imagenes\imgVentanaEmergente2.png" />
+    <Resource Include="Imagenes\imgVentanaEmergente3.png" />
+    <Resource Include="Imagenes\imgVentanaEmergente4.png" />
     <Content Include="Musica\mscMenu.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
