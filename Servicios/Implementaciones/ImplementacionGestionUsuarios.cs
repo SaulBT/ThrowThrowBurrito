@@ -16,7 +16,7 @@ using System.ServiceModel;
 
 namespace Servicios.Implementaciones
 {
-    public class ImplementacionGestionUsuarios : IServicioRegistrarUsuario, IServicioPersonalizarPerfil, IServicioLogin
+    public class ImplementacionGestionUsuarios : IServicioRegistrarUsuario, IServicioPersonalizarPerfil, IServicioLogin, IServicioCambiarContrasenia
     {
         const int LONGITUD_CODIGO = 6;
         const int LONGITUD_CLAVE_JUGADOR = 10;
@@ -199,6 +199,32 @@ namespace Servicios.Implementaciones
             {
                 Console.WriteLine(ex.Message);
                 throw new FaultException("Error de la base de datos");
+            }
+        }
+
+        /*
+         *  Servicio CambiarContrasenia
+         */
+
+        public bool CambiarContrasenia(string contrasenia, string claveUsuario)
+        {
+            using (var contexto = new ModeloDBContainer())
+            {
+                contexto.Configuration.ProxyCreationEnabled = false;
+                contexto.Database.Log = Console.WriteLine;
+                var jugador = contexto.Jugador.FirstOrDefault(c => c.claveUsuario == claveUsuario);
+                if (jugador != null)
+                {
+                    jugador.contrasenia = contrasenia;
+
+                    contexto.Entry(jugador).State = EntityState.Modified;
+                    contexto.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
     }

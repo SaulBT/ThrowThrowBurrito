@@ -12,7 +12,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="/Imagenes/imgFondo.png"/>
         </Grid.Background>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,30">
             <Image HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Source="/Imagenes/imgTitulo.png" Width="300"/>
             <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Personalizar Perfil" FontSize="35" Margin="0,0,0,30" Width="800" FontWeight="Bold" FontFamily="Arial" Foreground="#1F3039"/>
             <StackPanel Orientation="Horizontal">
@@ -63,36 +63,9 @@
                     <TextBlock TextAlignment="Center" Text="La descripción debe tener un máximo de 100 caracteres." TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,15" FontSize="15" Width="400" />
                 </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,60,0,0">
-                <Button x:Name="btnConfirmar" Content="Confirmar" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Click="btnConfirmar_Click" Width="150" Height="40" FontSize="20">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border x:Name="border" Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Trigger.EnterActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#8C8573" Duration="0:0:0.2"/>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </Trigger.EnterActions>
-                                    <Trigger.ExitActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#CAC19F" Duration="0:0:0.2"/>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </Trigger.ExitActions>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,80,0,0">
 
-                <Button x:Name="btnCancelar" Content="Cancelar" HorizontalAlignment="Center" Margin="300,0,0,0" VerticalAlignment="Top" Click="btnCancelar_Click" Width="150" Height="40" FontSize="20">
+                <Button x:Name="btnCancelar" Content="Cancelar" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Click="btnCancelar_Click" Width="150" Height="40" FontSize="20">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border x:Name="border" Background="#C7785F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
@@ -111,6 +84,34 @@
                                         <BeginStoryboard>
                                             <Storyboard>
                                                 <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#C7785F" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                
+                <Button x:Name="btnConfirmar" Content="Confirmar" HorizontalAlignment="Center" Margin="300,0,0,0" VerticalAlignment="Top" Click="btnConfirmar_Click" Width="150" Height="40" FontSize="20">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#8C8573" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#CAC19F" Duration="0:0:0.2"/>
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </Trigger.ExitActions>

@@ -1,19 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Cliente.ServiciosGestionUsuarios;
 
 namespace Cliente.Ventanas.Perfil
@@ -23,22 +14,20 @@ namespace Cliente.Ventanas.Perfil
         private Jugador jugador;
         private ServiciosGestionUsuarios.Perfil perfil = new ServiciosGestionUsuarios.Perfil();
         private ServicioPersonalizarPerfilClient servicio = new ServicioPersonalizarPerfilClient();
+        private bool operacionExitosa = false;
 
         public VntPersonalizarPerfil(Jugador jugador)
         {
             InitializeComponent();
             this.jugador = jugador;
-            cambiarPefilJugador();
+            cambiarPerfilJugador();
             txbDescripcion.Text = jugador.descripcion;
             txbNombreUsuario.Text = jugador.nombreUsuario;
             if (jugador.fotoPerfil != null)
                 imgFotoPerfil.Source = ConvertirByteAImagen(jugador.fotoPerfil);
-
-
         }
 
-        //POR LO MIENTRAS
-        private void cambiarPefilJugador()
+        private void cambiarPerfilJugador()
         {
             perfil.NombreUsuario = jugador.nombreUsuario;
             perfil.Descripcion = jugador.descripcion;
@@ -73,9 +62,8 @@ namespace Cliente.Ventanas.Perfil
                     if (servicio.GuardarCambios(perfil, claveUsuario))
                     {
                         cambiarJugadorPerfil();
+                        operacionExitosa = true;
                         mostrarAlerta("Cambios guardados con éxito");
-                        VntPerfil verPerfil = new VntPerfil(jugador);
-                        NavigationService.Navigate(verPerfil);
                     }
                     else
                     {
@@ -183,6 +171,11 @@ namespace Cliente.Ventanas.Perfil
             gFondoNegro.Visibility = Visibility.Visible;
             gVentanaEmergente.Visibility = Visibility.Visible;
             tbcMensajeEmergente.Text = mensaje;
+            if (operacionExitosa)
+            {
+                VntPerfil verPerfil = new VntPerfil(jugador);
+                NavigationService.Navigate(verPerfil);
+            }
         }
 
         private bool validarDatos()

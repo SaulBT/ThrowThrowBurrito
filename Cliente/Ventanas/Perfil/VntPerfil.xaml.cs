@@ -1,18 +1,11 @@
-﻿using System;
-using Cliente.ServiciosGestionUsuarios;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Cliente.ServiciosGestionUsuarios;
+using System;
+using System.IO;
+using System.ServiceModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Cliente.Ventanas.Perfil
 {
@@ -25,9 +18,25 @@ namespace Cliente.Ventanas.Perfil
 
         public VntPerfil(Jugador jugador)
         {
-            this.jugador = jugador;
             InitializeComponent();
+            this.jugador = jugador;
+            tbcDescripcion.Text = jugador.descripcion;
+            tbcNombreUsuario.Text = jugador.nombreUsuario;
+            if (jugador.fotoPerfil != null)
+                imgFotoPerfil.Source = ConvertirByteAImagen(jugador.fotoPerfil);
+        }
 
+        private BitmapImage ConvertirByteAImagen(byte[] imageData)
+        {
+            BitmapImage bitmap = new BitmapImage();
+            using (MemoryStream ms = new MemoryStream(imageData))
+            {
+                bitmap.BeginInit();
+                bitmap.StreamSource = ms;
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.EndInit();
+            }
+            return bitmap;
         }
 
         private void btnPersonalizarPerfil_Click(object sender, RoutedEventArgs e)
@@ -38,13 +47,13 @@ namespace Cliente.Ventanas.Perfil
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
-            vntMenuPrincipal vntMenuPrincipal = new vntMenuPrincipal(jugador);
-            NavigationService.Navigate(vntMenuPrincipal);
+            NavigationService.GoBack();
         }
 
-        private void btnAceptarEmergente_Click(object sender, RoutedEventArgs e)
+        private void btnCambiarContrasenia_Click(object sender, RoutedEventArgs e)
         {
-
+            VntCambiarContrasenia vntCambiarContrasenia = new VntCambiarContrasenia(jugador);
+            NavigationService.Navigate(vntCambiarContrasenia);
         }
     }
 }

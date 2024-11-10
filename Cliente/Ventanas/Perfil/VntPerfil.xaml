@@ -12,35 +12,122 @@
         <Grid.Background>
             <ImageBrush ImageSource="/Imagenes/imgFondo.png"/>
         </Grid.Background>
-        <Label Content="Tu Perfil" FontSize="50" HorizontalAlignment="Center" Margin="0,38,0,0" VerticalAlignment="Top" FontFamily="Arial" FontWeight="Bold" Width="886" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Button x:Name="btnPersonalizarPerfil" Content="Personalizar perfil" HorizontalAlignment="Center" Margin="0,360,0,0" VerticalAlignment="Top" Click="btnPersonalizarPerfil_Click" Height="28" Width="120"/>
-        <Button x:Name="btnVolver" Content="Volver" HorizontalAlignment="Center" Margin="0,490,0,0" VerticalAlignment="Top" Click="btnVolver_Click"/>
 
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Source="/Imagenes/imgTitulo.png" Width="300"/>
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Perfil" FontSize="35" Margin="0,0,0,20" Width="800" FontWeight="Bold" FontFamily="Arial" Foreground="#1F3039"/>
+            <Border BorderThickness="5" CornerRadius="10" Background="#CAC19F" Margin="70,0,70,0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,30">
+                    <StackPanel Margin="0,0,10,0">
+                        <Border  Background="#FFD6D6D6" Width="200" Height="200" Margin="0,0,0,0" BorderBrush="#1F3039" BorderThickness="2">
+                            <Grid>
+                                <Image Source="/Imagenes/imgUsuario.png" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150"/>
+                                <Image x:Name="imgFotoPerfil" HorizontalAlignment="Left" Height="200" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Stretch="Fill" StretchDirection="Both" />
+                            </Grid>
+                        </Border>
+                    </StackPanel>
+                    <StackPanel Margin="0,0,30,0">
+                        <TextBlock TextAlignment="Left" TextWrapping="Wrap" Text="Nombre de Usuario:" FontSize="20" Margin="0,0,0,10" Width="267" FontWeight="Bold"/>
+                        <Border CornerRadius="15" Background="#E0E4C7">
+                            <TextBlock x:Name="tbcNombreUsuario" Margin="5,5,5,5" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Descripción" FontStyle="Italic" Width="300" FontSize="15"/>
+                        </Border>
 
+                        <TextBlock TextAlignment="Left" TextWrapping="Wrap" Text="Descripción:" FontSize="20" Margin="0,0,0,10" Width="267" FontWeight="Bold"/>
+                        <Border CornerRadius="15"  Background="#E0E4C7">
+                            <TextBlock x:Name="tbcDescripcion" Margin="5,5,5,5" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Descripción" FontStyle="Italic" Width="350" Height="86" FontSize="15"/>
+                        </Border>
 
-        <!--Ventana emergente-->
-        <Grid x:Name="gFondoNegro" Background="Black" Opacity="0.5" Visibility="Hidden"/>
-        <Grid x:Name="gVentanaEmergente" Visibility="Hidden">
-            <Grid.Background>
-                <ImageBrush ImageSource="/Imagenes/imgVentanaEmergente.png" Stretch="None"/>
-            </Grid.Background>
-            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                <TextBlock x:Name="tbcMensajeEmergente" Text="" Width="300" TextWrapping="Wrap" TextAlignment="Center" FontSize="18"/>
-                <Button x:Name="btnAceptarEmergente" Width="120" Height="30" Margin="0,20,0,0" Click="btnAceptarEmergente_Click">
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0,50,0,0">
+
+                <Button x:Name="btnPersonalizarPerfil" Content="Personalizar perfil" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Click="btnPersonalizarPerfil_Click" Width="185" Height="40" FontSize="20">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
-                            <Border Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
-                                <ContentPresenter Content="Aceptar" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Border x:Name="border" Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#8C8573" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#CAC19F" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
+
+
+                <Button x:Name="btnCambiarContrasenia" Content="Cambiar contraseña" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Click="btnCambiarContrasenia_Click" Width="185" Height="40" FontSize="20">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#8C8573" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#CAC19F" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Button x:Name="btnVolver" Content="Cancelar" HorizontalAlignment="Center" Margin="0,20,0,0" VerticalAlignment="Top" Click="btnVolver_Click" Width="185" Height="40" FontSize="20">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" Background="#C7785F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#8C8573" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#C7785F" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
             </StackPanel>
-        </Grid>
-
-
+        </StackPanel>
     </Grid>
-    
-    
-    
 </Page>

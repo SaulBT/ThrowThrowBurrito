@@ -1,24 +1,12 @@
 ﻿using Cliente.Ventanas.Perfil;
-using Cliente.ServiciosGestionUsuarios;
 using Cliente.ServiciosJuego;
 using Cliente.Logica;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Media;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-
 namespace Cliente.Ventanas
 {
     /// <summary>
@@ -26,24 +14,48 @@ namespace Cliente.Ventanas
     /// </summary>
     public partial class vntMenuPrincipal : Page
     {
-        private SoundPlayer reproductor;
+        private MediaPlayer reproductorMusica = new MediaPlayer();
         private ServiciosGestionUsuarios.Jugador jugador;
         private ServicioJuegoClient servicioJuegoClient;
         private LogicaJuego logicaJuego;
 
         public vntMenuPrincipal(ServiciosGestionUsuarios.Jugador jugador)
         {
+            if (System.IO.File.Exists(ConfiguracionGeneral.nombreArchivoConfiguraciones))
+            {
+                ConfiguracionGeneral.cargarConfiguraciones();
+            }
             InitializeComponent();
-            this.reproductor = new SoundPlayer("Musica/mscMenu.wav");
             this.Loaded += MenuPrincipal_Loaded;
             this.jugador = jugador;
             logicaJuego = new LogicaJuego();
         }
 
-        
+
         private void MenuPrincipal_Loaded(object sender, RoutedEventArgs e)
         {
-            this.reproductor.PlayLooping();
+            if (reproductorMusica.Position != TimeSpan.Zero && reproductorMusica.Position < reproductorMusica.NaturalDuration.TimeSpan)
+            {
+                actualizarMusica();
+            }
+            else
+            {
+                configurarMusica();
+                Console.WriteLine("no suenad");
+            }
+        }
+
+        private void actualizarMusica()
+        {
+            reproductorMusica.Volume = ConfiguracionGeneral.VolumenGeneral * ConfiguracionGeneral.Musica;
+        }
+
+        private void configurarMusica()
+        { 
+            reproductorMusica.Open(new Uri("Musica/mscMenu.wav", UriKind.Relative));
+            reproductorMusica.Volume = ConfiguracionGeneral.VolumenGeneral * ConfiguracionGeneral.Musica;
+            reproductorMusica.MediaEnded += (s, ev) => reproductorMusica.Position = TimeSpan.Zero;
+            reproductorMusica.Play();
         }
 
         private void mostrarAlerta(String mensaje)
@@ -65,7 +77,7 @@ namespace Cliente.Ventanas
 
         private void btnCerrarSesion_Click(object sender, RoutedEventArgs e)
         {
-            this.reproductor.Stop();
+            reproductorMusica.Stop();
             vntLogin vntLogin = new vntLogin();
             NavigationService.Navigate(vntLogin);
         }
@@ -108,7 +120,8 @@ namespace Cliente.Ventanas
 
         private void btnConfiguraciones_Click(object sender, RoutedEventArgs e)
         {
-
+            VntConfiguracion vntConfiguracion = new VntConfiguracion();
+            NavigationService.Navigate(vntConfiguracion);
         }
 
         private void btnVerPerfil_Click(object sender, RoutedEventArgs e)
