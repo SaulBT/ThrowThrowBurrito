@@ -20,9 +20,6 @@ namespace Servicios.Implementaciones
     {
         const int LONGITUD_CODIGO = 6;
         const int LONGITUD_CLAVE_JUGADOR = 10;
-        const string EMAIL_JUEGO = "Luispablolagunesnoriega@gmail.com";
-        const string CONTRASENIA_EMAIL = "sfad yvzo rpwn ubyd";
-        const string ALIAS_JUEGO = "Throw Throw Burrito Game";
         const string ASUNTO_CORREO = "Código de verificación - Registro de usuario";
         const string CUERPO_CORREO = "Se ha solicitado el registro de un usuario bajo esta dirección de correo.\n" +
             "Si usted no lo has solicitado, por favor ignore este mensaje\n\n" +
@@ -35,25 +32,10 @@ namespace Servicios.Implementaciones
         public string EnviarCodigoCorreo(string correo)
         {
             string codigo = Utilidades.GenerarCodigo(LONGITUD_CODIGO);
-            MailMessage correoCodigo = new MailMessage();
-            correoCodigo.From = new MailAddress(EMAIL_JUEGO, ALIAS_JUEGO, System.Text.Encoding.UTF8);
-            correoCodigo.To.Add(correo);
-            correoCodigo.Subject = ASUNTO_CORREO;
-            correoCodigo.Body = CUERPO_CORREO + codigo;
-            correoCodigo.Priority = MailPriority.Normal;
+            string cuerpo = CUERPO_CORREO + correo;
             try
             {
-                SmtpClient smtpClient = new SmtpClient();
-                smtpClient.UseDefaultCredentials = false;
-                smtpClient.Port = 25;
-                smtpClient.Host = "smtp.gmail.com";
-                smtpClient.Credentials = new System.Net.NetworkCredential(EMAIL_JUEGO, CONTRASENIA_EMAIL);
-                ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
-                {
-                    return true;
-                };
-                smtpClient.EnableSsl = true;
-                smtpClient.Send(correoCodigo);
+                Utilidades.EnviarCorreo(ASUNTO_CORREO, cuerpo, correo);
                 Console.WriteLine("Se envía el código " + codigo + " al correo: " + correo);
             }
             catch (Exception ex)

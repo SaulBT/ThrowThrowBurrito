@@ -18,13 +18,13 @@ namespace Servicios.Interfaces
         SolicitudAmigo[] RecibirSolicitudes(int idJugador);
 
         [OperationContract(IsOneWay = true)]
-        void AceptarSolicitud(SolicitudAmigo solicitud);
+        void AceptarSolicitud(SolicitudAmigo solicitud, int idJugador);
 
         [OperationContract(IsOneWay = true)]
-        void RechazarSolicitud(int idSolicitudAmigo);
+        void RechazarSolicitud(SolicitudAmigo solicitud);
 
         [OperationContract(IsOneWay = true)]
-        void EnviarInvitacion(string codigoPartida, string codigoJugadorInvitado);
+        void EnviarInvitacion(string codigoPartida, string correo, string nombreUsuario);
     }
 
     [ServiceContract]

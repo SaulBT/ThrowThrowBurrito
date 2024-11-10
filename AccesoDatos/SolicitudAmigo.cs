@@ -18,7 +18,9 @@ namespace AccesoDatos
         public string estado { get; set; }
         public int idSolicitudAmigo { get; set; }
         public int idJugador { get; set; }
-        public int idAmigo { get; set; }
+        public Nullable<int> idAmigo { get; set; }
+        public string claveJugadorEmisor { get; set; }
+        public string claveJugadoRemitente { get; set; }
     
         public virtual Amigo Amigo { get; set; }
         public virtual Jugador Jugador { get; set; }

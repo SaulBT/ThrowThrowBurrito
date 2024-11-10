@@ -13,6 +13,8 @@ namespace Servicios.Implementaciones
     public class ImplementacionSolicitudesAmigo : IServicioSolicitudes
     {
         Dictionary<int, IServicioSolicitudesCallback> clientes = new Dictionary<int, IServicioSolicitudesCallback>();
+        const int LONGITUD_CODIGO_PARTIDA = 10;
+        const string ASUNTO_CORREO = "Invitación - Código de partida";
 
         public bool EnviarSolicitud(string claveJugadorEmisor, string claveJugadorRemitente, int idJugador)
         {
@@ -22,6 +24,8 @@ namespace Servicios.Implementaciones
                 if (!verificarBloqueo(claveJugadorEmisor, claveJugadorRemitente) && !verificarAmigo(idJugador, jugadorRemitente.idJugador)){
                     SolicitudAmigo solicitudAmigo = new SolicitudAmigo
                     {
+                        claveJugadorEmisor = claveJugadorEmisor,
+                        claveJugadoRemitente = claveJugadorRemitente,
                         idJugador = idJugador,
                         idAmigo = jugadorRemitente.idJugador,
                         estado = "Pendiente",
@@ -144,36 +148,80 @@ namespace Servicios.Implementaciones
             return listaSolicitudes.ToArray<SolicitudAmigo>();
         }
 
-        public void AceptarSolicitud(SolicitudAmigo solicitud)
+        public void AceptarSolicitud(SolicitudAmigo solicitudEmisora, int idJugador)
         {
-            solicitud.estado = "Aceptada";
+            int idAmigo;
+            solicitudEmisora.estado = "Aceptada";
+
             using(var contexto = new ModeloDBContainer())
             {
-                contexto.Entry(solicitud).State = EntityState.Modified;
+                var amigoRemitente = (from a in contexto.Amigo
+                             where a.claveUsuarioAmigo == solicitudEmisora.claveJugadoRemitente
+                             select a).FirstOrDefault();
+                if (amigoRemitente == null)
+                {
+                    idAmigo = crearAmigo(solicitudEmisora.claveJugadoRemitente);
+                }
+                else
+                {
+                    idAmigo = amigoRemitente.idAmigo;
+                }
+                solicitudEmisora.idSolicitudAmigo = idAmigo;
+                contexto.Entry(solicitudEmisora).State = EntityState.Modified;
+
+                var amigoEmisor = (from a in contexto.Amigo
+                                   where a.claveUsuarioAmigo == solicitudEmisora.claveJugadoRemitente
+                                   select a).FirstOrDefault();
+                if (amigoEmisor == null)
+                {
+                    idAmigo = crearAmigo(solicitudEmisora.claveJugadorEmisor);
+                }
+                else
+                {
+                    idAmigo = amigoEmisor.idAmigo;
+                }
+                SolicitudAmigo solicitudRemitente = crearSolicitudAmigo(idJugador, solicitudEmisora.claveJugadoRemitente, solicitudEmisora.claveJugadorEmisor, idAmigo);
+                contexto.SolicitudAmigo.Add(solicitudRemitente);
+
                 contexto.SaveChanges();
             }
-            actualizarAmigos(solicitud.idJugador);
-            
+            actualizarAmigos(solicitudEmisora.idJugador);
+            actualizarAmigos(idJugador);
         }
 
-        private void crearAmistad(string claveJugadorAmigo)
+        private int crearAmigo(string claveJugadorRemitente)
         {
-            using (var contexto = new ModeloDBContainer())
-            {
-                var amigo = (from a in contexto.Amigo
-                             where a.claveUsuarioAmigo == claveJugadorAmigo
-                             select a).FirstOrDefault();
-            }
-
+            int idAmigo;
             Amigo amigo = new Amigo
             {
-                claveUsuarioAmigo = claveJugadorAmigo
+                claveUsuarioAmigo = claveJugadorRemitente
             };
+            using(var contexto = new ModeloDBContainer())
+            {
+                contexto.Amigo.Add(amigo);
+                contexto.SaveChanges();
+                idAmigo = (from a in contexto.Amigo
+                               where a.claveUsuarioAmigo == claveJugadorRemitente
+                               select a.idAmigo).FirstOrDefault();
+            }
 
-            
+            return idAmigo;
         }
 
-        private void crearSolicitudAmigo(int idJugadorEmisor, int idJugadorRemitente)
+        private SolicitudAmigo crearSolicitudAmigo(int idJugadorEmisor, string claveJugadorEmisor, string claveJugadorRemitente, int idAmigo)
+        {
+            SolicitudAmigo solicitudAmigo = new SolicitudAmigo
+            {
+                fecha = DateTime.Now,
+                estado = "Aceptada",
+                idJugador = idJugadorEmisor,
+                idAmigo = idAmigo,
+                claveJugadorEmisor = claveJugadorEmisor,
+                claveJugadoRemitente = claveJugadorRemitente,
+            };
+
+            return solicitudAmigo;
+        }
 
         private void actualizarAmigos(int idJuador)
         {
@@ -184,18 +232,23 @@ namespace Servicios.Implementaciones
                 }
             }
         }
-
-        public void EnviarInvitacion(string codigoPartida, string codigoJugadorInvitado)
+        public void RechazarSolicitud(SolicitudAmigo solicitud)
         {
-            throw new NotImplementedException();
+            using(var contexto = new ModeloDBContainer())
+            {
+                contexto.SolicitudAmigo.Remove(solicitud);
+            }
+        }
+
+        public void EnviarInvitacion(string codigoPartida, string correo, string nombreUsuario)
+        {
+            string cuerpo = "Tu amigo " + nombreUsuario + " te ha invitado a una partida. Únete con el siguiente código:\n\n" + codigoPartida;
+            Utilidades.EnviarCorreo(ASUNTO_CORREO, cuerpo, correo);
         }
 
         
 
-        public void RechazarSolicitud(int idSolicitudAmigo)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         
     }

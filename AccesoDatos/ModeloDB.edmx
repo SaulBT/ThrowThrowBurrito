@@ -68,7 +68,9 @@
           <Property Name="estado" Type="varchar" MaxLength="8" />
           <Property Name="idSolicitudAmigo" Type="int" Nullable="false" />
           <Property Name="idJugador" Type="int" Nullable="false" />
-          <Property Name="idAmigo" Type="int" Nullable="false" />
+          <Property Name="idAmigo" Type="int" />
+          <Property Name="claveJugadorEmisor" Type="varchar" MaxLength="10" />
+          <Property Name="claveJugadoRemitente" Type="varchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="SolicitudBloqueo">
           <Key>
@@ -115,7 +117,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_SolicitudAmigo_Amigo">
-          <End Role="Amigo" Type="Self.Amigo" Multiplicity="1" />
+          <End Role="Amigo" Type="Self.Amigo" Multiplicity="0..1" />
           <End Role="SolicitudAmigo" Type="Self.SolicitudAmigo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Amigo">
@@ -200,7 +202,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ModeloDB" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
-        <EntityContainer Name="ModeloDBContainer1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ModeloDBContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Amigo" EntityType="ModeloDB.Amigo" />
           <EntitySet Name="Bloqueado" EntityType="ModeloDB.Bloqueado" />
           <EntitySet Name="DatosJugadorPartida" EntityType="ModeloDB.DatosJugadorPartida" />
@@ -305,7 +307,9 @@
           <Property Name="estado" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="idSolicitudAmigo" Type="Int32" Nullable="false" />
           <Property Name="idJugador" Type="Int32" Nullable="false" />
-          <Property Name="idAmigo" Type="Int32" Nullable="false" />
+          <Property Name="idAmigo" Type="Int32" />
+          <Property Name="claveJugadorEmisor" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="claveJugadoRemitente" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Amigo" Relationship="ModeloDB.FK_SolicitudAmigo_Amigo" FromRole="SolicitudAmigo" ToRole="Amigo" />
           <NavigationProperty Name="Jugador" Relationship="ModeloDB.FK_SolicitudAmigo_Jugador" FromRole="SolicitudAmigo" ToRole="Jugador" />
         </EntityType>
@@ -332,7 +336,7 @@
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_SolicitudAmigo_Amigo">
-          <End Type="ModeloDB.Amigo" Role="Amigo" Multiplicity="1" />
+          <End Type="ModeloDB.Amigo" Role="Amigo" Multiplicity="0..1" />
           <End Type="ModeloDB.SolicitudAmigo" Role="SolicitudAmigo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Amigo">
@@ -410,7 +414,7 @@
       <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
         <Alias Key="Model" Value="ModeloDB" />
         <Alias Key="Target" Value="ModeloDB.Store" />
-        <EntityContainerMapping CdmEntityContainer="ModeloDBContainer1" StorageEntityContainer="ModeloDBStoreContainer">
+        <EntityContainerMapping CdmEntityContainer="ModeloDBContainer" StorageEntityContainer="ModeloDBStoreContainer">
           <EntitySetMapping Name="Amigo">
             <EntityTypeMapping TypeName="ModeloDB.Amigo">
               <MappingFragment StoreEntitySet="Amigo">
@@ -474,6 +478,8 @@
           <EntitySetMapping Name="SolicitudAmigo">
             <EntityTypeMapping TypeName="ModeloDB.SolicitudAmigo">
               <MappingFragment StoreEntitySet="SolicitudAmigo">
+                <ScalarProperty Name="claveJugadoRemitente" ColumnName="claveJugadoRemitente" />
+                <ScalarProperty Name="claveJugadorEmisor" ColumnName="claveJugadorEmisor" />
                 <ScalarProperty Name="idAmigo" ColumnName="idAmigo" />
                 <ScalarProperty Name="idJugador" ColumnName="idJugador" />
                 <ScalarProperty Name="idSolicitudAmigo" ColumnName="idSolicitudAmigo" />
