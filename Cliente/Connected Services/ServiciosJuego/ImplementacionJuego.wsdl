@@ -131,40 +131,40 @@
   <wsdl:message name="IServicioChat_RecibirMensaje_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:RecibirMensaje" />
   </wsdl:message>
-  <wsdl:portType name="IServicioJuego">
-    <wsdl:operation name="CrearPartida">
+  <wsdl:portType msc:usingSession="true" name="IServicioJuego">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="CrearPartida">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioJuego/CrearPartida" message="tns:IServicioJuego_CrearPartida_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioJuego/CrearPartidaResponse" message="tns:IServicioJuego_CrearPartida_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="UnirsePartida">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="UnirsePartida">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioJuego/UnirsePartida" message="tns:IServicioJuego_UnirsePartida_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioJuego/UnirsePartidaResponse" message="tns:IServicioJuego_UnirsePartida_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="CambiarConfiguracionPartida">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="CambiarConfiguracionPartida">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioJuego/CambiarConfiguracionPartida" message="tns:IServicioJuego_CambiarConfiguracionPartida_InputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="CambiarDatosJugador">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="CambiarDatosJugador">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioJuego/CambiarDatosJugador" message="tns:IServicioJuego_CambiarDatosJugador_InputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="RetornarDatosJugador">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="RetornarDatosJugador">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioJuego/RetornarDatosJugador" message="tns:IServicioJuego_RetornarDatosJugador_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioJuego/RetornarDatosJugadorResponse" message="tns:IServicioJuego_RetornarDatosJugador_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="RetornarPartida">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="RetornarPartida">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioJuego/RetornarPartida" message="tns:IServicioJuego_RetornarPartida_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioJuego/RetornarPartidaResponse" message="tns:IServicioJuego_RetornarPartida_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="IniciarPartida">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="IniciarPartida">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioJuego/IniciarPartida" message="tns:IServicioJuego_IniciarPartida_InputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="SalirPartida">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="SalirPartida">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioJuego/SalirPartida" message="tns:IServicioJuego_SalirPartida_InputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ActualizarPartida">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="ActualizarPartida">
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioJuego/ActualizarPartida" message="tns:IServicioJuego_ActualizarPartida_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioJuego/ActualizarPartidaResponse" message="tns:IServicioJuego_ActualizarPartida_InputCallbackMessage" />
     </wsdl:operation>
-    <wsdl:operation name="ActualizarDatos">
+    <wsdl:operation msc:isInitiating="true" msc:isTerminating="false" name="ActualizarDatos">
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioJuego/ActualizarDatos" message="tns:IServicioJuego_ActualizarDatos_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioJuego/ActualizarDatosResponse" message="tns:IServicioJuego_ActualizarDatos_InputCallbackMessage" />
     </wsdl:operation>
@@ -312,7 +312,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8083/Juego</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2CEP8E3\Saúl</Upn>
+          <Upn>TAKISZOMBI\luisp</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -321,7 +321,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8083/Chat</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2CEP8E3\Saúl</Upn>
+          <Upn>TAKISZOMBI\luisp</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

@@ -109,6 +109,9 @@
     <Compile Include="Pruebas\PruebasChat.cs" />
     <Compile Include="Pruebas\PruebasLogin.cs" />
     <Compile Include="Utilidades.cs" />
+    <Compile Include="Ventanas\Lobby\VntConfigurarPartida.xaml.cs">
+      <DependentUpon>VntConfigurarPartida.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ventanas\Perfil\VntCambiarContrasenia.xaml.cs">
       <DependentUpon>VntCambiarContrasenia.xaml</DependentUpon>
     </Compile>
@@ -145,6 +148,10 @@
     </Compile>
     <Compile Include="Logica\LogicaChat.cs" />
     <Compile Include="Logica\LogicaLogin.cs" />
+    <Page Include="Ventanas\Lobby\VntConfigurarPartida.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ventanas\Perfil\VntCambiarContrasenia.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

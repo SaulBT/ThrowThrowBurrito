@@ -1,4 +1,5 @@
 ﻿using Cliente.ServiciosJuego;
+using Cliente.Ventanas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,15 +9,29 @@ using System.Threading.Tasks;
 
 namespace Cliente.Logica
 {
-    internal class LogicaJuego : IServicioJuegoCallback
+    public class LogicaJuego : IServicioJuegoCallback
     {
         private ServicioJuegoClient servicio;
+        private vntLobby vntLobby;
+
+        public LogicaJuego(vntLobby vntLobby)
+        {
+            InstanceContext contexto = new InstanceContext(this);
+            servicio = new ServicioJuegoClient(contexto);
+            this.vntLobby = vntLobby;
+        }
 
         public LogicaJuego()
         {
             InstanceContext contexto = new InstanceContext(this);
             servicio = new ServicioJuegoClient(contexto);
         }
+
+        public void AsignarVentanaLobby(vntLobby vntLobby)
+        {
+            this.vntLobby = vntLobby;
+        }
+
         public void ActualizarDatos(DatosJugadorPartida datos)
         {
             throw new NotImplementedException();
@@ -24,10 +39,23 @@ namespace Cliente.Logica
 
         public void ActualizarPartida(Partida partidaLocal)
         {
-            throw new NotImplementedException();
+            if (vntLobby != null)
+            {
+                vntLobby.ActualizarPartida(partidaLocal);
+                Console.WriteLine("se actualizó la vntlobby");
+            }
+            else
+            {
+                Console.WriteLine("No hay ventana lobby para actualizar");
+            }
         }
 
-        public bool UnirsePartida(string codigoPartida, int idJugador, string claveUsuario)
+        public void CambiarConfiguracionPartida(Partida partida)
+        {
+            servicio.CambiarConfiguracionPartida(partida);
+        }
+
+        public Partida UnirsePartida(string codigoPartida, int idJugador, string claveUsuario)
         {
             return servicio.UnirsePartida(codigoPartida, idJugador, claveUsuario);
         }

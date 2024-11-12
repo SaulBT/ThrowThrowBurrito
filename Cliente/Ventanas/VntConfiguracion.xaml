@@ -13,6 +13,7 @@
             <ImageBrush ImageSource="/Imagenes/imgFondo.png"/>
         </Grid.Background>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Image HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Source="/Imagenes/imgTitulo.png" Width="300"/>
             <Label Content="Configuración" HorizontalAlignment="Center" Margin="0,0,0,50" FontWeight="Bold" FontFamily="Arial" Foreground="#1F3039" FontSize="35"/>
             
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

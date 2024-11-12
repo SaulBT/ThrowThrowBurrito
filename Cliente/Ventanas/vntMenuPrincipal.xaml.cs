@@ -87,7 +87,8 @@ namespace Cliente.Ventanas
             {
                 ServiciosJuego.Partida partidaLocal = logicaJuego.CrearPartida(jugador.claveUsuario, jugador.idJugador);
 
-                vntLobby vntLobby = new vntLobby(this.jugador, partidaLocal);
+                vntLobby vntLobby = new vntLobby(this.jugador, partidaLocal, logicaJuego);
+                logicaJuego.AsignarVentanaLobby(vntLobby);
                 vntLobby.Unirse();
                 NavigationService.Navigate(vntLobby);
             }
@@ -138,11 +139,14 @@ namespace Cliente.Ventanas
             {
                 try
                 {
-                    if (logicaJuego.UnirsePartida(codigoPartida, jugador.idJugador, jugador.claveUsuario))
+                    ServiciosJuego.Partida partidaLocal = logicaJuego.UnirsePartida(codigoPartida, jugador.idJugador, jugador.claveUsuario);
+                    if (partidaLocal != null)
                     {
                         tbcErrorUnirsePartida.Visibility= Visibility.Hidden;
-                        ServiciosJuego.Partida partidaLocal = logicaJuego.RetornarPartida(codigoPartida);
-                        vntLobby vntLobby = new vntLobby(this.jugador, partidaLocal);
+                        //ServiciosJuego.Partida partidaLocal = logicaJuego.RetornarPartida(codigoPartida);
+                        
+                        vntLobby vntLobby = new vntLobby(this.jugador, partidaLocal, logicaJuego);
+                        logicaJuego.AsignarVentanaLobby(vntLobby);
                         vntLobby.Unirse();
 
 

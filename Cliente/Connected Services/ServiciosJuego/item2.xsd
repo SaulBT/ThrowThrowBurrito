@@ -28,21 +28,21 @@
   <xs:element name="UnirsePartidaResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="UnirsePartidaResult" type="xs:boolean" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="UnirsePartidaResult" nillable="true" type="q2:Partida" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CambiarConfiguracionPartida">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="partidaLocal" nillable="true" type="q2:Partida" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="partidaLocal" nillable="true" type="q3:Partida" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="CambiarDatosJugador">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="datosLocales" nillable="true" type="q3:DatosJugadorPartida" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="datosLocales" nillable="true" type="q4:DatosJugadorPartida" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -56,7 +56,7 @@
   <xs:element name="RetornarDatosJugadorResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="RetornarDatosJugadorResult" nillable="true" type="q4:ArrayOfDatosJugadorPartida" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="RetornarDatosJugadorResult" nillable="true" type="q5:ArrayOfDatosJugadorPartida" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -70,7 +70,7 @@
   <xs:element name="RetornarPartidaResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="RetornarPartidaResult" nillable="true" type="q5:Partida" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="RetornarPartidaResult" nillable="true" type="q6:Partida" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -84,15 +84,15 @@
   <xs:element name="SalirPartida">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="datos" nillable="true" type="q6:DatosJugadorPartida" />
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="partidaLocal" nillable="true" type="q7:Partida" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="datos" nillable="true" type="q7:DatosJugadorPartida" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="partidaLocal" nillable="true" type="q8:Partida" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="ActualizarPartida">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="partidaLocal" nillable="true" type="q8:Partida" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="partidaLocal" nillable="true" type="q9:Partida" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -104,7 +104,7 @@
   <xs:element name="ActualizarDatos">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="datos" nillable="true" type="q9:DatosJugadorPartida" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="datos" nillable="true" type="q10:DatosJugadorPartida" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
