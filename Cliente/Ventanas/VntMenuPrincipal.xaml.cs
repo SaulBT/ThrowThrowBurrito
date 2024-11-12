@@ -154,7 +154,7 @@ namespace Cliente.Ventanas
                     }
                     else
                     {
-                        tbcErrorUnirsePartida.Text = "No se encontró una partida existente con ese código";
+                        tbcErrorUnirsePartida.Text = "No se encontró una partida existente o disponible con ese código";
                         tbcErrorUnirsePartida.Visibility = Visibility.Visible;
                     }
                 }

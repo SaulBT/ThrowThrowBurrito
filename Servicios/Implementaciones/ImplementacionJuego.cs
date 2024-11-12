@@ -91,7 +91,7 @@ namespace Servicios.Implementaciones
         {
             foreach (var p in partidasActuales)
             {
-                if (p.codigoPartida.Equals(codigoPartida))
+                if (p.codigoPartida.Equals(codigoPartida) && contarJugadoresPartida(codigoPartida) < 4)
                 {
                     CrearDatosJugadorPartida(false, claveJugador, codigoPartida, idJugador);
                     var clienteJuego = OperationContext.Current.GetCallbackChannel<IServicioJuegoCallback>();
@@ -101,6 +101,19 @@ namespace Servicios.Implementaciones
             }
 
             return null;
+        }
+
+        private int contarJugadoresPartida(string codigoPartida)
+        {
+            int jugadoresEnPartida = 0;
+            foreach (var d in datosActuales)
+            {
+                if (d.codigoPartida == codigoPartida)
+                {
+                    jugadoresEnPartida++;
+                }
+            }
+            return jugadoresEnPartida;
         }
 
         public DatosJugadorPartida[] RetornarDatosJugador(string codigoPartida)
