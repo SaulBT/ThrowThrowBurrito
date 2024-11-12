@@ -97,6 +97,15 @@ namespace Cliente.Ventanas.Perfil
             openFileDialog.Filter = "Image files (*.jpg, *.png) | *.jpg; *.png";
             if (openFileDialog.ShowDialog() == true)
             {
+                FileInfo informacionFoto = new FileInfo(openFileDialog.FileName);
+                const long tamanioMaximo = 5 * 1024 * 1024; 
+
+                if (informacionFoto.Length > tamanioMaximo)
+                {
+                    mostrarAlerta("La imagen supera el tamaño máximo.");
+                    return;
+                }
+
                 BitmapImage bitmap = new BitmapImage(new Uri(openFileDialog.FileName));
                 imgFotoPerfil.Source = bitmap;
                 perfil.Foto = convertirImagenAByte(bitmap);
@@ -120,26 +129,6 @@ namespace Cliente.Ventanas.Perfil
         }
 
         // Funciones locales
-
-        public bool FotoEsValida(byte[] foto)
-        {
-            const int mb = 1024 * 1024;
-            if (foto == null)
-            {
-                return true;
-            }
-
-            if (foto.Length < 5 * mb)
-            {
-                return true;
-            }
-            else
-            {
-                mostrarAlerta("La imagen supera el tamaño máximo.");
-                return false;
-            }
-
-        }
 
         private byte[] convertirImagenAByte(BitmapSource bitmapSource)
         {
@@ -183,14 +172,7 @@ namespace Cliente.Ventanas.Perfil
             {
                 if (NombreEsValido(txbNombreUsuario.Text))
                 {
-                    if (FotoEsValida(perfil.Foto))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return true;
                 }
                 else
                 {
