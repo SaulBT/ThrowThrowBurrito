@@ -14,16 +14,12 @@ namespace AccesoDatos
     
     public partial class Amigo
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Amigo()
-        {
-            this.SolicitudAmigo = new HashSet<SolicitudAmigo>();
-        }
-    
-        public string claveUsuarioAmigo { get; set; }
         public int idAmigo { get; set; }
+        public int idJugadorEmisor { get; set; }
+        public int idJugadorReceptor { get; set; }
+        public string estado { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SolicitudAmigo> SolicitudAmigo { get; set; }
+        public virtual Jugador Jugador { get; set; }
+        public virtual Jugador Jugador1 { get; set; }
     }
 }

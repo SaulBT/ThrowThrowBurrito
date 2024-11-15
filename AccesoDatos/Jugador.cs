@@ -17,9 +17,11 @@ namespace AccesoDatos
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Jugador()
         {
+            this.Amigo = new HashSet<Amigo>();
+            this.Amigo1 = new HashSet<Amigo>();
+            this.Bloqueado = new HashSet<Bloqueado>();
+            this.Bloqueado1 = new HashSet<Bloqueado>();
             this.DatosJugadorPartida = new HashSet<DatosJugadorPartida>();
-            this.SolicitudAmigo = new HashSet<SolicitudAmigo>();
-            this.SolicitudBloqueo = new HashSet<SolicitudBloqueo>();
         }
     
         public string descripcion { get; set; }
@@ -33,10 +35,14 @@ namespace AccesoDatos
         public int idJugador { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Amigo> Amigo { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Amigo> Amigo1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Bloqueado> Bloqueado { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Bloqueado> Bloqueado1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DatosJugadorPartida> DatosJugadorPartida { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SolicitudAmigo> SolicitudAmigo { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SolicitudBloqueo> SolicitudBloqueo { get; set; }
     }
 }

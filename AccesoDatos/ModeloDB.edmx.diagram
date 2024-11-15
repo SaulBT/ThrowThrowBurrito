@@ -4,21 +4,19 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a19bbf4a4950442697a600c2736d58db" Name="Diagram1" ZoomLevel="64" >
-        <EntityTypeShape EntityType="ModeloDB.Amigo" Width="1.5" PointX="2.375" PointY="5.375" />
-        <EntityTypeShape EntityType="ModeloDB.Bloqueado" Width="1.5" PointX="11" PointY="8.25" />
-        <EntityTypeShape EntityType="ModeloDB.DatosJugadorPartida" Width="1.5" PointX="11.5" PointY="4.25" />
-        <EntityTypeShape EntityType="ModeloDB.Jugador" Width="1.5" PointX="8.125" PointY="4" />
-        <EntityTypeShape EntityType="ModeloDB.Partida" Width="1.5" PointX="14.125" PointY="5.125" />
-        <EntityTypeShape EntityType="ModeloDB.SolicitudAmigo" Width="1.5" PointX="5.25" PointY="5" />
-        <EntityTypeShape EntityType="ModeloDB.SolicitudBloqueo" Width="1.5" PointX="8.25" PointY="7.75" />
-        <EntityTypeShape EntityType="ModeloDB.sysdiagrams" Width="1.5" PointX="11.875" PointY="1.375" />
-        <AssociationConnector Association="ModeloDB.FK_SolicitudAmigo_Amigo" />
-        <AssociationConnector Association="ModeloDB.FK_SolicitudBloqueo_Bloqueado" />
+      <Diagram DiagramId="caf8aff3a8634688a3ebbf353ebad8a1" Name="Diagram1" >
+        <EntityTypeShape EntityType="ModeloDB.Amigo" Width="1.5" PointX="4.25" PointY="2.75" />
+        <EntityTypeShape EntityType="ModeloDB.Bloqueado" Width="1.5" PointX="1.375" PointY="8" />
+        <EntityTypeShape EntityType="ModeloDB.DatosJugadorPartida" Width="1.5" PointX="6.375" PointY="3.875" />
+        <EntityTypeShape EntityType="ModeloDB.Jugador" Width="1.5" PointX="1.125" PointY="3.5" />
+        <EntityTypeShape EntityType="ModeloDB.Partida" Width="1.5" PointX="3.75" PointY="5.875" />
+        <EntityTypeShape EntityType="ModeloDB.sysdiagrams" Width="1.5" PointX="6.125" PointY="0.5" />
+        <AssociationConnector Association="ModeloDB.FK_Amigo_JugadorEmisor" />
+        <AssociationConnector Association="ModeloDB.FK_Amigo_JugadorReceptor" />
+        <AssociationConnector Association="ModeloDB.FK_Bloqueado_JugadorEmisor" />
+        <AssociationConnector Association="ModeloDB.FK_Bloqueado_JugadorReceptor" />
         <AssociationConnector Association="ModeloDB.FK_DatosJugadorPartida_Jugador" />
         <AssociationConnector Association="ModeloDB.FK_DatosJugadorPartida_Partida" />
-        <AssociationConnector Association="ModeloDB.FK_SolicitudAmigo_Jugador" />
-        <AssociationConnector Association="ModeloDB.FK_SolicitudBloqueo_Jugador" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

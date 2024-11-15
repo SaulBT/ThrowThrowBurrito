@@ -9,15 +9,18 @@
           <Key>
             <PropertyRef Name="idAmigo" />
           </Key>
-          <Property Name="claveUsuarioAmigo" Type="varchar" MaxLength="10" />
-          <Property Name="idAmigo" Type="int" Nullable="false" />
+          <Property Name="idAmigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idJugadorEmisor" Type="int" Nullable="false" />
+          <Property Name="idJugadorReceptor" Type="int" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="Bloqueado">
           <Key>
-            <PropertyRef Name="idBloqueo" />
+            <PropertyRef Name="idBloqueado" />
           </Key>
-          <Property Name="idBloqueo" Type="int" Nullable="false" />
-          <Property Name="claveJugadorBloqueado" Type="varchar" MaxLength="10" />
+          <Property Name="idBloqueado" Type="int" Nullable="false" />
+          <Property Name="idJugadorEmisor" Type="int" Nullable="false" />
+          <Property Name="idJugadorReceptor" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DatosJugadorPartida">
           <Key>
@@ -26,7 +29,7 @@
           <Property Name="puntaje" Type="int" />
           <Property Name="idAspecto" Type="int" />
           <Property Name="expulsado" Type="bit" />
-          <Property Name="idDatosJugadorPartida" Type="int" Nullable="false" />
+          <Property Name="idDatosJugadorPartida" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idJugador" Type="int" Nullable="false" />
           <Property Name="idPartida" Type="int" />
           <Property Name="esAdmin" Type="bit" />
@@ -58,27 +61,7 @@
           <Property Name="tiempoGuerra" Type="int" />
           <Property Name="puntajeVictoria" Type="int" />
           <Property Name="nombreGanador" Type="varchar" MaxLength="20" />
-          <Property Name="idPartida" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="SolicitudAmigo">
-          <Key>
-            <PropertyRef Name="idSolicitudAmigo" />
-          </Key>
-          <Property Name="fecha" Type="date" />
-          <Property Name="estado" Type="varchar" MaxLength="8" />
-          <Property Name="idSolicitudAmigo" Type="int" Nullable="false" />
-          <Property Name="idJugador" Type="int" Nullable="false" />
-          <Property Name="idAmigo" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="SolicitudBloqueo">
-          <Key>
-            <PropertyRef Name="idSolicitudBloqueo" />
-          </Key>
-          <Property Name="idSolicitudBloqueo" Type="int" Nullable="false" />
-          <Property Name="idJugadorEmisor" Type="int" />
-          <Property Name="idBloqueado" Type="int" />
-          <Property Name="claveJugadorEmisor" Type="varchar" MaxLength="10" />
-          <Property Name="claveJugadorBloqueado" Type="varchar" MaxLength="10" />
+          <Property Name="idPartida" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -90,6 +73,54 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
+        <Association Name="FK_Amigo_JugadorEmisor">
+          <End Role="Jugador" Type="Self.Jugador" Multiplicity="1" />
+          <End Role="Amigo" Type="Self.Amigo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="idJugador" />
+            </Principal>
+            <Dependent Role="Amigo">
+              <PropertyRef Name="idJugadorEmisor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Amigo_JugadorReceptor">
+          <End Role="Jugador" Type="Self.Jugador" Multiplicity="1" />
+          <End Role="Amigo" Type="Self.Amigo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="idJugador" />
+            </Principal>
+            <Dependent Role="Amigo">
+              <PropertyRef Name="idJugadorReceptor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bloqueado_JugadorEmisor">
+          <End Role="Jugador" Type="Self.Jugador" Multiplicity="1" />
+          <End Role="Bloqueado" Type="Self.Bloqueado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="idJugador" />
+            </Principal>
+            <Dependent Role="Bloqueado">
+              <PropertyRef Name="idJugadorEmisor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bloqueado_JugadorReceptor">
+          <End Role="Jugador" Type="Self.Jugador" Multiplicity="1" />
+          <End Role="Bloqueado" Type="Self.Bloqueado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="idJugador" />
+            </Principal>
+            <Dependent Role="Bloqueado">
+              <PropertyRef Name="idJugadorReceptor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DatosJugadorPartida_Jugador">
           <End Role="Jugador" Type="Self.Jugador" Multiplicity="1" />
           <End Role="DatosJugadorPartida" Type="Self.DatosJugadorPartida" Multiplicity="*" />
@@ -114,63 +145,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SolicitudAmigo_Amigo">
-          <End Role="Amigo" Type="Self.Amigo" Multiplicity="1" />
-          <End Role="SolicitudAmigo" Type="Self.SolicitudAmigo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Amigo">
-              <PropertyRef Name="idAmigo" />
-            </Principal>
-            <Dependent Role="SolicitudAmigo">
-              <PropertyRef Name="idAmigo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SolicitudAmigo_Jugador">
-          <End Role="Jugador" Type="Self.Jugador" Multiplicity="1" />
-          <End Role="SolicitudAmigo" Type="Self.SolicitudAmigo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Jugador">
-              <PropertyRef Name="idJugador" />
-            </Principal>
-            <Dependent Role="SolicitudAmigo">
-              <PropertyRef Name="idJugador" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SolicitudBloqueo_Bloqueado">
-          <End Role="Bloqueado" Type="Self.Bloqueado" Multiplicity="0..1" />
-          <End Role="SolicitudBloqueo" Type="Self.SolicitudBloqueo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Bloqueado">
-              <PropertyRef Name="idBloqueo" />
-            </Principal>
-            <Dependent Role="SolicitudBloqueo">
-              <PropertyRef Name="idBloqueado" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SolicitudBloqueo_Jugador">
-          <End Role="Jugador" Type="Self.Jugador" Multiplicity="0..1" />
-          <End Role="SolicitudBloqueo" Type="Self.SolicitudBloqueo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Jugador">
-              <PropertyRef Name="idJugador" />
-            </Principal>
-            <Dependent Role="SolicitudBloqueo">
-              <PropertyRef Name="idJugadorEmisor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="ModeloDBStoreContainer">
           <EntitySet Name="Amigo" EntityType="Self.Amigo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Bloqueado" EntityType="Self.Bloqueado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DatosJugadorPartida" EntityType="Self.DatosJugadorPartida" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Jugador" EntityType="Self.Jugador" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Partida" EntityType="Self.Partida" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SolicitudAmigo" EntityType="Self.SolicitudAmigo" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SolicitudBloqueo" EntityType="Self.SolicitudBloqueo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Amigo_JugadorEmisor" Association="Self.FK_Amigo_JugadorEmisor">
+            <End Role="Jugador" EntitySet="Jugador" />
+            <End Role="Amigo" EntitySet="Amigo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Amigo_JugadorReceptor" Association="Self.FK_Amigo_JugadorReceptor">
+            <End Role="Jugador" EntitySet="Jugador" />
+            <End Role="Amigo" EntitySet="Amigo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bloqueado_JugadorEmisor" Association="Self.FK_Bloqueado_JugadorEmisor">
+            <End Role="Jugador" EntitySet="Jugador" />
+            <End Role="Bloqueado" EntitySet="Bloqueado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bloqueado_JugadorReceptor" Association="Self.FK_Bloqueado_JugadorReceptor">
+            <End Role="Jugador" EntitySet="Jugador" />
+            <End Role="Bloqueado" EntitySet="Bloqueado" />
+          </AssociationSet>
           <AssociationSet Name="FK_DatosJugadorPartida_Jugador" Association="Self.FK_DatosJugadorPartida_Jugador">
             <End Role="Jugador" EntitySet="Jugador" />
             <End Role="DatosJugadorPartida" EntitySet="DatosJugadorPartida" />
@@ -179,43 +176,33 @@
             <End Role="Partida" EntitySet="Partida" />
             <End Role="DatosJugadorPartida" EntitySet="DatosJugadorPartida" />
           </AssociationSet>
-          <AssociationSet Name="FK_SolicitudAmigo_Amigo" Association="Self.FK_SolicitudAmigo_Amigo">
-            <End Role="Amigo" EntitySet="Amigo" />
-            <End Role="SolicitudAmigo" EntitySet="SolicitudAmigo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SolicitudAmigo_Jugador" Association="Self.FK_SolicitudAmigo_Jugador">
-            <End Role="Jugador" EntitySet="Jugador" />
-            <End Role="SolicitudAmigo" EntitySet="SolicitudAmigo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SolicitudBloqueo_Bloqueado" Association="Self.FK_SolicitudBloqueo_Bloqueado">
-            <End Role="Bloqueado" EntitySet="Bloqueado" />
-            <End Role="SolicitudBloqueo" EntitySet="SolicitudBloqueo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SolicitudBloqueo_Jugador" Association="Self.FK_SolicitudBloqueo_Jugador">
-            <End Role="Jugador" EntitySet="Jugador" />
-            <End Role="SolicitudBloqueo" EntitySet="SolicitudBloqueo" />
-          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="ModeloDB" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
-        <EntityContainer Name="ModeloDBContainer1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="ModeloDBContainer" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Amigo" EntityType="ModeloDB.Amigo" />
           <EntitySet Name="Bloqueado" EntityType="ModeloDB.Bloqueado" />
           <EntitySet Name="DatosJugadorPartida" EntityType="ModeloDB.DatosJugadorPartida" />
           <EntitySet Name="Jugador" EntityType="ModeloDB.Jugador" />
           <EntitySet Name="Partida" EntityType="ModeloDB.Partida" />
-          <EntitySet Name="SolicitudAmigo" EntityType="ModeloDB.SolicitudAmigo" />
-          <EntitySet Name="SolicitudBloqueo" EntityType="ModeloDB.SolicitudBloqueo" />
           <EntitySet Name="sysdiagrams" EntityType="ModeloDB.sysdiagrams" />
-          <AssociationSet Name="FK_SolicitudAmigo_Amigo" Association="ModeloDB.FK_SolicitudAmigo_Amigo">
+          <AssociationSet Name="FK_Amigo_JugadorEmisor" Association="ModeloDB.FK_Amigo_JugadorEmisor">
+            <End Role="Jugador" EntitySet="Jugador" />
             <End Role="Amigo" EntitySet="Amigo" />
-            <End Role="SolicitudAmigo" EntitySet="SolicitudAmigo" />
           </AssociationSet>
-          <AssociationSet Name="FK_SolicitudBloqueo_Bloqueado" Association="ModeloDB.FK_SolicitudBloqueo_Bloqueado">
+          <AssociationSet Name="FK_Amigo_JugadorReceptor" Association="ModeloDB.FK_Amigo_JugadorReceptor">
+            <End Role="Jugador" EntitySet="Jugador" />
+            <End Role="Amigo" EntitySet="Amigo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bloqueado_JugadorEmisor" Association="ModeloDB.FK_Bloqueado_JugadorEmisor">
+            <End Role="Jugador" EntitySet="Jugador" />
             <End Role="Bloqueado" EntitySet="Bloqueado" />
-            <End Role="SolicitudBloqueo" EntitySet="SolicitudBloqueo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bloqueado_JugadorReceptor" Association="ModeloDB.FK_Bloqueado_JugadorReceptor">
+            <End Role="Jugador" EntitySet="Jugador" />
+            <End Role="Bloqueado" EntitySet="Bloqueado" />
           </AssociationSet>
           <AssociationSet Name="FK_DatosJugadorPartida_Jugador" Association="ModeloDB.FK_DatosJugadorPartida_Jugador">
             <End Role="Jugador" EntitySet="Jugador" />
@@ -225,30 +212,27 @@
             <End Role="Partida" EntitySet="Partida" />
             <End Role="DatosJugadorPartida" EntitySet="DatosJugadorPartida" />
           </AssociationSet>
-          <AssociationSet Name="FK_SolicitudAmigo_Jugador" Association="ModeloDB.FK_SolicitudAmigo_Jugador">
-            <End Role="Jugador" EntitySet="Jugador" />
-            <End Role="SolicitudAmigo" EntitySet="SolicitudAmigo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SolicitudBloqueo_Jugador" Association="ModeloDB.FK_SolicitudBloqueo_Jugador">
-            <End Role="Jugador" EntitySet="Jugador" />
-            <End Role="SolicitudBloqueo" EntitySet="SolicitudBloqueo" />
-          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Amigo">
           <Key>
             <PropertyRef Name="idAmigo" />
           </Key>
-          <Property Name="claveUsuarioAmigo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="idAmigo" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="SolicitudAmigo" Relationship="ModeloDB.FK_SolicitudAmigo_Amigo" FromRole="Amigo" ToRole="SolicitudAmigo" />
+          <Property Name="idAmigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idJugadorEmisor" Type="Int32" Nullable="false" />
+          <Property Name="idJugadorReceptor" Type="Int32" Nullable="false" />
+          <Property Name="estado" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Jugador" Relationship="ModeloDB.FK_Amigo_JugadorEmisor" FromRole="Amigo" ToRole="Jugador" />
+          <NavigationProperty Name="Jugador1" Relationship="ModeloDB.FK_Amigo_JugadorReceptor" FromRole="Amigo" ToRole="Jugador" />
         </EntityType>
         <EntityType Name="Bloqueado">
           <Key>
-            <PropertyRef Name="idBloqueo" />
+            <PropertyRef Name="idBloqueado" />
           </Key>
-          <Property Name="idBloqueo" Type="Int32" Nullable="false" />
-          <Property Name="claveJugadorBloqueado" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="SolicitudBloqueo" Relationship="ModeloDB.FK_SolicitudBloqueo_Bloqueado" FromRole="Bloqueado" ToRole="SolicitudBloqueo" />
+          <Property Name="idBloqueado" Type="Int32" Nullable="false" />
+          <Property Name="idJugadorEmisor" Type="Int32" Nullable="false" />
+          <Property Name="idJugadorReceptor" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Jugador" Relationship="ModeloDB.FK_Bloqueado_JugadorEmisor" FromRole="Bloqueado" ToRole="Jugador" />
+          <NavigationProperty Name="Jugador1" Relationship="ModeloDB.FK_Bloqueado_JugadorReceptor" FromRole="Bloqueado" ToRole="Jugador" />
         </EntityType>
         <EntityType Name="DatosJugadorPartida">
           <Key>
@@ -257,7 +241,7 @@
           <Property Name="puntaje" Type="Int32" />
           <Property Name="idAspecto" Type="Int32" />
           <Property Name="expulsado" Type="Boolean" />
-          <Property Name="idDatosJugadorPartida" Type="Int32" Nullable="false" />
+          <Property Name="idDatosJugadorPartida" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idJugador" Type="Int32" Nullable="false" />
           <Property Name="idPartida" Type="Int32" />
           <Property Name="esAdmin" Type="Boolean" />
@@ -279,9 +263,11 @@
           <Property Name="nombreUsuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="esInvitado" Type="Boolean" />
           <Property Name="idJugador" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Amigo" Relationship="ModeloDB.FK_Amigo_JugadorEmisor" FromRole="Jugador" ToRole="Amigo" />
+          <NavigationProperty Name="Amigo1" Relationship="ModeloDB.FK_Amigo_JugadorReceptor" FromRole="Jugador" ToRole="Amigo" />
+          <NavigationProperty Name="Bloqueado" Relationship="ModeloDB.FK_Bloqueado_JugadorEmisor" FromRole="Jugador" ToRole="Bloqueado" />
+          <NavigationProperty Name="Bloqueado1" Relationship="ModeloDB.FK_Bloqueado_JugadorReceptor" FromRole="Jugador" ToRole="Bloqueado" />
           <NavigationProperty Name="DatosJugadorPartida" Relationship="ModeloDB.FK_DatosJugadorPartida_Jugador" FromRole="Jugador" ToRole="DatosJugadorPartida" />
-          <NavigationProperty Name="SolicitudAmigo" Relationship="ModeloDB.FK_SolicitudAmigo_Jugador" FromRole="Jugador" ToRole="SolicitudAmigo" />
-          <NavigationProperty Name="SolicitudBloqueo" Relationship="ModeloDB.FK_SolicitudBloqueo_Jugador" FromRole="Jugador" ToRole="SolicitudBloqueo" />
         </EntityType>
         <EntityType Name="Partida">
           <Key>
@@ -294,32 +280,8 @@
           <Property Name="tiempoGuerra" Type="Int32" />
           <Property Name="puntajeVictoria" Type="Int32" />
           <Property Name="nombreGanador" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="idPartida" Type="Int32" Nullable="false" />
+          <Property Name="idPartida" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="DatosJugadorPartida" Relationship="ModeloDB.FK_DatosJugadorPartida_Partida" FromRole="Partida" ToRole="DatosJugadorPartida" />
-        </EntityType>
-        <EntityType Name="SolicitudAmigo">
-          <Key>
-            <PropertyRef Name="idSolicitudAmigo" />
-          </Key>
-          <Property Name="fecha" Type="DateTime" Precision="0" />
-          <Property Name="estado" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="idSolicitudAmigo" Type="Int32" Nullable="false" />
-          <Property Name="idJugador" Type="Int32" Nullable="false" />
-          <Property Name="idAmigo" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Amigo" Relationship="ModeloDB.FK_SolicitudAmigo_Amigo" FromRole="SolicitudAmigo" ToRole="Amigo" />
-          <NavigationProperty Name="Jugador" Relationship="ModeloDB.FK_SolicitudAmigo_Jugador" FromRole="SolicitudAmigo" ToRole="Jugador" />
-        </EntityType>
-        <EntityType Name="SolicitudBloqueo">
-          <Key>
-            <PropertyRef Name="idSolicitudBloqueo" />
-          </Key>
-          <Property Name="idSolicitudBloqueo" Type="Int32" Nullable="false" />
-          <Property Name="idJugadorEmisor" Type="Int32" />
-          <Property Name="idBloqueado" Type="Int32" />
-          <Property Name="claveJugadorEmisor" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="claveJugadorBloqueado" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Bloqueado" Relationship="ModeloDB.FK_SolicitudBloqueo_Bloqueado" FromRole="SolicitudBloqueo" ToRole="Bloqueado" />
-          <NavigationProperty Name="Jugador" Relationship="ModeloDB.FK_SolicitudBloqueo_Jugador" FromRole="SolicitudBloqueo" ToRole="Jugador" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -331,27 +293,51 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <Association Name="FK_SolicitudAmigo_Amigo">
-          <End Type="ModeloDB.Amigo" Role="Amigo" Multiplicity="1" />
-          <End Type="ModeloDB.SolicitudAmigo" Role="SolicitudAmigo" Multiplicity="*" />
+        <Association Name="FK_Amigo_JugadorEmisor">
+          <End Type="ModeloDB.Jugador" Role="Jugador" Multiplicity="1" />
+          <End Type="ModeloDB.Amigo" Role="Amigo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Amigo">
-              <PropertyRef Name="idAmigo" />
+            <Principal Role="Jugador">
+              <PropertyRef Name="idJugador" />
             </Principal>
-            <Dependent Role="SolicitudAmigo">
-              <PropertyRef Name="idAmigo" />
+            <Dependent Role="Amigo">
+              <PropertyRef Name="idJugadorEmisor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SolicitudBloqueo_Bloqueado">
-          <End Type="ModeloDB.Bloqueado" Role="Bloqueado" Multiplicity="0..1" />
-          <End Type="ModeloDB.SolicitudBloqueo" Role="SolicitudBloqueo" Multiplicity="*" />
+        <Association Name="FK_Amigo_JugadorReceptor">
+          <End Type="ModeloDB.Jugador" Role="Jugador" Multiplicity="1" />
+          <End Type="ModeloDB.Amigo" Role="Amigo" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Bloqueado">
-              <PropertyRef Name="idBloqueo" />
+            <Principal Role="Jugador">
+              <PropertyRef Name="idJugador" />
             </Principal>
-            <Dependent Role="SolicitudBloqueo">
-              <PropertyRef Name="idBloqueado" />
+            <Dependent Role="Amigo">
+              <PropertyRef Name="idJugadorReceptor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bloqueado_JugadorEmisor">
+          <End Type="ModeloDB.Jugador" Role="Jugador" Multiplicity="1" />
+          <End Type="ModeloDB.Bloqueado" Role="Bloqueado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="idJugador" />
+            </Principal>
+            <Dependent Role="Bloqueado">
+              <PropertyRef Name="idJugadorEmisor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bloqueado_JugadorReceptor">
+          <End Type="ModeloDB.Jugador" Role="Jugador" Multiplicity="1" />
+          <End Type="ModeloDB.Bloqueado" Role="Bloqueado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Jugador">
+              <PropertyRef Name="idJugador" />
+            </Principal>
+            <Dependent Role="Bloqueado">
+              <PropertyRef Name="idJugadorReceptor" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -379,30 +365,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SolicitudAmigo_Jugador">
-          <End Type="ModeloDB.Jugador" Role="Jugador" Multiplicity="1" />
-          <End Type="ModeloDB.SolicitudAmigo" Role="SolicitudAmigo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Jugador">
-              <PropertyRef Name="idJugador" />
-            </Principal>
-            <Dependent Role="SolicitudAmigo">
-              <PropertyRef Name="idJugador" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SolicitudBloqueo_Jugador">
-          <End Type="ModeloDB.Jugador" Role="Jugador" Multiplicity="0..1" />
-          <End Type="ModeloDB.SolicitudBloqueo" Role="SolicitudBloqueo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Jugador">
-              <PropertyRef Name="idJugador" />
-            </Principal>
-            <Dependent Role="SolicitudBloqueo">
-              <PropertyRef Name="idJugadorEmisor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -410,20 +372,23 @@
       <Mapping xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs" Space="C-S">
         <Alias Key="Model" Value="ModeloDB" />
         <Alias Key="Target" Value="ModeloDB.Store" />
-        <EntityContainerMapping CdmEntityContainer="ModeloDBContainer1" StorageEntityContainer="ModeloDBStoreContainer">
+        <EntityContainerMapping CdmEntityContainer="ModeloDBContainer" StorageEntityContainer="ModeloDBStoreContainer">
           <EntitySetMapping Name="Amigo">
             <EntityTypeMapping TypeName="ModeloDB.Amigo">
               <MappingFragment StoreEntitySet="Amigo">
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="idJugadorReceptor" ColumnName="idJugadorReceptor" />
+                <ScalarProperty Name="idJugadorEmisor" ColumnName="idJugadorEmisor" />
                 <ScalarProperty Name="idAmigo" ColumnName="idAmigo" />
-                <ScalarProperty Name="claveUsuarioAmigo" ColumnName="claveUsuarioAmigo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Bloqueado">
             <EntityTypeMapping TypeName="ModeloDB.Bloqueado">
               <MappingFragment StoreEntitySet="Bloqueado">
-                <ScalarProperty Name="claveJugadorBloqueado" ColumnName="claveJugadorBloqueado" />
-                <ScalarProperty Name="idBloqueo" ColumnName="idBloqueo" />
+                <ScalarProperty Name="idJugadorReceptor" ColumnName="idJugadorReceptor" />
+                <ScalarProperty Name="idJugadorEmisor" ColumnName="idJugadorEmisor" />
+                <ScalarProperty Name="idBloqueado" ColumnName="idBloqueado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -468,28 +433,6 @@
                 <ScalarProperty Name="duracion" ColumnName="duracion" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SolicitudAmigo">
-            <EntityTypeMapping TypeName="ModeloDB.SolicitudAmigo">
-              <MappingFragment StoreEntitySet="SolicitudAmigo">
-                <ScalarProperty Name="idAmigo" ColumnName="idAmigo" />
-                <ScalarProperty Name="idJugador" ColumnName="idJugador" />
-                <ScalarProperty Name="idSolicitudAmigo" ColumnName="idSolicitudAmigo" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="SolicitudBloqueo">
-            <EntityTypeMapping TypeName="ModeloDB.SolicitudBloqueo">
-              <MappingFragment StoreEntitySet="SolicitudBloqueo">
-                <ScalarProperty Name="claveJugadorBloqueado" ColumnName="claveJugadorBloqueado" />
-                <ScalarProperty Name="claveJugadorEmisor" ColumnName="claveJugadorEmisor" />
-                <ScalarProperty Name="idBloqueado" ColumnName="idBloqueado" />
-                <ScalarProperty Name="idJugadorEmisor" ColumnName="idJugadorEmisor" />
-                <ScalarProperty Name="idSolicitudBloqueo" ColumnName="idSolicitudBloqueo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

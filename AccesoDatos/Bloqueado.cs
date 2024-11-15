@@ -14,16 +14,11 @@ namespace AccesoDatos
     
     public partial class Bloqueado
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Bloqueado()
-        {
-            this.SolicitudBloqueo = new HashSet<SolicitudBloqueo>();
-        }
+        public int idBloqueado { get; set; }
+        public int idJugadorEmisor { get; set; }
+        public int idJugadorReceptor { get; set; }
     
-        public int idBloqueo { get; set; }
-        public string claveJugadorBloqueado { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SolicitudBloqueo> SolicitudBloqueo { get; set; }
+        public virtual Jugador Jugador { get; set; }
+        public virtual Jugador Jugador1 { get; set; }
     }
 }

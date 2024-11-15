@@ -85,12 +85,6 @@
       <DependentUpon>ModeloDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SolicitudAmigo.cs">
-      <DependentUpon>ModeloDB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SolicitudBloqueo.cs">
-      <DependentUpon>ModeloDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="sysdiagrams.cs">
       <DependentUpon>ModeloDB.tt</DependentUpon>
     </Compile>
