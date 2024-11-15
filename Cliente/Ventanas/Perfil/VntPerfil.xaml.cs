@@ -32,6 +32,7 @@ namespace Cliente.Ventanas.Perfil
         {
             tbcDescripcion.Text = jugador.descripcion;
             tbcNombreUsuario.Text = jugador.nombreUsuario;
+            tbcClaveUsuario.Text = jugador.claveUsuario;
             if (jugador.fotoPerfil != null)
                 imgFotoPerfil.Source = ConvertirByteAImagen(jugador.fotoPerfil);
         }

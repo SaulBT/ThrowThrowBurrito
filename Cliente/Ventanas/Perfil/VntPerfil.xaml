@@ -17,27 +17,30 @@
             <Image HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Source="/Imagenes/imgTitulo.png" Width="300"/>
             <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Perfil" FontSize="35" Margin="0,0,0,20" Width="800" FontWeight="Bold" FontFamily="Arial" Foreground="#1F3039"/>
             <Border BorderThickness="5" CornerRadius="10" Background="#CAC19F" Margin="70,0,70,0">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,30">
-                    <StackPanel Margin="0,0,10,0">
-                        <Border  Background="#FFD6D6D6" Width="200" Height="200" Margin="0,0,0,0" BorderBrush="#1F3039" BorderThickness="2">
-                            <Grid>
-                                <Image Source="/Imagenes/imgUsuario.png" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150"/>
-                                <Image x:Name="imgFotoPerfil" HorizontalAlignment="Left" Height="200" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Stretch="Fill" StretchDirection="Both" />
-                            </Grid>
-                        </Border>
-                    </StackPanel>
-                    <StackPanel Margin="0,0,30,0">
-                        <TextBlock TextAlignment="Left" TextWrapping="Wrap" Text="Nombre de Usuario:" FontSize="20" Margin="0,0,0,10" Width="267" FontWeight="Bold"/>
-                        <Border CornerRadius="15" Background="#E0E4C7">
-                            <TextBlock x:Name="tbcNombreUsuario" Margin="5,5,5,5" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Descripción" FontStyle="Italic" Width="300" FontSize="15"/>
-                        </Border>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,15">
+                        <StackPanel Margin="0,0,10,0">
+                            <Border  Background="#FFD6D6D6" Width="200" Height="200" Margin="0,0,0,0" BorderBrush="#1F3039" BorderThickness="2">
+                                <Grid>
+                                    <Image Source="/Imagenes/imgUsuario.png" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150"/>
+                                    <Image x:Name="imgFotoPerfil" HorizontalAlignment="Left" Height="200" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Stretch="Fill" StretchDirection="Both" />
+                                </Grid>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Margin="0,0,30,0">
+                            <TextBlock TextAlignment="Left" TextWrapping="Wrap" Text="Nombre de Usuario:" FontSize="20" Margin="0,0,0,10" Width="267" FontWeight="Bold"/>
+                            <Border CornerRadius="15" Background="#E0E4C7">
+                                <TextBlock x:Name="tbcNombreUsuario" Margin="5,5,5,5" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Descripción" FontStyle="Italic" Width="300" FontSize="15"/>
+                            </Border>
 
-                        <TextBlock TextAlignment="Left" TextWrapping="Wrap" Text="Descripción:" FontSize="20" Margin="0,0,0,10" Width="267" FontWeight="Bold"/>
-                        <Border CornerRadius="15"  Background="#E0E4C7">
-                            <TextBlock x:Name="tbcDescripcion" Margin="5,5,5,5" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Descripción" FontStyle="Italic" Width="350" Height="86" FontSize="15"/>
-                        </Border>
-
+                            <TextBlock TextAlignment="Left" TextWrapping="Wrap" Text="Descripción:" FontSize="20" Margin="0,0,0,10" Width="267" FontWeight="Bold"/>
+                            <Border CornerRadius="15"  Background="#E0E4C7">
+                                <TextBlock x:Name="tbcDescripcion" Margin="5,5,5,5" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Descripción" FontStyle="Italic" Width="350" Height="86" FontSize="15"/>
+                            </Border>
+                        </StackPanel>
                     </StackPanel>
+                    <TextBlock Text="Clave de usuario: " HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" />
+                    <TextBlock x:Name="tbcClaveUsuario" Text="" FontSize="20" HorizontalAlignment="Center" Margin="0,0,0,15"/>
                 </StackPanel>
             </Border>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Margin="0,50,0,0">
