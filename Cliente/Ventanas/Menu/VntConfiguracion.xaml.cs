@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
-namespace Cliente.Ventanas
+namespace Cliente.Ventanas.Menu
 {
     public partial class VntConfiguracion : Page
     {

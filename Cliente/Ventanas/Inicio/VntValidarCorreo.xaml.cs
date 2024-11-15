@@ -6,9 +6,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using Cliente.ServiciosGestionUsuarios;
-using static Cliente.Ventanas.VntRegistrarUsuario;
+using static Cliente.Ventanas.Inicio.VntRegistrarUsuario;
+using Cliente.Ventanas.Menu;
 
-namespace Cliente.Ventanas
+namespace Cliente.Ventanas.Inicio
 {
     public partial class VntValidarCorreo : Page
     {

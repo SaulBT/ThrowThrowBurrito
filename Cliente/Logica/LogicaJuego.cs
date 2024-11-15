@@ -1,5 +1,5 @@
 ﻿using Cliente.ServiciosJuego;
-using Cliente.Ventanas;
+using Cliente.Ventanas.Lobby;
 using System;
 using System.Collections.Generic;
 using System.Linq;

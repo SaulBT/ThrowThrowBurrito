@@ -1,4 +1,5 @@
 ﻿using Cliente.Ventanas.Perfil;
+using Cliente.Ventanas.Inicio;
 using Cliente.ServiciosJuego;
 using Cliente.Logica;
 using System;
@@ -7,7 +8,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Navigation;
-namespace Cliente.Ventanas
+using Cliente.Ventanas.Lobby;
+namespace Cliente.Ventanas.Menu
 {
     /// <summary>
     /// Interaction logic for MenuPrincipal.xaml

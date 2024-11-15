@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using Cliente.ServiciosGestionUsuarios;
 
-namespace Cliente.Ventanas
+namespace Cliente.Ventanas.Inicio
 {
     /// <summary>
     /// Lógica de interacción para RegistrarUsuario.xaml

@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Cliente.Ventanas
+namespace Cliente.Ventanas.Inicio
 {
     /// <summary>
     /// Lógica de interacción para VntRecuperarContrasenia.xaml

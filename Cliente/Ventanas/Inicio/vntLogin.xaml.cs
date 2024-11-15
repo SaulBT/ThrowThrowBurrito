@@ -6,8 +6,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
+using Cliente.Ventanas.Menu;
 
-namespace Cliente.Ventanas
+namespace Cliente.Ventanas.Inicio
 {
     /// <summary>
     /// Interaction logic for Login.xaml

@@ -19,7 +19,7 @@ using System.Windows.Shapes;
 using Cliente.ServiciosGestionUsuarios;
 using Cliente.ServiciosJuego;
 
-namespace Cliente.Ventanas
+namespace Cliente.Ventanas.Lobby
 {
     /// <summary>
     /// Interaction logic for Lobby.xaml

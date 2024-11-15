@@ -115,16 +115,16 @@
     <Compile Include="Ventanas\Perfil\VntCambiarContrasenia.xaml.cs">
       <DependentUpon>VntCambiarContrasenia.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\VntConfiguracion.xaml.cs">
+    <Compile Include="Ventanas\Menu\VntConfiguracion.xaml.cs">
       <DependentUpon>VntConfiguracion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\vntLobby.xaml.cs">
+    <Compile Include="Ventanas\Lobby\vntLobby.xaml.cs">
       <DependentUpon>vntLobby.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\vntLogin.xaml.cs">
+    <Compile Include="Ventanas\Inicio\vntLogin.xaml.cs">
       <DependentUpon>vntLogin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\vntMenuPrincipal.xaml.cs">
+    <Compile Include="Ventanas\Menu\vntMenuPrincipal.xaml.cs">
       <DependentUpon>vntMenuPrincipal.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\Perfil\VntPerfil.xaml.cs">
@@ -133,13 +133,13 @@
     <Compile Include="Ventanas\Perfil\VntPersonalizarPerfil.xaml.cs">
       <DependentUpon>VntPersonalizarPerfil.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\VntRecuperarContrasenia.xaml.cs">
+    <Compile Include="Ventanas\Inicio\VntRecuperarContrasenia.xaml.cs">
       <DependentUpon>VntRecuperarContrasenia.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\VntRegistrarUsuario.xaml.cs">
+    <Compile Include="Ventanas\Inicio\VntRegistrarUsuario.xaml.cs">
       <DependentUpon>VntRegistrarUsuario.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\VntValidarCorreo.xaml.cs">
+    <Compile Include="Ventanas\Inicio\VntValidarCorreo.xaml.cs">
       <DependentUpon>VntValidarCorreo.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
@@ -156,23 +156,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\VntConfiguracion.xaml">
+    <Page Include="Ventanas\Menu\VntConfiguracion.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\vntLobby.xaml">
+    <Page Include="Ventanas\Lobby\vntLobby.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\vntLogin.xaml">
+    <Page Include="Ventanas\Inicio\vntLogin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\vntMenuPrincipal.xaml">
+    <Page Include="Ventanas\Menu\vntMenuPrincipal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\VntRecuperarContrasenia.xaml">
+    <Page Include="Ventanas\Inicio\VntRecuperarContrasenia.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -188,11 +188,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\VntRegistrarUsuario.xaml">
+    <Page Include="Ventanas\Inicio\VntRegistrarUsuario.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\VntValidarCorreo.xaml">
+    <Page Include="Ventanas\Inicio\VntValidarCorreo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
