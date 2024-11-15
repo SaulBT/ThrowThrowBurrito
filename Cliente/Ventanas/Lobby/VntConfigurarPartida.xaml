@@ -1,99 +1,62 @@
-﻿<Page x:Class="Cliente.Ventanas.Perfil.VntPersonalizarPerfil"
+﻿<Page x:Class="Cliente.Ventanas.Lobby.VntConfigurarPartida"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Cliente.Ventanas.Perfil"
+      xmlns:local="clr-namespace:Cliente.Ventanas.Lobby"
       mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="1280"
-      Title="Personalizar Perfil">
+      Title="VntConfigurarPartida">
 
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/Imagenes/imgFondo.png"/>
         </Grid.Background>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,30">
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <Image HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Source="/Imagenes/imgTitulo.png" Width="300"/>
-            <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Personalizar Perfil" FontSize="35" Margin="0,0,0,30" Width="800" FontWeight="Bold" FontFamily="Arial" Foreground="#1F3039"/>
-            <StackPanel Orientation="Horizontal">
-                <StackPanel Margin="0,0,100,0">
-                    <Border  Background="#FFD6D6D6" Width="200" Height="200" Margin="0,0,0,0" BorderBrush="#1F3039" BorderThickness="2">
-                        <Grid>
-                            <Image Source="/Imagenes/imgUsuario.png" Stretch="Fill" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="150"/>
-                            <Image x:Name="imgFotoPerfil" HorizontalAlignment="Left" Height="200" Margin="0,0,0,0" VerticalAlignment="Top" Width="200" Stretch="Fill" StretchDirection="Both" />
-                        </Grid>
-                    </Border>
-                    <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Foto de Perfil" FontSize="20" Margin="0,0,0,10" Width="267" FontWeight="Bold" FontStyle="Italic"/>
-                    <TextBlock TextAlignment="Center" Text="La foto debe tener formato .png o .jpg y un tamaño máximo de 5 Mb." TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,15" FontSize="15" Width="300" />
-                    <Button x:Name="btnSubirFoto" Content="Subir Foto de Perfil" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Click="btnSubirFoto_Click" Width="200" Height="40" FontSize="20">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border x:Name="border" Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                                <ControlTemplate.Triggers>
-                                    <Trigger Property="IsPressed" Value="True">
-                                        <Trigger.EnterActions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#8C8573" Duration="0:0:0.2"/>
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </Trigger.EnterActions>
-                                        <Trigger.ExitActions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#CAC19F" Duration="0:0:0.2"/>
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </Trigger.ExitActions>
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                </StackPanel>
-                <StackPanel>
-                    <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Nombre de Usuario:" FontSize="20" Margin="0,20,0,10" Width="267"/>
-                    <TextBox x:Name="txbNombreUsuario" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="Nombre de usuario" VerticalAlignment="Top" Width="300" FontSize="15" BorderBrush="gray" MaxLength="20"/>
-                    <TextBlock TextAlignment="Center" Text="El nombre de usuario puede contener letras, números y los símbolos “_” y “.”, debe tener una longitud de 3 a 20 caracteres." TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,40" FontSize="15" Width="400" />
-                    
-                    <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Descripción:" FontSize="20" Margin="0,0,0,10" Width="267"/>
-                    <TextBox x:Name="txbDescripcion" HorizontalAlignment="Center" Margin="0,0,0,0" TextWrapping="Wrap" Text="Descripción" VerticalAlignment="Center" Width="350" Height="86" FontSize="15" BorderBrush="gray" MaxLength="100"/>
-                    <TextBlock TextAlignment="Center" Text="La descripción debe tener un máximo de 100 caracteres." TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,15" FontSize="15" Width="400" />
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,80,0,0">
+            <Label Content="Configuración de la partida" HorizontalAlignment="Center" FontWeight="Bold" FontFamily="Arial" Foreground="#1F3039" FontSize="35"/>
 
-                <Button x:Name="btnCancelar" Content="Cancelar" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Click="btnCancelar_Click" Width="150" Height="40" FontSize="20">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border x:Name="border" Background="#C7785F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                            <ControlTemplate.Triggers>
-                                <Trigger Property="IsPressed" Value="True">
-                                    <Trigger.EnterActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#8C8573" Duration="0:0:0.2"/>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </Trigger.EnterActions>
-                                    <Trigger.ExitActions>
-                                        <BeginStoryboard>
-                                            <Storyboard>
-                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#C7785F" Duration="0:0:0.2"/>
-                                            </Storyboard>
-                                        </BeginStoryboard>
-                                    </Trigger.ExitActions>
-                                </Trigger>
-                            </ControlTemplate.Triggers>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+            <Rectangle Width="500" Height="5" Fill="#CAC19F" Margin="0,20,0,60"/>
+            
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel Margin="0,0,50,0" HorizontalAlignment="Center" Width="300">
+                    <Label Content="Puntos para ganar:" Height="40" HorizontalAlignment="Right" FontSize="20" Margin="0,5,0,5" FontWeight="SemiBold"/>
+                </StackPanel>
+                <Border BorderBrush="Black" BorderThickness="1.5" CornerRadius="10" Background="#CAC19F" Margin="0,0,50,0">
+                    <StackPanel Orientation="Horizontal" Margin="10,5,10,5">
+                        <Slider x:Name="sldPuntos" Width="200" Margin="0,6,0,10"  Value="10" Minimum="5" Maximum="20" SmallChange="1" LargeChange="3" IsSnapToTickEnabled="True" TickFrequency="1" TickPlacement="BottomRight" ValueChanged="sldPuntos_ValueChanged">
+                            <Slider.RenderTransform>
+                                <ScaleTransform ScaleY="1.3"/>
+                            </Slider.RenderTransform>
+                        </Slider>
+                        <TextBlock x:Name="tbcValorPuntos" Text="10" HorizontalAlignment="Center" Width="20" VerticalAlignment="Top" TextAlignment="Center" Margin="0,7,0,0" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,0">
+                <StackPanel Margin="0,0,50,0" HorizontalAlignment="Center" Width="300">
+                    <Label Content="Tiempo de guerra (segundos):" Height="40" HorizontalAlignment="Right" FontSize="20" Margin="0,5,0,5" FontWeight="SemiBold"/>
+                </StackPanel>
+
+                <Border BorderBrush="Black" BorderThickness="1.5" CornerRadius="10" Background="#CAC19F" Margin="0,0,50,0">
+                    <StackPanel Orientation="Horizontal" Margin="10,5,10,5">
+                        <Slider x:Name="sldTiempoGuerra" Width="200" Margin="0,6,0,10" Value="20" Minimum="5" Maximum="40" SmallChange="5" LargeChange="10" IsSnapToTickEnabled="True" TickFrequency="5" TickPlacement="BottomRight" ValueChanged="sldTiempoGuerra_ValueChanged">
+                            <Slider.RenderTransform>
+                                <ScaleTransform ScaleY="1.3"/>
+                            </Slider.RenderTransform>
+                        </Slider>
+                        <TextBlock x:Name="tbcValorTiempo" Text="20" HorizontalAlignment="Center" Width="20" VerticalAlignment="Top" TextAlignment="Center" Margin="0,7,0,0" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </Border>
                 
-                <Button x:Name="btnConfirmar" Content="Confirmar" HorizontalAlignment="Center" Margin="300,0,0,0" VerticalAlignment="Top" Click="btnConfirmar_Click" Width="150" Height="40" FontSize="20">
+                
+            </StackPanel>
+
+            <Rectangle Width="500" Height="5" Fill="#CAC19F" Margin="0,60,0,40"/>
+            
+            <StackPanel  Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,50,0,0">
+                <Button x:Name="btnGuardar" Content="Guardar" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Click="btnGuardar_Click" Width="150" Height="40" FontSize="20">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border x:Name="border" Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
@@ -120,15 +83,38 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
+
+                <Button x:Name="btnCancelar" Content="Cancelar" HorizontalAlignment="Center" Margin="300,0,0,0" VerticalAlignment="Top" Click="btnCancelar_Click" Width="150" Height="40" FontSize="20">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" Background="#C7785F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#8C8573" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#C7785F" Duration="0:0:0.2"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
             </StackPanel>
+            
         </StackPanel>
 
-        
-       
-        
-        
-        
-        
 
         <!--Ventana emergente-->
         <Grid x:Name="gFondoNegro" Background="Black" Opacity="0.5" Visibility="Hidden"/>
@@ -167,6 +153,5 @@
                 </Button>
             </StackPanel>
         </Grid>
-
     </Grid>
 </Page>

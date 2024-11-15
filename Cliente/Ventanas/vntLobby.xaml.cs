@@ -1,4 +1,5 @@
 ﻿using Cliente.Logica;
+using Cliente.Ventanas.Lobby;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,19 +33,21 @@ namespace Cliente.Ventanas
         private ServiciosJuego.DatosJugadorPartida[] datosJugadorPartida;
         private ServicioJuegoClient servicioJuegoClient;
 
-        public vntLobby(ServiciosGestionUsuarios.Jugador jugador, ServiciosJuego.Partida partida)
+        public vntLobby(ServiciosGestionUsuarios.Jugador jugador, ServiciosJuego.Partida partida, LogicaJuego logicaJuego)
         {
             InitializeComponent();
             this.jugador = castJugadorJuego(jugador);
             this.partidaLocal = partida;
             logicaChat= new LogicaChat(this, jugador.nombreUsuario);
-            logicaJuego = new LogicaJuego();
+            this.logicaJuego = logicaJuego;
             tbcCodigoPartida.Text += partida.codigoPartida;
 
             InstanceContext contexto = new InstanceContext(this);
             servicioJuegoClient = new ServiciosJuego.ServicioJuegoClient(contexto);
             datosJugadorPartida = logicaJuego.RetornarDatosJugador(partida.codigoPartida);
 
+            tbcPuntosVictoria.Text += partidaLocal.puntajeVictoria;
+            tbcTiempoGuerra.Text += partidaLocal.tiempoGuerra;
             ConfigurarVistaAdmin();
             /*
              * hago el retorno de datos directamente en el lobby mientras que el retorno de de partida lo hago desde el menú
@@ -109,6 +112,7 @@ namespace Cliente.Ventanas
                     if (dato.esAdmin == true)
                     {
                         btnIniciarPartida.Visibility = Visibility.Visible;
+                        btnConfigurarPartida.Visibility = Visibility.Visible;
                         return;
                     }
                     else
@@ -212,6 +216,13 @@ namespace Cliente.Ventanas
                 txcChat.Text = mensaje;
             }
         }
+        
+        public void ActualizarPartida(ServiciosJuego.Partida nuevaPartida)
+        {
+            partidaLocal = nuevaPartida;
+            tbcPuntosVictoria.Text = "Puntos para la victoria: " + partidaLocal.puntajeVictoria;
+            tbcTiempoGuerra.Text = "Tiempo de guerra: " + partidaLocal.tiempoGuerra;
+        }
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
@@ -225,9 +236,7 @@ namespace Cliente.Ventanas
                         break;
                     }
                 }
-
-                vntMenuPrincipal vntMenuPrincipal = new vntMenuPrincipal(castJugadorUsuarios(jugador));
-                NavigationService.Navigate(vntMenuPrincipal);
+                NavigationService.GoBack();
             }
             catch (FaultException ex)
             {
@@ -252,6 +261,12 @@ namespace Cliente.Ventanas
         private void tbcMensaje_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void btnConfigurarPartida_Click(object sender, RoutedEventArgs e)
+        {
+            VntConfigurarPartida vntConfigurarPartida = new VntConfigurarPartida(partidaLocal, logicaJuego, this);
+            NavigationService.Navigate(vntConfigurarPartida);
         }
     }
 }

@@ -1,18 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Cliente.ServiciosGestionUsuarios;
 
 namespace Cliente.Ventanas
@@ -55,7 +45,7 @@ namespace Cliente.Ventanas
             try
             {
                 InitializeComponent();
-                servicio= new ServicioRegistrarUsuarioClient();
+                servicio = new ServicioRegistrarUsuarioClient();
                 txbNombreUsuario.Text = usuario.NombreUsuario;
                 pwbContrasenia.Password = usuario.Contrasenia;
                 txbCorreo.Text = usuario.Correo;
@@ -258,18 +248,28 @@ namespace Cliente.Ventanas
                 var addr = new System.Net.Mail.MailAddress(correo);
                 if (addr.Address == correo)
                 {
-                    tbcErrorCorreo.Visibility = Visibility.Hidden;
-                    return true;
+                    if (servicio.ValidarCorreoNoRepetido(correo))
+                    {
+                        tbcErrorCorreo.Visibility = Visibility.Hidden;
+                        return true;
+                    } 
+                    else
+                    {
+                        tbcErrorCorreo.Text = ("Correo ya ocupado!");
+                        tbcErrorCorreo.Visibility = Visibility.Visible;
+                        return false;
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("El correo no existe");
+                    tbcErrorCorreo.Text = "Formato inválido!";
                     tbcErrorCorreo.Visibility = Visibility.Visible;
                     return false;
                 }
             }
             catch
             {
+                tbcErrorCorreo.Text = "Formato inválido!";
                 tbcErrorCorreo.Visibility = Visibility.Visible;
                 return false;
             }

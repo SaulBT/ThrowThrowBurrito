@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Servicios.Implementaciones
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession, ConcurrencyMode = ConcurrencyMode.Reentrant)]
     public class ImplementacionJuego : IServicioJuego, IServicioChat
     {
         const int TIEMPO_GUERRA_DEFAULT = 20;
@@ -86,18 +87,33 @@ namespace Servicios.Implementaciones
             datosActuales.Add(datosJugadorPartida);
         }
 
-        public bool UnirsePartida(string codigoPartida, int idJugador, string claveJugador)
+        public Partida UnirsePartida(string codigoPartida, int idJugador, string claveJugador)
         {
             foreach (var p in partidasActuales)
             {
-                if (p.codigoPartida.Equals(codigoPartida))
+                if (p.codigoPartida.Equals(codigoPartida) && contarJugadoresPartida(codigoPartida) < 4)
                 {
                     CrearDatosJugadorPartida(false, claveJugador, codigoPartida, idJugador);
-                    return true;
+                    var clienteJuego = OperationContext.Current.GetCallbackChannel<IServicioJuegoCallback>();
+                    clientesJuego.Add(claveJugador, clienteJuego);
+                    return p;
                 }
             }
 
-            return false;
+            return null;
+        }
+
+        private int contarJugadoresPartida(string codigoPartida)
+        {
+            int jugadoresEnPartida = 0;
+            foreach (var d in datosActuales)
+            {
+                if (d.codigoPartida == codigoPartida)
+                {
+                    jugadoresEnPartida++;
+                }
+            }
+            return jugadoresEnPartida;
         }
 
         public DatosJugadorPartida[] RetornarDatosJugador(string codigoPartida)
@@ -133,12 +149,22 @@ namespace Servicios.Implementaciones
 
         public void CambiarConfiguracionPartida(Partida partidaLocal)
         {
-            Partida partida = partidasActuales.Find(p => p.idPartida == partidaLocal.idPartida);
-            if (partida == null)
+            if (partidasActuales.Find(p => p.idPartida == partidaLocal.idPartida) != null)
             {
-                partida = partidaLocal;
+                int indice = partidasActuales.FindIndex(p => p.codigoPartida == partidaLocal.codigoPartida);
+                partidasActuales[indice] = partidaLocal;
+                TransmitirPartida(partidaLocal);
+            } 
+            else
+            {
+                Console.WriteLine("No se encontró la partida");
+                return;
             }
+        }
 
+        [OperationBehavior]
+        public void TransmitirPartida(Partida partidaLocal)
+        {
             foreach (var d in datosActuales)
             {
                 if (d.codigoPartida == partidaLocal.codigoPartida)
@@ -152,10 +178,9 @@ namespace Servicios.Implementaciones
         public void CambiarDatosJugador(DatosJugadorPartida datosLocales)
         {
             DatosJugadorPartida datos = datosActuales.Find(d => d.claveJugador == datosLocales.claveJugador);
-            if (datos == null)
-            {
+            
                 datos = datosLocales;
-            }
+            
 
             foreach (var d in datosActuales)
             {
@@ -287,6 +312,8 @@ namespace Servicios.Implementaciones
                 cliente.RecibirMensaje(mensajeCompleto);
             }
         }
+
+
 
         private class ComparadorDatosJugadorPartida : IEqualityComparer<DatosJugadorPartida>
         {

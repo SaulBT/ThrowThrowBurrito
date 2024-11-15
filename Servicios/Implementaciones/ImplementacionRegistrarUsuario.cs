@@ -154,5 +154,25 @@ namespace Servicios.Implementaciones
 
             }
         }
+        public bool ValidarCorreoNoRepetido(string correo)
+        {
+            using (var contexto = new ModeloDBContainer())
+            {
+                contexto.Database.Log = Console.WriteLine;
+                var jugador = (from j in contexto.Jugador
+                               where j.correoElectronico == correo
+                               select j).FirstOrDefault();
+
+                if (jugador == null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+        }
     }
 }

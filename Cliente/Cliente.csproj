@@ -93,6 +93,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ConfiguracionGeneral.cs" />
     <Compile Include="Connected Services\ServiciosGestionUsuarios\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -107,6 +108,16 @@
     <Compile Include="Logica\LogicaJuego.cs" />
     <Compile Include="Pruebas\PruebasChat.cs" />
     <Compile Include="Pruebas\PruebasLogin.cs" />
+    <Compile Include="Utilidades.cs" />
+    <Compile Include="Ventanas\Lobby\VntConfigurarPartida.xaml.cs">
+      <DependentUpon>VntConfigurarPartida.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\Perfil\VntCambiarContrasenia.xaml.cs">
+      <DependentUpon>VntCambiarContrasenia.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Ventanas\VntConfiguracion.xaml.cs">
+      <DependentUpon>VntConfiguracion.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ventanas\vntLobby.xaml.cs">
       <DependentUpon>vntLobby.xaml</DependentUpon>
     </Compile>
@@ -122,6 +133,9 @@
     <Compile Include="Ventanas\Perfil\VntPersonalizarPerfil.xaml.cs">
       <DependentUpon>VntPersonalizarPerfil.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ventanas\VntRecuperarContrasenia.xaml.cs">
+      <DependentUpon>VntRecuperarContrasenia.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ventanas\VntRegistrarUsuario.xaml.cs">
       <DependentUpon>VntRegistrarUsuario.xaml</DependentUpon>
     </Compile>
@@ -134,6 +148,18 @@
     </Compile>
     <Compile Include="Logica\LogicaChat.cs" />
     <Compile Include="Logica\LogicaLogin.cs" />
+    <Page Include="Ventanas\Lobby\VntConfigurarPartida.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\Perfil\VntCambiarContrasenia.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\VntConfiguracion.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Ventanas\vntLobby.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -143,6 +169,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Ventanas\vntMenuPrincipal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Ventanas\VntRecuperarContrasenia.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

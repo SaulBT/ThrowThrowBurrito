@@ -13,20 +13,25 @@ using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.ServiceModel;
+using System.ComponentModel.Design;
 
 namespace Servicios.Implementaciones
 {
-    public class ImplementacionGestionUsuarios : IServicioRegistrarUsuario, IServicioPersonalizarPerfil, IServicioLogin
+    public class ImplementacionGestionUsuarios : IServicioRegistrarUsuario, IServicioPersonalizarPerfil, IServicioLogin, IServicioCambiarContrasenia
     {
         const int LONGITUD_CODIGO = 6;
         const int LONGITUD_CLAVE_JUGADOR = 10;
         const string EMAIL_JUEGO = "Luispablolagunesnoriega@gmail.com";
         const string CONTRASENIA_EMAIL = "sfad yvzo rpwn ubyd";
         const string ALIAS_JUEGO = "Throw Throw Burrito Game";
-        const string ASUNTO_CORREO = "Código de verificación - Registro de usuario";
-        const string CUERPO_CORREO = "Se ha solicitado el registro de un usuario bajo esta dirección de correo.\n" +
+        const string ASUNTO_CORREO_REGISTRO = "Código de verificación - Registro de usuario";
+        const string CUERPO_CORREO_REGISTRO = "Se ha solicitado el registro de un usuario bajo esta dirección de correo.\n" +
             "Si usted no lo has solicitado, por favor ignore este mensaje\n\n" +
             "\tCódigo de verificación: ";
+        const string ASUNTO_CORREO_RECUPERACION = "Código de recuperación - Recuperar contraseña";
+        const string CUERPO_CORREO_RECUPERACION = "Se ha solicitado la recuperación de la contraseña asociada al usuario bajo esta dirección de correo\n" +
+            "Si usted no lo has solicitado, por favor ignore este mensaje\n\n" +
+            "\tCódigo de recuperación: ";
 
         /*
          * Servicio RegistrarUsuario
@@ -38,8 +43,8 @@ namespace Servicios.Implementaciones
             MailMessage correoCodigo = new MailMessage();
             correoCodigo.From = new MailAddress(EMAIL_JUEGO, ALIAS_JUEGO, System.Text.Encoding.UTF8);
             correoCodigo.To.Add(correo);
-            correoCodigo.Subject = ASUNTO_CORREO;
-            correoCodigo.Body = CUERPO_CORREO + codigo;
+            correoCodigo.Subject = ASUNTO_CORREO_REGISTRO;
+            correoCodigo.Body = CUERPO_CORREO_REGISTRO + codigo;
             correoCodigo.Priority = MailPriority.Normal;
             try
             {
@@ -54,7 +59,7 @@ namespace Servicios.Implementaciones
                 };
                 smtpClient.EnableSsl = true;
                 smtpClient.Send(correoCodigo);
-                Console.WriteLine("Se envía el código " + codigo + " al correo: " + correo);
+                Console.WriteLine("Se envía el código de registro " + codigo + " al correo: " + correo);
             }
             catch (Exception ex)
             {
@@ -149,6 +154,27 @@ namespace Servicios.Implementaciones
             }
         }
 
+        public bool ValidarCorreoNoRepetido(string correo)
+        {
+            using (var contexto = new ModeloDBContainer())
+            {
+                contexto.Database.Log = Console.WriteLine;
+                var jugador = (from j in contexto.Jugador
+                               where j.correoElectronico == correo
+                               select j).FirstOrDefault();
+
+                if (jugador == null)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+        }
+
         /*
          * Servicio PersonalizarPerfil
         */
@@ -200,6 +226,92 @@ namespace Servicios.Implementaciones
                 Console.WriteLine(ex.Message);
                 throw new FaultException("Error de la base de datos");
             }
+        }
+
+        /*
+         *  Servicio CambiarContrasenia
+         */
+
+        public bool CambiarContrasenia(string contrasenia, string correo)
+        {
+            using (var contexto = new ModeloDBContainer())
+            {
+                contexto.Configuration.ProxyCreationEnabled = false;
+                contexto.Database.Log = Console.WriteLine;
+                var jugador = contexto.Jugador.FirstOrDefault(c => c.correoElectronico == correo);
+                if (jugador != null)
+                {
+                    jugador.contrasenia = contrasenia;
+
+                    contexto.Entry(jugador).State = EntityState.Modified;
+                    contexto.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public string EnviarCorreoRecuperacion(string correo)
+        {
+            string codigo = Utilidades.GenerarCodigo(LONGITUD_CODIGO);
+            MailMessage correoCodigo = new MailMessage();
+            correoCodigo.From = new MailAddress(EMAIL_JUEGO, ALIAS_JUEGO, System.Text.Encoding.UTF8);
+            correoCodigo.To.Add(correo);
+            correoCodigo.Subject = ASUNTO_CORREO_RECUPERACION;
+            correoCodigo.Body = CUERPO_CORREO_RECUPERACION + codigo;
+            correoCodigo.Priority = MailPriority.Normal;
+            try
+            {
+                SmtpClient smtpClient = new SmtpClient();
+                smtpClient.UseDefaultCredentials = false;
+                smtpClient.Port = 25;
+                smtpClient.Host = "smtp.gmail.com";
+                smtpClient.Credentials = new System.Net.NetworkCredential(EMAIL_JUEGO, CONTRASENIA_EMAIL);
+                ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
+                {
+                    return true;
+                };
+                smtpClient.EnableSsl = true;
+                smtpClient.Send(correoCodigo);
+                Console.WriteLine("Se envía el código de recuperacion " + codigo + " al correo: " + correo);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+            return codigo;
+        }
+
+        public string VerificarExistenciaUsuario(string nombreOCorreo)
+        {
+            using (var contexto = new ModeloDBContainer())
+            {
+                if (nombreOCorreo.Length > 20)
+                {
+                    string correo = (from j in contexto.Jugador
+                                     where j.correoElectronico == nombreOCorreo
+                                     select j.correoElectronico).FirstOrDefault();
+                    if (correo != null)
+                    {
+                        return correo;
+                    }
+                }
+                else
+                {
+                    string correo = (from j in contexto.Jugador
+                                     where j.correoElectronico == nombreOCorreo || j.nombreUsuario == nombreOCorreo
+                                     select j.correoElectronico).FirstOrDefault();
+                    if (correo != null)
+                    {
+                        return correo;
+                    }
+                }
+            }
+            return null;
         }
     }
 }

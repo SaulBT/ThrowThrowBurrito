@@ -50,6 +50,7 @@
     <Compile Include="Implementaciones\ImplementacionGestionUsuarios.cs" />
     <Compile Include="Implementaciones\ImplementacionJuego.cs" />
     <Compile Include="Implementaciones\ImplementacionLogin.cs" />
+    <Compile Include="Interfaces\IServicioCambiarContrasenia.cs" />
     <Compile Include="Implementaciones\ImplementacionSolicitudesAmigo.cs" />
     <Compile Include="Interfaces\IServicioAmigos.cs" />
     <Compile Include="Interfaces\IServicioChat.cs" />

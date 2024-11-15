@@ -72,7 +72,7 @@
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border" Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
-                            <ContentPresenter Content="Ajustes" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <ContentPresenter Content="Configuración" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsPressed" Value="True">

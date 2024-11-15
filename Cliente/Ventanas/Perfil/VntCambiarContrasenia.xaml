@@ -1,12 +1,12 @@
-﻿<Page x:Class="Cliente.Ventanas.VntRegistrarUsuario"
+﻿<Page x:Class="Cliente.Ventanas.Perfil.VntCambiarContrasenia"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Cliente.Ventanas"
+      xmlns:local="clr-namespace:Cliente.Ventanas.Perfil"
       mc:Ignorable="d" 
       d:DesignHeight="720" d:DesignWidth="1280"
-      Title="Registrar Usuario">
+      Title="Cambiar contraseña">
 
     <Grid>
         <Grid.Background>
@@ -14,29 +14,22 @@
         </Grid.Background>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" >
             <Image HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0" Source="/Imagenes/imgTitulo.png" Width="300"/>
-            <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Crear una cuenta" FontSize="35" Margin="0,0,0,30" Width="800" FontWeight="Bold" FontFamily="Arial" Foreground="#1F3039"/>
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Cambiar contraseña" FontSize="35" Margin="0,0,0,30" Width="800" FontWeight="Bold" FontFamily="Arial" Foreground="#1F3039"/>
 
-            <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Nombre de usuario:" FontSize="20" Margin="0,0,0,5" Width="267"/>
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Contraseña actual:" FontSize="20" Margin="0,0,0,0" Width="267"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
-                <TextBox x:Name="txbNombreUsuario" HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="15" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="250" BorderBrush="gray" MaxLength="20" />
-                <TextBlock x:Name="tbcErrorNombreUsuario" TextAlignment="Justify" Text="Error." TextWrapping="Wrap" HorizontalAlignment="Right" Margin="0,0,70,0" FontSize="15" Height="20" Foreground="Crimson" Visibility="Hidden" Width="205"/>
-            </StackPanel>
-            <TextBlock TextAlignment="Justify" Text="El nombre de usuario puede contener letras, números y los símbolos '_' y '.', debe tener una longitud de 3 a 20 caracteres." TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,0,0,15" FontSize="15" Width="450" />
-
-            <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Contraseña:" FontSize="20" Margin="0,0,0,0" Width="267"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
-                <PasswordBox x:Name="pwbContrasenia" PasswordChar="*" Width="250" FontSize="15" BorderBrush="LightSlateGray" MaxLength="100"/>
-                <TextBlock x:Name="tbcErrorContrasenia" TextAlignment="Justify" TextWrapping="Wrap" Text="Formato inválido!" HorizontalAlignment="Left" FontSize="15" Height="20" Margin="0,0,155,0" Foreground="Crimson" Visibility="Hidden" Width="120"/>
-            </StackPanel>
-            <TextBlock TextAlignment="Justify" TextWrapping="Wrap" Text="La contraseña debe contener de 8 a 100 caracteres y utilizar al menos una letra mayúscula, minúscula, y un número." HorizontalAlignment="Center" FontSize="15" Width="450" Margin="0,0,0,15"/>
-
-            <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Correo Electrónico:" FontSize="20" Margin="0,0,0,0" Width="267"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
-                <TextBox x:Name="txbCorreo" HorizontalAlignment="Center" Margin="0,0,0,0" Text="" VerticalAlignment="Top" Width="250" FontSize="15" BorderBrush="LightSlateGray" MaxLength="320"/>
-                <TextBlock x:Name="tbcErrorCorreo" TextWrapping="Wrap" Text="Formato inválido!" HorizontalAlignment="Left" FontSize="15" Foreground="Crimson" Height="20" Margin="0,0,25,0" Visibility="Hidden" Width="250"/>
+                <PasswordBox x:Name="pwbContraseniaActual" PasswordChar="*" Width="250" FontSize="20" BorderBrush="LightSlateGray" MaxLength="100"/>
+                <TextBlock x:Name="tbcErrorContraseniaActual" TextAlignment="Justify"  Text="Contraseña incorrecta!" HorizontalAlignment="Left" FontSize="15" Height="20" Margin="0,0,75,0" Foreground="Crimson" Visibility="Hidden" Width="200"/>
             </StackPanel>
 
-            <Button x:Name="btnSiguiente" Width="150" Height="40" FontSize="20" Margin="0,40,0,35" Click="btnSiguiente_Click" Content="Siguiente">
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Contraseña nueva:" FontSize="20" Margin="0,20,0,0" Width="267"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" >
+                <PasswordBox x:Name="pwbContraseniaNueva" PasswordChar="*" Width="250" FontSize="20" BorderBrush="LightSlateGray" MaxLength="100"/>
+                <TextBlock x:Name="tbcErrorContraseniaNueva" TextAlignment="Justify" Text="Formato inválido!" HorizontalAlignment="Left" FontSize="15" Height="20" Margin="0,0,75,0" Foreground="Crimson" Visibility="Hidden" Width="200"/>
+            </StackPanel>
+            <TextBlock TextAlignment="Justify" TextWrapping="Wrap" Text="La contraseña debe contener de 8 a 100 caracteres y utilizar al menos una letra mayúscula, minúscula, y un número." HorizontalAlignment="Center" FontSize="15" Width="450" Margin="0,10,0,0"/>
+
+            <Button x:Name="btnConfirmar" Width="150" Height="40" FontSize="20" Margin="0,60,0,35" Click="btnConfirmar_Click" Content="Confirmar">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border" Background="#CAC19F" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">

@@ -89,6 +89,35 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IServicioCambiarContrasenia_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd0" namespace="http://tempuri.org/" />
@@ -115,6 +144,12 @@
   <wsdl:message name="IServicioRegistrarUsuario_ValidarNombreNoRepetido_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidarNombreNoRepetidoResponse" />
   </wsdl:message>
+  <wsdl:message name="IServicioRegistrarUsuario_ValidarCorreoNoRepetido_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCorreoNoRepetido" />
+  </wsdl:message>
+  <wsdl:message name="IServicioRegistrarUsuario_ValidarCorreoNoRepetido_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidarCorreoNoRepetidoResponse" />
+  </wsdl:message>
   <wsdl:message name="IServicioLogin_Login_InputMessage">
     <wsdl:part name="parameters" element="tns:Login" />
   </wsdl:message>
@@ -126,6 +161,24 @@
   </wsdl:message>
   <wsdl:message name="IServicioPersonalizarPerfil_GuardarCambios_OutputMessage">
     <wsdl:part name="parameters" element="tns:GuardarCambiosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCambiarContrasenia_CambiarContrasenia_InputMessage">
+    <wsdl:part name="parameters" element="tns:CambiarContrasenia" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCambiarContrasenia_CambiarContrasenia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CambiarContraseniaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCambiarContrasenia_EnviarCorreoRecuperacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoRecuperacion" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCambiarContrasenia_EnviarCorreoRecuperacion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarCorreoRecuperacionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCambiarContrasenia_VerificarExistenciaUsuario_InputMessage">
+    <wsdl:part name="parameters" element="tns:VerificarExistenciaUsuario" />
+  </wsdl:message>
+  <wsdl:message name="IServicioCambiarContrasenia_VerificarExistenciaUsuario_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VerificarExistenciaUsuarioResponse" />
   </wsdl:message>
   <wsdl:portType name="IServicioRegistrarUsuario">
     <wsdl:operation name="EnviarCodigoCorreo">
@@ -140,6 +193,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarNombreNoRepetido" message="tns:IServicioRegistrarUsuario_ValidarNombreNoRepetido_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarNombreNoRepetidoResponse" message="tns:IServicioRegistrarUsuario_ValidarNombreNoRepetido_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ValidarCorreoNoRepetido">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarCorreoNoRepetido" message="tns:IServicioRegistrarUsuario_ValidarCorreoNoRepetido_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioRegistrarUsuario/ValidarCorreoNoRepetidoResponse" message="tns:IServicioRegistrarUsuario_ValidarCorreoNoRepetido_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IServicioLogin">
     <wsdl:operation name="Login">
@@ -151,6 +208,20 @@
     <wsdl:operation name="GuardarCambios">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioPersonalizarPerfil/GuardarCambios" message="tns:IServicioPersonalizarPerfil_GuardarCambios_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioPersonalizarPerfil/GuardarCambiosResponse" message="tns:IServicioPersonalizarPerfil_GuardarCambios_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IServicioCambiarContrasenia">
+    <wsdl:operation name="CambiarContrasenia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioCambiarContrasenia/CambiarContrasenia" message="tns:IServicioCambiarContrasenia_CambiarContrasenia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioCambiarContrasenia/CambiarContraseniaResponse" message="tns:IServicioCambiarContrasenia_CambiarContrasenia_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoRecuperacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioCambiarContrasenia/EnviarCorreoRecuperacion" message="tns:IServicioCambiarContrasenia_EnviarCorreoRecuperacion_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioCambiarContrasenia/EnviarCorreoRecuperacionResponse" message="tns:IServicioCambiarContrasenia_EnviarCorreoRecuperacion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="VerificarExistenciaUsuario">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioCambiarContrasenia/VerificarExistenciaUsuario" message="tns:IServicioCambiarContrasenia_VerificarExistenciaUsuario_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioCambiarContrasenia/VerificarExistenciaUsuarioResponse" message="tns:IServicioCambiarContrasenia_VerificarExistenciaUsuario_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IServicioRegistrarUsuario" type="tns:IServicioRegistrarUsuario">
@@ -176,6 +247,15 @@
     </wsdl:operation>
     <wsdl:operation name="ValidarNombreNoRepetido">
       <soap12:operation soapAction="http://tempuri.org/IServicioRegistrarUsuario/ValidarNombreNoRepetido" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidarCorreoNoRepetido">
+      <soap12:operation soapAction="http://tempuri.org/IServicioRegistrarUsuario/ValidarCorreoNoRepetido" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -210,13 +290,44 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IServicioCambiarContrasenia" type="tns:IServicioCambiarContrasenia">
+    <wsp:PolicyReference URI="#NetTcpBinding_IServicioCambiarContrasenia_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="CambiarContrasenia">
+      <soap12:operation soapAction="http://tempuri.org/IServicioCambiarContrasenia/CambiarContrasenia" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarCorreoRecuperacion">
+      <soap12:operation soapAction="http://tempuri.org/IServicioCambiarContrasenia/EnviarCorreoRecuperacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerificarExistenciaUsuario">
+      <soap12:operation soapAction="http://tempuri.org/IServicioCambiarContrasenia/VerificarExistenciaUsuario" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
   <wsdl:service name="ImplementacionGestionUsuarios">
     <wsdl:port name="NetTcpBinding_IServicioRegistrarUsuario" binding="tns:NetTcpBinding_IServicioRegistrarUsuario">
       <soap12:address location="net.tcp://localhost:8081/RegistarUsuario" />
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/RegistarUsuario</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2CEP8E3\Saúl</Upn>
+          <Upn>TAKISZOMBI\luisp</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -225,7 +336,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/Login</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2CEP8E3\Saúl</Upn>
+          <Upn>TAKISZOMBI\luisp</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -234,7 +345,16 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/PersonalizarPerfil</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>DESKTOP-2CEP8E3\Saúl</Upn>
+          <Upn>TAKISZOMBI\luisp</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IServicioCambiarContrasenia" binding="tns:NetTcpBinding_IServicioCambiarContrasenia">
+      <soap12:address location="net.tcp://localhost:8081/CambiarContrasenia" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/CambiarContrasenia</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>TAKISZOMBI\luisp</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

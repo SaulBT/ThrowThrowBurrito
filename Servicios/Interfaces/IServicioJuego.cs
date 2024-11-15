@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace Servicios.Interfaces
 {
-    [ServiceContract(CallbackContract = typeof(IServicioJuegoCallback))]
+    [ServiceContract(SessionMode = SessionMode.Required, CallbackContract = typeof(IServicioJuegoCallback))]
     public interface IServicioJuego
     {
         [OperationContract]
         Partida CrearPartida(string claveJugador, int idJugador);
 
         [OperationContract]
-        bool UnirsePartida(string codigoPartida, int idJugador, string claveJugador);
+        Partida UnirsePartida(string codigoPartida, int idJugador, string claveJugador);
 
         [OperationContract(IsOneWay = true)]
         void CambiarConfiguracionPartida(Partida partidaLocal);

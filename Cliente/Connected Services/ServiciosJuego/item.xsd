@@ -101,7 +101,7 @@
     <xs:sequence>
       <xs:element minOccurs="0" name="SolicitudBloqueo" nillable="true" type="tns:ArrayOfSolicitudBloqueo" />
       <xs:element minOccurs="0" name="claveJugadorBloqueado" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="idBloqueado" type="xs:int" />
+      <xs:element minOccurs="0" name="idBloqueo" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Bloqueado" nillable="true" type="tns:Bloqueado" />
