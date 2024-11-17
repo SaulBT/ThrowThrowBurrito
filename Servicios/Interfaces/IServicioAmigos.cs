@@ -12,9 +12,18 @@ namespace Servicios.Interfaces
     internal interface IServicioAmigos
     {
         [OperationContract]
-        Amigo[] CargarAmigos(int idJugador);
+        Jugador[] CargarAmigos(int idJugador);
 
         [OperationContract]
-        void EliminarAmigo(int idJugador, int idAmigo);
+        void EliminarAmigo(int idJugadorEmisor, int idJugadorReceptor);
+
+        [OperationContract]
+        bool BloquearJugador(int idJugadorEmisor, string claveJugadorReceptor);
+
+        [OperationContract]
+        void DesbloquearJugador(int idJugadorEmisor, int idJugadorRemitente);
+
+        [OperationContract]
+        Jugador[] CargarBloqueados(int idJugadorEmisor);
     }
 }

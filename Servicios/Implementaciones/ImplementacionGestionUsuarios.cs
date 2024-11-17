@@ -14,16 +14,14 @@ using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.ServiceModel;
 using System.ComponentModel.Design;
+using System.Runtime.Remoting.Contexts;
 
 namespace Servicios.Implementaciones
 {
-    public class ImplementacionGestionUsuarios : IServicioRegistrarUsuario, IServicioPersonalizarPerfil, IServicioLogin, IServicioCambiarContrasenia
+    public class ImplementacionGestionUsuarios : IServicioRegistrarUsuario, IServicioPersonalizarPerfil, IServicioLogin, IServicioCambiarContrasenia, IServicioAmigos, IServicioSolicitudes
     {
         const int LONGITUD_CODIGO = 6;
         const int LONGITUD_CLAVE_JUGADOR = 10;
-        const string EMAIL_JUEGO = "Luispablolagunesnoriega@gmail.com";
-        const string CONTRASENIA_EMAIL = "sfad yvzo rpwn ubyd";
-        const string ALIAS_JUEGO = "Throw Throw Burrito Game";
         const string ASUNTO_CORREO_REGISTRO = "Código de verificación - Registro de usuario";
         const string CUERPO_CORREO_REGISTRO = "Se ha solicitado el registro de un usuario bajo esta dirección de correo.\n" +
             "Si usted no lo has solicitado, por favor ignore este mensaje\n\n" +
@@ -32,6 +30,10 @@ namespace Servicios.Implementaciones
         const string CUERPO_CORREO_RECUPERACION = "Se ha solicitado la recuperación de la contraseña asociada al usuario bajo esta dirección de correo\n" +
             "Si usted no lo has solicitado, por favor ignore este mensaje\n\n" +
             "\tCódigo de recuperación: ";
+        const string ASUNTO_CORREO_INVITACION = "¡Un amigo te está invitando a una partida!";
+        const string CUERPO_CORREO_INVITACION = " te está invitando a que te unas a su partida. ¿Qué esperas para unirte?\nCódigo de la partida:\n\n";
+
+
 
         /*
          * Servicio RegistrarUsuario
@@ -40,25 +42,9 @@ namespace Servicios.Implementaciones
         public string EnviarCodigoCorreo(string correo)
         {
             string codigo = Utilidades.GenerarCodigo(LONGITUD_CODIGO);
-            MailMessage correoCodigo = new MailMessage();
-            correoCodigo.From = new MailAddress(EMAIL_JUEGO, ALIAS_JUEGO, System.Text.Encoding.UTF8);
-            correoCodigo.To.Add(correo);
-            correoCodigo.Subject = ASUNTO_CORREO_REGISTRO;
-            correoCodigo.Body = CUERPO_CORREO_REGISTRO + codigo;
-            correoCodigo.Priority = MailPriority.Normal;
             try
             {
-                SmtpClient smtpClient = new SmtpClient();
-                smtpClient.UseDefaultCredentials = false;
-                smtpClient.Port = 25;
-                smtpClient.Host = "smtp.gmail.com";
-                smtpClient.Credentials = new System.Net.NetworkCredential(EMAIL_JUEGO, CONTRASENIA_EMAIL);
-                ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
-                {
-                    return true;
-                };
-                smtpClient.EnableSsl = true;
-                smtpClient.Send(correoCodigo);
+                Utilidades.EnviarCorreo(correo, ASUNTO_CORREO_REGISTRO, CUERPO_CORREO_REGISTRO + codigo);
                 Console.WriteLine("Se envía el código de registro " + codigo + " al correo: " + correo);
             }
             catch (Exception ex)
@@ -72,25 +58,20 @@ namespace Servicios.Implementaciones
         public bool RegistrarUsuario(Usuario usuario)
         {
             Console.WriteLine("añadiendo al usuario con nombre: " + usuario.NombreUsuario + " y contraseña: " + usuario.Contrasenia + "...");
+            Jugador jugador = new Jugador
+            {
+                nombreUsuario = usuario.NombreUsuario,
+                contrasenia = usuario.Contrasenia,
+                correoElectronico = usuario.Correo,
+                claveUsuario = GenerarClaveUsuario(),
+                descripcion = null,
+                fotoPerfil = null,
+                estado = null,
+                esInvitado = false
+            };
             try
             {
-                using (var contexto = new ModeloDBContainer())
-                {
-                    contexto.Database.Log = Console.WriteLine;
-                    var jugador = new Jugador
-                    {
-                        nombreUsuario = usuario.NombreUsuario,
-                        contrasenia = usuario.Contrasenia,
-                        correoElectronico = usuario.Correo,
-                        claveUsuario = GenerarClaveUsuario(),
-                        descripcion = null,
-                        fotoPerfil = null,
-                        estado = null,
-                        esInvitado = false
-                    };
-                    contexto.Jugador.Add(jugador);
-                    contexto.SaveChanges();
-                }
+                DAOJugador.CrearJugador(jugador);
             }
             catch (SqlException ex)
             {
@@ -113,65 +94,45 @@ namespace Servicios.Implementaciones
         }
         public bool ValidarNombreNoRepetido(string nombre)
         {
-            using (var contexto = new ModeloDBContainer())
-            {
-                contexto.Database.Log = Console.WriteLine;
-                var jugador = (from j in contexto.Jugador
-                               where j.nombreUsuario == nombre
-                               select j).FirstOrDefault();
-                if (jugador == null)
-                {
-                    Console.WriteLine("Jugador es nulo");
-                    return true;
-                }
-                else
-                {
-                    Console.WriteLine("Jugador no es nulo");
-                    return false;
-                }
+            Jugador jugador = DAOJugador.ObtenerJugadorPorNombre(nombre);
 
+            if (jugador == null)
+            {
+                Console.WriteLine("Jugador es nulo");
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Jugador no es nulo");
+                return false;
             }
         }
 
         public bool ValidarClaveNoRepetida(string clave)
         {
-            using (var contexto = new ModeloDBContainer())
+            Jugador jugador = DAOJugador.ObtenerJugadorPorClave(clave);
+
+            if (jugador == null)
             {
-                contexto.Database.Log = Console.WriteLine;
-                var jugador = (from j in contexto.Jugador
-                               where j.claveUsuario == clave
-                               select j).FirstOrDefault();
-
-                if (jugador == null)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
+                return true;
             }
+            else
+            {
+                return false;
+            }
+            
         }
 
         public bool ValidarCorreoNoRepetido(string correo)
         {
-            using (var contexto = new ModeloDBContainer())
+            Jugador jugador = DAOJugador.ObtenerJugadorPorCorreo(correo);
+            if (jugador != null)
             {
-                contexto.Database.Log = Console.WriteLine;
-                var jugador = (from j in contexto.Jugador
-                               where j.correoElectronico == correo
-                               select j).FirstOrDefault();
-
-                if (jugador == null)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -181,25 +142,19 @@ namespace Servicios.Implementaciones
 
         public bool GuardarCambios(Perfil perfil, string claveUsuario)
         {
-            using (var contexto = new ModeloDBContainer())
-            {
-                contexto.Configuration.ProxyCreationEnabled = false;
-                contexto.Database.Log = Console.WriteLine;
-                var jugador = contexto.Jugador.FirstOrDefault(c => c.claveUsuario == claveUsuario);
-                if (jugador != null)
-                {
-                    jugador.nombreUsuario = perfil.NombreUsuario;
-                    jugador.descripcion = perfil.Descripcion;
-                    jugador.fotoPerfil = perfil.Foto;
+            Jugador jugador = DAOJugador.ObtenerJugadorPorClave(claveUsuario);
 
-                    contexto.Entry(jugador).State = EntityState.Modified;
-                    contexto.SaveChanges();
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+            if (jugador != null)
+            {
+                jugador.nombreUsuario = perfil.NombreUsuario;
+                jugador.descripcion = perfil.Descripcion;
+                jugador.fotoPerfil = perfil.Foto;
+                DAOJugador.ActualizarJugador(jugador);
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -212,7 +167,7 @@ namespace Servicios.Implementaciones
             try
             {
                 Jugador jugador = null;
-                jugador = AccesoDatos.DAOJugador.buscarJugador(nombreUsuario, contrasenia);
+                jugador = AccesoDatos.DAOJugador.ObtenerJugadorPorNombreContrasenia(nombreUsuario, contrasenia);
 
                 return jugador;
             }
@@ -234,48 +189,25 @@ namespace Servicios.Implementaciones
 
         public bool CambiarContrasenia(string contrasenia, string correo)
         {
-            using (var contexto = new ModeloDBContainer())
+            Jugador jugador = DAOJugador.ObtenerJugadorPorCorreo(correo);
+            if (jugador != null)
             {
-                contexto.Configuration.ProxyCreationEnabled = false;
-                contexto.Database.Log = Console.WriteLine;
-                var jugador = contexto.Jugador.FirstOrDefault(c => c.correoElectronico == correo);
-                if (jugador != null)
-                {
-                    jugador.contrasenia = contrasenia;
-
-                    contexto.Entry(jugador).State = EntityState.Modified;
-                    contexto.SaveChanges();
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                jugador.contrasenia = contrasenia;
+                DAOJugador.ActualizarJugador(jugador);
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
         public string EnviarCorreoRecuperacion(string correo)
         {
             string codigo = Utilidades.GenerarCodigo(LONGITUD_CODIGO);
-            MailMessage correoCodigo = new MailMessage();
-            correoCodigo.From = new MailAddress(EMAIL_JUEGO, ALIAS_JUEGO, System.Text.Encoding.UTF8);
-            correoCodigo.To.Add(correo);
-            correoCodigo.Subject = ASUNTO_CORREO_RECUPERACION;
-            correoCodigo.Body = CUERPO_CORREO_RECUPERACION + codigo;
-            correoCodigo.Priority = MailPriority.Normal;
             try
             {
-                SmtpClient smtpClient = new SmtpClient();
-                smtpClient.UseDefaultCredentials = false;
-                smtpClient.Port = 25;
-                smtpClient.Host = "smtp.gmail.com";
-                smtpClient.Credentials = new System.Net.NetworkCredential(EMAIL_JUEGO, CONTRASENIA_EMAIL);
-                ServicePointManager.ServerCertificateValidationCallback = delegate (object s, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
-                {
-                    return true;
-                };
-                smtpClient.EnableSsl = true;
-                smtpClient.Send(correoCodigo);
+                Utilidades.EnviarCorreo(correo, ASUNTO_CORREO_RECUPERACION, CUERPO_CORREO_RECUPERACION + codigo);
                 Console.WriteLine("Se envía el código de recuperacion " + codigo + " al correo: " + correo);
             }
             catch (Exception ex)
@@ -288,30 +220,178 @@ namespace Servicios.Implementaciones
 
         public string VerificarExistenciaUsuario(string nombreOCorreo)
         {
-            using (var contexto = new ModeloDBContainer())
+            Jugador jugador = DAOJugador.ObtenerJugadorPorCorreo(nombreOCorreo);
+            if (jugador != null)
             {
-                if (nombreOCorreo.Length > 20)
+                return jugador.correoElectronico;
+            }
+            jugador = DAOJugador.ObtenerJugadorPorNombre(nombreOCorreo);
+            if (jugador != null)
+            {
+                return jugador.correoElectronico;
+            }
+
+            return null;
+        }
+
+        /*
+         * Servicio de solicitudes
+        */
+
+        public bool EnviarSolicitud(string claveJugadorReceptor, int idJugador)
+        {
+            int idJugadorRemitente = obtenerJugadorRemitente(claveJugadorReceptor);
+            if (idJugadorRemitente > 0 && !determinarBloqueo(idJugador, idJugadorRemitente) && !determinarAmistad(idJugador, idJugadorRemitente))
+            {
+                Amigo solicitud = new Amigo
                 {
-                    string correo = (from j in contexto.Jugador
-                                     where j.correoElectronico == nombreOCorreo
-                                     select j.correoElectronico).FirstOrDefault();
-                    if (correo != null)
-                    {
-                        return correo;
-                    }
-                }
-                else
+                    idJugadorEmisor = idJugador,
+                    idJugadorReceptor = idJugadorRemitente,
+                    estado = "Pendiente",
+                };
+                DAOAmigo.CargarAmigo(solicitud);
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private int obtenerJugadorRemitente(string claveJugadorRemitente)
+        {
+            Jugador jugador = DAOJugador.ObtenerJugadorPorClave(claveJugadorRemitente);
+            if (jugador != null)
+            {
+                return jugador.idJugador;
+            } else
+            {
+                return 0;
+            }
+        }
+
+        private bool determinarBloqueo(int idJugadorEmisor, int idJugadorReceptor)
+        {
+            Bloqueado bloqueado = DAOBloqueado.ObtenerBloqueo(idJugadorEmisor, idJugadorReceptor);
+            if (bloqueado == null)
+            {
+                return false;
+            } else
+            {
+                return true;
+            }
+        }
+
+        private bool determinarAmistad(int idJugadorEmisor, int idJugadorReceptor)
+        {
+            Amigo amigo = DAOAmigo.ObtenerAmigo(idJugadorEmisor, idJugadorReceptor);
+            if (amigo == null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public Amigo[] RecibirSolicitudes(int idJugador)
+        {
+            Amigo[] solicitudes = DAOAmigo.ObtenerSolicitudes(idJugador);
+            if (solicitudes != null)
+            {
+                return solicitudes;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public void AceptarSolicitud(Amigo solicitud)
+        {
+            solicitud.estado = "Aceptada";
+            DAOAmigo.AceptarSolicitud(solicitud);
+        }
+
+        public void RechazarSolicitud(Amigo solicitud)
+        {
+            DAOAmigo.RechazarSolicitud(solicitud);
+        }
+
+        public void EnviarInvitacion(string codigoPartida, string correoJugadorInvitado, string nombreUsuarioInvitador)
+        {
+            string cuerpo = nombreUsuarioInvitador + CUERPO_CORREO_INVITACION + codigoPartida;
+            Utilidades.EnviarCorreo(correoJugadorInvitado, ASUNTO_CORREO_INVITACION, cuerpo);
+        }
+
+        /*
+         * Servicio amigos
+        */
+
+        public Jugador[] CargarAmigos(int idJugador)
+        {
+            Jugador[] amigos = DAOAmigo.ObtenerAmigos(idJugador);
+            if (amigos != null)
+            {
+                return amigos;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public void EliminarAmigo(int idJugadorEmisor, int idJugadorReceptor)
+        {
+            Amigo amigo = DAOAmigo.ObtenerAmigo(idJugadorEmisor, idJugadorReceptor);
+            DAOAmigo.EliminarAmigo(amigo);
+        }
+
+        public bool BloquearJugador(int idJugadorEmisor, string claveJugadorReceptor)
+        {
+            int idJugadorReceptor = obtenerJugadorRemitente(claveJugadorReceptor);
+            if (idJugadorReceptor > 0)
+            {
+                if (!determinarBloqueo(idJugadorEmisor, idJugadorReceptor))
                 {
-                    string correo = (from j in contexto.Jugador
-                                     where j.correoElectronico == nombreOCorreo || j.nombreUsuario == nombreOCorreo
-                                     select j.correoElectronico).FirstOrDefault();
-                    if (correo != null)
+                    Bloqueado bloqueado = new Bloqueado
                     {
-                        return correo;
+                        idJugadorEmisor = idJugadorEmisor,
+                        idJugadorReceptor = idJugadorReceptor,
+                    };
+                    DAOBloqueado.Bloquear(bloqueado);
+
+                    if (determinarAmistad(idJugadorEmisor, idJugadorReceptor))
+                    {
+                        DAOAmigo.EliminarAmigo(DAOAmigo.ObtenerAmigo(idJugadorEmisor, idJugadorReceptor));
                     }
+
+                    return true;
                 }
             }
-            return null;
+
+            return false;
+        }
+
+        public void DesbloquearJugador(int idJugadorEmisor, int idJugadorRemitente)
+        {
+            Bloqueado bloqueado = DAOBloqueado.ObtenerBloqueado(idJugadorEmisor, idJugadorRemitente);
+            DAOBloqueado.Desbloquear(bloqueado);
+        }
+
+        public Jugador[] CargarBloqueados(int idJugadorEmisor)
+        {
+            Jugador[] bloqueados = DAOBloqueado.ObtenerJugadoresBloqueados(idJugadorEmisor);
+            if (bloqueados != null)
+            {
+                return bloqueados;
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

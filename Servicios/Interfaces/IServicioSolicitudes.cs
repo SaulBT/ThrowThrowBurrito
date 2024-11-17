@@ -12,19 +12,19 @@ namespace Servicios.Interfaces
     public interface IServicioSolicitudes
     {
         [OperationContract]
-        bool EnviarSolicitud(string claveJugadorEmisor, string claveJugadorRemitente, int idJugador);
+        bool EnviarSolicitud(string claveJugadorRemitente, int idJugador);
 
         [OperationContract]
-        SolicitudAmigo[] RecibirSolicitudes(int idJugador);
+        Amigo[] RecibirSolicitudes(int idJugador);
 
         [OperationContract(IsOneWay = true)]
-        void AceptarSolicitud(SolicitudAmigo solicitud);
+        void AceptarSolicitud(Amigo solicitud);
 
         [OperationContract(IsOneWay = true)]
-        void RechazarSolicitud(int idSolicitudAmigo);
+        void RechazarSolicitud(Amigo solicitud);
 
         [OperationContract(IsOneWay = true)]
-        void EnviarInvitacion(string codigoPartida, string codigoJugadorInvitado);
+        void EnviarInvitacion(string codigoPartida, string correoJugadorInvitado, string nombreUsuarioInvitador);
     }
 
     [ServiceContract]

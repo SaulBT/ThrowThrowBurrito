@@ -59,6 +59,8 @@
     <Compile Include="Bloqueado.cs">
       <DependentUpon>ModeloDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="DAOAmigo.cs" />
+    <Compile Include="DAOBloqueado.cs" />
     <Compile Include="DAOJugador.cs" />
     <Compile Include="DatosJugadorPartida.cs">
       <DependentUpon>ModeloDB.tt</DependentUpon>
