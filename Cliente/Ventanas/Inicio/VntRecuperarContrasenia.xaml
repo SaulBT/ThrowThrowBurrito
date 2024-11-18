@@ -253,5 +253,9 @@
                 </Button>
             </StackPanel>
         </Grid>
+
+        <Grid x:Name="gVentanaAmigos" Visibility="Hidden">
+            <local:vntListaAmigos/>
+        </Grid>
     </Grid>
 </Page>

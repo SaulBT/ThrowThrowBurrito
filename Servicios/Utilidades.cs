@@ -19,12 +19,11 @@ namespace Servicios
         public static string GenerarCodigo(int longitud)
         {
             Random random = new Random();
-            string caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
             StringBuilder resultado = new StringBuilder(longitud);
             for (int i = 0; i < longitud; i++)
             {
-                resultado.Append(caracteres[random.Next(caracteres.Length)]);
+                resultado.Append(CARACTERES[random.Next(CARACTERES.Length)]);
             }
             return resultado.ToString();
         }

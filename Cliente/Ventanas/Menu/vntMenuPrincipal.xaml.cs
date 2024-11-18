@@ -192,5 +192,10 @@ namespace Cliente.Ventanas.Menu
             gVentanaUnirsePartida.Visibility = Visibility.Hidden;
             gFondoNegro.Visibility = Visibility.Hidden;
         }
+
+        private void btnVerAmigos_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
