@@ -118,7 +118,8 @@
     <Compile Include="Ventanas\Menu\VntConfiguracion.xaml.cs">
       <DependentUpon>VntConfiguracion.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\Lobby\vntLobby.xaml.cs">
+	<Compile Include="Ventanas\Lobby\vntLobby.xaml.cs">
+	</Compile>
     <Compile Include="Ventanas\VentanaEmergente\vntBloqueados.xaml.cs">
       <DependentUpon>vntBloqueados.xaml</DependentUpon>
     </Compile>
@@ -191,7 +192,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Ventanas\vntLobby.xaml">
+	<Page Include="Ventanas\vntLobby.xaml">
+		  <SubType>Designer</SubType>
+		  <Generator>MSBuild:Compile</Generator>
+	</Page>
     <Page Include="Ventanas\Lobby\VntConfigurarPartida.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
