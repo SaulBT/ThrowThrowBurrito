@@ -151,7 +151,8 @@ namespace AccesoDatos
                         contrasenia = jugador.contrasenia,
                         estado = jugador.estado,
                         nombreUsuario = jugador.nombreUsuario,
-                        esInvitado = jugador.esInvitado
+                        esInvitado = jugador.esInvitado,
+                        idJugador = jugador.idJugador,
                     };
 
                     return respuesta;

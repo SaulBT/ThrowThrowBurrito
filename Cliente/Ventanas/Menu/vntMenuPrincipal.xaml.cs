@@ -20,6 +20,7 @@ namespace Cliente.Ventanas.Menu
         private ServiciosGestionUsuarios.Jugador jugador;
         private ServicioJuegoClient servicioJuegoClient;
         private LogicaJuego logicaJuego;
+        private LogicaAmigos logicaAmigos;
 
         public vntMenuPrincipal(ServiciosGestionUsuarios.Jugador jugador)
         {
@@ -31,6 +32,8 @@ namespace Cliente.Ventanas.Menu
             this.Loaded += MenuPrincipal_Loaded;
             this.jugador = jugador;
             logicaJuego = new LogicaJuego();
+            logicaAmigos = new LogicaAmigos(jugador.idJugador, uscListaAmigos);
+            uscListaAmigos.ConfigurarVentana(logicaAmigos);
         }
 
 
@@ -195,7 +198,7 @@ namespace Cliente.Ventanas.Menu
 
         private void btnVerAmigos_Click(object sender, RoutedEventArgs e)
         {
-
+            uscListaAmigos.Mostrar();
         }
     }
 }

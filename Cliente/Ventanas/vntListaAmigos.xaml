@@ -5,14 +5,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Cliente.Ventanas"
              xmlns:VentanaEmergente="clr-namespace:Cliente.Ventanas.VentanaEmergente"
+             xmlns:cliente="clr-namespace:Cliente"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
+    <UserControl.Resources>
+        <cliente:ConvertidorImagenes x:Key="ConvertidorImagenes"/>
+    </UserControl.Resources>
     <Grid>
+        <Grid x:Name="gFondoNegro" Background="Black" Opacity="0.5" Visibility="Visible"/>
         <Image Source="pack://application:,,,/Cliente;component/Imagenes/imgFondoAmigos.png" Stretch="Fill"/>
         <StackPanel>
             <DockPanel Margin="10" HorizontalAlignment="Left">
                 <TextBlock Text="AMIGOS" FontSize="24" FontWeight="Bold" Foreground="#374255" />
-                <Image Name="imgCampana" Source="/Imagenes/imgCampanaVacia.png" Width="24" Height="24" HorizontalAlignment="Right" Margin="270,0,0,0"/>
+                <Image Name="imgCampana" Source="/Imagenes/imgCampanaVacia.png" Width="24" Height="24" HorizontalAlignment="Right" Margin="270,0,0,0" MouseLeftButtonDown="Campana_MouseLeftButtonDown"/>
             </DockPanel>
 
             <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10,0,10,10" HorizontalAlignment="Left" Height="522" Width="392">
@@ -21,9 +26,10 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border BorderThickness="1" BorderBrush="#374255" Margin="5" Padding="5">
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Nombre}" FontSize="16" FontWeight="Bold" />
-                                    <TextBlock Text="{Binding Estado}" Foreground="{Binding ColorEstado}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding fotoPerfil, Converter={StaticResource ConvertidorImagenes}}"/>
+                                    <TextBlock Text="{Binding nombreUsuario}" FontSize="16" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                    <TextBlock Text="{Binding estado}" FontSize="16" VerticalAlignment="Center" Margin="10,0,0,0"/>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>
@@ -176,11 +182,11 @@
         <Grid x:Name="gEmergenteError" Visibility="Collapsed">
             <VentanaEmergente:vntErrorAmigo/>
         </Grid>
-        <Grid x:Name="gEmergenteAgregarAmigo" Visibility="Collapsed">
-            <VentanaEmergente:vntAgregarAmigo/>
+        <Grid>
+            <VentanaEmergente:vntAgregarAmigo x:Name="uscAgregarAmigo" Visibility="Collapsed"/>
         </Grid>
-        <Grid x:Name="gEmergenteNotificaciones" Visibility="Collapsed">
-            <VentanaEmergente:vntNotificaciones/>
+        <Grid>
+            <VentanaEmergente:vntNotificaciones x:Name="uscNotificaciones" Visibility="Collapsed"/>
         </Grid>
         <Grid x:Name="gEmergenteBloqueados" Visibility="Collapsed">
             <VentanaEmergente:vntBloqueados/>

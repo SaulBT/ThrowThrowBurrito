@@ -2,9 +2,11 @@
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/AccesoDatos" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/AccesoDatos" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:complexType name="Jugador">
     <xs:sequence>
+      <xs:element minOccurs="0" name="Amigo" nillable="true" type="tns:ArrayOfAmigo" />
+      <xs:element minOccurs="0" name="Amigo1" nillable="true" type="tns:ArrayOfAmigo" />
+      <xs:element minOccurs="0" name="Bloqueado" nillable="true" type="tns:ArrayOfBloqueado" />
+      <xs:element minOccurs="0" name="Bloqueado1" nillable="true" type="tns:ArrayOfBloqueado" />
       <xs:element minOccurs="0" name="DatosJugadorPartida" nillable="true" type="tns:ArrayOfDatosJugadorPartida" />
-      <xs:element minOccurs="0" name="SolicitudAmigo" nillable="true" type="tns:ArrayOfSolicitudAmigo" />
-      <xs:element minOccurs="0" name="SolicitudBloqueo" nillable="true" type="tns:ArrayOfSolicitudBloqueo" />
       <xs:element minOccurs="0" name="claveUsuario" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="contrasenia" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="correoElectronico" nillable="true" type="xs:string" />
@@ -17,6 +19,39 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Jugador" nillable="true" type="tns:Jugador" />
+  <xs:complexType name="ArrayOfAmigo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Amigo" nillable="true" type="tns:Amigo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAmigo" nillable="true" type="tns:ArrayOfAmigo" />
+  <xs:complexType name="Amigo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Jugador" nillable="true" type="tns:Jugador" />
+      <xs:element minOccurs="0" name="Jugador1" nillable="true" type="tns:Jugador" />
+      <xs:element minOccurs="0" name="estado" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="idAmigo" type="xs:int" />
+      <xs:element minOccurs="0" name="idJugadorEmisor" type="xs:int" />
+      <xs:element minOccurs="0" name="idJugadorReceptor" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Amigo" nillable="true" type="tns:Amigo" />
+  <xs:complexType name="ArrayOfBloqueado">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Bloqueado" nillable="true" type="tns:Bloqueado" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBloqueado" nillable="true" type="tns:ArrayOfBloqueado" />
+  <xs:complexType name="Bloqueado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Jugador" nillable="true" type="tns:Jugador" />
+      <xs:element minOccurs="0" name="Jugador1" nillable="true" type="tns:Jugador" />
+      <xs:element minOccurs="0" name="idBloqueado" type="xs:int" />
+      <xs:element minOccurs="0" name="idJugadorEmisor" type="xs:int" />
+      <xs:element minOccurs="0" name="idJugadorReceptor" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Bloqueado" nillable="true" type="tns:Bloqueado" />
   <xs:complexType name="ArrayOfDatosJugadorPartida">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="DatosJugadorPartida" nillable="true" type="tns:DatosJugadorPartida" />
@@ -53,56 +88,10 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Partida" nillable="true" type="tns:Partida" />
-  <xs:complexType name="ArrayOfSolicitudAmigo">
+  <xs:complexType name="ArrayOfJugador">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="SolicitudAmigo" nillable="true" type="tns:SolicitudAmigo" />
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Jugador" nillable="true" type="tns:Jugador" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfSolicitudAmigo" nillable="true" type="tns:ArrayOfSolicitudAmigo" />
-  <xs:complexType name="SolicitudAmigo">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Amigo" nillable="true" type="tns:Amigo" />
-      <xs:element minOccurs="0" name="Jugador" nillable="true" type="tns:Jugador" />
-      <xs:element minOccurs="0" name="estado" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="fecha" nillable="true" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="idAmigo" type="xs:int" />
-      <xs:element minOccurs="0" name="idJugador" type="xs:int" />
-      <xs:element minOccurs="0" name="idSolicitudAmigo" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="SolicitudAmigo" nillable="true" type="tns:SolicitudAmigo" />
-  <xs:complexType name="Amigo">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="SolicitudAmigo" nillable="true" type="tns:ArrayOfSolicitudAmigo" />
-      <xs:element minOccurs="0" name="claveUsuarioAmigo" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="idAmigo" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Amigo" nillable="true" type="tns:Amigo" />
-  <xs:complexType name="ArrayOfSolicitudBloqueo">
-    <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="SolicitudBloqueo" nillable="true" type="tns:SolicitudBloqueo" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="ArrayOfSolicitudBloqueo" nillable="true" type="tns:ArrayOfSolicitudBloqueo" />
-  <xs:complexType name="SolicitudBloqueo">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Bloqueado" nillable="true" type="tns:Bloqueado" />
-      <xs:element minOccurs="0" name="Jugador" nillable="true" type="tns:Jugador" />
-      <xs:element minOccurs="0" name="claveJugadorBloqueado" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="claveJugadorEmisor" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="idBloqueado" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="idJugadorEmisor" nillable="true" type="xs:int" />
-      <xs:element minOccurs="0" name="idSolicitudBloqueo" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="SolicitudBloqueo" nillable="true" type="tns:SolicitudBloqueo" />
-  <xs:complexType name="Bloqueado">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="SolicitudBloqueo" nillable="true" type="tns:ArrayOfSolicitudBloqueo" />
-      <xs:element minOccurs="0" name="claveJugadorBloqueado" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="idBloqueo" type="xs:int" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="Bloqueado" nillable="true" type="tns:Bloqueado" />
+  <xs:element name="ArrayOfJugador" nillable="true" type="tns:ArrayOfJugador" />
 </xs:schema>

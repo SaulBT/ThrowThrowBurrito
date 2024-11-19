@@ -118,6 +118,64 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IServicioSolicitudes_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IServicioAmigos_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd0" namespace="http://tempuri.org/" />
@@ -180,6 +238,63 @@
   <wsdl:message name="IServicioCambiarContrasenia_VerificarExistenciaUsuario_OutputMessage">
     <wsdl:part name="parameters" element="tns:VerificarExistenciaUsuarioResponse" />
   </wsdl:message>
+  <wsdl:message name="IServicioSolicitudes_EnviarSolicitud_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarSolicitud" />
+  </wsdl:message>
+  <wsdl:message name="IServicioSolicitudes_EnviarSolicitud_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarSolicitudResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioSolicitudes_RecibirSolicitudes_InputMessage">
+    <wsdl:part name="parameters" element="tns:RecibirSolicitudes" />
+  </wsdl:message>
+  <wsdl:message name="IServicioSolicitudes_RecibirSolicitudes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RecibirSolicitudesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioSolicitudes_AceptarSolicitud_InputMessage">
+    <wsdl:part name="parameters" element="tns:AceptarSolicitud" />
+  </wsdl:message>
+  <wsdl:message name="IServicioSolicitudes_RechazarSolicitud_InputMessage">
+    <wsdl:part name="parameters" element="tns:RechazarSolicitud" />
+  </wsdl:message>
+  <wsdl:message name="IServicioSolicitudes_EnviarInvitacion_InputMessage">
+    <wsdl:part name="parameters" element="tns:EnviarInvitacion" />
+  </wsdl:message>
+  <wsdl:message name="IServicioSolicitudes_ObtenerNuevaSolicitud_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerNuevaSolicitud" />
+  </wsdl:message>
+  <wsdl:message name="IServicioSolicitudes_ActualizarListaAmigos_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ActualizarListaAmigos" />
+  </wsdl:message>
+  <wsdl:message name="IServicioAmigos_CargarAmigos_InputMessage">
+    <wsdl:part name="parameters" element="tns:CargarAmigos" />
+  </wsdl:message>
+  <wsdl:message name="IServicioAmigos_CargarAmigos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CargarAmigosResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioAmigos_EliminarAmigo_InputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarAmigo" />
+  </wsdl:message>
+  <wsdl:message name="IServicioAmigos_EliminarAmigo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EliminarAmigoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioAmigos_BloquearJugador_InputMessage">
+    <wsdl:part name="parameters" element="tns:BloquearJugador" />
+  </wsdl:message>
+  <wsdl:message name="IServicioAmigos_BloquearJugador_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BloquearJugadorResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioAmigos_DesbloquearJugador_InputMessage">
+    <wsdl:part name="parameters" element="tns:DesbloquearJugador" />
+  </wsdl:message>
+  <wsdl:message name="IServicioAmigos_DesbloquearJugador_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DesbloquearJugadorResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioAmigos_CargarBloqueados_InputMessage">
+    <wsdl:part name="parameters" element="tns:CargarBloqueados" />
+  </wsdl:message>
+  <wsdl:message name="IServicioAmigos_CargarBloqueados_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CargarBloqueadosResponse" />
+  </wsdl:message>
   <wsdl:portType name="IServicioRegistrarUsuario">
     <wsdl:operation name="EnviarCodigoCorreo">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioRegistrarUsuario/EnviarCodigoCorreo" message="tns:IServicioRegistrarUsuario_EnviarCodigoCorreo_InputMessage" />
@@ -222,6 +337,53 @@
     <wsdl:operation name="VerificarExistenciaUsuario">
       <wsdl:input wsaw:Action="http://tempuri.org/IServicioCambiarContrasenia/VerificarExistenciaUsuario" message="tns:IServicioCambiarContrasenia_VerificarExistenciaUsuario_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioCambiarContrasenia/VerificarExistenciaUsuarioResponse" message="tns:IServicioCambiarContrasenia_VerificarExistenciaUsuario_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IServicioSolicitudes">
+    <wsdl:operation name="EnviarSolicitud">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioSolicitudes/EnviarSolicitud" message="tns:IServicioSolicitudes_EnviarSolicitud_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioSolicitudes/EnviarSolicitudResponse" message="tns:IServicioSolicitudes_EnviarSolicitud_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RecibirSolicitudes">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioSolicitudes/RecibirSolicitudes" message="tns:IServicioSolicitudes_RecibirSolicitudes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioSolicitudes/RecibirSolicitudesResponse" message="tns:IServicioSolicitudes_RecibirSolicitudes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AceptarSolicitud">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioSolicitudes/AceptarSolicitud" message="tns:IServicioSolicitudes_AceptarSolicitud_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RechazarSolicitud">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioSolicitudes/RechazarSolicitud" message="tns:IServicioSolicitudes_RechazarSolicitud_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarInvitacion">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioSolicitudes/EnviarInvitacion" message="tns:IServicioSolicitudes_EnviarInvitacion_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerNuevaSolicitud">
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioSolicitudes/ObtenerNuevaSolicitud" message="tns:IServicioSolicitudes_ObtenerNuevaSolicitud_OutputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarListaAmigos">
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioSolicitudes/ActualizarListaAmigos" message="tns:IServicioSolicitudes_ActualizarListaAmigos_OutputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IServicioAmigos">
+    <wsdl:operation name="CargarAmigos">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioAmigos/CargarAmigos" message="tns:IServicioAmigos_CargarAmigos_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioAmigos/CargarAmigosResponse" message="tns:IServicioAmigos_CargarAmigos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EliminarAmigo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioAmigos/EliminarAmigo" message="tns:IServicioAmigos_EliminarAmigo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioAmigos/EliminarAmigoResponse" message="tns:IServicioAmigos_EliminarAmigo_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BloquearJugador">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioAmigos/BloquearJugador" message="tns:IServicioAmigos_BloquearJugador_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioAmigos/BloquearJugadorResponse" message="tns:IServicioAmigos_BloquearJugador_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DesbloquearJugador">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioAmigos/DesbloquearJugador" message="tns:IServicioAmigos_DesbloquearJugador_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioAmigos/DesbloquearJugadorResponse" message="tns:IServicioAmigos_DesbloquearJugador_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CargarBloqueados">
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioAmigos/CargarBloqueados" message="tns:IServicioAmigos_CargarBloqueados_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioAmigos/CargarBloqueadosResponse" message="tns:IServicioAmigos_CargarBloqueados_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IServicioRegistrarUsuario" type="tns:IServicioRegistrarUsuario">
@@ -321,13 +483,114 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IServicioSolicitudes" type="tns:IServicioSolicitudes">
+    <wsp:PolicyReference URI="#NetTcpBinding_IServicioSolicitudes_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="EnviarSolicitud">
+      <soap12:operation soapAction="http://tempuri.org/IServicioSolicitudes/EnviarSolicitud" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RecibirSolicitudes">
+      <soap12:operation soapAction="http://tempuri.org/IServicioSolicitudes/RecibirSolicitudes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AceptarSolicitud">
+      <soap12:operation soapAction="http://tempuri.org/IServicioSolicitudes/AceptarSolicitud" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="RechazarSolicitud">
+      <soap12:operation soapAction="http://tempuri.org/IServicioSolicitudes/RechazarSolicitud" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarInvitacion">
+      <soap12:operation soapAction="http://tempuri.org/IServicioSolicitudes/EnviarInvitacion" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerNuevaSolicitud">
+      <soap12:operation soapAction="http://tempuri.org/IServicioSolicitudes/ObtenerNuevaSolicitud" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ActualizarListaAmigos">
+      <soap12:operation soapAction="http://tempuri.org/IServicioSolicitudes/ActualizarListaAmigos" style="document" />
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IServicioAmigos" type="tns:IServicioAmigos">
+    <wsp:PolicyReference URI="#NetTcpBinding_IServicioAmigos_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="CargarAmigos">
+      <soap12:operation soapAction="http://tempuri.org/IServicioAmigos/CargarAmigos" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EliminarAmigo">
+      <soap12:operation soapAction="http://tempuri.org/IServicioAmigos/EliminarAmigo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BloquearJugador">
+      <soap12:operation soapAction="http://tempuri.org/IServicioAmigos/BloquearJugador" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DesbloquearJugador">
+      <soap12:operation soapAction="http://tempuri.org/IServicioAmigos/DesbloquearJugador" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CargarBloqueados">
+      <soap12:operation soapAction="http://tempuri.org/IServicioAmigos/CargarBloqueados" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
   <wsdl:service name="ImplementacionGestionUsuarios">
     <wsdl:port name="NetTcpBinding_IServicioRegistrarUsuario" binding="tns:NetTcpBinding_IServicioRegistrarUsuario">
       <soap12:address location="net.tcp://localhost:8081/RegistarUsuario" />
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/RegistarUsuario</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>TAKISZOMBI\luisp</Upn>
+          <Upn>DESKTOP-DTC15CT\Usuario</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -336,7 +599,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/Login</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>TAKISZOMBI\luisp</Upn>
+          <Upn>DESKTOP-DTC15CT\Usuario</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -345,7 +608,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/PersonalizarPerfil</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>TAKISZOMBI\luisp</Upn>
+          <Upn>DESKTOP-DTC15CT\Usuario</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -354,7 +617,25 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/CambiarContrasenia</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>TAKISZOMBI\luisp</Upn>
+          <Upn>DESKTOP-DTC15CT\Usuario</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IServicioSolicitudes" binding="tns:NetTcpBinding_IServicioSolicitudes">
+      <soap12:address location="net.tcp://localhost:8081/Solicitudes" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/Solicitudes</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>DESKTOP-DTC15CT\Usuario</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IServicioAmigos" binding="tns:NetTcpBinding_IServicioAmigos">
+      <soap12:address location="net.tcp://localhost:8081/Amigos" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/Amigos</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>DESKTOP-DTC15CT\Usuario</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

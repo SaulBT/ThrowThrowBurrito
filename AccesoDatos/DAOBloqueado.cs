@@ -49,7 +49,7 @@ namespace AccesoDatos
 
         public static void Bloquear(Bloqueado bloqueado)
         {
-            using(var contexto = new ModeloDBContainer())
+            using (var contexto = new ModeloDBContainer())
             {
                 contexto.Bloqueado.Add(bloqueado);
                 contexto.SaveChanges();
@@ -58,7 +58,7 @@ namespace AccesoDatos
 
         public static Bloqueado ObtenerBloqueado(int idJugadorEmisor, int idJugadorReceptor)
         {
-            using(var contexto = new ModeloDBContainer())
+            using (var contexto = new ModeloDBContainer())
             {
                 var bloqueado = (from b in contexto.Bloqueado
                                  where b.idJugadorEmisor == idJugadorEmisor && b.idJugadorReceptor == idJugadorReceptor
@@ -84,7 +84,7 @@ namespace AccesoDatos
 
         public static void Desbloquear(Bloqueado bloqueado)
         {
-            using(var contexto = new ModeloDBContainer())
+            using (var contexto = new ModeloDBContainer())
             {
                 contexto.Bloqueado.Remove(bloqueado);
                 contexto.SaveChanges();
@@ -119,4 +119,5 @@ namespace AccesoDatos
                 }
             }
         }
+    }
 }

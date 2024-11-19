@@ -45,34 +45,30 @@ namespace AccesoDatos
             }
         }
 
-        public static Amigo[] ObtenerSolicitudes(int idJugadorReceptor)
+        public static Jugador[] ObtenerSolicitudes(int idJugadorReceptor)
         {
-            using(var contexto = new ModeloDBContainer())
+            using (var contexto = new ModeloDBContainer())
             {
-                var solicitudes = (from a in contexto.Amigo
-                                   where a.idJugadorReceptor == idJugadorReceptor && a.estado == "Pendiente"
-                                   select a);
+                List<Jugador> respuesta = new List<Jugador>();
 
-                if(solicitudes != null)
+                var amigos1 = (from a in contexto.Amigo
+                               where a.Jugador1.idJugador == idJugadorReceptor && a.estado == "Pendiente"
+                               select a.Jugador);
+
+                if (amigos1 != null)
                 {
-                    List<Amigo> respuesta = new List<Amigo>();
-                    foreach(var a in solicitudes)
+                    foreach (var a in amigos1)
                     {
-                        Amigo amigo = new Amigo
+                        respuesta.Add(new Jugador
                         {
-                            idAmigo = a.idAmigo,
-                            idJugadorEmisor = a.idJugadorEmisor,
-                            idJugadorReceptor = a.idJugadorReceptor,
-                        };
-                        respuesta.Add(amigo);
+                            idJugador = a.idJugador,
+                            fotoPerfil = a.fotoPerfil,
+                            nombreUsuario = a.nombreUsuario,
+                        });
                     }
+                }
 
-                    return respuesta.ToArray();
-                }
-                else
-                {
-                    return null;
-                }
+                return respuesta.ToArray();
             }
         }
 
@@ -80,17 +76,21 @@ namespace AccesoDatos
         {
             using(var contexto = new ModeloDBContainer())
             {
-                contexto.Entry(solicitud).State = .Entity.EntityState.Modified;
+                contexto.Entry(solicitud).State = System.Data.Entity.EntityState.Modified;
                 contexto.SaveChanges();
             }
         }
 
-        public static void RechazarSolicitud(Amigo solicitud)
+        public static void RechazarSolicitud(int idAmigo)
         {
             using(var contexto = new ModeloDBContainer())
             {
-                contexto.Amigo.Remove(solicitud);
-                contexto.SaveChanges();
+                var solicitud = contexto.Amigo.Find(idAmigo);
+                if (solicitud != null)
+                {
+                    contexto.Amigo.Remove(solicitud);
+                    contexto.SaveChanges();
+                }
             }
         }
 
@@ -141,12 +141,16 @@ namespace AccesoDatos
             }
         }
 
-        public static void EliminarAmigo(Amigo amigo)
+        public static void EliminarAmigo(int idAmigo)
         {
             using (var contexto = new ModeloDBContainer())
             {
-                contexto.Amigo.Remove(amigo);
-                contexto.SaveChanges();
+                var amigo = contexto.Amigo.Find(idAmigo);
+                if (amigo != null)
+                {
+                    contexto.Amigo.Remove(amigo);
+                    contexto.SaveChanges();
+                }
             }
         }
     }

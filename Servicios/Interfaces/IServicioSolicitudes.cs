@@ -15,13 +15,13 @@ namespace Servicios.Interfaces
         bool EnviarSolicitud(string claveJugadorRemitente, int idJugador);
 
         [OperationContract]
-        Amigo[] RecibirSolicitudes(int idJugador);
+        Jugador[] RecibirSolicitudes(int idJugador);
 
         [OperationContract(IsOneWay = true)]
-        void AceptarSolicitud(Amigo solicitud);
+        void AceptarSolicitud(int idJugadorEmisor, int idJugadorReceptor);
 
         [OperationContract(IsOneWay = true)]
-        void RechazarSolicitud(Amigo solicitud);
+        void RechazarSolicitud(int idJugadorEmisor, int idJugadorReceptor);
 
         [OperationContract(IsOneWay = true)]
         void EnviarInvitacion(string codigoPartida, string correoJugadorInvitado, string nombreUsuarioInvitador);
@@ -31,7 +31,7 @@ namespace Servicios.Interfaces
     public interface IServicioSolicitudesCallback
     {
         [OperationContract(IsOneWay = true)]
-        void ObtenerNuevaSolicitud(SolicitudAmigo nuevaSolicitud);
+        void ObtenerNuevaSolicitud(Amigo solicitud);
 
         [OperationContract(IsOneWay = true)]
         void ActualizarListaAmigos();

@@ -296,11 +296,12 @@ namespace Servicios.Implementaciones
             }
         }
 
-        public Amigo[] RecibirSolicitudes(int idJugador)
+        public Jugador[] RecibirSolicitudes(int idJugador)
         {
-            Amigo[] solicitudes = DAOAmigo.ObtenerSolicitudes(idJugador);
+            Jugador[] solicitudes = DAOAmigo.ObtenerSolicitudes(idJugador);
             if (solicitudes != null)
             {
+                Console.WriteLine("Hay " + solicitudes.ToArray().Length + " solicitudes en el servidor.");
                 return solicitudes;
             }
             else
@@ -309,15 +310,17 @@ namespace Servicios.Implementaciones
             }
         }
 
-        public void AceptarSolicitud(Amigo solicitud)
+        public void AceptarSolicitud(int idJugadorEmisor, int idJugadorReceptor)
         {
+            Amigo solicitud = DAOAmigo.ObtenerAmigo(idJugadorEmisor, idJugadorReceptor);
             solicitud.estado = "Aceptada";
             DAOAmigo.AceptarSolicitud(solicitud);
         }
 
-        public void RechazarSolicitud(Amigo solicitud)
+        public void RechazarSolicitud(int idJugadorEmisor, int idJugadorReceptor)
         {
-            DAOAmigo.RechazarSolicitud(solicitud);
+            Amigo solicitud = DAOAmigo.ObtenerAmigo(idJugadorEmisor, idJugadorReceptor);
+            DAOAmigo.RechazarSolicitud(solicitud.idAmigo);
         }
 
         public void EnviarInvitacion(string codigoPartida, string correoJugadorInvitado, string nombreUsuarioInvitador)
@@ -346,7 +349,7 @@ namespace Servicios.Implementaciones
         public void EliminarAmigo(int idJugadorEmisor, int idJugadorReceptor)
         {
             Amigo amigo = DAOAmigo.ObtenerAmigo(idJugadorEmisor, idJugadorReceptor);
-            DAOAmigo.EliminarAmigo(amigo);
+            DAOAmigo.EliminarAmigo(amigo.idAmigo);
         }
 
         public bool BloquearJugador(int idJugadorEmisor, string claveJugadorReceptor)
@@ -365,7 +368,7 @@ namespace Servicios.Implementaciones
 
                     if (determinarAmistad(idJugadorEmisor, idJugadorReceptor))
                     {
-                        DAOAmigo.EliminarAmigo(DAOAmigo.ObtenerAmigo(idJugadorEmisor, idJugadorReceptor));
+                        DAOAmigo.EliminarAmigo(DAOAmigo.ObtenerAmigo(idJugadorEmisor, idJugadorReceptor).idAmigo);
                     }
 
                     return true;

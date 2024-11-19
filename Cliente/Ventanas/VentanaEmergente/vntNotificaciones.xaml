@@ -4,8 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Cliente.Ventanas.VentanaEmergente"
+             xmlns:cliente="clr-namespace:Cliente"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
+    <UserControl.Resources>
+        <cliente:ConvertidorImagenes x:Key="ConvertidorImagenes"/>
+    </UserControl.Resources>
     <Grid Margin="400,0,0,0">
         <Grid.Background>
             <ImageBrush ImageSource="pack://application:,,,/Cliente;component/Imagenes/imgVentanaEmergente3.png" Stretch="None"/>
@@ -18,8 +22,8 @@
                         <DataTemplate>
                             <Border BorderThickness="1" BorderBrush="#374255" Margin="5" Padding="5">
                                 <StackPanel Orientation="Horizontal">
-                                    <Image Source="{Binding FotoPerfil}"/>
-                                    <TextBlock Text="{Binding NombreUsuario}"/>
+                                    <Image Source="{Binding fotoPerfil, Converter={StaticResource ConvertidorImagenes}}"/>
+                                    <TextBlock Text="{Binding nombreUsuario}" FontSize="16" VerticalAlignment="Center" Margin="10,0,0,0"/>
                                 </StackPanel>
                             </Border>
                         </DataTemplate>

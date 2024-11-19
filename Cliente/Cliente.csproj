@@ -104,6 +104,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="ConvertidorImagenes.cs" />
+    <Compile Include="Logica\LogicaAmigos.cs" />
     <Compile Include="Logica\LogicaCrearJugador.cs" />
     <Compile Include="Logica\LogicaJuego.cs" />
     <Compile Include="Pruebas\PruebasChat.cs" />
@@ -118,8 +120,8 @@
     <Compile Include="Ventanas\Menu\VntConfiguracion.xaml.cs">
       <DependentUpon>VntConfiguracion.xaml</DependentUpon>
     </Compile>
-	<Compile Include="Ventanas\Lobby\vntLobby.xaml.cs">
-	</Compile>
+    <Compile Include="Ventanas\Lobby\vntLobby.xaml.cs">
+    </Compile>
     <Compile Include="Ventanas\VentanaEmergente\vntBloqueados.xaml.cs">
       <DependentUpon>vntBloqueados.xaml</DependentUpon>
     </Compile>
@@ -137,9 +139,6 @@
     </Compile>
     <Compile Include="Ventanas\vntListaAmigos.xaml.cs">
       <DependentUpon>vntListaAmigos.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Ventanas\vntLobby.xaml.cs">
-      <DependentUpon>vntLobby.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\Inicio\vntLogin.xaml.cs">
       <DependentUpon>vntLogin.xaml</DependentUpon>
@@ -192,10 +191,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-	<Page Include="Ventanas\vntLobby.xaml">
-		  <SubType>Designer</SubType>
-		  <Generator>MSBuild:Compile</Generator>
-	</Page>
     <Page Include="Ventanas\Lobby\VntConfigurarPartida.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -346,6 +341,7 @@
     <Resource Include="Imagenes\imgVentanaEmergente2.png" />
     <Resource Include="Imagenes\imgVentanaEmergente3.png" />
     <Resource Include="Imagenes\imgVentanaEmergente4.png" />
+    <Resource Include="Imagenes\imgCampanaLlena.png" />
     <Content Include="Musica\mscMenu.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -15,6 +15,7 @@ namespace Servicios
         const string EMAIL_JUEGO = "Luispablolagunesnoriega@gmail.com";
         const string CONTRASENIA_EMAIL = "sfad yvzo rpwn ubyd";
         const string ALIAS_JUEGO = "Throw Throw Burrito Game";
+        const string CARACTERES = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
         public static string GenerarCodigo(int longitud)
         {

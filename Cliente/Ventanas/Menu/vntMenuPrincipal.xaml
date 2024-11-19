@@ -287,8 +287,8 @@
             </StackPanel>
         </Grid>
 
-        <Grid x:Name="gVentanaAmigos" Visibility="Hidden">
-            <local:vntListaAmigos/>
+        <Grid>
+            <local:vntListaAmigos x:Name="uscListaAmigos" Visibility="Collapsed"/>
         </Grid>
     </Grid>
 </Page>
