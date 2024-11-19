@@ -39,7 +39,7 @@
 
             <!-- Botones -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="50,10,0,0">
-                <Button x:Name="btnInvitar" Width="100" Height="30" Margin="0,0,0,0" Click="btnInvitar_Click">
+                <Button x:Name="btnInvitar" Width="100" Height="30" Margin="0,0,0,0" Click="btnInvitar_Click" IsEnabled="False">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <Border x:Name="border" Background="#D4A456" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
@@ -188,8 +188,8 @@
         <Grid>
             <VentanaEmergente:vntNotificaciones x:Name="uscNotificaciones" Visibility="Collapsed"/>
         </Grid>
-        <Grid x:Name="gEmergenteBloqueados" Visibility="Collapsed">
-            <VentanaEmergente:vntBloqueados/>
+        <Grid>
+            <VentanaEmergente:vntBloqueados x:Name="uscBloqueados" Visibility="Collapsed"/>
         </Grid>
     </Grid>
 </UserControl>

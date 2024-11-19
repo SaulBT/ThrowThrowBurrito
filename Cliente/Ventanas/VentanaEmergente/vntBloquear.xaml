@@ -7,10 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
     <Grid Margin="000,0,0,0">
-        <Grid.Background>
-            <ImageBrush ImageSource="pack://application:,,,/Cliente;component/Imagenes/imgVentanaEmergente2.png" Stretch="None"/>
-        </Grid.Background>
-        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid x:Name="gFondoNegro" Background="Black" Opacity="0.5" Visibility="Visible"/>
+        <Image Source="pack://application:,,,/Cliente;component/Imagenes/imgVentanaEmergente2.png" Stretch="None"/>
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock Text="Ingresa el Código de Usuario de la cuenta a la que le quieres bloquear:" Width="300" TextWrapping="Wrap" TextAlignment="Center" FontSize="23"/>
             <TextBox x:Name="tbxCodigo" TextWrapping="Wrap" Text="" Width="200" Height="25" Margin="0,5,0,0" MaxLength="10" />
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">

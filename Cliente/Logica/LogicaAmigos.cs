@@ -17,6 +17,7 @@ namespace Cliente.Logica
         public int idJugador { get; set; }
         private ObservableCollection<Jugador> amigos;
         private ObservableCollection<Jugador> solicitudes;
+        private ObservableCollection<Jugador> bloqueados;
         private vntListaAmigos vntListaAmigos;
 
         public LogicaAmigos(int idJugador, vntListaAmigos vntListaAmigos)
@@ -25,14 +26,15 @@ namespace Cliente.Logica
             this.vntListaAmigos = vntListaAmigos;
             InstanceContext contexto = new InstanceContext(this);
             servicioSolicitudes = new ServicioSolicitudesClient(contexto);
-            amigos = new ObservableCollection<Jugador>(servicioAmigos.CargarAmigos(idJugador));
             
             cargarListaAmigos();
             cargarSolicitudes();
+            cargarBloqueados();
         }
 
         private void cargarListaAmigos()
         {
+            amigos = new ObservableCollection<Jugador>(servicioAmigos.CargarAmigos(idJugador));
             vntListaAmigos.CargarListaAmigos(amigos);
         }
 
@@ -40,7 +42,7 @@ namespace Cliente.Logica
         {
             solicitudes = new ObservableCollection<Jugador>(servicioSolicitudes.RecibirSolicitudes(idJugador));
             bool notificaciones;
-            if(solicitudes != null)
+            if(solicitudes.Count > 0)
             {
                 notificaciones = true;
                 Console.WriteLine("Hay " + solicitudes.ToArray().Length + " solicitudes en el cliente");
@@ -51,6 +53,12 @@ namespace Cliente.Logica
             }
 
             vntListaAmigos.configurarNotificaciones(notificaciones, solicitudes);
+        }
+
+        private void cargarBloqueados()
+        {
+            bloqueados = new ObservableCollection<Jugador>(servicioAmigos.CargarBloqueados(idJugador));
+            vntListaAmigos.uscBloqueados.AgregarBloqueados(bloqueados);
         }
 
         public bool EnviarSolicitudAmistad(string claveJugadorRemitente)
@@ -71,6 +79,16 @@ namespace Cliente.Logica
         public void EliminarAmigo(int idJugadorReceptor)
         {
             servicioAmigos.EliminarAmigo(idJugador, idJugadorReceptor);
+        }
+
+        public bool BloquearJugador(string claveJugadorReceptor)
+        {
+            return servicioAmigos.BloquearJugador(idJugador, claveJugadorReceptor);
+        }
+
+        public void DesbloquearJugador(int idJugadorReceptor)
+        {
+            servicioAmigos.DesbloquearJugador(idJugador, idJugadorReceptor);
         }
 
         public void ObtenerNuevaSolicitud(Amigo solicitud)

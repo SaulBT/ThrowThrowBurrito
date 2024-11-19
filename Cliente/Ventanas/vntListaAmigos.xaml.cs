@@ -32,7 +32,7 @@ namespace Cliente.Ventanas
             this.logica = logica;
             uscAgregarAmigo.AgregarLogica(logica);
             uscNotificaciones.AgregarLogica(logica);
-
+            uscBloqueados.AgregarLogica(logica);
 
         }
 
@@ -91,7 +91,7 @@ namespace Cliente.Ventanas
 
         private void btnBloqueados_Click(object sender, RoutedEventArgs e)
         {
-
+            uscBloqueados.Visibility = Visibility.Visible;
         }
 
         private void btnBuscarAmigo_Click(object sender, RoutedEventArgs e)

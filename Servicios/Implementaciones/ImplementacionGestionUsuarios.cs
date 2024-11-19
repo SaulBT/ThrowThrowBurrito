@@ -380,8 +380,7 @@ namespace Servicios.Implementaciones
 
         public void DesbloquearJugador(int idJugadorEmisor, int idJugadorRemitente)
         {
-            Bloqueado bloqueado = DAOBloqueado.ObtenerBloqueado(idJugadorEmisor, idJugadorRemitente);
-            DAOBloqueado.Desbloquear(bloqueado);
+            DAOBloqueado.Desbloquear(DAOBloqueado.ObtenerBloqueado(idJugadorEmisor, idJugadorRemitente).idBloqueado);
         }
 
         public Jugador[] CargarBloqueados(int idJugadorEmisor)

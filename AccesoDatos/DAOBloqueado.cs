@@ -82,12 +82,16 @@ namespace AccesoDatos
             }
         }
 
-        public static void Desbloquear(Bloqueado bloqueado)
+        public static void Desbloquear(int idBloqueado)
         {
             using (var contexto = new ModeloDBContainer())
             {
-                contexto.Bloqueado.Remove(bloqueado);
-                contexto.SaveChanges();
+                var bloqueado = contexto.Bloqueado.Find(idBloqueado);
+                if (bloqueado != null)
+                {
+                    contexto.Bloqueado.Remove(bloqueado);
+                    contexto.SaveChanges();
+                }
             }
         }
 
@@ -97,7 +101,7 @@ namespace AccesoDatos
             {
                 var bloqueados = (from b in contexto.Bloqueado
                                   where b.idJugadorEmisor == idJugadorEmisor
-                                  select b.Jugador);
+                                  select b.Jugador1);
 
                 if (bloqueados != null)
                 {

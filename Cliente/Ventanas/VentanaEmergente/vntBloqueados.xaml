@@ -5,8 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Cliente.Ventanas.VentanaEmergente"
              xmlns:VentanaEmergente="clr-namespace:Cliente.Ventanas.VentanaEmergente"
+             xmlns:cliente="clr-namespace:Cliente"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
+    <UserControl.Resources>
+        <cliente:ConvertidorImagenes x:Key="ConvertidorImagenes"/>
+    </UserControl.Resources>
     <Grid Margin="400,0,0,0">
         <Grid x:Name="gVentanaNormal">
             <Grid.Background>
@@ -20,8 +24,8 @@
                             <DataTemplate>
                                 <Border BorderThickness="1" BorderBrush="#374255" Margin="5" Padding="5">
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Source="{Binding FotoPerfil}"/>
-                                        <TextBlock Text="{Binding NombreUsuario}"/>
+                                        <Image Source="{Binding fotoPerfil, Converter={StaticResource ConvertidorImagenes}}"/>
+                                        <TextBlock Text="{Binding nombreUsuario}" FontSize="16" VerticalAlignment="Center" Margin="10,0,0,0"/>
                                     </StackPanel>
                                 </Border>
                             </DataTemplate>
@@ -29,7 +33,7 @@
                     </ListBox>
                 </ScrollViewer>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button x:Name="btnDesbloquear" Width="120" Height="30" Margin="0,20,0,0" Click="btnDesbloquear_Click" IsEnabled="False">
+                    <Button x:Name="btnDesbloquear" Width="120" Height="30" Margin="0,20,0,0" Click="btnDesbloquear_Click">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="border" Background="#759544" BorderBrush="Black" BorderThickness="1.5" CornerRadius="10">
@@ -113,8 +117,8 @@
                 </Button>
             </StackPanel>
         </Grid>
-        <Grid x:Name="gAgregarBloqueo">
-            <VentanaEmergente:vntBloquear/>
+        <Grid>
+            <VentanaEmergente:vntBloquear x:Name="uscAgregarBloqueo" Visibility="Collapsed"/>
         </Grid>
     </Grid>
 </UserControl>
