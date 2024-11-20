@@ -32,7 +32,8 @@ namespace Cliente.Ventanas.Menu
             this.Loaded += MenuPrincipal_Loaded;
             this.jugador = jugador;
             logicaJuego = new LogicaJuego();
-            logicaAmigos = new LogicaAmigos(jugador.idJugador, uscListaAmigos);
+            logicaAmigos = new LogicaAmigos(jugador.idJugador);
+            logicaAmigos.CargarVentanaAmigos(uscListaAmigos);
             uscListaAmigos.ConfigurarVentana(logicaAmigos);
         }
 
@@ -92,7 +93,7 @@ namespace Cliente.Ventanas.Menu
             {
                 ServiciosJuego.Partida partidaLocal = logicaJuego.CrearPartida(jugador.claveUsuario, jugador.idJugador);
 
-                vntLobby vntLobby = new vntLobby(this.jugador, partidaLocal, logicaJuego);
+                vntLobby vntLobby = new vntLobby(this.jugador, partidaLocal, logicaJuego, logicaAmigos);
                 logicaJuego.AsignarVentanaLobby(vntLobby);
                 vntLobby.Unirse();
                 NavigationService.Navigate(vntLobby);
@@ -150,7 +151,7 @@ namespace Cliente.Ventanas.Menu
                         tbcErrorUnirsePartida.Visibility= Visibility.Hidden;
                         //ServiciosJuego.Partida partidaLocal = logicaJuego.RetornarPartida(codigoPartida);
                         
-                        vntLobby vntLobby = new vntLobby(this.jugador, partidaLocal, logicaJuego);
+                        vntLobby vntLobby = new vntLobby(this.jugador, partidaLocal, logicaJuego, logicaAmigos);
                         logicaJuego.AsignarVentanaLobby(vntLobby);
                         vntLobby.Unirse();
 

@@ -128,11 +128,11 @@ namespace Servicios.Implementaciones
             Jugador jugador = DAOJugador.ObtenerJugadorPorCorreo(correo);
             if (jugador != null)
             {
-                return true;
+                return false;
             }
             else
             {
-                return false;
+                return true;
             }
         }
 

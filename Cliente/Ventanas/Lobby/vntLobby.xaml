@@ -34,7 +34,7 @@
                 <Image x:Name="imgAmigo2" Source="/Imagenes/imgAgregarAmigo.png" Stretch="None" HorizontalAlignment="Left" Margin="145,0,0,0"/>
                 <Image x:Name="imgAmigo3" Source="/Imagenes/imgAgregarAmigo.png" Stretch="None" HorizontalAlignment="Left" Margin="290,0,0,0"/>
             </Grid>
-            <Button x:Name="btnAgregarAmigos" Width="250" Height="40" Margin="0,40,0,0" HorizontalAlignment="Center" FontSize="23">
+            <Button x:Name="btnAgregarAmigos" Width="250" Height="40" Margin="0,40,0,0" HorizontalAlignment="Center" FontSize="23" Click="btnAgregarAmigos_Click" Visibility="Collapsed">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="#D09330" BorderBrush="Black" BorderThickness="3" CornerRadius="10">
@@ -65,7 +65,7 @@
             <TextBlock x:Name="tbcPuntosVictoria" Text="Puntos para la victoria: " FontSize="20" HorizontalAlignment="Center"/>
             <TextBlock x:Name="tbcTiempoGuerra" Text="Tiempo de guerra: " FontSize="20" HorizontalAlignment="Center"/>
             <TextBlock x:Name="tbcCodigoPartida" Text="Código: " FontSize="23" HorizontalAlignment="Center" Margin="0,15,0,0"/>
-            <Button x:Name="btnIniciarPartida" Width="220" Height="50" Margin="0,5,0,0" HorizontalAlignment="Center" FontSize="23" Visibility="Hidden">
+            <Button x:Name="btnIniciarPartida" Width="220" Height="50" Margin="0,5,0,0" HorizontalAlignment="Center" FontSize="23" Visibility="Collapsed">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="#33CC00" BorderBrush="#0E6987" BorderThickness="3" CornerRadius="10">
@@ -104,6 +104,10 @@
                     </Button.Template>
                 </Button>
             </StackPanel>
+        </Grid>
+
+        <Grid>
+            <local:vntListaAmigos x:Name="uscListaAmigos" Visibility="Collapsed"/>
         </Grid>
     </Grid>
 </Page>

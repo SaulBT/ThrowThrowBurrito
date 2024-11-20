@@ -29,17 +29,20 @@ namespace Cliente.Ventanas.Lobby
         private ServiciosJuego.Jugador jugador;
         private LogicaChat logicaChat;
         private LogicaJuego logicaJuego;
+        private LogicaAmigos logicaAmigos;
         private ServiciosJuego.Partida partidaLocal;
         private ServiciosJuego.DatosJugadorPartida[] datosJugadorPartida;
         private ServicioJuegoClient servicioJuegoClient;
 
-        public vntLobby(ServiciosGestionUsuarios.Jugador jugador, ServiciosJuego.Partida partida, LogicaJuego logicaJuego)
+        public vntLobby(ServiciosGestionUsuarios.Jugador jugador, ServiciosJuego.Partida partida, LogicaJuego logicaJuego, LogicaAmigos logicaAmigos)
         {
             InitializeComponent();
             this.jugador = castJugadorJuego(jugador);
             this.partidaLocal = partida;
-            logicaChat= new LogicaChat(this, jugador.nombreUsuario);
+            logicaChat = new LogicaChat(this, jugador.nombreUsuario);
             this.logicaJuego = logicaJuego;
+            this.logicaAmigos = logicaAmigos;
+            logicaAmigos.CargarVentanaAmigos(uscListaAmigos);
             tbcCodigoPartida.Text += partida.codigoPartida;
 
             InstanceContext contexto = new InstanceContext(this);
@@ -49,6 +52,7 @@ namespace Cliente.Ventanas.Lobby
             tbcPuntosVictoria.Text += partidaLocal.puntajeVictoria;
             tbcTiempoGuerra.Text += partidaLocal.tiempoGuerra;
             ConfigurarVistaAdmin();
+            cargarServicioAmigos();
             /*
              * hago el retorno de datos directamente en el lobby mientras que el retorno de de partida lo hago desde el menú
              * esto porque ahí mismo se crea la partida (evitando ir a una ventana aparte en caso de ocurra en error) pues 
@@ -111,6 +115,7 @@ namespace Cliente.Ventanas.Lobby
                 {
                     if (dato.esAdmin == true)
                     {
+                        btnAgregarAmigos.Visibility = Visibility.Visible;
                         btnIniciarPartida.Visibility = Visibility.Visible;
                         btnConfigurarPartida.Visibility = Visibility.Visible;
                         return;
@@ -120,8 +125,16 @@ namespace Cliente.Ventanas.Lobby
                         return;
                     }
                 }
-                
+
             }
+        }
+
+        private void cargarServicioAmigos()
+        {
+            uscListaAmigos.btnInvitar.IsEnabled = true;
+            uscListaAmigos.ConfigurarVentana(logicaAmigos);
+            uscListaAmigos.codigoPartida = partidaLocal.codigoPartida;
+            uscListaAmigos.nombreUsuarioEmisor = jugador.nombreUsuario;
         }
 
         public void Unirse()
@@ -267,6 +280,11 @@ namespace Cliente.Ventanas.Lobby
         {
             VntConfigurarPartida vntConfigurarPartida = new VntConfigurarPartida(partidaLocal, logicaJuego, this);
             NavigationService.Navigate(vntConfigurarPartida);
+        }
+
+        private void btnAgregarAmigos_Click(object sender, RoutedEventArgs e)
+        {
+            uscListaAmigos.Visibility = Visibility.Visible;
         }
     }
 }

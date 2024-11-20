@@ -22,6 +22,8 @@ namespace Cliente.Ventanas
     {
         private LogicaAmigos logica;
         private ObservableCollection<Jugador> amigos;
+        public string codigoPartida { get; set; }
+        public string nombreUsuarioEmisor { get; set; }
         public vntListaAmigos()
         {
             InitializeComponent();
@@ -76,7 +78,11 @@ namespace Cliente.Ventanas
 
         private void btnInvitar_Click(object sender, RoutedEventArgs e)
         {
-
+            Jugador jugadorSeleccionado = AmigosListBox.SelectedItem as Jugador;
+            if (jugadorSeleccionado != null)
+            {
+                logica.EnviarInvitacion(codigoPartida, jugadorSeleccionado.correoElectronico, nombreUsuarioEmisor);
+            }
         }
 
         private void btnEliminar_Click(object sender, RoutedEventArgs e)

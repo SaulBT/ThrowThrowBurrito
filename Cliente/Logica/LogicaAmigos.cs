@@ -20,27 +20,37 @@ namespace Cliente.Logica
         private ObservableCollection<Jugador> bloqueados;
         private vntListaAmigos vntListaAmigos;
 
-        public LogicaAmigos(int idJugador, vntListaAmigos vntListaAmigos)
+        public LogicaAmigos(int idJugador)
         {
             this.idJugador = idJugador;
-            this.vntListaAmigos = vntListaAmigos;
+            
             InstanceContext contexto = new InstanceContext(this);
             servicioSolicitudes = new ServicioSolicitudesClient(contexto);
+
+            amigos = new ObservableCollection<Jugador>(servicioAmigos.CargarAmigos(idJugador));
+            solicitudes = new ObservableCollection<Jugador>(servicioSolicitudes.RecibirSolicitudes(idJugador));
+            bloqueados = new ObservableCollection<Jugador>(servicioAmigos.CargarBloqueados(idJugador));
+
             
-            cargarListaAmigos();
-            cargarSolicitudes();
-            cargarBloqueados();
         }
 
-        private void cargarListaAmigos()
+        public void CargarVentanaAmigos(vntListaAmigos vntListaAmigos)
         {
-            amigos = new ObservableCollection<Jugador>(servicioAmigos.CargarAmigos(idJugador));
+            this.vntListaAmigos = vntListaAmigos;
+            CargarListaAmigos();
+            CargarSolicitudes();
+            CargarBloqueados();
+        }
+
+        public void CargarListaAmigos()
+        {
+            
             vntListaAmigos.CargarListaAmigos(amigos);
         }
 
-        private void cargarSolicitudes()
+        public void CargarSolicitudes()
         {
-            solicitudes = new ObservableCollection<Jugador>(servicioSolicitudes.RecibirSolicitudes(idJugador));
+            
             bool notificaciones;
             if(solicitudes.Count > 0)
             {
@@ -55,9 +65,9 @@ namespace Cliente.Logica
             vntListaAmigos.configurarNotificaciones(notificaciones, solicitudes);
         }
 
-        private void cargarBloqueados()
+        public void CargarBloqueados()
         {
-            bloqueados = new ObservableCollection<Jugador>(servicioAmigos.CargarBloqueados(idJugador));
+            
             vntListaAmigos.uscBloqueados.AgregarBloqueados(bloqueados);
         }
 
@@ -74,6 +84,11 @@ namespace Cliente.Logica
         public void RechazarSolicitudAmistad(int idJugadorEmisor)
         {
             servicioSolicitudes.RechazarSolicitud(idJugadorEmisor, idJugador);
+        }
+
+        public void EnviarInvitacion(string codigoPartida, string correo, string nombreUsuario)
+        {
+            servicioSolicitudes.EnviarInvitacion(codigoPartida, correo, nombreUsuario);
         }
 
         public void EliminarAmigo(int idJugadorReceptor)

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="9.1" CheckSum="C3DUoNBOycMpG9j92Ki7pPylkyQ/90MNOwZ79bx0/OM=">
+<SavedWcfConfigurationInformation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="9.1" CheckSum="eRlZhCrqbAh1QvjJHEyqWWvujsHvYJUtFZNLiPvxlEs=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="netTcpBinding" name="NetTcpBinding_IServicioLogin">
       <properties>
@@ -81,8 +81,8 @@
         <property path="/security" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.NetTcpSecurityElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.NetTcpSecurityElement</serializedValue>
         </property>
-        <property path="/security/mode" isComplexType="false" isExplicitlyDefined="false" clrType="System.ServiceModel.SecurityMode, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>Transport</serializedValue>
+        <property path="/security/mode" isComplexType="false" isExplicitlyDefined="true" clrType="System.ServiceModel.SecurityMode, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>None</serializedValue>
         </property>
         <property path="/security/transport" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.TcpTransportSecurityElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.TcpTransportSecurityElement</serializedValue>
@@ -317,8 +317,8 @@
         <property path="/security" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.NetTcpSecurityElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.NetTcpSecurityElement</serializedValue>
         </property>
-        <property path="/security/mode" isComplexType="false" isExplicitlyDefined="false" clrType="System.ServiceModel.SecurityMode, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>Transport</serializedValue>
+        <property path="/security/mode" isComplexType="false" isExplicitlyDefined="true" clrType="System.ServiceModel.SecurityMode, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>None</serializedValue>
         </property>
         <property path="/security/transport" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.TcpTransportSecurityElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.TcpTransportSecurityElement</serializedValue>
@@ -611,8 +611,8 @@
         <property path="/transactionFlow" isComplexType="false" isExplicitlyDefined="false" clrType="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>False</serializedValue>
         </property>
-        <property path="/transferMode" isComplexType="false" isExplicitlyDefined="false" clrType="System.ServiceModel.TransferMode, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>Buffered</serializedValue>
+        <property path="/transferMode" isComplexType="false" isExplicitlyDefined="true" clrType="System.ServiceModel.TransferMode, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>Streamed</serializedValue>
         </property>
         <property path="/transactionProtocol" isComplexType="false" isExplicitlyDefined="false" clrType="System.ServiceModel.TransactionProtocol, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>OleTransactions</serializedValue>
@@ -671,8 +671,8 @@
         <property path="/security" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.NetTcpSecurityElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.NetTcpSecurityElement</serializedValue>
         </property>
-        <property path="/security/mode" isComplexType="false" isExplicitlyDefined="false" clrType="System.ServiceModel.SecurityMode, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>Transport</serializedValue>
+        <property path="/security/mode" isComplexType="false" isExplicitlyDefined="true" clrType="System.ServiceModel.SecurityMode, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue>None</serializedValue>
         </property>
         <property path="/security/transport" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.TcpTransportSecurityElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.TcpTransportSecurityElement</serializedValue>
@@ -825,8 +825,8 @@
         <property path="/identity/userPrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.UserPrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
-        <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-DTC15CT\Usuario</serializedValue>
+        <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue />
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
@@ -910,8 +910,8 @@
         <property path="/identity/userPrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.UserPrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
-        <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-DTC15CT\Usuario</serializedValue>
+        <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue />
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
@@ -1165,8 +1165,8 @@
         <property path="/identity/userPrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.UserPrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.UserPrincipalNameElement</serializedValue>
         </property>
-        <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>DESKTOP-DTC15CT\Usuario</serializedValue>
+        <property path="/identity/userPrincipalName/value" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+          <serializedValue />
         </property>
         <property path="/identity/servicePrincipalName" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.ServicePrincipalNameElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.ServicePrincipalNameElement</serializedValue>
