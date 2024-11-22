@@ -1325,16 +1325,22 @@ namespace Cliente.ServiciosGestionUsuarios {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServicioSolicitudes/EnviarInvitacion")]
         System.Threading.Tasks.Task EnviarInvitacionAsync(string codigoPartida, string correoJugadorInvitado, string nombreUsuarioInvitador);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServicioSolicitudes/EnviarCliente")]
+        void EnviarCliente(int idJugador);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServicioSolicitudes/EnviarCliente")]
+        System.Threading.Tasks.Task EnviarClienteAsync(int idJugador);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IServicioSolicitudesCallback {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServicioSolicitudes/ObtenerNuevaSolicitud")]
-        void ObtenerNuevaSolicitud(Cliente.ServiciosGestionUsuarios.Amigo solicitud);
+        void ObtenerNuevaSolicitud(Cliente.ServiciosGestionUsuarios.Jugador solicitud);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServicioSolicitudes/ActualizarListaAmigos")]
-        void ActualizarListaAmigos();
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServicioSolicitudes/ObtenerAmigoNuevo")]
+        void ObtenerAmigoNuevo(Cliente.ServiciosGestionUsuarios.Jugador amigo);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1403,6 +1409,14 @@ namespace Cliente.ServiciosGestionUsuarios {
         
         public System.Threading.Tasks.Task EnviarInvitacionAsync(string codigoPartida, string correoJugadorInvitado, string nombreUsuarioInvitador) {
             return base.Channel.EnviarInvitacionAsync(codigoPartida, correoJugadorInvitado, nombreUsuarioInvitador);
+        }
+        
+        public void EnviarCliente(int idJugador) {
+            base.Channel.EnviarCliente(idJugador);
+        }
+        
+        public System.Threading.Tasks.Task EnviarClienteAsync(int idJugador) {
+            return base.Channel.EnviarClienteAsync(idJugador);
         }
     }
     

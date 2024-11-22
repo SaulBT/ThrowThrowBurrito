@@ -26,6 +26,7 @@ namespace Cliente.Logica
             
             InstanceContext contexto = new InstanceContext(this);
             servicioSolicitudes = new ServicioSolicitudesClient(contexto);
+            servicioSolicitudes.EnviarCliente(idJugador);
 
             amigos = new ObservableCollection<Jugador>(servicioAmigos.CargarAmigos(idJugador));
             solicitudes = new ObservableCollection<Jugador>(servicioSolicitudes.RecibirSolicitudes(idJugador));
@@ -106,14 +107,14 @@ namespace Cliente.Logica
             servicioAmigos.DesbloquearJugador(idJugador, idJugadorReceptor);
         }
 
-        public void ObtenerNuevaSolicitud(Amigo solicitud)
+        public void ObtenerNuevaSolicitud(Jugador solicitud)
         {
-            throw new NotImplementedException();
+            solicitudes.Add(solicitud);
         }
 
-        public void ActualizarListaAmigos()
+        public void ObtenerAmigoNuevo(Jugador amigo)
         {
-            throw new NotImplementedException();
+            amigos.Add(amigo);
         }
     }
 }

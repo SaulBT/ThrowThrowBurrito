@@ -25,15 +25,18 @@ namespace Servicios.Interfaces
 
         [OperationContract(IsOneWay = true)]
         void EnviarInvitacion(string codigoPartida, string correoJugadorInvitado, string nombreUsuarioInvitador);
+
+        [OperationContract(IsOneWay = true)]
+        void EnviarCliente(int idJugador);
     }
 
     [ServiceContract]
     public interface IServicioSolicitudesCallback
     {
         [OperationContract(IsOneWay = true)]
-        void ObtenerNuevaSolicitud(Amigo solicitud);
+        void ObtenerNuevaSolicitud(Jugador solicitud);
 
         [OperationContract(IsOneWay = true)]
-        void ActualizarListaAmigos();
+        void ObtenerAmigoNuevo(Jugador amigo);
     }
 }

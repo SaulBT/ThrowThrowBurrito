@@ -18,6 +18,7 @@ using System.Runtime.Remoting.Contexts;
 
 namespace Servicios.Implementaciones
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single, ConcurrencyMode = ConcurrencyMode.Reentrant)]
     public class ImplementacionGestionUsuarios : IServicioRegistrarUsuario, IServicioPersonalizarPerfil, IServicioLogin, IServicioCambiarContrasenia, IServicioAmigos, IServicioSolicitudes
     {
         const int LONGITUD_CODIGO = 6;
@@ -32,6 +33,8 @@ namespace Servicios.Implementaciones
             "\tCódigo de recuperación: ";
         const string ASUNTO_CORREO_INVITACION = "¡Un amigo te está invitando a una partida!";
         const string CUERPO_CORREO_INVITACION = " te está invitando a que te unas a su partida. ¿Qué esperas para unirte?\nCódigo de la partida:\n\n";
+
+        private Dictionary<int, IServicioSolicitudesCallback> clientesSolicitudes = new Dictionary<int, IServicioSolicitudesCallback>();
 
 
 
@@ -237,6 +240,11 @@ namespace Servicios.Implementaciones
         /*
          * Servicio de solicitudes
         */
+        public void EnviarCliente(int idJugador)
+        {
+            var cliente = OperationContext.Current.GetCallbackChannel<IServicioSolicitudesCallback>();
+            clientesSolicitudes.Add(idJugador, cliente);
+        }
 
         public bool EnviarSolicitud(string claveJugadorReceptor, int idJugador)
         {
@@ -250,6 +258,7 @@ namespace Servicios.Implementaciones
                     estado = "Pendiente",
                 };
                 DAOAmigo.CargarAmigo(solicitud);
+                HacerLlegarSolicitud(solicitud);
 
                 return true;
             }
@@ -257,6 +266,16 @@ namespace Servicios.Implementaciones
             {
                 return false;
             }
+        }
+
+        private void HacerLlegarSolicitud(Amigo solicitud)
+        {
+            if (clientesSolicitudes.ContainsKey(solicitud.idJugadorReceptor))
+            {
+                Jugador receptor = DAOJugador.ObtenerSolicitud(solicitud.idJugadorEmisor);
+                clientesSolicitudes[solicitud.idJugadorReceptor].ObtenerNuevaSolicitud(receptor);
+            }
+            
         }
 
         private int obtenerJugadorRemitente(string claveJugadorRemitente)
@@ -315,6 +334,18 @@ namespace Servicios.Implementaciones
             Amigo solicitud = DAOAmigo.ObtenerAmigo(idJugadorEmisor, idJugadorReceptor);
             solicitud.estado = "Aceptada";
             DAOAmigo.AceptarSolicitud(solicitud);
+            Jugador amigoEmisor = DAOJugador.ObtenerAmigo(idJugadorEmisor);
+            Jugador amigoReceptor = DAOJugador.ObtenerAmigo(idJugadorReceptor);
+            hacerLlegarAmigo(amigoEmisor, idJugadorReceptor);
+            hacerLlegarAmigo(amigoReceptor, idJugadorEmisor);
+        }
+
+        private void hacerLlegarAmigo(Jugador amigo, int idJugador)
+        {
+            if (clientesSolicitudes.ContainsKey(idJugador))
+            {
+                clientesSolicitudes[idJugador].ObtenerAmigoNuevo(amigo);
+            }
         }
 
         public void RechazarSolicitud(int idJugadorEmisor, int idJugadorReceptor)

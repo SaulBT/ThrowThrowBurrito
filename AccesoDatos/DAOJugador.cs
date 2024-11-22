@@ -162,9 +162,49 @@ namespace AccesoDatos
                     return null;
                 }
             }
-            
+        }
 
-            
+        public static Jugador ObtenerSolicitud(int idJugador)
+        {
+            Jugador respuesta = new Jugador()
+            {
+                idJugador = -1
+            };
+            using(var contexto = new ModeloDBContainer())
+            {
+                var solicitud = (from j in contexto.Jugador
+                                 where j.idJugador == idJugador
+                                 select j).FirstOrDefault();
+
+                respuesta.idJugador = solicitud.idJugador;
+                respuesta.nombreUsuario = solicitud.nombreUsuario;
+                respuesta.fotoPerfil = solicitud.fotoPerfil;
+            }
+
+            return respuesta;
+        }
+
+        public static Jugador ObtenerAmigo(int idJugador)
+        {
+            Jugador respuesta = new Jugador()
+            {
+                idJugador = -1
+            };
+
+            using (var contexto = new ModeloDBContainer())
+            {
+                var amigo = (from j in contexto.Jugador
+                                 where j.idJugador == idJugador
+                                 select j).FirstOrDefault();
+
+                respuesta.idJugador = amigo.idJugador;
+                respuesta.nombreUsuario = amigo.nombreUsuario;
+                respuesta.fotoPerfil = amigo.fotoPerfil;
+                respuesta.estado = amigo.estado;
+                respuesta.correoElectronico = amigo.correoElectronico;
+            }
+
+            return respuesta;
         }
     }
 }
