@@ -57,6 +57,7 @@
     <Compile Include="Interfaces\IServicioPersonalizarPerfil.cs" />
     <Compile Include="Interfaces\IServicioRegistrarUsuario.cs" />
     <Compile Include="Interfaces\IServicioSolicitudes.cs" />
+    <Compile Include="RepositorioCallbacks.cs" />
     <Compile Include="Utilidades.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -18,7 +18,7 @@ namespace Servicios.Interfaces
         void EliminarAmigo(int idJugadorEmisor, int idJugadorReceptor);
 
         [OperationContract]
-        bool BloquearJugador(int idJugadorEmisor, string claveJugadorReceptor);
+        int BloquearJugador(int idJugadorEmisor, string claveJugadorReceptor);
 
         [OperationContract]
         void DesbloquearJugador(int idJugadorEmisor, int idJugadorRemitente);

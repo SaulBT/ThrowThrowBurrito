@@ -15,19 +15,22 @@ using System.Windows.Shapes;
 
 namespace Cliente.Ventanas.VentanaEmergente
 {
-    /// <summary>
-    /// Interaction logic for vntErrorAmigo.xaml
-    /// </summary>
-    public partial class vntErrorAmigo : UserControl
+    public partial class vntEmergente : UserControl
     {
-        public vntErrorAmigo()
+        public vntEmergente()
         {
             InitializeComponent();
         }
 
+        public void Mostrar(string texto)
+        {
+            tbcMensajeEmergente.Text = texto;
+            this.Visibility = Visibility.Visible;
+        }
+
         private void btnAceptarEmergente_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Visibility = Visibility.Collapsed;
         }
     }
 }

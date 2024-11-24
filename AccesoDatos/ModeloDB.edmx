@@ -18,7 +18,7 @@
           <Key>
             <PropertyRef Name="idBloqueado" />
           </Key>
-          <Property Name="idBloqueado" Type="int" Nullable="false" />
+          <Property Name="idBloqueado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idJugadorEmisor" Type="int" Nullable="false" />
           <Property Name="idJugadorReceptor" Type="int" Nullable="false" />
         </EntityType>

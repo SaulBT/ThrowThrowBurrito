@@ -134,8 +134,8 @@
     <Compile Include="Ventanas\VentanaEmergente\vntAgregarAmigo.xaml.cs">
       <DependentUpon>vntAgregarAmigo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventanas\VentanaEmergente\vntErrorAmigo.xaml.cs">
-      <DependentUpon>vntErrorAmigo.xaml</DependentUpon>
+    <Compile Include="Ventanas\VentanaEmergente\vntEmergente.xaml.cs">
+      <DependentUpon>vntEmergente.xaml</DependentUpon>
     </Compile>
     <Compile Include="Ventanas\vntListaAmigos.xaml.cs">
       <DependentUpon>vntListaAmigos.xaml</DependentUpon>
@@ -183,7 +183,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Ventanas\VentanaEmergente\vntErrorAmigo.xaml">
+    <Page Include="Ventanas\VentanaEmergente\vntEmergente.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -72,7 +72,7 @@ namespace Cliente.Logica
             vntListaAmigos.uscBloqueados.AgregarBloqueados(bloqueados);
         }
 
-        public bool EnviarSolicitudAmistad(string claveJugadorRemitente)
+        public int EnviarSolicitudAmistad(string claveJugadorRemitente)
         {
             return servicioSolicitudes.EnviarSolicitud(claveJugadorRemitente, idJugador);
         }
@@ -97,7 +97,7 @@ namespace Cliente.Logica
             servicioAmigos.EliminarAmigo(idJugador, idJugadorReceptor);
         }
 
-        public bool BloquearJugador(string claveJugadorReceptor)
+        public int BloquearJugador(string claveJugadorReceptor)
         {
             return servicioAmigos.BloquearJugador(idJugador, claveJugadorReceptor);
         }
@@ -115,6 +115,25 @@ namespace Cliente.Logica
         public void ObtenerAmigoNuevo(Jugador amigo)
         {
             amigos.Add(amigo);
+        }
+
+        public void ObtenerNuevoBloqueo(Jugador bloqueado)
+        {
+            Console.WriteLine("Se está recibiendo el jugador bloqueado.");
+            bloqueados.Add(bloqueado);
+        }
+
+        public void EnviarEliminacionAmigo(int idJugadorEmisor)
+        {
+            Console.WriteLine("Se está recibiendo la actualización de la eliminación.");
+            Jugador[] arrayAmigos = amigos.ToArray();
+            foreach(var a in arrayAmigos)
+            {
+                if (a.idJugador == idJugadorEmisor)
+                {
+                    amigos.Remove(a);
+                }
+            }
         }
     }
 }

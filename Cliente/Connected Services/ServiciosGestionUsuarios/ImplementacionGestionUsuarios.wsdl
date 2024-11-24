@@ -203,8 +203,26 @@
   <wsdl:message name="IServicioSolicitudes_ObtenerNuevaSolicitud_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:ObtenerNuevaSolicitud" />
   </wsdl:message>
+  <wsdl:message name="IServicioSolicitudes_ObtenerNuevaSolicitud_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerNuevaSolicitudResponse" />
+  </wsdl:message>
   <wsdl:message name="IServicioSolicitudes_ObtenerAmigoNuevo_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:ObtenerAmigoNuevo" />
+  </wsdl:message>
+  <wsdl:message name="IServicioSolicitudes_ObtenerAmigoNuevo_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerAmigoNuevoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioSolicitudes_EnviarEliminacionAmigo_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:EnviarEliminacionAmigo" />
+  </wsdl:message>
+  <wsdl:message name="IServicioSolicitudes_EnviarEliminacionAmigo_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:EnviarEliminacionAmigoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IServicioSolicitudes_ObtenerNuevoBloqueo_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerNuevoBloqueo" />
+  </wsdl:message>
+  <wsdl:message name="IServicioSolicitudes_ObtenerNuevoBloqueo_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:ObtenerNuevoBloqueoResponse" />
   </wsdl:message>
   <wsdl:message name="IServicioAmigos_CargarAmigos_InputMessage">
     <wsdl:part name="parameters" element="tns:CargarAmigos" />
@@ -303,9 +321,19 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerNuevaSolicitud">
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioSolicitudes/ObtenerNuevaSolicitud" message="tns:IServicioSolicitudes_ObtenerNuevaSolicitud_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioSolicitudes/ObtenerNuevaSolicitudResponse" message="tns:IServicioSolicitudes_ObtenerNuevaSolicitud_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="ObtenerAmigoNuevo">
       <wsdl:output wsaw:Action="http://tempuri.org/IServicioSolicitudes/ObtenerAmigoNuevo" message="tns:IServicioSolicitudes_ObtenerAmigoNuevo_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioSolicitudes/ObtenerAmigoNuevoResponse" message="tns:IServicioSolicitudes_ObtenerAmigoNuevo_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EnviarEliminacionAmigo">
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioSolicitudes/EnviarEliminacionAmigo" message="tns:IServicioSolicitudes_EnviarEliminacionAmigo_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioSolicitudes/EnviarEliminacionAmigoResponse" message="tns:IServicioSolicitudes_EnviarEliminacionAmigo_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerNuevoBloqueo">
+      <wsdl:output wsaw:Action="http://tempuri.org/IServicioSolicitudes/ObtenerNuevoBloqueo" message="tns:IServicioSolicitudes_ObtenerNuevoBloqueo_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IServicioSolicitudes/ObtenerNuevoBloqueoResponse" message="tns:IServicioSolicitudes_ObtenerNuevoBloqueo_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IServicioAmigos">
@@ -474,12 +502,36 @@
     </wsdl:operation>
     <wsdl:operation name="ObtenerNuevaSolicitud">
       <soap12:operation soapAction="http://tempuri.org/IServicioSolicitudes/ObtenerNuevaSolicitud" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="ObtenerAmigoNuevo">
       <soap12:operation soapAction="http://tempuri.org/IServicioSolicitudes/ObtenerAmigoNuevo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarEliminacionAmigo">
+      <soap12:operation soapAction="http://tempuri.org/IServicioSolicitudes/EnviarEliminacionAmigo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ObtenerNuevoBloqueo">
+      <soap12:operation soapAction="http://tempuri.org/IServicioSolicitudes/ObtenerNuevoBloqueo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>

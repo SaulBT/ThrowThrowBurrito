@@ -1297,10 +1297,10 @@ namespace Cliente.ServiciosGestionUsuarios {
     public interface IServicioSolicitudes {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioSolicitudes/EnviarSolicitud", ReplyAction="http://tempuri.org/IServicioSolicitudes/EnviarSolicitudResponse")]
-        bool EnviarSolicitud(string claveJugadorRemitente, int idJugador);
+        int EnviarSolicitud(string claveJugadorRemitente, int idJugador);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioSolicitudes/EnviarSolicitud", ReplyAction="http://tempuri.org/IServicioSolicitudes/EnviarSolicitudResponse")]
-        System.Threading.Tasks.Task<bool> EnviarSolicitudAsync(string claveJugadorRemitente, int idJugador);
+        System.Threading.Tasks.Task<int> EnviarSolicitudAsync(string claveJugadorRemitente, int idJugador);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioSolicitudes/RecibirSolicitudes", ReplyAction="http://tempuri.org/IServicioSolicitudes/RecibirSolicitudesResponse")]
         Cliente.ServiciosGestionUsuarios.Jugador[] RecibirSolicitudes(int idJugador);
@@ -1336,11 +1336,17 @@ namespace Cliente.ServiciosGestionUsuarios {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IServicioSolicitudesCallback {
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServicioSolicitudes/ObtenerNuevaSolicitud")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioSolicitudes/ObtenerNuevaSolicitud", ReplyAction="http://tempuri.org/IServicioSolicitudes/ObtenerNuevaSolicitudResponse")]
         void ObtenerNuevaSolicitud(Cliente.ServiciosGestionUsuarios.Jugador solicitud);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IServicioSolicitudes/ObtenerAmigoNuevo")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioSolicitudes/ObtenerAmigoNuevo", ReplyAction="http://tempuri.org/IServicioSolicitudes/ObtenerAmigoNuevoResponse")]
         void ObtenerAmigoNuevo(Cliente.ServiciosGestionUsuarios.Jugador amigo);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioSolicitudes/EnviarEliminacionAmigo", ReplyAction="http://tempuri.org/IServicioSolicitudes/EnviarEliminacionAmigoResponse")]
+        void EnviarEliminacionAmigo(int idJugadorEmisor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioSolicitudes/ObtenerNuevoBloqueo", ReplyAction="http://tempuri.org/IServicioSolicitudes/ObtenerNuevoBloqueoResponse")]
+        void ObtenerNuevoBloqueo(Cliente.ServiciosGestionUsuarios.Jugador bloqueado);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1371,11 +1377,11 @@ namespace Cliente.ServiciosGestionUsuarios {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public bool EnviarSolicitud(string claveJugadorRemitente, int idJugador) {
+        public int EnviarSolicitud(string claveJugadorRemitente, int idJugador) {
             return base.Channel.EnviarSolicitud(claveJugadorRemitente, idJugador);
         }
         
-        public System.Threading.Tasks.Task<bool> EnviarSolicitudAsync(string claveJugadorRemitente, int idJugador) {
+        public System.Threading.Tasks.Task<int> EnviarSolicitudAsync(string claveJugadorRemitente, int idJugador) {
             return base.Channel.EnviarSolicitudAsync(claveJugadorRemitente, idJugador);
         }
         
@@ -1437,10 +1443,10 @@ namespace Cliente.ServiciosGestionUsuarios {
         System.Threading.Tasks.Task EliminarAmigoAsync(int idJugadorEmisor, int idJugadorReceptor);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioAmigos/BloquearJugador", ReplyAction="http://tempuri.org/IServicioAmigos/BloquearJugadorResponse")]
-        bool BloquearJugador(int idJugadorEmisor, string claveJugadorReceptor);
+        int BloquearJugador(int idJugadorEmisor, string claveJugadorReceptor);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioAmigos/BloquearJugador", ReplyAction="http://tempuri.org/IServicioAmigos/BloquearJugadorResponse")]
-        System.Threading.Tasks.Task<bool> BloquearJugadorAsync(int idJugadorEmisor, string claveJugadorReceptor);
+        System.Threading.Tasks.Task<int> BloquearJugadorAsync(int idJugadorEmisor, string claveJugadorReceptor);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IServicioAmigos/DesbloquearJugador", ReplyAction="http://tempuri.org/IServicioAmigos/DesbloquearJugadorResponse")]
         void DesbloquearJugador(int idJugadorEmisor, int idJugadorRemitente);
@@ -1498,11 +1504,11 @@ namespace Cliente.ServiciosGestionUsuarios {
             return base.Channel.EliminarAmigoAsync(idJugadorEmisor, idJugadorReceptor);
         }
         
-        public bool BloquearJugador(int idJugadorEmisor, string claveJugadorReceptor) {
+        public int BloquearJugador(int idJugadorEmisor, string claveJugadorReceptor) {
             return base.Channel.BloquearJugador(idJugadorEmisor, claveJugadorReceptor);
         }
         
-        public System.Threading.Tasks.Task<bool> BloquearJugadorAsync(int idJugadorEmisor, string claveJugadorReceptor) {
+        public System.Threading.Tasks.Task<int> BloquearJugadorAsync(int idJugadorEmisor, string claveJugadorReceptor) {
             return base.Channel.BloquearJugadorAsync(idJugadorEmisor, claveJugadorReceptor);
         }
         

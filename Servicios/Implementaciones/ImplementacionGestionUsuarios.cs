@@ -34,6 +34,7 @@ namespace Servicios.Implementaciones
         const string ASUNTO_CORREO_INVITACION = "¡Un amigo te está invitando a una partida!";
         const string CUERPO_CORREO_INVITACION = " te está invitando a que te unas a su partida. ¿Qué esperas para unirte?\nCódigo de la partida:\n\n";
 
+        private static readonly RepositorioCallbacks<IServicioSolicitudesCallback> repositorioSolicitudes = new RepositorioCallbacks<IServicioSolicitudesCallback>();
         private Dictionary<int, IServicioSolicitudesCallback> clientesSolicitudes = new Dictionary<int, IServicioSolicitudesCallback>();
 
 
@@ -167,23 +168,10 @@ namespace Servicios.Implementaciones
 
         public Jugador Login(string nombreUsuario, string contrasenia)
         {
-            try
-            {
-                Jugador jugador = null;
-                jugador = AccesoDatos.DAOJugador.ObtenerJugadorPorNombreContrasenia(nombreUsuario, contrasenia);
+            Jugador jugador = null;
+            jugador = AccesoDatos.DAOJugador.ObtenerJugadorPorNombreContrasenia(nombreUsuario, contrasenia);
 
-                return jugador;
-            }
-
-            catch (EntityException ex)
-            {
-                throw new FaultException("Error de la base de datos");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                throw new FaultException("Error de la base de datos");
-            }
+            return jugador;
         }
 
         /*
@@ -242,30 +230,42 @@ namespace Servicios.Implementaciones
         */
         public void EnviarCliente(int idJugador)
         {
-            var cliente = OperationContext.Current.GetCallbackChannel<IServicioSolicitudesCallback>();
-            clientesSolicitudes.Add(idJugador, cliente);
+            var callback = OperationContext.Current.GetCallbackChannel<IServicioSolicitudesCallback>();
+            var canal = (ICommunicationObject)callback;
+
+            repositorioSolicitudes.AgregarCallback(canal, callback);
         }
 
-        public bool EnviarSolicitud(string claveJugadorReceptor, int idJugador)
+        public int EnviarSolicitud(string claveJugadorReceptor, int idJugador)
         {
+            int respuesta;
             int idJugadorRemitente = obtenerJugadorRemitente(claveJugadorReceptor);
-            if (idJugadorRemitente > 0 && !determinarBloqueo(idJugador, idJugadorRemitente) && !determinarAmistad(idJugador, idJugadorRemitente))
+            if (idJugadorRemitente > 0)
             {
-                Amigo solicitud = new Amigo
+                if (!determinarBloqueo(idJugador, idJugadorRemitente) && !determinarAmistad(idJugador, idJugadorRemitente))
                 {
-                    idJugadorEmisor = idJugador,
-                    idJugadorReceptor = idJugadorRemitente,
-                    estado = "Pendiente",
-                };
-                DAOAmigo.CargarAmigo(solicitud);
-                HacerLlegarSolicitud(solicitud);
+                    Amigo solicitud = new Amigo
+                    {
+                        idJugadorEmisor = idJugador,
+                        idJugadorReceptor = idJugadorRemitente,
+                        estado = "Pendiente",
+                    };
+                    DAOAmigo.CargarAmigo(solicitud);
+                    HacerLlegarSolicitud(solicitud);
 
-                return true;
+                    respuesta = 0;
+                }
+                else
+                {
+                    respuesta = 1;
+                }
             }
             else
             {
-                return false;
+                respuesta = 2;
             }
+
+            return respuesta;
         }
 
         private void HacerLlegarSolicitud(Amigo solicitud)
@@ -281,13 +281,7 @@ namespace Servicios.Implementaciones
         private int obtenerJugadorRemitente(string claveJugadorRemitente)
         {
             Jugador jugador = DAOJugador.ObtenerJugadorPorClave(claveJugadorRemitente);
-            if (jugador != null)
-            {
-                return jugador.idJugador;
-            } else
-            {
-                return 0;
-            }
+            return jugador.idJugador;
         }
 
         private bool determinarBloqueo(int idJugadorEmisor, int idJugadorReceptor)
@@ -379,12 +373,25 @@ namespace Servicios.Implementaciones
 
         public void EliminarAmigo(int idJugadorEmisor, int idJugadorReceptor)
         {
+            Console.WriteLine("El jugador id:" + idJugadorEmisor + " elimina al jugador id:" + idJugadorReceptor);
             Amigo amigo = DAOAmigo.ObtenerAmigo(idJugadorEmisor, idJugadorReceptor);
             DAOAmigo.EliminarAmigo(amigo.idAmigo);
+            hacerLlegarEliminacion(idJugadorEmisor, idJugadorReceptor);
         }
 
-        public bool BloquearJugador(int idJugadorEmisor, string claveJugadorReceptor)
+        private void hacerLlegarEliminacion(int idJugadorEmisor, int idJugadorReceptor)
         {
+            if (clientesSolicitudes.ContainsKey(idJugadorReceptor))
+            {
+                Console.WriteLine("El jugador id:" + idJugadorReceptor + " está conectado. Enviando la actualización de la eliminación.");
+                clientesSolicitudes[idJugadorReceptor].EnviarEliminacionAmigo(idJugadorEmisor);
+            }   
+        }
+
+        public int BloquearJugador(int idJugadorEmisor, string claveJugadorReceptor)
+        {
+            Console.WriteLine("Iniciando proceso de bloqueado");
+            int respuesta;
             int idJugadorReceptor = obtenerJugadorRemitente(claveJugadorReceptor);
             if (idJugadorReceptor > 0)
             {
@@ -400,13 +407,37 @@ namespace Servicios.Implementaciones
                     if (determinarAmistad(idJugadorEmisor, idJugadorReceptor))
                     {
                         DAOAmigo.EliminarAmigo(DAOAmigo.ObtenerAmigo(idJugadorEmisor, idJugadorReceptor).idAmigo);
+                        hacerLlegarEliminacion(idJugadorEmisor, idJugadorReceptor);
+                        hacerLlegarEliminacion(idJugadorReceptor, idJugadorEmisor);
                     }
 
-                    return true;
+                    //hacerLlegarBloqueo(idJugadorReceptor, idJugadorEmisor);
+
+                    respuesta = 0;
+                } else
+                {
+                    respuesta = 1;
                 }
             }
+            else
+            {
+                respuesta = 2;
+            }
 
-            return false;
+            return respuesta;
+        }
+
+        [OperationBehavior]
+        private void hacerLlegarBloqueo(int idJugadorBloqueado, int idJugadorEmisor)
+        {
+            Jugador bloqueado = DAOJugador.ObtenerBloqueado(idJugadorBloqueado);
+            if (bloqueado.idJugador != -1)
+            {
+                if (clientesSolicitudes.ContainsKey(idJugadorEmisor))
+                {
+                    clientesSolicitudes[idJugadorEmisor].ObtenerNuevoBloqueo(bloqueado);
+                }
+            }
         }
 
         public void DesbloquearJugador(int idJugadorEmisor, int idJugadorRemitente)

@@ -33,7 +33,24 @@ namespace Cliente.Ventanas.VentanaEmergente
         {
             if (!String.IsNullOrEmpty(tbxCodigo.Text))
             {
-                logica.BloquearJugador(tbxCodigo.Text);
+                tbcErrorCodigo.Visibility = Visibility.Hidden;
+                int respuesta = logica.BloquearJugador(tbxCodigo.Text);
+                switch (respuesta)
+                {
+                    case 0:
+                        uscEmergente.Mostrar("Jugador bloqueado con éxito.");
+                        break;
+                    case 1:
+                        uscEmergente.Mostrar("Este jugador ya está bloqueado.");
+                        break;
+                    case 2:
+                        uscEmergente.Mostrar("No se encontró a ningún jugador con ese código.");
+                        break;
+                }
+            }
+            else
+            {
+                tbcErrorCodigo.Visibility = Visibility.Visible;
             }
         }
 

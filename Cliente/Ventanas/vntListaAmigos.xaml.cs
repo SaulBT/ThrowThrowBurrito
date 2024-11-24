@@ -24,6 +24,7 @@ namespace Cliente.Ventanas
         private ObservableCollection<Jugador> amigos;
         public string codigoPartida { get; set; }
         public string nombreUsuarioEmisor { get; set; }
+        public List<int> idJugadoresInvitados { get; set; }
         public vntListaAmigos()
         {
             InitializeComponent();
@@ -81,7 +82,15 @@ namespace Cliente.Ventanas
             Jugador jugadorSeleccionado = AmigosListBox.SelectedItem as Jugador;
             if (jugadorSeleccionado != null)
             {
-                logica.EnviarInvitacion(codigoPartida, jugadorSeleccionado.correoElectronico, nombreUsuarioEmisor);
+                if (!idJugadoresInvitados.Contains(jugadorSeleccionado.idJugador))
+                {
+                    logica.EnviarInvitacion(codigoPartida, jugadorSeleccionado.correoElectronico, nombreUsuarioEmisor);
+                    idJugadoresInvitados.Add(jugadorSeleccionado.idJugador);
+                }
+                else
+                {
+                    uscError.Mostrar("Ya has invitado a este jugador");
+                }
             }
         }
 

@@ -24,7 +24,7 @@ namespace Cliente
                     return image;
                 }
             }
-            return null; // Retorna null si el arreglo está vacío o es nulo
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

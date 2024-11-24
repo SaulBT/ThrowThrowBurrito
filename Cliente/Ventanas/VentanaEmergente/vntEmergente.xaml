@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="Cliente.Ventanas.VentanaEmergente.vntErrorAmigo"
+﻿<UserControl x:Class="Cliente.Ventanas.VentanaEmergente.vntEmergente"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,10 +6,9 @@
              xmlns:local="clr-namespace:Cliente.Ventanas.VentanaEmergente"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
-    <Grid Margin="400,0,0,0">
-        <Grid.Background>
-            <ImageBrush ImageSource="pack://application:,,,/Cliente;component/Imagenes/imgVentanaEmergente.png" Stretch="None"/>
-        </Grid.Background>
+    <Grid Margin="0,0,0,0">
+        <Grid Background="Black" Opacity="0.5"/>
+        <Image Source="pack://application:,,,/Cliente;component/Imagenes/imgVentanaEmergente.png" Stretch="None"/>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock x:Name="tbcMensajeEmergente" Text="" Width="300" TextWrapping="Wrap" TextAlignment="Center" FontSize="18"/>
             <Button x:Name="btnAceptarEmergente" Width="120" Height="30" Margin="0,20,0,0" Click="btnAceptarEmergente_Click">

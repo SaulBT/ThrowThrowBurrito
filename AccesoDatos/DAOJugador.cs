@@ -57,6 +57,11 @@ namespace AccesoDatos
 
         public static Jugador ObtenerJugadorPorClave(string claveJugador)
         {
+            Jugador respuesta = new Jugador
+            {
+                idJugador = -1
+            };
+
             using (var contexto = new ModeloDBContainer())
             {
                 contexto.Database.Log = Console.WriteLine;
@@ -66,25 +71,18 @@ namespace AccesoDatos
 
                 if (jugador != null)
                 {
-                    Jugador respuesta = new Jugador
-                    {
-                        nombreUsuario = jugador.nombreUsuario,
-                        claveUsuario = jugador.claveUsuario,
-                        fotoPerfil = jugador.fotoPerfil,
-                        contrasenia = jugador.contrasenia,
-                        descripcion = jugador.descripcion,
-                        esInvitado = jugador.esInvitado,
-                        estado = jugador.estado,
-                        correoElectronico = jugador.correoElectronico,
-                        idJugador = jugador.idJugador,
-                    };
+                    respuesta.nombreUsuario = jugador.nombreUsuario;
+                    respuesta.claveUsuario = jugador.claveUsuario;
+                    respuesta.fotoPerfil = jugador.fotoPerfil;
+                    respuesta.contrasenia = jugador.contrasenia;
+                    respuesta.descripcion = jugador.descripcion;
+                    respuesta.esInvitado = jugador.esInvitado;
+                    respuesta.estado = jugador.estado;
+                    respuesta.correoElectronico = jugador.correoElectronico;
+                    respuesta.idJugador = jugador.idJugador;
+                }
 
-                    return respuesta;
-                }
-                else
-                {
-                    return null;
-                }
+                return respuesta;
             }
         }
 
@@ -197,11 +195,38 @@ namespace AccesoDatos
                                  where j.idJugador == idJugador
                                  select j).FirstOrDefault();
 
-                respuesta.idJugador = amigo.idJugador;
-                respuesta.nombreUsuario = amigo.nombreUsuario;
-                respuesta.fotoPerfil = amigo.fotoPerfil;
-                respuesta.estado = amigo.estado;
-                respuesta.correoElectronico = amigo.correoElectronico;
+                if (amigo != null)
+                {
+                    respuesta.idJugador = amigo.idJugador;
+                    respuesta.nombreUsuario = amigo.nombreUsuario;
+                    respuesta.fotoPerfil = amigo.fotoPerfil;
+                    respuesta.estado = amigo.estado;
+                    respuesta.correoElectronico = amigo.correoElectronico;
+                }
+            }
+
+            return respuesta;
+        }
+
+        public static Jugador ObtenerBloqueado(int idJugador)
+        {
+            Jugador respuesta = new Jugador()
+            {
+                idJugador = -1
+            };
+
+            using (var contexto = new ModeloDBContainer())
+            {
+                var amigo = (from j in contexto.Jugador
+                             where j.idJugador == idJugador
+                             select j).FirstOrDefault();
+
+                if (amigo != null)
+                {
+                    respuesta.idJugador = amigo.idJugador;
+                    respuesta.nombreUsuario = amigo.nombreUsuario;
+                    respuesta.fotoPerfil = amigo.fotoPerfil;
+                }
             }
 
             return respuesta;

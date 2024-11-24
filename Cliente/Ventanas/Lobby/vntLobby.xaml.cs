@@ -53,14 +53,6 @@ namespace Cliente.Ventanas.Lobby
             tbcTiempoGuerra.Text += partidaLocal.tiempoGuerra;
             ConfigurarVistaAdmin();
             cargarServicioAmigos();
-            /*
-             * hago el retorno de datos directamente en el lobby mientras que el retorno de de partida lo hago desde el menú
-             * esto porque ahí mismo se crea la partida (evitando ir a una ventana aparte en caso de ocurra en error) pues 
-             * dicho metodo devuelve ya el objeto de la partida, de otro modo tendría que crear la partida en esta misma ventana
-             * y en caso de dar error se tendría que estar navegando entre más ventanas
-             */
-
-
         }
 
         private ServiciosJuego.Jugador castJugadorJuego(ServiciosGestionUsuarios.Jugador jugadorG)
@@ -135,6 +127,7 @@ namespace Cliente.Ventanas.Lobby
             uscListaAmigos.ConfigurarVentana(logicaAmigos);
             uscListaAmigos.codigoPartida = partidaLocal.codigoPartida;
             uscListaAmigos.nombreUsuarioEmisor = jugador.nombreUsuario;
+            uscListaAmigos.idJugadoresInvitados = new List<int>();
         }
 
         public void Unirse()

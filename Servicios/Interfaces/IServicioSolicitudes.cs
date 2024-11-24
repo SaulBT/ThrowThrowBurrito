@@ -12,7 +12,7 @@ namespace Servicios.Interfaces
     public interface IServicioSolicitudes
     {
         [OperationContract]
-        bool EnviarSolicitud(string claveJugadorRemitente, int idJugador);
+        int EnviarSolicitud(string claveJugadorRemitente, int idJugador);
 
         [OperationContract]
         Jugador[] RecibirSolicitudes(int idJugador);
@@ -33,10 +33,16 @@ namespace Servicios.Interfaces
     [ServiceContract]
     public interface IServicioSolicitudesCallback
     {
-        [OperationContract(IsOneWay = true)]
+        [OperationContract]
         void ObtenerNuevaSolicitud(Jugador solicitud);
 
-        [OperationContract(IsOneWay = true)]
+        [OperationContract]
         void ObtenerAmigoNuevo(Jugador amigo);
+
+        [OperationContract]
+        void EnviarEliminacionAmigo(int idJugadorEmisor);
+
+        [OperationContract]
+        void ObtenerNuevoBloqueo(Jugador bloqueado);
     }
 }

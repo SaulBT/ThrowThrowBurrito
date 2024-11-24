@@ -14,6 +14,5 @@ namespace Servicios.Interfaces
     {
         [OperationContract]
         Jugador Login(string nombreUsuario, string contrasenia);
-
     }
 }

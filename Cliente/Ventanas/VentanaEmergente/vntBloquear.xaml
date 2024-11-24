@@ -12,6 +12,7 @@
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <TextBlock Text="Ingresa el Código de Usuario de la cuenta a la que le quieres bloquear:" Width="300" TextWrapping="Wrap" TextAlignment="Center" FontSize="23"/>
             <TextBox x:Name="tbxCodigo" TextWrapping="Wrap" Text="" Width="200" Height="25" Margin="0,5,0,0" MaxLength="10" />
+            <TextBlock x:Name="tbcErrorCodigo" Text="Por favor, llena este cuadro" TextAlignment="Center" Margin="0,5,0,0" Foreground="Red" Visibility="Hidden"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button x:Name="btnConfirmar" Width="120" Height="30" Margin="0,20,0,0" Click="btnConfirmar_Click">
                     <Button.Template>
@@ -24,14 +25,14 @@
                                     <Trigger.EnterActions>
                                         <BeginStoryboard>
                                             <Storyboard>
-                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#8C8573" Duration="0:0:0.2"/>
+                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#997740" Duration="0:0:0.2"/>
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </Trigger.EnterActions>
                                     <Trigger.ExitActions>
                                         <BeginStoryboard>
                                             <Storyboard>
-                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#CAC19F" Duration="0:0:0.2"/>
+                                                <ColorAnimation Storyboard.TargetName="border" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)" To="#D09330" Duration="0:0:0.2"/>
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </Trigger.ExitActions>
@@ -69,5 +70,6 @@
                 </Button>
             </StackPanel>
         </StackPanel>
+        <local:vntEmergente x:Name="uscEmergente" Visibility="Collapsed"/>
     </Grid>
 </UserControl>

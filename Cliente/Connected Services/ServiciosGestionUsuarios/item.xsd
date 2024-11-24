@@ -142,7 +142,7 @@
   <xs:element name="EnviarSolicitudResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="EnviarSolicitudResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="EnviarSolicitudResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -199,11 +199,45 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ObtenerNuevaSolicitudResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ObtenerAmigoNuevo">
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="amigo" nillable="true" type="q6:Jugador" />
       </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerAmigoNuevoResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EnviarEliminacionAmigo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idJugadorEmisor" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="EnviarEliminacionAmigoResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerNuevoBloqueo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="bloqueado" nillable="true" type="q7:Jugador" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ObtenerNuevoBloqueoResponse">
+    <xs:complexType>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
   <xs:element name="CargarAmigos">
@@ -216,7 +250,7 @@
   <xs:element name="CargarAmigosResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="CargarAmigosResult" nillable="true" type="q7:ArrayOfJugador" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="CargarAmigosResult" nillable="true" type="q8:ArrayOfJugador" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -244,7 +278,7 @@
   <xs:element name="BloquearJugadorResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="BloquearJugadorResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="BloquearJugadorResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -271,7 +305,7 @@
   <xs:element name="CargarBloqueadosResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="CargarBloqueadosResult" nillable="true" type="q8:ArrayOfJugador" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/AccesoDatos" minOccurs="0" name="CargarBloqueadosResult" nillable="true" type="q9:ArrayOfJugador" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

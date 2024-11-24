@@ -39,19 +39,34 @@ namespace Cliente.Ventanas.VentanaEmergente
 
         private void btnConfirmar_Click(object sender, RoutedEventArgs e)
         {
-            if (logica.EnviarSolicitudAmistad(tbxCodigo.Text))
+            if (!String.IsNullOrEmpty(tbxCodigo.Text))
             {
-                Console.WriteLine("Se envió la solicitud a " + tbxCodigo.Text);
+                tbcErrorCodigo.Visibility = Visibility.Hidden;
+                int respuesta = logica.EnviarSolicitudAmistad(tbxCodigo.Text);
+                switch (respuesta)
+                {
+                    case 0:
+                        uscEmergente.Mostrar("Solicitud enviada.");
+                        tbxCodigo.Text = "";
+                        break;
+                    case 1:
+                        uscEmergente.Mostrar("No fue posible enviar la solicitud.");
+                        break;
+                    case 2:
+                        uscEmergente.Mostrar("No se encontró al jugador.");
+                        break;
+                }
             }
             else
             {
-                Console.WriteLine("No se encontró al jugador");
+                tbcErrorCodigo.Visibility = Visibility.Visible;
             }
         }
 
         private void btnVolver_Click(object sender, RoutedEventArgs e)
         {
             this.Visibility = Visibility.Collapsed;
+            tbxCodigo.Text = "";
         }
     }
 }
